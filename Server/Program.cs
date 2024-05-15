@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Server.Source.Data;
+using Server.Source.Logic;
 using Server.Source.Models.Entities;
 using System.Text;
 
@@ -77,11 +78,18 @@ namespace Server
                 });
 
             builder.Services.AddSignalR(p => p.EnableDetailedErrors = true);
+
+            // repositories
+            builder.Services.AddScoped<IAspNetRepository, AspNetRepository>();
+
+            // logic
+            builder.Services.AddScoped<SeedLogic>();
         }
 
         private static void ConfigureApp(WebApplicationBuilder builder)
         {
             var app = builder.Build();
+            InitSeed(app.Services);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -107,5 +115,11 @@ namespace Server
             app.Run();
         }
 
+        private static void InitSeed(IServiceProvider services)
+        {
+            using var scope = services.CreateScope();
+            var init = scope.ServiceProvider.GetService<SeedLogic>();
+            init?.InitAsync().Wait();
+        }
     }
 }
