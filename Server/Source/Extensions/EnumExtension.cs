@@ -5,7 +5,7 @@ namespace Server.Source.Extensions
 {
     public static class EnumExtension
     {
-        public static string Get_Description(this Enum enumValue)
+        public static string GetDescription(this Enum enumValue)
         {
             return enumValue.GetType()
                             .GetMember(enumValue.ToString())

@@ -1,12 +1,18 @@
 
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Server.Source.Data;
+using Server.Source.Exceptions;
 using Server.Source.Logic;
+using Server.Source.Logic.User;
+using Server.Source.Models.DTOs;
 using Server.Source.Models.Entities;
+using Server.Source.Utilities;
 using System.Text;
 
 namespace Server
@@ -84,6 +90,10 @@ namespace Server
 
             // logic
             builder.Services.AddScoped<SeedLogic>();
+            builder.Services.AddScoped<UserAccessLogic>();
+
+            // utilities
+            builder.Services.AddScoped<ConfigurationUtility>();
         }
 
         private static void ConfigureApp(WebApplicationBuilder builder)
@@ -111,6 +121,27 @@ namespace Server
                 );
 
             app.MapControllers();
+
+            app.UseExceptionHandler(error =>
+            {
+                error.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType = "application/json";
+
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
+                    {                        
+                        var errorMessage = contextFeature.Error.Message;
+                        if (contextFeature.Error is not EatSomeException)              
+                        {
+                            errorMessage = "Error interno del servidor. Vuelva a intentarlo más tarde.";
+                        }
+                        
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(new Response() { Success = false, ErrorMessage = errorMessage } ));
+                    }
+                });
+            });
 
             app.Run();
         }

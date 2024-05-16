@@ -18,11 +18,11 @@ namespace Server.Source.Logic
             var appRoles = new List<string>();
             Enum.GetValues(typeof(EnumRole)).Cast<EnumRole>().ToList().ForEach(p =>
             {
-                appRoles.Add(p.Get_Description());
+                appRoles.Add(p.GetDescription());
             });
 
-            await _aspNetRepository.CreateRolesAsync(appRoles);
-            await _aspNetRepository.DeleteRolesAsync(appRoles);
+            await _aspNetRepository.CreateSystemRolesAsync(appRoles);
+            await _aspNetRepository.DeleteSystemRolesAsync(appRoles);
         }
     }
 }

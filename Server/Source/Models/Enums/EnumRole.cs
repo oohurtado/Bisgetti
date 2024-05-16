@@ -8,6 +8,9 @@ namespace Server.Source.Models.Enums
         [Description("user-admin")]
         Admin,
 
+        [Description("user-boss")]
+        Boss,
+
         [Description("user-client")]
         Client
     }
