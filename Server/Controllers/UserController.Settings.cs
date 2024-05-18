@@ -17,10 +17,11 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
-        [HttpPut(template: "settings/admin/change-user-role")]
+        [HttpPut(template: "settings/change-user-role")]
         public async Task<ActionResult> ChangeUserRole([FromBody] UserChangeUserRoleRequest request)
-        {            
-            var respose = await _userSettingsLogic.ChangeUserRoleAsync(EnumRole.UserAdmin, request);
+        {
+            var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
+            var respose = await _userSettingsLogic.ChangeUserRoleAsync(executingUserRole!, request);
             return Ok(respose);
         }
     }
