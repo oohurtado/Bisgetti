@@ -14,10 +14,16 @@ namespace Server.Source.Models.Enums
         [Description("Credenciales incorrectas, verifique su correo electrónico o contraseña")]
         UserWrongCredentials,
 
-        [Description("Usuario no enctronado")]
+        [Description("Usuario no encontrado")]
         UserNotFound,
 
         [Description("Ha sucedido un error al intentar cambiar la contraseña")]
         UserErrorChangingPassword,
+
+        [Description("El usuario no tiene un rol de tipo 'Usuario' asignado")]
+        UserWithoutUserRole,
+
+        [Description("A un usuario tipo 'Admistrador' no se le puede cambiar el tipo de rol")]
+        UserAdminRoleCannotBeChanged,
     }
 }

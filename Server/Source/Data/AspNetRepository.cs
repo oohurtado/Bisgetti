@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
@@ -75,6 +76,28 @@ namespace Server.Source.Data
         public async Task<IdentityResult> ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword)
         {
             return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);            
+        }
+
+        public async Task<string> GetUserRoleAsync(UserEntity user)
+        {
+            // obtenemos roles del usuario
+            var roles = await _userManager.GetRolesAsync(user);
+
+            // buscamos rol que empiece con user-
+            var currentUserRole = roles.Where(p => p.StartsWith("user-")).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(currentUserRole))
+            {
+                throw new EatSomeException(EnumResponseError.UserWithoutUserRole);
+            }
+
+            return currentUserRole!;
+        }
+
+        public async Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd)
+        {            
+            await _userManager.RemoveFromRoleAsync(user, roleToRemove);
+            await _userManager.AddToRoleAsync(user, roleToAdd);
         }
     }
 }

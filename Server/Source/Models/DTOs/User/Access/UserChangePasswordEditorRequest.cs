@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Server.Source.Models.DTOs.User
+namespace Server.Source.Models.DTOs.User.Access
 {
-    public class UserChangePasswordEditorRequest
+    public class UserChangePasswordRequest
     {
         [Display(Name = "Contraseña actual")]
         [DataType(DataType.Password)]

@@ -1,0 +1,27 @@
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Server.Source.Extensions;
+using Server.Source.Models.DTOs.User;
+using Server.Source.Models.DTOs.User.Settings.Admin;
+using Server.Source.Models.Enums;
+using System.Security.Claims;
+
+namespace Server.Controllers
+{
+    public partial class UserController
+    {
+        /// <summary>
+        /// Cambio de User rol (admin,boss,client)
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-admin")]
+        [HttpPut(template: "settings/admin/change-user-role")]
+        public async Task<ActionResult> ChangeUserRole([FromBody] UserChangeUserRoleRequest request)
+        {            
+            var respose = await _userSettingsLogic.ChangeUserRoleAsync(EnumRole.UserAdmin, request);
+            return Ok(respose);
+        }
+    }
+}

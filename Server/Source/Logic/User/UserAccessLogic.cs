@@ -3,7 +3,7 @@ using Server.Source.Data;
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs;
-using Server.Source.Models.DTOs.User;
+using Server.Source.Models.DTOs.User.Access;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using Server.Source.Utilities;
@@ -25,7 +25,7 @@ namespace Server.Source.Logic.User
             _configurationUtility = configurationUtility;
         }
 
-        public async Task<Response> SignupAsync(UserSignupEditorRequest request)
+        public async Task<Response> SignupAsync(UserSignupRequest request)
         {
             // mandamos error si el usuario ya existe
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
@@ -51,7 +51,7 @@ namespace Server.Source.Logic.User
             }
 
             // asignamos role de inicio
-            var role = _configurationUtility.GetAdminEmails().Any(p => p == request.Email) ? EnumRole.Admin.GetDescription() : EnumRole.Client.GetDescription();
+            var role = _configurationUtility.GetAdminEmails().Any(p => p == request.Email) ? EnumRole.UserAdmin.GetDescription() : EnumRole.UserClient.GetDescription();
             await _aspNetRepository.AddRoleToUserAsync(user, role);
 
             // creamos token
@@ -61,7 +61,7 @@ namespace Server.Source.Logic.User
             return new Response() { Data = token };
         }
 
-        public async Task<Response> LoginAsync(UserLoginEditorRequest request)
+        public async Task<Response> LoginAsync(UserLoginRequest request)
         {
             // iniciamos sesion
             var result = await _aspNetRepository.LoginAsync(request.Email, request.Password);
@@ -81,7 +81,7 @@ namespace Server.Source.Logic.User
             return new Response() { Data = token };
         }
 
-        public async Task<Response> ChangePasswordAsync(string email, UserChangePasswordEditorRequest request)
+        public async Task<Response> ChangePasswordAsync(string email, UserChangePasswordRequest request)
         {
             // obtenemos usuario
             var user = await _aspNetRepository.FindByEmailAsync(email);

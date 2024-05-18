@@ -1,4 +1,4 @@
-﻿namespace Server.Source.Models.DTOs.User
+﻿namespace Server.Source.Models.DTOs.User.Access
 {
     public class UserTokenResponse
     {

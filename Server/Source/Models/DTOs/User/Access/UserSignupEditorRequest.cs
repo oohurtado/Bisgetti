@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Server.Source.Models.DTOs.User
+namespace Server.Source.Models.DTOs.User.Access
 {
-    public class UserSignupEditorRequest
+    public class UserSignupRequest
     {
         [Display(Name = "Correo electrónico")]
         [RegularExpression(@"[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,15}", ErrorMessage = "El formato del correo electrónico no es válido")]

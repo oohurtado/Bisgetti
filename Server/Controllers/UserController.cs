@@ -13,33 +13,15 @@ namespace Server.Controllers
     public partial class UserController : ControllerBase
     {
         private readonly UserAccessLogic _userAccessLogic;
+        private readonly UserSettingsLogic _userSettingsLogic;
 
-        public UserController(UserAccessLogic userAccessLogic)
+        public UserController(
+            UserAccessLogic userAccessLogic,
+            UserSettingsLogic userSettingsLogic
+            )
         {
             _userAccessLogic = userAccessLogic;
-        }
-
-        [HttpPost(template: "access/signup")]
-        public async Task<ActionResult<UserTokenResponse>> Signup([FromBody] UserSignupEditorRequest request)
-        {
-            var respose = await _userAccessLogic.SignupAsync(request);
-            return Ok(respose);
-        }
-
-        [HttpPost(template: "access/login")]
-        public async Task<ActionResult<UserTokenResponse>> Login([FromBody] UserLoginEditorRequest request)
-        {
-            var respose = await _userAccessLogic.LoginAsync(request);
-            return Ok(respose);
-        }
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut(template: "access/change-password")]
-        public async Task<ActionResult> ChangePassword([FromBody] UserChangePasswordEditorRequest request)
-        {
-            var email = User.FindFirstValue(ClaimTypes.Email!);
-            var respose = await _userAccessLogic.ChangePasswordAsync(email!, request);
-            return Ok(respose);
-        }
+            _userSettingsLogic = userSettingsLogic;
+        }        
     }
 }

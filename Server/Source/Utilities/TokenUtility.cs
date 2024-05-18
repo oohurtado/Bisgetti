@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Server.Source.Models.DTOs.User;
+using Server.Source.Models.DTOs.User.Access;
 using Server.Source.Models.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

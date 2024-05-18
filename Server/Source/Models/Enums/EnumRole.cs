@@ -6,12 +6,12 @@ namespace Server.Source.Models.Enums
     public enum EnumRole
     {
         [Description("user-admin")]
-        Admin,
+        UserAdmin,
 
         [Description("user-boss")]
-        Boss,
+        UserBoss,
 
         [Description("user-client")]
-        Client
+        UserClient
     }
 }
