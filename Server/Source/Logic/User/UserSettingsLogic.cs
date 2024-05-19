@@ -2,7 +2,7 @@
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs;
-using Server.Source.Models.DTOs.User.Settings.Admin;
+using Server.Source.Models.DTOs.User.Settings;
 using Server.Source.Models.Enums;
 
 namespace Server.Source.Logic.User

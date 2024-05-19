@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs.User;
-using Server.Source.Models.DTOs.User.Settings.Admin;
+using Server.Source.Models.DTOs.User.Settings;
 using Server.Source.Models.Enums;
 using System.Security.Claims;
 

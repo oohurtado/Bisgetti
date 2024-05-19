@@ -41,6 +41,7 @@ namespace Server.Source.Logic.User
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
+                PhoneNumber = request.PhoneNumber,
             };
             var result = await _aspNetRepository.CreateUserAsync(user, request.Password);
 

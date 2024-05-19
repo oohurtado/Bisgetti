@@ -1,2 +1,4 @@
-<h1>Hola</h1>
-<i class="fas fa-sync fa-spin"></i>
+<app-navbar *ngIf="isUserAuthenticated()"></app-navbar>
+<div class="container-fluid container-xl mt-3 mb-3">
+    <router-outlet></router-outlet>
+</div> 

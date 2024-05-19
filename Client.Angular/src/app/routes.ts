@@ -17,4 +17,4 @@ const ROUTES: Routes = [
     { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 
-export const APP_ROUTING = RouterModule.forRoot(ROUTES, { useHash: true });
+export const AppRouting = RouterModule.forRoot(ROUTES, { useHash: true });

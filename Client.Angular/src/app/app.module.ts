@@ -8,21 +8,42 @@ import { SignupComponent } from './components/access/signup/signup.component';
 import { ChangePasswordComponent } from './components/access/change-password/change-password.component';
 import { ForbiddenComponent } from './components/access/forbidden/forbidden.component';
 import { HomeComponent } from './components/home/home.component';
+import { AppRouting } from './routes';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+import { NavbarComponent } from './components/_shared/navbar/navbar.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    ChangePasswordComponent,
-    ForbiddenComponent,
-    HomeComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		SignupComponent,
+		ChangePasswordComponent,
+		ForbiddenComponent,
+		HomeComponent,
+  NavbarComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		JwtModule.forRoot({
+			config: {
+				tokenGetter: tokenGetter,
+				allowedDomains: ["*"],
+				disallowedRoutes: []
+			}
+		}),
+		AppRouting
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function tokenGetter() {
+	return localStorage.getItem("token");
+}
