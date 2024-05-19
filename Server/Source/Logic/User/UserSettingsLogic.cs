@@ -29,7 +29,7 @@ namespace Server.Source.Logic.User
             var roleToRemove = await _aspNetRepository.GetUserRoleAsync(user);
 
             // validamos que podamos hacer el cambio de rol
-            ChangeUserRoleValidator(executingUserRole, roleToRemove, roleToAdd: request.Role);
+            ChangeUserRoleValidator(executingUserRole, roleToRemove: roleToRemove, roleToAdd: request.Role);
             
             // quitamos rol actual y asignamos nuevo rol
             await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
@@ -39,14 +39,14 @@ namespace Server.Source.Logic.User
 
         private void ChangeUserRoleValidator(string executingUserRole, string roleToRemove, string roleToAdd)
         {
-            if (executingUserRole == EnumRole.UserAdmin.GetDescription())
+            if (roleToRemove == EnumRole.UserAdmin.GetDescription() || roleToAdd == EnumRole.UserAdmin.GetDescription())
             {
-                if (roleToRemove == EnumRole.UserAdmin.GetDescription() || roleToAdd == EnumRole.UserAdmin.GetDescription())
-                {
-                    throw new EatSomeException(EnumResponseError.UserAdminRoleCannotBeChanged);
-                }
+                throw new EatSomeException(EnumResponseError.UserAdminRoleCannotBeChanged);
+            }
 
-                return;          
+            if (executingUserRole == EnumRole.UserBoss.GetDescription())
+            {
+                throw new NotImplementedException();
             }
 
             throw new NotImplementedException();
