@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Server.Source.Logic.User;
-using Server.Source.Models.DTOs.User.Settings.Admin;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers
 {
