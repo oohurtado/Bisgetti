@@ -13,7 +13,7 @@ namespace Server.Controllers
         /// Registro de usuario
         /// </summary>
         [HttpPost(template: "access/signup")]
-        public async Task<ActionResult<UserTokenResponse>> Signup([FromBody] UserSignupRequest request)
+        public async Task<ActionResult> Signup([FromBody] UserSignupRequest request)
         {
             var respose = await _userAccessLogic.SignupAsync(request);
             return Ok(respose);
@@ -23,7 +23,7 @@ namespace Server.Controllers
         /// Inicio de sesion
         /// </summary>
         [HttpPost(template: "access/login")]
-        public async Task<ActionResult<UserTokenResponse>> Login([FromBody] UserLoginRequest request)
+        public async Task<ActionResult> Login([FromBody] UserLoginRequest request)
         {
             var respose = await _userAccessLogic.LoginAsync(request);
             return Ok(respose);
