@@ -40,5 +40,12 @@ namespace Server.Controllers
             var respose = await _userAccessLogic.ChangePasswordAsync(email!, request);
             return Ok(respose);
         }
+
+        [HttpGet(template: "access/email-available/{email}")]
+        public async Task<ActionResult> IsEmailAvailable(string email)
+        {
+            var isAvailable = await _userAccessLogic.IsEmailAvailableAsync(email);
+            return Ok(isAvailable);
+        }
     }
 }

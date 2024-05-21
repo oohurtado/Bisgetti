@@ -1,5 +1,5 @@
-export class UserChangeUserRoleRequest {
+export class UserLoginRequest {
     constructor(
         public email: string,
-        public role: string) { }
+        public password: string) { }
 }

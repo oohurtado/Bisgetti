@@ -1,4 +1,6 @@
 export const general = {
+	URL_API: 'https://localhost:7239/api',
+
     LS_TOKEN: 'token',
 
 	MS_ROLE: "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",

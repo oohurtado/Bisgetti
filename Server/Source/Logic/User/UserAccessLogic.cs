@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Extensions;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
 using Server.Source.Data;
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
@@ -39,9 +40,9 @@ namespace Server.Source.Logic.User
             {
                 UserName = request.Email,
                 Email = request.Email,
-                FirstName = "[pendiente]",
-                LastName = "[pendiente]",
-                PhoneNumber = "[pendiente]",                
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                PhoneNumber = request.PhoneNumber,
             };
             var result = await _aspNetRepository.CreateUserAsync(user, request.Password);
 
@@ -99,6 +100,12 @@ namespace Server.Source.Logic.User
             }
 
             return new Response();
+        }
+
+        public async Task<bool> IsEmailAvailableAsync(string email)
+        {
+            var user = await _aspNetRepository.FindByEmailAsync(email);
+            return user == null;
         }
     }
 }
