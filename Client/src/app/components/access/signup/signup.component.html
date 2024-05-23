@@ -1,6 +1,6 @@
 <div class="mx-auto" style="width: 400px;">
     <div class="mt-4 mb-4">
-        <h2>Eat some bisgetti!</h2>
+        <img src="assets/bisgetti/bisgetti.png" class="mx-auto d-block" width="50%" alt="image">
     </div>
     <div class="card">
         <div class="card-header">
@@ -79,7 +79,7 @@
                             contener entre 6 y 100 caracteres</span>
                     </div>
                     <div class="col-12 mt-3 mb-3">
-                        <button type="submit" class="btn btn-success" [disabled]="_isProcessing">
+                        <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
                             <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
                             <span *ngIf="!_isProcessing"><i class="fas fa-paper-plane"></i>&nbsp;&nbsp;Crear cuenta</span>
                         </button>
