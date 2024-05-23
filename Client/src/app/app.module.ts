@@ -12,7 +12,11 @@ import { AppRouting } from './routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import { NavbarComponent } from './components/_shared/navbar/navbar.component';
+import { NavbarAdminComponent } from './components/_shared/navbar/navbar-admin/navbar-admin.component';
+import { NavbarComponent } from './components/_shared/navbar/navbar/navbar.component';
+import { NavbarClientComponent } from './components/_shared/navbar/navbar-client/navbar-client.component';
+import { NavbarBossComponent } from './components/_shared/navbar/navbar-boss/navbar-boss.component';
+import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/navbar-anon.component';
 
 @NgModule({
 	declarations: [
@@ -22,7 +26,11 @@ import { NavbarComponent } from './components/_shared/navbar/navbar.component';
 		ChangePasswordComponent,
 		ForbiddenComponent,
 		HomeComponent,
-  NavbarComponent
+  		NavbarComponent,
+  		NavbarAdminComponent,
+    NavbarClientComponent,
+    NavbarBossComponent,
+    NavbarAnonComponent
 	],
 	imports: [
 		BrowserModule,

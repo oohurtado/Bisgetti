@@ -8,11 +8,11 @@ import { authGuard } from "./guards/auth.guard";
 import { HomeComponent } from "./components/home/home.component";
 
 const ROUTES: Routes = [
-    { path: 'login', component: LoginComponent, canActivate: [anonGuard] },
-    { path: 'signup', component: SignupComponent, canActivate: [anonGuard] },
-    { path: 'forbidden', component: ForbiddenComponent, canActivate: [authGuard] },
-    { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
-    { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+    // { path: 'login', component: LoginComponent, canActivate: [anonGuard] },
+    // { path: 'signup', component: SignupComponent, canActivate: [anonGuard] },
+    // { path: 'forbidden', component: ForbiddenComponent, canActivate: [authGuard] },
+    // { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
+    { path: 'home', component: HomeComponent },
 
     { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
