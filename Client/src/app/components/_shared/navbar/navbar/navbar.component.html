@@ -1,1 +1,15 @@
-<p>navbar works!</p>
+<ng-container *ngIf="isUserAdmin()">
+    nav para admin
+</ng-container>
+
+<ng-container *ngIf="isUserBoss()">
+    nav para boss
+</ng-container>
+
+<ng-container *ngIf="isUserClient()">
+    nav para client
+</ng-container>
+
+<ng-container *ngIf="isUserAnon()">
+    nav para anon
+</ng-container>

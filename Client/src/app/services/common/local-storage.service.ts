@@ -40,16 +40,20 @@ export class LocalStorageService {
 		return token && !this.jwtHelper.isTokenExpired(token);
 	}	
 
+	isUserAnon() {
+		return !this.isUserAuthenticated();
+	}
+
 	isUserAdmin() {
-		return this.isUserInRole(general.LS_ROLE_USER_ADMIN);
+		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_ADMIN);
 	}
 
 	isUserBoss() {
-		return this.isUserInRole(general.LS_ROLE_USER_BOSS);
+		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_BOSS);
 	}
 
 	isUserClient() {
-		return this.isUserInRole(general.LS_ROLE_USER_CLIENT);
+		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_CLIENT);
 	}
 
 	isUserInRole(role: string): boolean {
