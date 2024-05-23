@@ -21,8 +21,8 @@ namespace Server.Controllers
         public async Task<ActionResult> ChangeUserRole([FromBody] UserChangeUserRoleRequest request)
         {
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
-            var respose = await _userSettingsLogic.ChangeUserRoleAsync(executingUserRole!, request);
-            return Ok(respose);
+            await _userSettingsLogic.ChangeUserRoleAsync(executingUserRole!, request);
+            return Ok();
         }
     }
 }

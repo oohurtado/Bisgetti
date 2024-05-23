@@ -1,4 +1,4 @@
-export class UserTokenReponse {
+export class UserTokenResponse {
     token!: string;
     expiration!: string;
 }

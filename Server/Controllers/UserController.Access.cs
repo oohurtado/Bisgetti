@@ -37,8 +37,8 @@ namespace Server.Controllers
         public async Task<ActionResult> ChangePassword([FromBody] UserChangePasswordRequest request)
         {
             var email = User.FindFirstValue(ClaimTypes.Email!);
-            var respose = await _userAccessLogic.ChangePasswordAsync(email!, request);
-            return Ok(respose);
+            await _userAccessLogic.ChangePasswordAsync(email!, request);
+            return Ok();
         }
 
         [HttpGet(template: "access/email-available/{email}")]

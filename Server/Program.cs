@@ -139,7 +139,7 @@ namespace Server
                             errorMessage = "Error interno del servidor. Vuelva a intentarlo más tarde.";
                         }
                         
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(new Response() { Success = false, ErrorMessage = errorMessage } ));
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorMessage));
                     }
                 });
             });

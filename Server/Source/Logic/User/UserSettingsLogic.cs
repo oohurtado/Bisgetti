@@ -16,7 +16,7 @@ namespace Server.Source.Logic.User
             _aspNetRepository = aspNetRepository;
         }
 
-        public async Task<Response> ChangeUserRoleAsync(string executingUserRole, UserChangeUserRoleRequest request)
+        public async Task ChangeUserRoleAsync(string executingUserRole, UserChangeUserRoleRequest request)
         {
             // buscar user del correo a cambiar su rol
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
@@ -33,8 +33,6 @@ namespace Server.Source.Logic.User
             
             // quitamos rol actual y asignamos nuevo rol
             await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
-
-            return new Response();
         }
 
         private void ChangeUserRoleValidator(string executingUserRole, string roleToRemove, string roleToAdd)

@@ -26,7 +26,7 @@ namespace Server.Source.Logic.User
             _configurationUtility = configurationUtility;
         }
 
-        public async Task<Response> SignupAsync(UserSignupRequest request)
+        public async Task<UserTokenResponse> SignupAsync(UserSignupRequest request)
         {
             // mandamos error si el usuario ya existe
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
@@ -60,10 +60,10 @@ namespace Server.Source.Logic.User
             var claims = TokenUtility.CreateClaims(user!, new List<string>() { role });
             var token = TokenUtility.BuildToken(claims, _configurationUtility.GetJWTKey());
 
-            return new Response() { Data = token };
+            return token;
         }
 
-        public async Task<Response> LoginAsync(UserLoginRequest request)
+        public async Task<UserTokenResponse> LoginAsync(UserLoginRequest request)
         {
             // iniciamos sesion
             var result = await _aspNetRepository.LoginAsync(request.Email, request.Password);
@@ -80,10 +80,10 @@ namespace Server.Source.Logic.User
             var claims = TokenUtility.CreateClaims(user!, roles.ToList());
             var token = TokenUtility.BuildToken(claims, _configurationUtility.GetJWTKey());
 
-            return new Response() { Data = token };
+            return token;
         }
 
-        public async Task<Response> ChangePasswordAsync(string email, UserChangePasswordRequest request)
+        public async Task ChangePasswordAsync(string email, UserChangePasswordRequest request)
         {
             // obtenemos usuario
             var user = await _aspNetRepository.FindByEmailAsync(email);
@@ -98,8 +98,6 @@ namespace Server.Source.Logic.User
             {
                 throw new EatSomeException(EnumResponseError.UserErrorChangingPassword);
             }
-
-            return new Response();
         }
 
         public async Task<bool> IsEmailAvailableAsync(string email)

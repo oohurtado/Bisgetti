@@ -6,6 +6,12 @@ export abstract class FormBase {
     _error!: string;
     _isProcessing!: boolean;
     _isLoading!: boolean;
+    
+    constructor() {
+        this._error = null!;     
+        this._isLoading = false;
+        this._isLoading = false;
+    }
 
     isFormValid() {
         if (this._myForm?.invalid || this._myForm?.status === "INVALID" || this._myForm?.status === "PENDING") {

@@ -7,6 +7,7 @@ import { UserAccessService } from '../../../services/business/user/user-access.s
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { cloneWith } from 'lodash';
 import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request';
+import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response';
 
 @Component({
 	selector: 'app-signup',
@@ -47,6 +48,7 @@ export class SignupComponent extends FormBase implements OnInit {
 	}
 
 	onDoneClicked() {
+		this._error = null!;
 		if (!this.isFormValid()) {
 			return;
 		}
@@ -58,5 +60,21 @@ export class SignupComponent extends FormBase implements OnInit {
 			this._myForm?.controls['phoneNumber'].value,
 			this._myForm?.controls['email'].value,
 			this._myForm?.controls['password'].value);
+
+		this.userAccessService.signup(model)
+			.subscribe({
+				complete: () => {
+					this._isProcessing = false;
+				},
+				error: (errorResponse : string) => {
+					this._isProcessing = false;
+					this._error = errorResponse;
+				},
+				next: (val) => {
+					let model = Object.assign(new UserTokenResponse(), val);
+					this.localStorageService.setValue('token', model.token);
+					this.router.navigateByUrl('/home');
+				}
+			});
 	}
 }
