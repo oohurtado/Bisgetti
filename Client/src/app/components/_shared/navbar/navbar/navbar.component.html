@@ -1,15 +1,15 @@
 <ng-container *ngIf="isUserAdmin()">
-    nav para admin
+    <app-navbar-admin></app-navbar-admin>
 </ng-container>
 
 <ng-container *ngIf="isUserBoss()">
-    nav para boss
+    <app-navbar-boss></app-navbar-boss>
 </ng-container>
 
 <ng-container *ngIf="isUserClient()">
-    nav para client
+    <app-navbar-client></app-navbar-client>
 </ng-container>
 
 <ng-container *ngIf="isUserAnon()">
-    nav para anon
+    <app-navbar-anon></app-navbar-anon>
 </ng-container>
