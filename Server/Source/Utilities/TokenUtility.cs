@@ -33,7 +33,7 @@ namespace Server.Source.Utilities
         }
 
         public static List<Claim> CreateClaims(UserEntity user, List<string> roles)
-        {
+        {            
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id!),

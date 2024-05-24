@@ -24,5 +24,11 @@ namespace Server.Controllers
             await _userSettingsLogic.ChangeUserRoleAsync(executingUserRole!, request);
             return Ok();
         }
+
+        // TODO: endpoint para obtener todos los usuarios
+        // obtener usuarios de nivel igual o mayor al usuario que ejecuta el endpoint
+        // 1 - obtener role y level de quien ejecuta
+        // 2 - obtener todos los usuarios con rol y level
+        // 3 - excluir level menor
     }
 }

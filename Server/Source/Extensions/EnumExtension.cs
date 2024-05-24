@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Server.Source.Models.Enums;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace Server.Source.Extensions
@@ -12,6 +13,15 @@ namespace Server.Source.Extensions
                             .First()
                             .GetCustomAttribute<DescriptionAttribute>()!
                             .Description;
+        }
+
+        public static int? GetRoleLevel(this Enum enumValue)
+        {
+            return enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .First()
+                            .GetCustomAttribute<RoleAttribute>()?
+                            .Level;
         }
     }
 }
