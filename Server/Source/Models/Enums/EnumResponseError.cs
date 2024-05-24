@@ -23,10 +23,7 @@ namespace Server.Source.Models.Enums
         [Description("El usuario no tiene un rol de tipo 'Usuario' asignado")]
         UserWithoutUserRole,
 
-        [Description("A un usuario tipo 'Admistrador' no se le puede cambiar el tipo de rol")]
-        UserAdminRoleCannotBeChanged,
-
-        [Description("A un usuario no se le puede asignar el rol 'Admistrador'")]
-        UserCannotBeAssignedTheAdminRole,
+        [Description("No se encontó la columna de ordenamiento")]
+        SortColumnKeyNotFound,
     }
 }

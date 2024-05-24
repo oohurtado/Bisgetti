@@ -40,7 +40,7 @@ export class SignupComponent extends FormBase implements OnInit {
 			lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
 			phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
 			email: ['', [Validators.required, Validators.email, Validators.minLength(1), Validators.maxLength(100)], [this.userValidator.isEmailAvailable.bind(this.userValidator)]],
-			password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
+			password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
 			repeatPassword: ['', [Validators.required, Validators.maxLength(100)]]
 		}, {
 			validator: [this.userValidator.comparePassword('password', 'repeatPassword')]

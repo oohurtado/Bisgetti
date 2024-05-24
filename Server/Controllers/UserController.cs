@@ -13,15 +13,15 @@ namespace Server.Controllers
     public partial class UserController : ControllerBase
     {
         private readonly UserAccessLogic _userAccessLogic;
-        private readonly UserSettingsLogic _userSettingsLogic;
+        private readonly UserAdminLogic _userAdminLogic;
 
         public UserController(
             UserAccessLogic userAccessLogic,
-            UserSettingsLogic userSettingsLogic
+            UserAdminLogic userAdminLogic
             )
         {
             _userAccessLogic = userAccessLogic;
-            _userSettingsLogic = userSettingsLogic;
-        }        
+            _userAdminLogic = userAdminLogic;
+        }
     }
 }

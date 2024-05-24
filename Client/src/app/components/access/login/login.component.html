@@ -23,7 +23,7 @@
                             <label for="password">Contraseña</label>
                         </div>
                         <span *ngIf="hasError('password', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('password', 'minlength') || hasError('password', 'maxlength')" class="text-danger">Este campo debe contener entre 6 y 100 caracteres</span>
+                        <span *ngIf="hasError('password', 'minlength') || hasError('password', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 100 caracteres</span>
                     </div>           
                     <div class="col-12 mt-3 mb-3">
                         <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">

@@ -46,11 +46,19 @@ namespace Server.Source.Data
         /// </summary>
         Task<IdentityResult> ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword);
 
-        Task<string> GetUserRoleAsync(UserEntity user);
-
         /// <summary>
-        /// Asigna nuevo user rol
+        /// Obtiene Usuarios y sus roles
         /// </summary>
-        Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd);
+        IQueryable<UserEntity> GetUsers(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
+
+        ///// <summary>
+        ///// Obtiene roles del usuario
+        ///// </summary>
+        //Task<string> GetUserRoleAsync(UserEntity user);
+
+        ///// <summary>
+        ///// Asigna nuevo user rol
+        ///// </summary>
+        //Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd);
     }
 }

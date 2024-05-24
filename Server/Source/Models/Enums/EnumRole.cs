@@ -20,6 +20,6 @@ namespace Server.Source.Models.Enums
 
     public class RoleAttribute : Attribute
     {
-        public int? Level { get; set; }
+        public int Level { get; set; }
     }
 }

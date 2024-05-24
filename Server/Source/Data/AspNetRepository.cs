@@ -5,6 +5,7 @@ using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
+using System.Linq.Expressions;
 
 namespace Server.Source.Data
 {
@@ -22,7 +23,7 @@ namespace Server.Source.Data
         {
             _roleManager = roleManager;
             _userManager = userManager;
-            _signInManager = signInManager;
+            _signInManager = signInManager;            
         }
 
         public async Task CreateSystemRolesAsync(List<string> appRoles)
@@ -78,26 +79,93 @@ namespace Server.Source.Data
             return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);            
         }
 
-        public async Task<string> GetUserRoleAsync(UserEntity user)
+        public IQueryable<UserEntity> GetUsers(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
         {
-            // obtenemos roles del usuario
-            var roles = await _userManager.GetRolesAsync(user);
+            IQueryable<UserEntity> iq;
+            IOrderedQueryable<UserEntity> ioq = null!;
 
-            // buscamos rol que empiece con user-
-            var currentUserRole = roles.Where(p => p.StartsWith("user-")).FirstOrDefault();
-
-            if (string.IsNullOrEmpty(currentUserRole))
+            // busqueda
+            Expression<Func<UserEntity, bool>> expSearch = p => true;
+            if (!string.IsNullOrEmpty(term))
             {
-                throw new EatSomeException(EnumResponseError.UserWithoutUserRole);
+                expSearch = p =>
+                    p.FirstName!.Contains(term) ||
+                    p.LastName!.Contains(term) ||
+                    p.Email!.Contains(term);
+            }
+            iq = _userManager.Users.Where(expSearch);
+            
+            // conteo
+            grandTotal = iq.Count();
+
+            // ordenamiento
+            Expression<Func<UserEntity, bool>> expOrder = p => true;
+            if (sortColumn == "first-name")
+            {
+                if (sortOrder == "asc")
+                {
+                    ioq = iq.OrderBy(p => p.FirstName);
+                }
+                else if (sortOrder == "desc")
+                {
+                    ioq = iq.OrderByDescending(p => p.FirstName);
+                }
+            }
+            else if (sortColumn == "last-name")
+            {
+                if (sortOrder == "asc")
+                {
+                    ioq = iq.OrderBy(p => p.LastName);
+                }
+                else if (sortOrder == "desc")
+                {
+                    ioq = iq.OrderByDescending(p => p.LastName);
+                }
+            }
+            else if (sortColumn == "email")
+            {
+                if (sortOrder == "asc")
+                {
+                    ioq = iq.OrderBy(p => p.Email);
+                }
+                else if (sortOrder == "desc")
+                {
+                    ioq = iq.OrderByDescending(p => p.Email);
+                }
+            }
+            else
+            {
+                throw new EatSomeException(EnumResponseError.SortColumnKeyNotFound);
             }
 
-            return currentUserRole!;
+            // paginacion
+            iq = ioq!
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
+
+            return iq;
         }
 
-        public async Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd)
-        {            
-            await _userManager.RemoveFromRoleAsync(user, roleToRemove);
-            await _userManager.AddToRoleAsync(user, roleToAdd);
-        }
+        //public async Task<string> GetUserRoleAsync(UserEntity user)
+        //{
+        //    // obtenemos roles del usuario
+        //    var roles = await _userManager.GetRolesAsync(user);
+
+        //    // buscamos rol que empiece con user-
+        //    var currentUserRole = roles.Where(p => p.StartsWith("user-")).FirstOrDefault();
+
+        //    if (string.IsNullOrEmpty(currentUserRole))
+        //    {
+        //        throw new EatSomeException(EnumResponseError.UserWithoutUserRole);
+        //    }
+
+        //    return currentUserRole!;
+        //}
+
+        //public async Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd)
+        //{            
+        //    await _userManager.RemoveFromRoleAsync(user, roleToRemove);
+        //    await _userManager.AddToRoleAsync(user, roleToAdd);
+        //}
     }
 }
