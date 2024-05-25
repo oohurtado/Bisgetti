@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UaUsersListComponent } from './ua-users-list.component';
+import { PageQuickMenuComponent } from './page-quick-menu.component';
 
-describe('UaUsersListComponent', () => {
-  let component: UaUsersListComponent;
-  let fixture: ComponentFixture<UaUsersListComponent>;
+describe('PageQuickMenuComponent', () => {
+  let component: PageQuickMenuComponent;
+  let fixture: ComponentFixture<PageQuickMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UaUsersListComponent]
+      declarations: [PageQuickMenuComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UaUsersListComponent);
+    fixture = TestBed.createComponent(PageQuickMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

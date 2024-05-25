@@ -20,6 +20,13 @@ import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/nav
 import { UaUsersComponent } from './components/user-admin/options/users/ua-users/ua-users.component';
 import { UaUsersAssignRoleEditorComponent } from './components/user-admin/options/users/ua-users-assign-role-editor/ua-users-assign-role-editor.component';
 import { UaUsersListComponent } from './components/user-admin/options/users/ua-users-list/ua-users-list.component';
+import { PageNavigationComponent } from './components/_shared/page/page-navigation/page-navigation.component';
+import { PageOrderComponent } from './components/_shared/page/page-order/page-order.component';
+import { PagePaginationComponent } from './components/_shared/page/page-pagination/page-pagination.component';
+import { PageSearchComponent } from './components/_shared/page/page-search/page-search.component';
+import { PageSyncComponent } from './components/_shared/page/page-sync/page-sync.component';
+import { PageQuickMenuComponent } from './components/_shared/page/page-quick-menu/page-quick-menu.component';
+import { ProcessingComponent } from './components/_shared/processing/processing.component';
 
 @NgModule({
 	declarations: [
@@ -37,6 +44,13 @@ import { UaUsersListComponent } from './components/user-admin/options/users/ua-u
 		UaUsersComponent,
   		UaUsersAssignRoleEditorComponent,
   		UaUsersListComponent,
+    PageNavigationComponent,
+    PageOrderComponent,
+    PagePaginationComponent,
+    PageSearchComponent,
+    PageSyncComponent,
+    PageQuickMenuComponent,
+    ProcessingComponent,
 	],
 	imports: [
 		BrowserModule,
