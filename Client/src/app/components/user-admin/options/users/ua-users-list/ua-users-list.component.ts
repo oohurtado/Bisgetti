@@ -1,18 +1,38 @@
-import { Component } from '@angular/core';
-import { IPageList } from '../../../../../source/models/interfaces/page.list';
+import { Component, OnInit } from '@angular/core';
 import { UserResponse } from '../../../../../source/models/dtos/user/user-response';
 import { PageData } from '../../../../../source/models/common/page-data';
+import { ListBase } from '../../../../../source/list-base';
+import { UserAdminService } from '../../../../../services/business/user/user-admin.service';
 
 @Component({
     selector: 'app-ua-users-list',
     templateUrl: './ua-users-list.component.html',
     styleUrl: './ua-users-list.component.css'
 })
-export class UaUsersListComponent implements IPageList<UserResponse> {
+export class UaUsersListComponent extends ListBase<UserResponse> implements OnInit {
     
-    _isProcessing!: boolean;
-    _pageData!: PageData<UserResponse>;
+    constructor(
+        private userAdminService: UserAdminService
+    ) {
+        super();
+    }  
 
-    constructor() {        
-    }    
+    async ngOnInit() {
+		await this.getDataAsync();
+	}
+
+    override async getDataAsync() {
+		this._isProcessing = true;		
+		await this.userAdminService
+			.getByPageAsync('first-name', 'asc', 10, 1, '')
+			.then(p => {
+				// this.errors = [];
+				this._pageData = p;
+				// this.updatePage(p);
+			})
+			.catch(e => {
+				// this.errors = Utils.getErrorsResponse(e);	
+			});
+		this._isProcessing = false;
+    }
 }

@@ -18,7 +18,7 @@ namespace Server.Controllers
         [HttpGet(template: "admin/options/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
         public async Task<ActionResult> UserList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term = null!)
         {            
-            var result = await _userAdminLogic.GetUserListAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
+            var result = await _userAdminLogic.GetUserListByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
             return Ok(result);
         }
 

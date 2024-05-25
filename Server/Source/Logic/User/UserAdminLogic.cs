@@ -14,9 +14,9 @@ namespace Server.Source.Logic.User
             _aspNetRepository = aspNetRepository;
         }
 
-        public async Task<PageResponse<UserResponse>> GetUserListAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term)
+        public async Task<PageResponse<UserResponse>> GetUserListByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term)
         {
-            var users = await _aspNetRepository.GetUsers(sortColumn, sortOrder, pageSize, pageNumber, term, out int grandTotal).ToListAsync();         
+            var users = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term, out int grandTotal).ToListAsync();         
 
             var userList = new List<UserResponse>();
             foreach (var user in users)

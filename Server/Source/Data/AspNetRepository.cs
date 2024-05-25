@@ -79,7 +79,7 @@ namespace Server.Source.Data
             return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);            
         }
 
-        public IQueryable<UserEntity> GetUsers(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
+        public IQueryable<UserEntity> GetUsersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
         {
             IQueryable<UserEntity> iq;
             IOrderedQueryable<UserEntity> ioq = null!;

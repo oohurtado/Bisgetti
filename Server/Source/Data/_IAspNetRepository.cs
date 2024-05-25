@@ -49,7 +49,7 @@ namespace Server.Source.Data
         /// <summary>
         /// Obtiene Usuarios y sus roles
         /// </summary>
-        IQueryable<UserEntity> GetUsers(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
+        IQueryable<UserEntity> GetUsersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
 
         ///// <summary>
         ///// Obtiene roles del usuario

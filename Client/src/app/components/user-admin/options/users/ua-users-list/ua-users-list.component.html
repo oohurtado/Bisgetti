@@ -7,3 +7,12 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-md-6">
+	</div>
+	<div class="col-md-6 text-end">
+		<app-page-sync class="ms-1" title="Sync data" (evt)="onSyncClicked()"></app-page-sync>
+	</div>
+</div>
+
+{{ _pageData | json }}
