@@ -17,6 +17,9 @@ import { NavbarComponent } from './components/_shared/navbar/navbar/navbar.compo
 import { NavbarClientComponent } from './components/_shared/navbar/navbar-client/navbar-client.component';
 import { NavbarBossComponent } from './components/_shared/navbar/navbar-boss/navbar-boss.component';
 import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/navbar-anon.component';
+import { UaUsersComponent } from './components/user-admin/options/users/ua-users/ua-users.component';
+import { UaUsersAssignRoleEditorComponent } from './components/user-admin/options/users/ua-users-assign-role-editor/ua-users-assign-role-editor.component';
+import { UaUsersListComponent } from './components/user-admin/options/users/ua-users-list/ua-users-list.component';
 
 @NgModule({
 	declarations: [
@@ -28,9 +31,12 @@ import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/nav
 		HomeComponent,
   		NavbarComponent,
   		NavbarAdminComponent,
-    NavbarClientComponent,
-    NavbarBossComponent,
-    NavbarAnonComponent
+    	NavbarClientComponent,
+    	NavbarBossComponent,
+    	NavbarAnonComponent,
+		UaUsersComponent,
+  		UaUsersAssignRoleEditorComponent,
+  		UaUsersListComponent,
 	],
 	imports: [
 		BrowserModule,

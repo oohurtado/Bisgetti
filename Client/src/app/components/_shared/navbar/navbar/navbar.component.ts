@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { LocalStorageService } from '../../../../services/common/local-storage.s
 })
 export class NavbarComponent {
     constructor(
-        private localStorageService: LocalStorageService
+        private localStorageService: LocalStorageService        
     ) { }
 
     isUserAdmin() {
