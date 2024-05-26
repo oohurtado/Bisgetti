@@ -17,7 +17,26 @@
 	</div>
 </div>
 
-<pre>{{ _pageData | json }}</pre>
+<div class="table-responsive">
+	<table class="table table-bordered mt-2 mb-2">
+		<thead>
+			<tr>
+				<th scope="col">Nombre(s)</th>
+				<th scope="col">Apellido(s)</th>
+				<th scope="col">Correo electrónico</th>
+				<th scope="col">Rol de usuario</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of _pageData?.data">
+				<td>{{ item.firstName }}</td>
+				<td>{{ item.lastName }}</td>
+				<td>{{ item.email }}</td>
+				<td>{{ item.userRole }}</td>
+			</tr>		
+		</tbody>
+	</table>
+</div>
 
 <div class="row">
 	<div class="col-md-12 text-end">				

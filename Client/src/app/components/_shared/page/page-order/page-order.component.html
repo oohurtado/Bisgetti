@@ -1,7 +1,7 @@
 <ng-container *ngIf="data.list.length > 0">
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
         <div class="btn-group" role="group">
-            <button id="btn_orderGroup" type="button" class="btn btn-light border dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Orden por columna">            
+            <button id="btn_orderGroup" type="button" class="btn btn-light border dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="btn_orderGroup">
                 <li *ngFor="let item of data.list; let i = index;">
@@ -9,7 +9,7 @@
                 </li>
             </ul>
         </div>
-        <button type="button" class="btn btn-light border" (click)="onSortClicked($event);" title="Orden ascendente/descendente">
+        <button type="button" class="btn btn-light border" (click)="onSortClicked($event);">
             <span *ngIf="this.orderSelected.isAscending"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
             <span *ngIf="!this.orderSelected.isAscending"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
         </button>            
