@@ -24,6 +24,7 @@ namespace Server.Source.Logic.User
                 var roles = await _aspNetRepository.GetRolesFromUserAsync(user);
                 userList.Add(new UserResponse()
                 {
+                    Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,

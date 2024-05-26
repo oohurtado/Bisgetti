@@ -21,18 +21,37 @@
 	<table class="table table-bordered mt-2 mb-2">
 		<thead>
 			<tr>
+				<th [width]="'1%'"></th>
 				<th scope="col">Nombre(s)</th>
 				<th scope="col">Apellido(s)</th>
 				<th scope="col">Correo electrónico</th>
+				<th scope="col">Número telefónico</th>
 				<th scope="col">Rol de usuario</th>
 			</tr>
 		</thead>
 		<tbody>
+			<tr>	
+				<td *ngIf="_pageData?.data?.length == 0" colspan="6" class="text-center">
+					No hay datos para mostrar
+				</td>
+			</tr>
 			<tr *ngFor="let item of _pageData?.data">
-				<td>{{ item.firstName }}</td>
-				<td>{{ item.lastName }}</td>
-				<td>{{ item.email }}</td>
-				<td>{{ item.userRole }}</td>
+				<td style="white-space:nowrap;">
+					<div class="dropdown">
+						<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="#">Cambiar rol de usuario</a></li>
+							<li><a class="dropdown-item" href="#">Bloquear usuario</a></li>
+							<li><a class="dropdown-item" href="#">Actualizar datos personales</a></li>
+						</ul>
+					</div>
+				</td>
+				<td style="white-space:nowrap;">{{ item.firstName }}</td>
+				<td style="white-space:nowrap;">{{ item.lastName }}</td>
+				<td style="white-space:nowrap;">{{ item.email }}</td>
+				<td style="white-space:nowrap;">{{ item.phoneNumber }}</td>
+				<td style="white-space:nowrap;">{{ item.userRole }}</td>
 			</tr>		
 		</tbody>
 	</table>
