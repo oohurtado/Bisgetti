@@ -1,11 +1,7 @@
 import { LocalStorageService } from "../services/common/local-storage.service";
 import { ListFactory } from "./factories/list-factory";
 import { PageData } from "./models/common/page-data";
-import { IOrderSelected } from "./models/interfaces/list/order-selected.interface";
-import { IOrder } from "./models/interfaces/list/order.interface";
-import { INavigationOptionSelected } from "./models/interfaces/list/navigation-option-selected.interface";
-import { INavigation } from "./models/interfaces/list/navigation.interface";
-import { IPageSelected } from "./models/interfaces/list/page-selected.interface";
+import { INavigation, INavigationOptionSelected, IOrder, IOrderSelected, IPageSelected } from "./models/interfaces/page.interface";
 
 export abstract class ListBase<T> {
 

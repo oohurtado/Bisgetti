@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { INavigation } from '../../../../source/models/interfaces/list/navigation.interface';
-import { INavigationOptionSelected } from '../../../../source/models/interfaces/list/navigation-option-selected.interface';
+import { INavigation, INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 
 @Component({
   selector: 'app-page-navigation',

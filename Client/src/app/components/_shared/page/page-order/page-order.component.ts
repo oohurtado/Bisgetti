@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IOrderSelected } from '../../../../source/models/interfaces/list/order-selected.interface';
-import { IOrder } from '../../../../source/models/interfaces/list/order.interface';
+import { IOrder, IOrderSelected } from '../../../../source/models/interfaces/page.interface';
 
 @Component({
   selector: 'app-page-order',

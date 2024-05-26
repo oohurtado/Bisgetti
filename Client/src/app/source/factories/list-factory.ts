@@ -1,6 +1,4 @@
-import { IOrderSelected } from "../models/interfaces/list/order-selected.interface";
-import { IOrder } from "../models/interfaces/list/order.interface";
-import { INavigation } from "../models/interfaces/list/navigation.interface";
+import { IOrder, INavigation, IOrderSelected } from "../models/interfaces/page.interface";
 
 export class ListFactory {
 

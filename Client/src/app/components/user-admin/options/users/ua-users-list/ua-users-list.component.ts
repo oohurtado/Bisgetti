@@ -5,8 +5,8 @@ import { ListBase } from '../../../../../source/list-base';
 import { UserAdminService } from '../../../../../services/business/user/user-admin.service';
 import { ListFactory } from '../../../../../source/factories/list-factory';
 import { LocalStorageService } from '../../../../../services/common/local-storage.service';
-import { INavigationOptionSelected } from '../../../../../source/models/interfaces/list/navigation-option-selected.interface';
 import { Router } from '@angular/router';
+import { INavigationOptionSelected } from '../../../../../source/models/interfaces/page.interface';
 
 @Component({
     selector: 'app-ua-users-list',

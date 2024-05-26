@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { IPageSelected } from '../../../../source/models/interfaces/list/page-selected.interface';
+import { IPageSelected } from '../../../../source/models/interfaces/page.interface';
 
 @Component({
   selector: 'app-page-pagination',
