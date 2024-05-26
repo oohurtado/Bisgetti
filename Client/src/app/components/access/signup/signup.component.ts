@@ -6,8 +6,8 @@ import { LocalStorageService } from '../../../services/common/local-storage.serv
 import { UserAccessService } from '../../../services/business/user/user-access.service';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { cloneWith } from 'lodash';
-import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request';
-import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response';
+import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request.model';
+import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response.model';
 
 @Component({
 	selector: 'app-signup',

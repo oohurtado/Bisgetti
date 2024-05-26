@@ -1,1 +1,38 @@
-<p>page-pagination works!</p>
+<ng-container *ngIf="pageSelected !== undefined && pageSelected.from > 0 && pageSelected.to > 0 && pageSelected.total > 0">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button [disabled]="isFirstDisabled" type="button" class="btn btn-light border" (click)="onOptionClicked('first')">
+            <span><i class="fa-solid fa-backward-step"></i></span>
+        </button>    
+        <button [disabled]="isPreviousDisabled" type="button" class="btn btn-light border" (click)="onOptionClicked('previous')">
+            <span><i class="fa-solid fa-caret-left"></i></span>
+        </button>
+        <button [disabled]="isNextDisabled" type="button" class="btn btn-light border" (click)="onOptionClicked('next')">
+            <span><i class="fa-solid fa-caret-right"></i></span>
+        </button>
+        <button [disabled]="isLastDisabled" type="button" class="btn btn-light border" (click)="onOptionClicked('last')">
+            <span><i class="fa-solid fa-forward-step"></i></span>
+        </button>
+        &nbsp;
+        <div class="dropdown">
+            <button class="btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ currentPageSize }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <!-- 
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 2)">2</a></li>
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 3)">3</a></li>
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 5)">5</a></li>
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 10)">10</a></li> 
+                -->
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 10)">10</a></li>
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 25)">25</a></li>
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 50)">50</a></li>
+                <li><a class="dropdown-item cursor-pointer" (click)="onPageSizeClicked($event, 100)">100</a></li>
+            </ul>
+          </div>
+        &nbsp;
+        <div class="ms-2 m-auto">
+            {{ pageSelected.from }} - {{ pageSelected.to }} de {{ pageSelected.total }} 
+        </div>        
+    </div>  
+</ng-container>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Source.Data;
-using Server.Source.Models.DTOs;
-using Server.Source.Models.DTOs.User.Admin;
+using Server.Source.Models.DTOs.Common;
+using Server.Source.Models.DTOs.User;
 
 namespace Server.Source.Logic.User
 {

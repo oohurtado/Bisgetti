@@ -35,6 +35,10 @@ export class LocalStorageService {
 		localStorage.clear();
 	}
 
+	///////////
+	/* roles */
+	///////////
+
 	isUserAuthenticated() {
 		let token = this.getValue(general.LS_TOKEN);
 		return token && !this.jwtHelper.isTokenExpired(token);
@@ -96,5 +100,18 @@ export class LocalStorageService {
 		let decodedToken = this.jwtHelper.decodeToken(token!);
 		let decodedRole = decodedToken[tag]
 		return decodedRole;
+	}
+
+	//////////
+	/* page */
+	//////////
+	
+	getPageSize(): number {
+		let pageSize = this.getValue(general.LS_PAGE_SIZE);
+		return pageSize === null ? 10 : Number(pageSize);
+	}
+
+	setPageSize(pageSize: number) {
+		this.setValue(general.LS_PAGE_SIZE, pageSize.toString());
 	}
 }

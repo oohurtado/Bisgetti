@@ -3,6 +3,10 @@ import { UserResponse } from '../../../../../source/models/dtos/user/user-respon
 import { PageData } from '../../../../../source/models/common/page-data';
 import { ListBase } from '../../../../../source/list-base';
 import { UserAdminService } from '../../../../../services/business/user/user-admin.service';
+import { ListFactory } from '../../../../../source/factories/list-factory';
+import { LocalStorageService } from '../../../../../services/common/local-storage.service';
+import { INavigationOptionSelected } from '../../../../../source/models/interfaces/list/navigation-option-selected.interface';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-ua-users-list',
@@ -12,9 +16,11 @@ import { UserAdminService } from '../../../../../services/business/user/user-adm
 export class UaUsersListComponent extends ListBase<UserResponse> implements OnInit {
     
     constructor(
-        private userAdminService: UserAdminService
+        private userAdminService: UserAdminService,
+		private router: Router,
+		localStorageService: LocalStorageService
     ) {
-        super();
+        super('admin-users', localStorageService);
     }  
 
     async ngOnInit() {
@@ -24,15 +30,27 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
     override async getDataAsync() {
 		this._isProcessing = true;		
 		await this.userAdminService
-			.getByPageAsync('first-name', 'asc', 10, 1, '')
+			.getByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
 			.then(p => {
 				// this.errors = [];
 				this._pageData = p;
-				// this.updatePage(p);
+				this.updatePage(p);
 			})
 			.catch(e => {
 				// this.errors = Utils.getErrorsResponse(e);	
 			});
 		this._isProcessing = false;
     }
+
+	override onCreateClicked(optionSelected: INavigationOptionSelected): void {
+		throw new Error('Method not implemented.');
+	}
+
+	override onBackClicked(): void {
+		throw new Error('Method not implemented.');
+	}
+	
+	override onHomeClicked(): void {
+		this.router.navigateByUrl(`/home`);
+	}
 }

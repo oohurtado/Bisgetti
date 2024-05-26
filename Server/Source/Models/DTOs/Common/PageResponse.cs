@@ -1,4 +1,4 @@
-﻿namespace Server.Source.Models.DTOs
+﻿namespace Server.Source.Models.DTOs.Common
 {
     public class PageResponse<T>
     {

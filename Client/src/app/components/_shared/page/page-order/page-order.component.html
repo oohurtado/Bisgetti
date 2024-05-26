@@ -1,1 +1,17 @@
-<p>page-order works!</p>
+<ng-container *ngIf="data.list.length > 0">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <div class="btn-group" role="group">
+            <button id="btn_orderGroup" type="button" class="btn btn-light border dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Orden por columna">            
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="btn_orderGroup">
+                <li *ngFor="let item of data.list; let i = index;">
+                    <a class="dropdown-item cursor-pointer" (click)="onOptionClicked($event, i)">{{ item.text }} <span *ngIf="isCurrentOptionSelected(item.data)">&nbsp;&#9679;</span></a>                        
+                </li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-light border" (click)="onSortClicked($event);" title="Orden ascendente/descendente">
+            <span *ngIf="this.orderSelected.isAscending"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+            <span *ngIf="!this.orderSelected.isAscending"><i class="fa-solid fa-arrow-down-wide-short"></i></span>
+        </button>            
+    </div>  
+</ng-container>

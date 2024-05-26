@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserAccessService } from '../../../services/business/user/user-access.service';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
-import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request';
-import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response';
+import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request.model';
+import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response.model';
 import { Utils } from '../../../source/utils';
 
 @Component({
@@ -35,7 +35,7 @@ export class LoginComponent extends FormBase implements OnInit {
     setupForm() {
 		this._myForm = this.formBuilder.group({
 			email: ['', [Validators.required, Validators.email, Validators.minLength(1), Validators.maxLength(100)]],
-			password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
+			password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
 		},);
 	}
 

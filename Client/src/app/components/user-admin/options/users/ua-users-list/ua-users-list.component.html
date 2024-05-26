@@ -11,8 +11,16 @@
 	<div class="col-md-6">
 	</div>
 	<div class="col-md-6 text-end">
-		<app-page-sync class="ms-1" title="Sync data" (evt)="onSyncClicked()"></app-page-sync>
+		<app-page-navigation class="ms-1 me-1" [data]="_pageNavigation" (evt_home)="onHomeClicked()" (evt_options)="onCreateClicked($event)"></app-page-navigation>
+		<app-page-order class="ms-1 me-1" [data]="_pageOrder" (evt)="onOrderClicked($event)"></app-page-order>
+		<app-page-sync class="ms-1" (evt)="onSyncClicked()"></app-page-sync>
 	</div>
 </div>
 
-{{ _pageData | json }}
+<pre>{{ _pageData | json }}</pre>
+
+<div class="row">
+	<div class="col-md-12 text-end">				
+		<app-page-pagination [pageSelected]="pageSelected" [pageSize]="pageSize" (evt_pageOption)="onPageOptionClicked($event)" (evt_pageSize)="onPageSizeClicked($event)"></app-page-pagination>
+	</div>
+</div>
