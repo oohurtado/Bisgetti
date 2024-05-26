@@ -15,8 +15,8 @@ const ROUTES: Routes = [
     // { path: 'forbidden', component: ForbiddenComponent, canActivate: [authGuard] },
     // { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
     { path: 'home', component: HomeComponent },
-    { path: 'login', component: LoginComponent, canActivate: [anonGuard] },
-    { path: 'signup', component: SignupComponent, canActivate: [anonGuard] },
+    { path: 'access/login', component: LoginComponent, canActivate: [anonGuard] },
+    { path: 'access/signup', component: SignupComponent, canActivate: [anonGuard] },
 
     { 
         path: 'ua/options/users', component:  UaUsersComponent,

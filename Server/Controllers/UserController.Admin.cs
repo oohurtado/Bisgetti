@@ -16,8 +16,12 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
         [HttpGet(template: "admin/options/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
-        public async Task<ActionResult> UserList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term = null!)
+        public async Task<ActionResult> UserList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term = "")
         {            
+            if (term == "[empty]")
+            {
+                term = string.Empty;
+            }
             var result = await _userAdminLogic.GetUserListByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
             return Ok(result);
         }
