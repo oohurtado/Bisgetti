@@ -6,15 +6,12 @@ import { PageData } from '../../../source/models/common/page-data';
 @Injectable({
     providedIn: 'root'
 })
-export class UserAdminService {
+export class UserAdministrationService {
 
     constructor(private requestService: RequestService) { }
 
     getByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
-		if (term === null || term === '') {
-			term = '[empty]'
-		}		
-		return this.requestService.get<PageData<UserResponse>>(`/user/administration/options/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}`, true);
+		return this.requestService.get<PageData<UserResponse>>(`/user/administration/options/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`, true);
 	}
 
 	getByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<UserResponse>> {

@@ -17,13 +17,8 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
         [HttpGet(template: "administration/options/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
-        public async Task<ActionResult> UserList(string sortColumn, string sortOrder, int pageSize, int pageNumber)
+        public async Task<ActionResult> UserList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {
-            string term = string.Empty;
-            if (term == "[empty]")
-            {
-                term = string.Empty;
-            }
             var result = await _userAdminLogic.GetUserListByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
             return Ok(result);
         }
@@ -40,12 +35,5 @@ namespace Server.Controllers
             await _userAdminLogic.ChangeUserRoleAsync(executingUserRole!, request);
             return Ok();
         }
-
-        // TODO: endpoints para acabar el admin
-        // admin/personal-data -> get
-        // admin/personal-data -> put
-        // admin/personal-data/password
-        // admin/options/users/{email}/ban -> get -> obtenemos el status del correo
-        // admin/options/users/{email}/ban/{newStatus} -> put -> especificamos nuevo status del correo
     }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserResponse } from '../../../../../source/models/dtos/user/user-response';
 import { PageData } from '../../../../../source/models/common/page-data';
 import { ListBase } from '../../../../../source/list-base';
-import { UserAdminService } from '../../../../../services/business/user/user-admin.service';
+import { UserAdministrationService } from '../../../../../services/business/user/user-administration.service';
 import { ListFactory } from '../../../../../source/factories/list-factory';
 import { LocalStorageService } from '../../../../../services/common/local-storage.service';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { INavigationOptionSelected } from '../../../../../source/models/interfac
 export class UaUsersListComponent extends ListBase<UserResponse> implements OnInit {
     
     constructor(
-        private userAdminService: UserAdminService,
+        private userAdministrationService: UserAdministrationService,
 		private router: Router,
 		localStorageService: LocalStorageService
     ) {
@@ -29,7 +29,7 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
 
     override async getDataAsync() {
 		this._isProcessing = true;		
-		await this.userAdminService
+		await this.userAdministrationService
 			.getByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
 			.then(p => {
 				// this.errors = [];
