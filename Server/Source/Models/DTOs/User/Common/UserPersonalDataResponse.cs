@@ -2,7 +2,7 @@
 
 namespace Server.Source.Models.DTOs.User.Common
 {
-    public class UserPersonalDataRequest
+    public class UserPersonalDataResponse
     {
         [Display(Name = "Nombre(s)")]
         [Required(ErrorMessage = "Campo requerido")]

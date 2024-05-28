@@ -60,5 +60,8 @@ namespace Server.Source.Data
         /// Asigna nuevo user rol
         /// </summary>
         Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd);
+
+        // Actualiza datos personales del usuario
+        Task UpdateUserAsync(UserEntity user);
     }
 }

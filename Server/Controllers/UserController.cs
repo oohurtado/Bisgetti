@@ -16,14 +16,17 @@ namespace Server.Controllers
     {
         private readonly UserAccessLogic _userAccessLogic;
         private readonly UserAdminLogic _userAdminLogic;
+        private readonly UserCommonLogic _userCommonLogic;
 
         public UserController(
             UserAccessLogic userAccessLogic,
-            UserAdminLogic userAdminLogic
+            UserAdminLogic userAdminLogic,
+            UserCommonLogic userCommonLogic
             )
         {
             _userAccessLogic = userAccessLogic;
             _userAdminLogic = userAdminLogic;
+            _userCommonLogic = userCommonLogic;
         }
 
         

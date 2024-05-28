@@ -35,5 +35,7 @@ namespace Server.Controllers
             await _userAdminLogic.ChangeUserRoleAsync(executingUserRole!, request);
             return Ok();
         }
+
+        // TODO: post crear usuario administration/options/users/
     }
 }

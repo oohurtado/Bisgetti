@@ -38,7 +38,7 @@ namespace Server.Source.Data
         }
         
         public async Task<IdentityResult> CreateUserAsync(UserEntity user, string password)
-        {
+        {            
             return await _userManager.CreateAsync(user, password);
         }
 
@@ -166,6 +166,11 @@ namespace Server.Source.Data
         {
             await _userManager.RemoveFromRoleAsync(user, roleToRemove);
             await _userManager.AddToRoleAsync(user, roleToAdd);
+        }
+
+        public async Task UpdateUserAsync(UserEntity user)
+        {
+            await _userManager.UpdateAsync(user);            
         }
     }
 }

@@ -19,8 +19,9 @@ namespace Server.Controllers
         [HttpGet(template: "common/personal-data")]
         public async Task<ActionResult> GetPersonalData()
         {
-            // TODO: common/personal-data -> get            
-            return Ok();
+            var email = User.FindFirstValue(ClaimTypes.Email!);
+            var result = await _userCommonLogic.GetPersonalDataAsync(email);
+            return Ok(result);
         }
 
         /// <summary>
@@ -28,9 +29,10 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "common/personal-data")]
-        public async Task<ActionResult> UpdatePersonalData([FromBody] UserPersonalDataRequest request)
+        public async Task<ActionResult> UpdatePersonalData([FromBody] UserPersonalDataResponse request)
         {
-            // TODO: common/personal-data -> put            
+            var email = User.FindFirstValue(ClaimTypes.Email!);
+            await _userCommonLogic.UpdatePersonalDataAsync(email, request);
             return Ok();
         }
 
@@ -42,6 +44,7 @@ namespace Server.Controllers
         public async Task<ActionResult> UpdatePassword([FromBody] UserPasswordRequest request)
         {
             // TODO: common/personal-data/password
+            // _userCommonLogic
             return Ok();
         }
     }
