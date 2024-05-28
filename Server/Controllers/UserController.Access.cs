@@ -32,18 +32,6 @@ namespace Server.Controllers
             return Ok(respose);
         }
 
-        /// <summary>
-        /// Cambio de contraseña
-        /// </summary>
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut(template: "access/change-password")]
-        public async Task<ActionResult> ChangePassword([FromBody] UserChangePasswordRequest request)
-        {
-            var email = User.FindFirstValue(ClaimTypes.Email!);
-            await _userAccessLogic.ChangePasswordAsync(email!, request);
-            return Ok();
-        }
-
         [HttpGet(template: "access/email-available/{email}")]
         public async Task<ActionResult> IsEmailAvailable(string email)
         {

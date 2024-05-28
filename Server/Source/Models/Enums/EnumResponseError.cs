@@ -23,6 +23,9 @@ namespace Server.Source.Models.Enums
         [Description("El usuario no tiene un rol de tipo 'Usuario' asignado")]
         UserWithoutUserRole,
 
+        [Description("Error al actualizar los datos personales")]
+        UserErrorUpdaingPersonalData,
+
         [Description("No se encontó la columna de ordenamiento")]
         SortColumnKeyNotFound,
     }

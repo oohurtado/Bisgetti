@@ -41,10 +41,10 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "common/personal-data/password")]
-        public async Task<ActionResult> UpdatePassword([FromBody] UserPasswordRequest request)
+        public async Task<ActionResult> ChangePassword([FromBody] UserPasswordRequest request)
         {
-            // TODO: common/personal-data/password
-            // _userCommonLogic
+            var email = User.FindFirstValue(ClaimTypes.Email!);
+            await _userCommonLogic.ChangePasswordAsync(email, request);
             return Ok();
         }
     }

@@ -83,23 +83,6 @@ namespace Server.Source.Logic.User
             return token;
         }
 
-        public async Task ChangePasswordAsync(string email, UserChangePasswordRequest request)
-        {
-            // obtenemos usuario
-            var user = await _aspNetRepository.FindByEmailAsync(email);
-            if (user == null)
-            {
-                throw new EatSomeException(EnumResponseError.UserNotFound);
-            }
-
-            // actualizamos contraseña
-            var result = await _aspNetRepository.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
-            if (!result.Succeeded)
-            {
-                throw new EatSomeException(EnumResponseError.UserErrorChangingPassword);
-            }
-        }
-
         public async Task<bool> IsEmailAvailableAsync(string email)
         {
             var user = await _aspNetRepository.FindByEmailAsync(email);

@@ -1,5 +1,6 @@
 ﻿
 using Azure.Core;
+using Microsoft.AspNetCore.Identity;
 using Server.Source.Data;
 using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.User.Common;
@@ -44,6 +45,17 @@ namespace Server.Source.Logic.User
             user.LastName = request.LastName;
             user.PhoneNumber = request.PhoneNumber;
             await _aspNetRepository.UpdateUserAsync(user);
+        }
+
+        public async Task ChangePasswordAsync(string? email, UserPasswordRequest request)
+        {
+            var user = await _aspNetRepository.FindByEmailAsync(email!);
+            if (user == null)
+            {
+                throw new EatSomeException(EnumResponseError.UserNotFound);
+            }
+
+            await _aspNetRepository.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
         }
     }
 }

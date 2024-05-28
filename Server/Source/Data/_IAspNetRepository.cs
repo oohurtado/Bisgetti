@@ -44,7 +44,7 @@ namespace Server.Source.Data
         /// <summary>
         /// Cambio de contraseña
         /// </summary>
-        Task<IdentityResult> ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword);
+        Task ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword);
 
         /// <summary>
         /// Obtiene Usuarios y sus roles
