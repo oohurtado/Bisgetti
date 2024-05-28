@@ -10,7 +10,7 @@ import { ForbiddenComponent } from './components/access/forbidden/forbidden.comp
 import { HomeComponent } from './components/home/home.component';
 import { AppRouting } from './routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NavbarAdminComponent } from './components/_shared/navbar/navbar-admin/navbar-admin.component';
 import { NavbarComponent } from './components/_shared/navbar/navbar/navbar.component';
@@ -27,6 +27,7 @@ import { PageSearchComponent } from './components/_shared/page/page-search/page-
 import { PageSyncComponent } from './components/_shared/page/page-sync/page-sync.component';
 import { PageQuickMenuComponent } from './components/_shared/page/page-quick-menu/page-quick-menu.component';
 import { ProcessingComponent } from './components/_shared/processing/processing.component';
+import { AuthInterceptorService } from './services/common/auth-interceptor.service';
 
 @NgModule({
 	declarations: [
@@ -44,13 +45,13 @@ import { ProcessingComponent } from './components/_shared/processing/processing.
 		UaUsersComponent,
   		UaUsersAssignRoleEditorComponent,
   		UaUsersListComponent,
-    PageNavigationComponent,
-    PageOrderComponent,
-    PagePaginationComponent,
-    PageSearchComponent,
-    PageSyncComponent,
-    PageQuickMenuComponent,
-    ProcessingComponent,
+		PageNavigationComponent,
+		PageOrderComponent,
+		PagePaginationComponent,
+		PageSearchComponent,
+		PageSyncComponent,
+		PageQuickMenuComponent,
+		ProcessingComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -67,7 +68,11 @@ import { ProcessingComponent } from './components/_shared/processing/processing.
 		}),
 		AppRouting
 	],
-	providers: [],
+	providers: [{
+		provide: HTTP_INTERCEPTORS,
+		useClass: AuthInterceptorService,
+		multi: true
+	}],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

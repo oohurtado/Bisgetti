@@ -41,7 +41,13 @@ namespace Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddCors();
+            builder.Services.AddCors(o => o.AddPolicy(name: "OriginAngular", policy =>
+            {
+                policy
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
 
             builder.Services
                 .AddIdentity<UserEntity, IdentityRole>(p =>
@@ -109,12 +115,7 @@ namespace Server
                 app.UseSwaggerUI();
             }
 
-            app.UseCors(builder => builder
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true) // allow any origin
-                .WithOrigins("*")
-                );
+            app.UseCors("OriginAngular");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

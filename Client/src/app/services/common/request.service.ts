@@ -24,11 +24,7 @@ export class RequestService {
 			return this.http.get<T>(`${this.url}${query}`);
 		}
 
-		const headers = new HttpHeaders({
-			'Authorization': `Bearer ${this.token}`
-		});
-
-		return this.http.get<T>(`${this.url}${query}`, { headers });
+		return this.http.get<T>(`${this.url}${query}`);
 	}
 
 	post<T>(query: string, model: T, secure: boolean = false) {
@@ -36,11 +32,7 @@ export class RequestService {
 			return this.http.post(`${this.url}${query}`, model);
 		}
 
-		const headers = new HttpHeaders({
-			'Authorization': `Bearer ${this.token}`
-		});
-
-		return this.http.post(`${this.url}${query}`, model, { headers });
+		return this.http.post(`${this.url}${query}`, model);
 	}
 
 	put<T>(query: string, model: T, secure: boolean = false) {
@@ -48,11 +40,7 @@ export class RequestService {
 			return this.http.put(`${this.url}${query}`, model);
 		}
 
-		const headers = new HttpHeaders({
-			'Authorization': `Bearer ${this.token}`
-		});
-
-		return this.http.put(`${this.url}${query}`, model, { headers });
+		return this.http.put(`${this.url}${query}`, model);
 	}
 
 	delete(query: string, secure: boolean = false) {
@@ -60,10 +48,6 @@ export class RequestService {
 			return this.http.delete(`${this.url}${query}`);
 		}
 
-		const headers = new HttpHeaders({
-			'Authorization': `Bearer ${this.token}`
-		});
-
-		return this.http.delete(`${this.url}${query}`, { headers });
+		return this.http.delete(`${this.url}${query}`);
 	}
 }

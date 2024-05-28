@@ -13,8 +13,8 @@ export class UserAdminService {
     getByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
 		if (term === null || term === '') {
 			term = '[empty]'
-		}
-		return this.requestService.get<PageData<UserResponse>>(`/user/admin/options/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`, true);
+		}		
+		return this.requestService.get<PageData<UserResponse>>(`/user/administration/options/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}`, true);
 	}
 
 	getByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<UserResponse>> {

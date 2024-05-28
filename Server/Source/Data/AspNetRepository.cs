@@ -79,7 +79,7 @@ namespace Server.Source.Data
             return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);            
         }
 
-        public IQueryable<UserEntity> GetUsersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
+        public IQueryable<UserEntity> GetUsersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term, out int grandTotal)
         {
             IQueryable<UserEntity> iq;
             IOrderedQueryable<UserEntity> ioq = null!;
@@ -146,26 +146,26 @@ namespace Server.Source.Data
             return iq;
         }
 
-        //public async Task<string> GetUserRoleAsync(UserEntity user)
-        //{
-        //    // obtenemos roles del usuario
-        //    var roles = await _userManager.GetRolesAsync(user);
+        public async Task<string> GetUserRoleAsync(UserEntity user)
+        {
+            // obtenemos roles del usuario
+            var roles = await _userManager.GetRolesAsync(user);
 
-        //    // buscamos rol que empiece con user-
-        //    var currentUserRole = roles.Where(p => p.StartsWith("user-")).FirstOrDefault();
+            // buscamos rol que empiece con user-
+            var currentUserRole = roles.Where(p => p.StartsWith("user-")).FirstOrDefault();
 
-        //    if (string.IsNullOrEmpty(currentUserRole))
-        //    {
-        //        throw new EatSomeException(EnumResponseError.UserWithoutUserRole);
-        //    }
+            if (string.IsNullOrEmpty(currentUserRole))
+            {
+                throw new EatSomeException(EnumResponseError.UserWithoutUserRole);
+            }
 
-        //    return currentUserRole!;
-        //}
+            return currentUserRole!;
+        }
 
-        //public async Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd)
-        //{            
-        //    await _userManager.RemoveFromRoleAsync(user, roleToRemove);
-        //    await _userManager.AddToRoleAsync(user, roleToAdd);
-        //}
+        public async Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd)
+        {
+            await _userManager.RemoveFromRoleAsync(user, roleToRemove);
+            await _userManager.AddToRoleAsync(user, roleToAdd);
+        }
     }
 }

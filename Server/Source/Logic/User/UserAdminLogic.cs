@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Source.Data;
+using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.Common;
-using Server.Source.Models.DTOs.User;
+using Server.Source.Models.DTOs.User.Admin;
+using Server.Source.Models.DTOs.User.Common;
+using Server.Source.Models.Enums;
 
 namespace Server.Source.Logic.User
 {
@@ -14,7 +17,7 @@ namespace Server.Source.Logic.User
             _aspNetRepository = aspNetRepository;
         }
 
-        public async Task<PageResponse<UserResponse>> GetUserListByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term)
+        public async Task<PageResponse<UserResponse>> GetUserListByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
             var users = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term, out int grandTotal).ToListAsync();         
 
@@ -40,20 +43,22 @@ namespace Server.Source.Logic.User
             };
         }
 
-        //public async Task ChangeUserRoleAsync(string executingUserRole, UserChangeUserRoleRequest request)
-        //{
-        //    // buscar user del correo a cambiar su rol
-        //    var user = await _aspNetRepository.FindByEmailAsync(request.Email);
-        //    if (user == null)
-        //    {
-        //        throw new EatSomeException(EnumResponseError.UserNotFound);
-        //    }
+        public async Task ChangeUserRoleAsync(string executingUserRole, ChangeUserRoleRequest request)
+        {
+            // TODO: validaciones sobre quien ejecuta, a quien se le va a asignar...
 
-        //    // obtenemos rol del usuario
-        //    var roleToRemove = await _aspNetRepository.GetUserRoleAsync(user);
+            // buscar user del correo a cambiar su rol
+            var user = await _aspNetRepository.FindByEmailAsync(request.Email);
+            if (user == null)
+            {
+                throw new EatSomeException(EnumResponseError.UserNotFound);
+            }
 
-        //    // quitamos rol actual y asignamos nuevo rol
-        //    await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
-        //}     
+            // obtenemos rol del usuario
+            var roleToRemove = await _aspNetRepository.GetUserRoleAsync(user);
+
+            // quitamos rol actual y asignamos nuevo rol
+            await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.UserRole);
+        }
     }
 }

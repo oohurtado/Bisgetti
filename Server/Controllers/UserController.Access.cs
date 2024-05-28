@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Source.Extensions;
 using Server.Source.Models.DTOs.User.Access;
+using Server.Source.Models.DTOs.User.Admin;
+using Server.Source.Models.Enums;
 using System.Security.Claims;
 
 namespace Server.Controllers
@@ -32,7 +35,7 @@ namespace Server.Controllers
         /// <summary>
         /// Cambio de contraseña
         /// </summary>
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]        
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "access/change-password")]
         public async Task<ActionResult> ChangePassword([FromBody] UserChangePasswordRequest request)
         {

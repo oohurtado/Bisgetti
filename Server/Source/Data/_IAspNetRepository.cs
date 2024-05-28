@@ -51,14 +51,14 @@ namespace Server.Source.Data
         /// </summary>
         IQueryable<UserEntity> GetUsersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
 
-        ///// <summary>
-        ///// Obtiene roles del usuario
-        ///// </summary>
-        //Task<string> GetUserRoleAsync(UserEntity user);
+        /// <summary>
+        /// Obtiene roles del usuario
+        /// </summary>
+        Task<string> GetUserRoleAsync(UserEntity user);
 
-        ///// <summary>
-        ///// Asigna nuevo user rol
-        ///// </summary>
-        //Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd);
+        /// <summary>
+        /// Asigna nuevo user rol
+        /// </summary>
+        Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd);
     }
 }
