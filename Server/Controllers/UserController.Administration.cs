@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Extensions;
-using Server.Source.Models.DTOs.User.Admin;
+using Server.Source.Models.DTOs.User.Administration;
 using Server.Source.Models.Enums;
 using System.Security.Claims;
 
@@ -36,6 +36,16 @@ namespace Server.Controllers
             return Ok();
         }
 
-        // TODO: post crear usuario administration/options/users/
+        /// <summary>
+        /// Crear nuevo usuario
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-admin")]
+        [HttpPost(template: "administration/options/users")]
+        public async Task<ActionResult> CreateUser([FromBody] CreateUserRequest request)
+        {
+            await _userAdminLogic.CreateUserAsync(request);
+            return Ok();
+        }
     }
 }

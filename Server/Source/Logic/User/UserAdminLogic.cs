@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Source.Data;
 using Server.Source.Exceptions;
+using Server.Source.Extensions;
 using Server.Source.Models.DTOs.Common;
-using Server.Source.Models.DTOs.User.Admin;
+using Server.Source.Models.DTOs.User.Administration;
 using Server.Source.Models.DTOs.User.Common;
 using Server.Source.Models.Enums;
+using Server.Source.Utilities;
 
 namespace Server.Source.Logic.User
 {
@@ -59,6 +61,39 @@ namespace Server.Source.Logic.User
 
             // quitamos rol actual y asignamos nuevo rol
             await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.UserRole);
+        }
+
+        public async Task CreateUserAsync(CreateUserRequest request)
+        {
+            // mandamos error si el usuario ya existe
+            var user = await _aspNetRepository.FindByEmailAsync(request.Email);
+            if (user != null)
+            {
+                throw new EatSomeException(EnumResponseError.UserEmailAlreadyExists);
+            }
+
+            // construimos usuario con parametros de entrada y registramos usuario en base de datos         
+            user = new()
+            {
+                UserName = request.Email,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                PhoneNumber = request.PhoneNumber,
+            };
+            var result = await _aspNetRepository.CreateUserAsync(user, request.Password);
+
+            // si no es posible registrar mandamos error
+            if (!result.Succeeded)
+            {
+                throw new EatSomeException(EnumResponseError.InternalServerError);
+            }
+
+            // asignamos role de inicio
+            var role = request.UserRole;
+            await _aspNetRepository.AddRoleToUserAsync(user, role);
+
+            // TODO: enviar correo que se ha creado su usuario
         }
     }
 }

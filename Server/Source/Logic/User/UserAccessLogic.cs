@@ -60,6 +60,8 @@ namespace Server.Source.Logic.User
             var claims = TokenUtility.CreateClaims(user!, new List<string>() { role });
             var token = TokenUtility.BuildToken(claims, _configurationUtility.GetJWTKey());
 
+            // TODO: enviar correo que se ha creado su usuario
+
             return token;
         }
 
