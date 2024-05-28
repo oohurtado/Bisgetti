@@ -11,7 +11,7 @@ export class UserAdminService {
     constructor(private requestService: RequestService) { }
 
     getByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
-		if (term === '') {
+		if (term === null || term === '') {
 			term = '[empty]'
 		}
 		return this.requestService.get<PageData<UserResponse>>(`/user/admin/options/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`, true);
