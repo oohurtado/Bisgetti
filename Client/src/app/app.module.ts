@@ -18,7 +18,6 @@ import { NavbarClientComponent } from './components/_shared/navbar/navbar-client
 import { NavbarBossComponent } from './components/_shared/navbar/navbar-boss/navbar-boss.component';
 import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/navbar-anon.component';
 import { UaUsersComponent } from './components/user-admin/options/users/ua-users/ua-users.component';
-import { UaUsersAssignRoleEditorComponent } from './components/user-admin/options/users/ua-users-assign-role-editor/ua-users-assign-role-editor.component';
 import { UaUsersListComponent } from './components/user-admin/options/users/ua-users-list/ua-users-list.component';
 import { PageNavigationComponent } from './components/_shared/page/page-navigation/page-navigation.component';
 import { PageOrderComponent } from './components/_shared/page/page-order/page-order.component';
@@ -28,6 +27,8 @@ import { PageSyncComponent } from './components/_shared/page/page-sync/page-sync
 import { PageQuickMenuComponent } from './components/_shared/page/page-quick-menu/page-quick-menu.component';
 import { ProcessingComponent } from './components/_shared/processing/processing.component';
 import { AuthInterceptorService } from './services/common/auth-interceptor.service';
+import { UaUsersChangeUserRoleComponent } from './components/user-admin/options/users/ua-users-change-user-role/ua-users-change-user-role.component';
+import { UaUsersUserEditorComponent } from './components/user-admin/options/users/ua-users-user-editor/ua-users-user-editor.component';
 
 @NgModule({
 	declarations: [
@@ -43,8 +44,8 @@ import { AuthInterceptorService } from './services/common/auth-interceptor.servi
     	NavbarBossComponent,
     	NavbarAnonComponent,
 		UaUsersComponent,
-  		UaUsersAssignRoleEditorComponent,
   		UaUsersListComponent,
+		UaUsersChangeUserRoleComponent,
 		PageNavigationComponent,
 		PageOrderComponent,
 		PagePaginationComponent,
@@ -52,6 +53,7 @@ import { AuthInterceptorService } from './services/common/auth-interceptor.servi
 		PageSyncComponent,
 		PageQuickMenuComponent,
 		ProcessingComponent,
+  UaUsersUserEditorComponent,
 	],
 	imports: [
 		BrowserModule,

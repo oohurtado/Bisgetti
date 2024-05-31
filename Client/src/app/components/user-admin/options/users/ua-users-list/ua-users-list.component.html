@@ -41,7 +41,7 @@
 						<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item" href="#">Cambiar rol de usuario</a></li>							
+							<li><a class="dropdown-item cursor-pointer" (click)="onChangeUserRoleClicked($event, item.id)">Cambiar rol de usuario</a></li>							
 						</ul>
 					</div>
 				</td>

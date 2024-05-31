@@ -2,7 +2,7 @@
 
 namespace Server.Source.Models.DTOs.User.Common
 {
-    public class UserPasswordRequest
+    public class UserChangePasswordRequest
     {
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "Campo requerido")]

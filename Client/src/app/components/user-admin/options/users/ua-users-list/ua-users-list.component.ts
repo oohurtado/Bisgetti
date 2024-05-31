@@ -42,8 +42,8 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
 		this._isProcessing = false;
     }
 
-	override onCreateClicked(optionSelected: INavigationOptionSelected): void {
-		throw new Error('Method not implemented.');
+	override onCreateClicked(optionSelected: INavigationOptionSelected): void {	
+		this.router.navigateByUrl(`/ua/options/users/new-user`);
 	}
 
 	override onBackClicked(): void {
@@ -52,5 +52,9 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
 	
 	override onHomeClicked(): void {
 		this.router.navigateByUrl(`/home`);
+	}
+
+	onChangeUserRoleClicked(event: Event, id: string) {
+		this.router.navigateByUrl(`/ua/options/users/change-user-role/${id}`);
 	}
 }
