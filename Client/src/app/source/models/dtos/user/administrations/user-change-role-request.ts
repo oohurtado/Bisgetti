@@ -1,5 +1,7 @@
 export class UserChangeRoleRequest {
     constructor(
-        public userRole: string,
-        public email: string) { }
+        public id: string,
+        public email: string,
+        public role: string,
+    ) { }
 }

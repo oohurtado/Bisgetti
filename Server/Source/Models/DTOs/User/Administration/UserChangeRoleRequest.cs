@@ -4,6 +4,8 @@ namespace Server.Source.Models.DTOs.User.Administration
 {
     public class UserChangeRoleRequest
     {
+        public string Id { get; set; } = null!;
+
         [Display(Name = "Correo electrónico")]
         [RegularExpression(@"[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,15}", ErrorMessage = "El formato del correo electrónico no es válido")]
         [Required(ErrorMessage = "Campo requerido")]
@@ -12,6 +14,6 @@ namespace Server.Source.Models.DTOs.User.Administration
 
         [Display(Name = "Rol de usuario")]
         [Required(ErrorMessage = "Campo requerido")]
-        public string UserRole { get; set; } = null!;
+        public string Role { get; set; } = null!;
     }
 }

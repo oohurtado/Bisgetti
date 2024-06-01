@@ -17,12 +17,11 @@ import { UserCreateUserRequest } from '../../../../source/models/dtos/user/admin
 export class UaUsersCreateUserComponent extends FormBase implements OnInit {
     
     _userRoles: Tuple2<string,string>[] = [];
-	_navigation = ListFactory.getNavigation('admin-users-create-user');
+	_navigation = ListFactory.getNavigation('home-true,hack-true');
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private router: Router,
-		private localStorageService: LocalStorageService,
+		private router: Router,		
 		private userAdministrationService: UserAdministrationService,
 		private userValidator: UserValidatorService,
 	) {
@@ -63,7 +62,6 @@ export class UaUsersCreateUserComponent extends FormBase implements OnInit {
 		
 		this._isProcessing = true;
 
-		let _pending = '[pendiente]';
         let model = new UserCreateUserRequest(
 			this._myForm?.controls['firstName'].value, 
 			this._myForm?.controls['lastName'].value, 

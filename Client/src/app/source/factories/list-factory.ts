@@ -15,8 +15,8 @@ export class ListFactory {
         switch (section) {
             case 'admin-users':
                 return this.adminUsersNavigation;
-            case 'admin-users-create-user':
-                return this.adminUsersCreateUserNavigation;
+            case 'home-true,hack-true':
+                return this.homeTrueBackTrueNavigation;
         }
 
         throw new Error(`ListFactory: '${section}' not implemented.`);
@@ -51,7 +51,7 @@ export class ListFactory {
         ]
     }
 
-    private static adminUsersCreateUserNavigation: INavigation = {
+    private static homeTrueBackTrueNavigation: INavigation = {
         home: true,
         back: true,
         options: [            

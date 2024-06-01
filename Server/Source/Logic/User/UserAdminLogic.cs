@@ -21,7 +21,7 @@ namespace Server.Source.Logic.User
 
         public async Task<PageResponse<UserResponse>> GetUserListByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
-            var users = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term, out int grandTotal).ToListAsync();         
+            var users = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();         
 
             var userList = new List<UserResponse>();
             foreach (var user in users)
@@ -47,7 +47,7 @@ namespace Server.Source.Logic.User
 
         public async Task ChangeUserRoleAsync(string executingUserRole, UserChangeRoleRequest request)
         {
-            // TODO: validaciones sobre quien ejecuta, a quien se le va a asignar...
+            // TODO: validaciones sobre quien ejecuta, a quien se le va a asignar...            
 
             // buscar user del correo a cambiar su rol
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
@@ -55,12 +55,16 @@ namespace Server.Source.Logic.User
             {
                 throw new EatSomeException(EnumResponseError.UserNotFound);
             }
+            if (user.Id != request.Id)
+            {
+                throw new EatSomeException(EnumResponseError.InternalServerError);
+            }
 
             // obtenemos rol del usuario
             var roleToRemove = await _aspNetRepository.GetUserRoleAsync(user);
 
             // quitamos rol actual y asignamos nuevo rol
-            await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.UserRole);
+            await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
         }
 
         public async Task CreateUserAsync(UserCreateUserRequest request)

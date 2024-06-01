@@ -52,7 +52,7 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
 		this.router.navigateByUrl(`/home`);
 	}
 
-	onChangeRoleClicked(event: Event, id: string) {
-		this.router.navigateByUrl(`/ua/users/change-role/${id}`);
+	onChangeRoleClicked(event: Event, user: UserResponse) {
+		this.router.navigateByUrl(`/ua/users/change-role/${user.id}/${user.email}/${user.userRole}`);
 	}
 }

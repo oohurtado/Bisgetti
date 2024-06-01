@@ -34,7 +34,7 @@ export class UserAdministrationService {
 		return this.requestService.post('/user/administration/users', model);
 	}
 
-	changeUserRole(model: UserChangeRoleRequest) {
+	changeRole(model: UserChangeRoleRequest) {
 		return this.requestService.put('/user/administration/users/role', model);
 	}
 }

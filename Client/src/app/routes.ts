@@ -19,7 +19,7 @@ const ROUTES: Routes = [
         children:[
             { path: 'list', component: UaUsersListComponent, canActivate: [authGuard, userAdminGuard] },
             { path: 'create-user', component: UaUsersCreateUserComponent, canActivate: [authGuard, userAdminGuard] },
-            { path: 'change-role/:id', component: UaUsersChangeRoleComponent, canActivate: [authGuard, userAdminGuard] },
+            { path: 'change-role/:userId/:userEmail/:userRole', component: UaUsersChangeRoleComponent, canActivate: [authGuard, userAdminGuard] },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },
