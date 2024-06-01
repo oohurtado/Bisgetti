@@ -28,8 +28,8 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
-        [HttpPut(template: "administration/options/users/change-user-role")]
-        public async Task<ActionResult> ChangeUserRole([FromBody] UserChangeUserRoleRequest request)
+        [HttpPut(template: "administration/options/users/role")]
+        public async Task<ActionResult> ChangeRole([FromBody] UserChangeRoleRequest request)
         {
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
             await _userAdminLogic.ChangeUserRoleAsync(executingUserRole!, request);
@@ -37,7 +37,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Crear nuevo usuario
+        /// Crear usuario
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserResponse } from '../../../../../source/models/dtos/user/user-response';
+import { UserResponse } from '../../../../../source/models/dtos/user/common/user-response';
 import { PageData } from '../../../../../source/models/common/page-data';
 import { ListBase } from '../../../../../source/list-base';
 import { UserAdministrationService } from '../../../../../services/business/user/user-administration.service';
@@ -43,7 +43,7 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
     }
 
 	override onCreateClicked(optionSelected: INavigationOptionSelected): void {	
-		this.router.navigateByUrl(`/ua/options/users/new-user`);
+		this.router.navigateByUrl(`/ua/options/users/create-user`);
 	}
 
 	override onBackClicked(): void {
@@ -54,7 +54,7 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
 		this.router.navigateByUrl(`/home`);
 	}
 
-	onChangeUserRoleClicked(event: Event, id: string) {
-		this.router.navigateByUrl(`/ua/options/users/change-user-role/${id}`);
+	onChangeRoleClicked(event: Event, id: string) {
+		this.router.navigateByUrl(`/ua/options/users/change-role/${id}`);
 	}
 }

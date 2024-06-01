@@ -19,35 +19,19 @@ export class RequestService {
         this.token = localStorageService.getValue(general.LS_TOKEN)!;
     }
 
-    get<T>(query: string, secure: boolean = false) {
-		if (!secure) {
-			return this.http.get<T>(`${this.url}${query}`);
-		}
-
+    get<T>(query: string) {
 		return this.http.get<T>(`${this.url}${query}`);
 	}
 
-	post<T>(query: string, model: T, secure: boolean = false) {
-		if (!secure) {
-			return this.http.post(`${this.url}${query}`, model);
-		}
-
+	post<T>(query: string, model: T) {
 		return this.http.post(`${this.url}${query}`, model);
 	}
 
-	put<T>(query: string, model: T, secure: boolean = false) {
-		if (!secure) {
-			return this.http.put(`${this.url}${query}`, model);
-		}
-
+	put<T>(query: string, model: T) {
 		return this.http.put(`${this.url}${query}`, model);
 	}
 
-	delete(query: string, secure: boolean = false) {
-		if (!secure) {
-			return this.http.delete(`${this.url}${query}`);
-		}
-
+	delete(query: string) {
 		return this.http.delete(`${this.url}${query}`);
 	}
 }

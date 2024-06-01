@@ -45,7 +45,7 @@ namespace Server.Source.Logic.User
             };
         }
 
-        public async Task ChangeUserRoleAsync(string executingUserRole, UserChangeUserRoleRequest request)
+        public async Task ChangeUserRoleAsync(string executingUserRole, UserChangeRoleRequest request)
         {
             // TODO: validaciones sobre quien ejecuta, a quien se le va a asignar...
 

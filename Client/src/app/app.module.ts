@@ -27,8 +27,8 @@ import { PageSyncComponent } from './components/_shared/page/page-sync/page-sync
 import { PageQuickMenuComponent } from './components/_shared/page/page-quick-menu/page-quick-menu.component';
 import { ProcessingComponent } from './components/_shared/processing/processing.component';
 import { AuthInterceptorService } from './services/common/auth-interceptor.service';
-import { UaUsersChangeUserRoleComponent } from './components/user-admin/options/users/ua-users-change-user-role/ua-users-change-user-role.component';
-import { UaUsersUserEditorComponent } from './components/user-admin/options/users/ua-users-user-editor/ua-users-user-editor.component';
+import { UaUsersChangeRoleComponent } from './components/user-admin/options/users/ua-users-change-role/ua-users-change-role.component';
+import { UaUsersCreateUserComponent } from './components/user-admin/options/users/ua-users-create-user/ua-users-create-user.component';
 
 @NgModule({
 	declarations: [
@@ -45,7 +45,7 @@ import { UaUsersUserEditorComponent } from './components/user-admin/options/user
     	NavbarAnonComponent,
 		UaUsersComponent,
   		UaUsersListComponent,
-		UaUsersChangeUserRoleComponent,
+		UaUsersChangeRoleComponent,
 		PageNavigationComponent,
 		PageOrderComponent,
 		PagePaginationComponent,
@@ -53,7 +53,7 @@ import { UaUsersUserEditorComponent } from './components/user-admin/options/user
 		PageSyncComponent,
 		PageQuickMenuComponent,
 		ProcessingComponent,
-  UaUsersUserEditorComponent,
+		UaUsersCreateUserComponent,
 	],
 	imports: [
 		BrowserModule,

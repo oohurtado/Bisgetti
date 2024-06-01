@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserAccessService } from '../../../services/business/user/user-access.service';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
-import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request.model';
-import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response.model';
+import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request';
+import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response';
 import { Utils } from '../../../source/utils';
 
 @Component({

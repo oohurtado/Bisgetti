@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../../common/request.service';
-import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request.model';
-import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request.model';
-import { UserChangePasswordRequest } from '../../../source/models/dtos/user/user-change-password-request.model';
+import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request';
+import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request';
 
 @Injectable({
     providedIn: 'root'
@@ -21,9 +20,5 @@ export class UserAccessService {
 
 	login(model: UserLoginRequest) {
 		return this.requestService.post('/user/access/login', model);
-	}
-
-	changePassword(model: UserChangePasswordRequest) {
-		return this.requestService.put('/user/access/change-password', model, true);
 	}
 }
