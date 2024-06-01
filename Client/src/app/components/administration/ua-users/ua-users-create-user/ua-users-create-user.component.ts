@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBase } from '../../../../../source/form-base';
-import { UserAdministrationService } from '../../../../../services/business/user/user-administration.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../../../../../services/common/local-storage.service';
-import { UserValidatorService } from '../../../../../services/validators/user-validator.service';
-import { Tuple2 } from '../../../../../source/models/common/tuple';
-import { UserCreateUserRequest } from '../../../../../source/models/dtos/user/administrations/user-create-user-request';
-import { ListFactory } from '../../../../../source/factories/list-factory';
+import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
+import { LocalStorageService } from '../../../../services/common/local-storage.service';
+import { UserValidatorService } from '../../../../services/validators/user-validator.service';
+import { ListFactory } from '../../../../source/factories/list-factory';
+import { FormBase } from '../../../../source/form-base';
+import { Tuple2 } from '../../../../source/models/common/tuple';
+import { UserCreateUserRequest } from '../../../../source/models/dtos/user/administrations/user-create-user-request';
 
 @Component({
     selector: 'app-ua-users-create-user',
@@ -83,7 +83,7 @@ export class UaUsersCreateUserComponent extends FormBase implements OnInit {
 					this._error = errorResponse;
 				},
 				next: (val) => {
-					this.router.navigateByUrl('/ua/options/users');
+					this.router.navigateByUrl('/ua/users');
 				}
 			});
 	}
@@ -93,6 +93,6 @@ export class UaUsersCreateUserComponent extends FormBase implements OnInit {
 	}
 
 	onBackClicked() {
-		this.router.navigateByUrl('/ua/options/users');
+		this.router.navigateByUrl('/ua/users');
 	}
 }

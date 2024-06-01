@@ -16,7 +16,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
-        [HttpGet(template: "administration/options/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
+        [HttpGet(template: "administration/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
         public async Task<ActionResult> UserList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {
             var result = await _userAdminLogic.GetUserListByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
@@ -28,7 +28,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
-        [HttpPut(template: "administration/options/users/role")]
+        [HttpPut(template: "administration/users/role")]
         public async Task<ActionResult> ChangeRole([FromBody] UserChangeRoleRequest request)
         {
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
@@ -41,7 +41,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
-        [HttpPost(template: "administration/options/users")]
+        [HttpPost(template: "administration/users")]
         public async Task<ActionResult> CreateUser([FromBody] UserCreateUserRequest request)
         {
             await _userAdminLogic.CreateUserAsync(request);

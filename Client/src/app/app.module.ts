@@ -17,8 +17,6 @@ import { NavbarComponent } from './components/_shared/navbar/navbar/navbar.compo
 import { NavbarClientComponent } from './components/_shared/navbar/navbar-client/navbar-client.component';
 import { NavbarBossComponent } from './components/_shared/navbar/navbar-boss/navbar-boss.component';
 import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/navbar-anon.component';
-import { UaUsersComponent } from './components/user-admin/options/users/ua-users/ua-users.component';
-import { UaUsersListComponent } from './components/user-admin/options/users/ua-users-list/ua-users-list.component';
 import { PageNavigationComponent } from './components/_shared/page/page-navigation/page-navigation.component';
 import { PageOrderComponent } from './components/_shared/page/page-order/page-order.component';
 import { PagePaginationComponent } from './components/_shared/page/page-pagination/page-pagination.component';
@@ -27,8 +25,10 @@ import { PageSyncComponent } from './components/_shared/page/page-sync/page-sync
 import { PageQuickMenuComponent } from './components/_shared/page/page-quick-menu/page-quick-menu.component';
 import { ProcessingComponent } from './components/_shared/processing/processing.component';
 import { AuthInterceptorService } from './services/common/auth-interceptor.service';
-import { UaUsersChangeRoleComponent } from './components/user-admin/options/users/ua-users-change-role/ua-users-change-role.component';
-import { UaUsersCreateUserComponent } from './components/user-admin/options/users/ua-users-create-user/ua-users-create-user.component';
+import { UaUsersComponent } from './components/administration/ua-users/ua-users/ua-users.component';
+import { UaUsersListComponent } from './components/administration/ua-users/ua-users-list/ua-users-list.component';
+import { UaUsersChangeRoleComponent } from './components/administration/ua-users/ua-users-change-role/ua-users-change-role.component';
+import { UaUsersCreateUserComponent } from './components/administration/ua-users/ua-users-create-user/ua-users-create-user.component';
 
 @NgModule({
 	declarations: [

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserResponse } from '../../../../../source/models/dtos/user/common/user-response';
-import { PageData } from '../../../../../source/models/common/page-data';
-import { ListBase } from '../../../../../source/list-base';
-import { UserAdministrationService } from '../../../../../services/business/user/user-administration.service';
-import { ListFactory } from '../../../../../source/factories/list-factory';
-import { LocalStorageService } from '../../../../../services/common/local-storage.service';
 import { Router } from '@angular/router';
-import { INavigationOptionSelected } from '../../../../../source/models/interfaces/page.interface';
+import { UserResponse } from '../../../../source/models/dtos/user/common/user-response';
+import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
+import { LocalStorageService } from '../../../../services/common/local-storage.service';
+import { ListBase } from '../../../../source/list-base';
+import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 
 @Component({
     selector: 'app-ua-users-list',
@@ -43,7 +41,7 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
     }
 
 	override onCreateClicked(optionSelected: INavigationOptionSelected): void {	
-		this.router.navigateByUrl(`/ua/options/users/create-user`);
+		this.router.navigateByUrl(`/ua/users/create-user`);
 	}
 
 	override onBackClicked(): void {
@@ -55,6 +53,6 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
 	}
 
 	onChangeRoleClicked(event: Event, id: string) {
-		this.router.navigateByUrl(`/ua/options/users/change-role/${id}`);
+		this.router.navigateByUrl(`/ua/users/change-role/${id}`);
 	}
 }

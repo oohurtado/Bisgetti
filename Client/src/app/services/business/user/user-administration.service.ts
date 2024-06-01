@@ -13,7 +13,7 @@ export class UserAdministrationService {
     constructor(private requestService: RequestService) { }
 
     getByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
-		return this.requestService.get<PageData<UserResponse>>(`/user/administration/options/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
+		return this.requestService.get<PageData<UserResponse>>(`/user/administration/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
 	}
 
 	getByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<UserResponse>> {
@@ -31,10 +31,10 @@ export class UserAdministrationService {
 	}
 
 	createUser(model: UserCreateUserRequest) {
-		return this.requestService.post('/user/administration/options/users', model);
+		return this.requestService.post('/user/administration/users', model);
 	}
 
 	changeUserRole(model: UserChangeRoleRequest) {
-		return this.requestService.put('/user/administration/options/users/role', model);
+		return this.requestService.put('/user/administration/users/role', model);
 	}
 }
