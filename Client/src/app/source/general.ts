@@ -10,7 +10,7 @@ export const general = {
     LS_TOKEN: 'token',
 
     LS_ROLE_USER_ADMIN: 'user-admin',
-    LS_ROLE_USER_CLIENT: 'user-client',
+    LS_ROLE_USER_CUSTOMER: 'user-customer',
     LS_ROLE_USER_BOSS: 'user-boss',
 
 	LS_PAGE_SIZE: 'page-size',

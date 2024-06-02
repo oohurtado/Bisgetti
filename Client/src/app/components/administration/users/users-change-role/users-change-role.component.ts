@@ -49,7 +49,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
     setLists() {
         this._userRoles.push(new Tuple2("user-admin", "Administrador"));
         this._userRoles.push(new Tuple2("user-boss", "Jefe"));
-        this._userRoles.push(new Tuple2("user-client", "Cliente"));
+        this._userRoles.push(new Tuple2("user-customer", "Consumidor"));
     }
 
     override async setupFormAsync() {

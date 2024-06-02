@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 import { UserAccessService } from '../../../services/business/user/user-access.service';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
-import { cloneWith } from 'lodash';
 import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request';
 import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response';
 

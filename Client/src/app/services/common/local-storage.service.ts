@@ -56,8 +56,8 @@ export class LocalStorageService {
 		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_BOSS);
 	}
 
-	isUserClient() {
-		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_CLIENT);
+	isUserCustomer() {
+		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_CUSTOMER);
 	}
 
 	isUserInRole(role: string): boolean {

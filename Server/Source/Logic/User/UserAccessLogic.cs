@@ -53,7 +53,7 @@ namespace Server.Source.Logic.User
             }
 
             // asignamos role de inicio
-            var role = _configurationUtility.GetAdminEmails().Any(p => p == request.Email) ? EnumRole.UserAdmin.GetDescription() : EnumRole.UserClient.GetDescription();
+            var role = _configurationUtility.GetAdminEmails().Any(p => p == request.Email) ? EnumRole.UserAdmin.GetDescription() : EnumRole.UserCustomer.GetDescription();
             await _aspNetRepository.AddRoleToUserAsync(user, role);
 
             // creamos token

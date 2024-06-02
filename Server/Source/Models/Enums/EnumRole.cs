@@ -13,9 +13,9 @@ namespace Server.Source.Models.Enums
         [Role(Level = 2)]
         UserBoss,
 
-        [Description("user-client")]
+        [Description("user-customer")]
         [Role(Level = 3)]
-        UserClient
+        UserCustomer
     }
 
     public class RoleAttribute : Attribute

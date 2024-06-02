@@ -20,8 +20,8 @@ export class NavbarComponent {
         return this.localStorageService.isUserBoss()
     }
 
-    isUserClient() {
-        return this.localStorageService.isUserClient()
+    isUserCustomer() {
+        return this.localStorageService.isUserCustomer()
     }
 
     isUserAnon() {
