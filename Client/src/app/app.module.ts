@@ -25,10 +25,10 @@ import { PageSyncComponent } from './components/_shared/page/page-sync/page-sync
 import { PageQuickMenuComponent } from './components/_shared/page/page-quick-menu/page-quick-menu.component';
 import { ProcessingComponent } from './components/_shared/processing/processing.component';
 import { AuthInterceptorService } from './services/common/auth-interceptor.service';
-import { UaUsersComponent } from './components/administration/ua-users/ua-users/ua-users.component';
-import { UaUsersListComponent } from './components/administration/ua-users/ua-users-list/ua-users-list.component';
-import { UaUsersChangeRoleComponent } from './components/administration/ua-users/ua-users-change-role/ua-users-change-role.component';
-import { UaUsersCreateUserComponent } from './components/administration/ua-users/ua-users-create-user/ua-users-create-user.component';
+import { UsersChangeRoleComponent } from './components/administration/users/users-change-role/users-change-role.component';
+import { UsersCreateUserComponent } from './components/administration/users/users-create-user/users-create-user.component';
+import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
+import { UsersComponent } from './components/administration/users/users/users.component';
 
 @NgModule({
 	declarations: [
@@ -43,9 +43,9 @@ import { UaUsersCreateUserComponent } from './components/administration/ua-users
     	NavbarClientComponent,
     	NavbarBossComponent,
     	NavbarAnonComponent,
-		UaUsersComponent,
-  		UaUsersListComponent,
-		UaUsersChangeRoleComponent,
+		UsersComponent,
+  		UsersListComponent,
+		UsersChangeRoleComponent,
 		PageNavigationComponent,
 		PageOrderComponent,
 		PagePaginationComponent,
@@ -53,7 +53,7 @@ import { UaUsersCreateUserComponent } from './components/administration/ua-users
 		PageSyncComponent,
 		PageQuickMenuComponent,
 		ProcessingComponent,
-		UaUsersCreateUserComponent,
+		UsersCreateUserComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -8,11 +8,11 @@ import { UserAdministrationService } from '../../../../services/business/user/us
 import { UserChangeRoleRequest } from '../../../../source/models/dtos/user/administrations/user-change-role-request';
 
 @Component({
-    selector: 'app-ua-users-change-user-role',
-    templateUrl: './ua-users-change-role.component.html',
-    styleUrl: './ua-users-change-role.component.css'
+    selector: 'app-users-change-user-role',
+    templateUrl: './users-change-role.component.html',
+    styleUrl: './users-change-role.component.css'
 })
-export class UaUsersChangeRoleComponent extends FormBase implements OnInit {
+export class UsersChangeRoleComponent extends FormBase implements OnInit {
     
     _userId!: string;
     _userEmail!: string;
@@ -84,7 +84,7 @@ export class UaUsersChangeRoleComponent extends FormBase implements OnInit {
 					this._error = errorResponse;
 				},
 				next: (val) => {
-					this.router.navigateByUrl('/ua/users');
+					this.router.navigateByUrl('/administration/users');
 				}
 			});
     }
@@ -94,6 +94,6 @@ export class UaUsersChangeRoleComponent extends FormBase implements OnInit {
 	}
 
 	onBackClicked() {
-		this.router.navigateByUrl('/ua/users');
+		this.router.navigateByUrl('/administration/users');
 	}
 }

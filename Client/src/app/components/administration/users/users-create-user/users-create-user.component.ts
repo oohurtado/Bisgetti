@@ -10,11 +10,11 @@ import { Tuple2 } from '../../../../source/models/common/tuple';
 import { UserCreateUserRequest } from '../../../../source/models/dtos/user/administrations/user-create-user-request';
 
 @Component({
-    selector: 'app-ua-users-create-user',
-    templateUrl: './ua-users-create-user.component.html',
-    styleUrl: './ua-users-create-user.component.css'
+    selector: 'app-users-create-user',
+    templateUrl: './users-create-user.component.html',
+    styleUrl: './users-create-user.component.css'
 })
-export class UaUsersCreateUserComponent extends FormBase implements OnInit {
+export class UsersCreateUserComponent extends FormBase implements OnInit {
     
     _userRoles: Tuple2<string,string>[] = [];
 	_navigation = ListFactory.getNavigation('home-true,hack-true');
@@ -81,7 +81,7 @@ export class UaUsersCreateUserComponent extends FormBase implements OnInit {
 					this._error = errorResponse;
 				},
 				next: (val) => {
-					this.router.navigateByUrl('/ua/users');
+					this.router.navigateByUrl('/administration/users');
 				}
 			});
 	}
@@ -91,6 +91,6 @@ export class UaUsersCreateUserComponent extends FormBase implements OnInit {
 	}
 
 	onBackClicked() {
-		this.router.navigateByUrl('/ua/users');
+		this.router.navigateByUrl('/administration/users');
 	}
 }

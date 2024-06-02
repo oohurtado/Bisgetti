@@ -7,11 +7,11 @@ import { ListBase } from '../../../../source/list-base';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 
 @Component({
-    selector: 'app-ua-users-list',
-    templateUrl: './ua-users-list.component.html',
-    styleUrl: './ua-users-list.component.css'
+    selector: 'app-users-list',
+    templateUrl: './users-list.component.html',
+    styleUrl: './users-list.component.css'
 })
-export class UaUsersListComponent extends ListBase<UserResponse> implements OnInit {
+export class UsersListComponent extends ListBase<UserResponse> implements OnInit {
     
     constructor(
         private userAdministrationService: UserAdministrationService,
@@ -41,7 +41,7 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
     }
 
 	override onCreateClicked(optionSelected: INavigationOptionSelected): void {	
-		this.router.navigateByUrl(`/ua/users/create-user`);
+		this.router.navigateByUrl(`/administration/users/create-user`);
 	}
 
 	override onBackClicked(): void {
@@ -53,6 +53,6 @@ export class UaUsersListComponent extends ListBase<UserResponse> implements OnIn
 	}
 
 	onChangeRoleClicked(event: Event, user: UserResponse) {
-		this.router.navigateByUrl(`/ua/users/change-role/${user.id}/${user.email}/${user.userRole}`);
+		this.router.navigateByUrl(`/administration/users/change-role/${user.id}/${user.email}/${user.userRole}`);
 	}
 }

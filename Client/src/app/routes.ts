@@ -5,21 +5,21 @@ import { SignupComponent } from "./components/access/signup/signup.component";
 import { authGuard } from "./guards/auth.guard";
 import { HomeComponent } from "./components/home/home.component";
 import { userAdminGuard } from "./guards/user-admin.guard";
-import { UaUsersComponent } from "./components/administration/ua-users/ua-users/ua-users.component";
-import { UaUsersListComponent } from "./components/administration/ua-users/ua-users-list/ua-users-list.component";
-import { UaUsersCreateUserComponent } from "./components/administration/ua-users/ua-users-create-user/ua-users-create-user.component";
-import { UaUsersChangeRoleComponent } from "./components/administration/ua-users/ua-users-change-role/ua-users-change-role.component";
+import { UsersChangeRoleComponent } from "./components/administration/users/users-change-role/users-change-role.component";
+import { UsersCreateUserComponent } from "./components/administration/users/users-create-user/users-create-user.component";
+import { UsersListComponent } from "./components/administration/users/users-list/users-list.component";
+import { UsersComponent } from "./components/administration/users/users/users.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'access/login', component: LoginComponent, canActivate: [anonGuard] },
     { path: 'access/signup', component: SignupComponent, canActivate: [anonGuard] },
     { 
-        path: 'ua/users', component:  UaUsersComponent,
+        path: 'administration/users', component:  UsersComponent,
         children:[
-            { path: 'list', component: UaUsersListComponent, canActivate: [authGuard, userAdminGuard] },
-            { path: 'create-user', component: UaUsersCreateUserComponent, canActivate: [authGuard, userAdminGuard] },
-            { path: 'change-role/:userId/:userEmail/:userRole', component: UaUsersChangeRoleComponent, canActivate: [authGuard, userAdminGuard] },
+            { path: 'list', component: UsersListComponent, canActivate: [authGuard, userAdminGuard] },
+            { path: 'create-user', component: UsersCreateUserComponent, canActivate: [authGuard, userAdminGuard] },
+            { path: 'change-role/:userId/:userEmail/:userRole', component: UsersChangeRoleComponent, canActivate: [authGuard, userAdminGuard] },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },
