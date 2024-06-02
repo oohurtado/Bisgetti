@@ -6,6 +6,8 @@ import { ListFactory } from '../../../../source/factories/list-factory';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
 import { UserChangeRoleRequest } from '../../../../source/models/dtos/user/administrations/user-change-role-request';
+import { EnumRole } from '../../../../source/models/enums/role.enum';
+import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 
 @Component({
     selector: 'app-users-change-user-role',
@@ -47,9 +49,10 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
     }
 
     setLists() {
-        this._userRoles.push(new Tuple2("user-admin", "Administrador"));
-        this._userRoles.push(new Tuple2("user-boss", "Jefe"));
-        this._userRoles.push(new Tuple2("user-customer", "Consumidor"));
+        let pipe = new RoleStrPipe();
+        this._userRoles.push(new Tuple2(EnumRole.UserAdmin, pipe.transform(EnumRole.UserAdmin)));
+        this._userRoles.push(new Tuple2(EnumRole.UserBoss, pipe.transform(EnumRole.UserBoss)));
+        this._userRoles.push(new Tuple2(EnumRole.UserCustomer, pipe.transform(EnumRole.UserCustomer)));
     }
 
     override async setupFormAsync() {

@@ -14,7 +14,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NavbarAdminComponent } from './components/_shared/navbar/navbar-admin/navbar-admin.component';
 import { NavbarComponent } from './components/_shared/navbar/navbar/navbar.component';
-import { NavbarClientComponent } from './components/_shared/navbar/navbar-client/navbar-client.component';
+import { NavbarCustomerComponent } from './components/_shared/navbar/navbar-client/navbar-customer.component';
 import { NavbarBossComponent } from './components/_shared/navbar/navbar-boss/navbar-boss.component';
 import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/navbar-anon.component';
 import { PageNavigationComponent } from './components/_shared/page/page-navigation/page-navigation.component';
@@ -29,6 +29,7 @@ import { UsersChangeRoleComponent } from './components/administration/users/user
 import { UsersCreateUserComponent } from './components/administration/users/users-create-user/users-create-user.component';
 import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
 import { UsersComponent } from './components/administration/users/users/users.component';
+import { RoleStrPipe } from './pipes/role-str.pipe';
 
 @NgModule({
 	declarations: [
@@ -40,7 +41,7 @@ import { UsersComponent } from './components/administration/users/users/users.co
 		HomeComponent,
   		NavbarComponent,
   		NavbarAdminComponent,
-    	NavbarClientComponent,
+    	NavbarCustomerComponent,
     	NavbarBossComponent,
     	NavbarAnonComponent,
 		UsersComponent,
@@ -54,6 +55,7 @@ import { UsersComponent } from './components/administration/users/users/users.co
 		PageQuickMenuComponent,
 		ProcessingComponent,
 		UsersCreateUserComponent,
+  RoleStrPipe,  
 	],
 	imports: [
 		BrowserModule,

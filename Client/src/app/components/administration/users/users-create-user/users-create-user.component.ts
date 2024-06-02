@@ -9,6 +9,7 @@ import { FormBase } from '../../../../source/form-base';
 import { Tuple2 } from '../../../../source/models/common/tuple';
 import { UserCreateUserRequest } from '../../../../source/models/dtos/user/administrations/user-create-user-request';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
+import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 
 @Component({
     selector: 'app-users-create-user',
@@ -35,9 +36,10 @@ export class UsersCreateUserComponent extends FormBase implements OnInit {
 	}
 
     setLists() {
-        this._userRoles.push(new Tuple2(EnumRole.UserAdmin, "Administrador"));
-        this._userRoles.push(new Tuple2(EnumRole.UserBoss, "Jefe"));
-        this._userRoles.push(new Tuple2(EnumRole.UserCustomer, "Consumidor"));
+        let pipe = new RoleStrPipe();
+        this._userRoles.push(new Tuple2(EnumRole.UserAdmin, pipe.transform(EnumRole.UserAdmin)));
+        this._userRoles.push(new Tuple2(EnumRole.UserBoss, pipe.transform(EnumRole.UserBoss)));
+        this._userRoles.push(new Tuple2(EnumRole.UserCustomer, pipe.transform(EnumRole.UserCustomer)));
     }
 
 	override setupFormAsync(): void {

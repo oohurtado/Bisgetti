@@ -1,3 +1,5 @@
+import { EnumRole } from "./models/enums/role.enum";
+
 export const general = {
 	URL_API: 'https://localhost:7239/api',
 
@@ -9,9 +11,9 @@ export const general = {
 	
     LS_TOKEN: 'token',
 
-    LS_ROLE_USER_ADMIN: 'user-admin',
-    LS_ROLE_USER_CUSTOMER: 'user-customer',
-    LS_ROLE_USER_BOSS: 'user-boss',
+    LS_ROLE_USER_ADMIN: EnumRole.UserAdmin,
+    LS_ROLE_USER_CUSTOMER: EnumRole.UserCustomer,
+    LS_ROLE_USER_BOSS: EnumRole.UserBoss,
 
 	LS_PAGE_SIZE: 'page-size',
 }

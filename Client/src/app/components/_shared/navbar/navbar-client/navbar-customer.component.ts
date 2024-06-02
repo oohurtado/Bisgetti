@@ -5,11 +5,11 @@ import { SharedService } from '../../../../services/common/shared.service';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 
 @Component({
-    selector: 'app-navbar-client',
-    templateUrl: './navbar-client.component.html',
-    styleUrl: './navbar-client.component.css'
+    selector: 'app-navbar-customer',
+    templateUrl: './navbar-customer.component.html',
+    styleUrl: './navbar-customer.component.css'
 })
-export class NavbarClientComponent {
+export class NavbarCustomerComponent {
 
     constructor(
         private localStorageService: LocalStorageService,
