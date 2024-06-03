@@ -3,9 +3,7 @@ import { FormBase } from '../../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserCommonService } from '../../../../services/business/user/user-common.service';
-import { ListFactory } from '../../../../source/factories/list-factory';
 import { UserUpdatePersonalDataRequest } from '../../../../source/models/dtos/user/common/user-update-personal-data-request';
-import { INavigation } from '../../../../source/models/interfaces/page.interface';
 import { UserResponse } from '../../../../source/models/dtos/user/common/user-response';
 import { Utils } from '../../../../source/utils';
 

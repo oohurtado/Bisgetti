@@ -1,7 +1,7 @@
 import { LocalStorageService } from "../services/common/local-storage.service";
 import { ListFactory } from "./factories/list-factory";
 import { PageData } from "./models/common/page-data";
-import { INavigation, INavigationOptionSelected, IOrder, IOrderSelected, IPageSelected } from "./models/interfaces/page.interface";
+import { INavigationOptionSelected, IOrder, IOrderSelected, IPageSelected } from "./models/interfaces/page.interface";
 
 export abstract class ListBase<T> {
 
@@ -12,8 +12,7 @@ export abstract class ListBase<T> {
 		this.pageNumber = 1;
 		this.pageSize = localStorageService.getPageSize();	
 
-        this._pageOrder = ListFactory.getOrder(section);
-		this._pageNavigation = ListFactory.getNavigation(section);
+        this._pageOrder = ListFactory.getOrder(section);		
         this._pageOrderSelected = ListFactory.getOrderInit(this._pageOrder);
 	}
 
@@ -27,8 +26,7 @@ export abstract class ListBase<T> {
 	pageSelected!: IPageSelected;
 
     _pageOrder!: IOrder;
-	_pageOrderSelected!: IOrderSelected;
-    _pageNavigation!: INavigation;
+	_pageOrderSelected!: IOrderSelected;    
 	_pageNavigationOptionSelecter!: INavigationOptionSelected;
 
 	_error: string|null = null;

@@ -17,7 +17,6 @@ import { NavbarComponent } from './components/_shared/navbar/navbar/navbar.compo
 import { NavbarCustomerComponent } from './components/_shared/navbar/navbar-client/navbar-customer.component';
 import { NavbarBossComponent } from './components/_shared/navbar/navbar-boss/navbar-boss.component';
 import { NavbarAnonComponent } from './components/_shared/navbar/navbar-anon/navbar-anon.component';
-import { PageNavigationComponent } from './components/_shared/page/page-navigation/page-navigation.component';
 import { PageOrderComponent } from './components/_shared/page/page-order/page-order.component';
 import { PagePaginationComponent } from './components/_shared/page/page-pagination/page-pagination.component';
 import { PageSearchComponent } from './components/_shared/page/page-search/page-search.component';
@@ -48,7 +47,6 @@ import { PersonalDataComponent } from './components/common/user/personal-data/pe
 		UsersComponent,
   		UsersListComponent,
 		UsersChangeRoleComponent,
-		PageNavigationComponent,
 		PageOrderComponent,
 		PagePaginationComponent,
 		PageSearchComponent,

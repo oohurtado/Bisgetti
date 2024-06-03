@@ -2,12 +2,6 @@ export interface INavigationOptionSelected {
     data: string;
 }
 
-export interface INavigation {
-    options: IDropDownList[];
-    back: boolean;
-    home: boolean;
-}
-
 export interface IOrderSelected {
     data: string;
     isAscending: boolean;
