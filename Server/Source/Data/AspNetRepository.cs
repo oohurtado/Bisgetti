@@ -47,6 +47,11 @@ namespace Server.Source.Data
             return await _userManager.FindByEmailAsync(email);
         }
 
+        public async Task<UserEntity?> FindByIdAsync(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
+        }
+
         public async Task DeleteSystemRolesAsync(List<string> appRoles)
         {
             var databaseRoles = await _roleManager.Roles.ToListAsync();

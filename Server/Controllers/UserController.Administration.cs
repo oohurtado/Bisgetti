@@ -24,7 +24,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Cambio de Rol de usuario (admin,boss,customer)
+        /// Cambio de rol (admin,boss,customer)
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]

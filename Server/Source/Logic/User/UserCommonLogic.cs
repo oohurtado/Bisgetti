@@ -17,15 +17,15 @@ namespace Server.Source.Logic.User
             _aspNetRepository = aspNetRepository;
         }
 
-        public async Task<UserUpdatePersonalDataResponse> GetPersonalDataAsync(string? email)
+        public async Task<UserResponse> GetPersonalDataAsync(string? userId)
         {
-            var user = await _aspNetRepository.FindByEmailAsync(email!);
+            var user = await _aspNetRepository.FindByIdAsync(userId!);
             if (user == null)
             {
                 throw new EatSomeException(EnumResponseError.UserNotFound);
             }
 
-            return new UserUpdatePersonalDataResponse()
+            return new UserResponse()
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -33,9 +33,9 @@ namespace Server.Source.Logic.User
             };
         }
 
-        public async Task UpdatePersonalDataAsync(string? email, UserUpdatePersonalDataRequest request)
+        public async Task UpdatePersonalDataAsync(string? userId, UserUpdatePersonalDataRequest request)
         {
-            var user = await _aspNetRepository.FindByEmailAsync(email!);
+            var user = await _aspNetRepository.FindByIdAsync(userId!);
             if (user == null)
             {
                 throw new EatSomeException(EnumResponseError.UserNotFound);

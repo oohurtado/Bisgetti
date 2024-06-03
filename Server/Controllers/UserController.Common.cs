@@ -17,10 +17,13 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]        
         [HttpGet(template: "common/personal-data")]
-        public async Task<ActionResult> GetPersonalData()
+        public async Task<ActionResult> GetPersonalData(string userId = null!)
         {
-            var email = User.FindFirstValue(ClaimTypes.Email!);
-            var result = await _userCommonLogic.GetPersonalDataAsync(email);
+            if (userId == null)
+            {
+                userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            }
+            var result = await _userCommonLogic.GetPersonalDataAsync(userId);
             return Ok(result);
         }
 
@@ -29,10 +32,13 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "common/personal-data")]
-        public async Task<ActionResult> UpdatePersonalData([FromBody] UserUpdatePersonalDataRequest request)
+        public async Task<ActionResult> UpdatePersonalData([FromBody] UserUpdatePersonalDataRequest request, string userId = null!)
         {
-            var email = User.FindFirstValue(ClaimTypes.Email!);
-            await _userCommonLogic.UpdatePersonalDataAsync(email, request);
+            if (userId == null)
+            {
+                userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            }
+            await _userCommonLogic.UpdatePersonalDataAsync(userId, request);
             return Ok();
         }
 

@@ -12,7 +12,7 @@ namespace Server.Source.Models.DTOs.User.Administration
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]
         public string Email { get; set; } = null!;
 
-        [Display(Name = "Rol de usuario")]
+        [Display(Name = "Rol")]
         [Required(ErrorMessage = "Campo requerido")]
         public string Role { get; set; } = null!;
     }

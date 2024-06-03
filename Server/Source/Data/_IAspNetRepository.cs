@@ -22,6 +22,11 @@ namespace Server.Source.Data
         Task<UserEntity?> FindByEmailAsync(string email);
 
         /// <summary>
+        /// Busca UserEntity por correo electronico
+        /// </summary>
+        Task<UserEntity?> FindByIdAsync(string id);
+
+        /// <summary>
         /// Crea usuario
         /// </summary>
         Task<IdentityResult> CreateUserAsync(UserEntity user, string password);

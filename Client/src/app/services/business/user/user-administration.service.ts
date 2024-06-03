@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { RequestService } from '../../common/request.service';
 import { UserResponse } from '../../../source/models/dtos/user/common/user-response';
 import { PageData } from '../../../source/models/common/page-data';
-import { UserCreateUserRequest } from '../../../source/models/dtos/user/administrations/user-create-user-request';
-import { UserChangeRoleRequest } from '../../../source/models/dtos/user/administrations/user-change-role-request';
+import { UserCreateUserRequest } from '../../../source/models/dtos/user/administration/user-create-user-request';
+import { UserChangeRoleRequest } from '../../../source/models/dtos/user/administration/user-change-role-request';
 
 @Injectable({
     providedIn: 'root'
