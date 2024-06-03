@@ -3,7 +3,7 @@
 		<h3>Listado de usuarios</h3>
 	</div>
 	<div class="col text-end">   
-		<app-processing [text]="'Procesando...'" *ngIf="_isProcessing"></app-processing>     
+		<app-processing [text]="'Procesando...'" *ngIf="_isProcessing"></app-processing>
 	</div>
 </div>
 
@@ -35,6 +35,15 @@
 					No hay datos para mostrar
 				</td>
 			</tr>
+			<ng-container *ngIf="_error !== null">
+				<tr>
+					<td colspan="6">
+						<div  class="alert alert-danger ml-4 mr-4" role="alert">
+							{{ _error }}
+						</div>
+					</td>
+				</tr>	
+			</ng-container>
 			<tr *ngFor="let item of _pageData?.data">
 				<td style="white-space:nowrap;">
 					<div class="dropdown">
@@ -42,6 +51,7 @@
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 							<li><a class="dropdown-item cursor-pointer" (click)="onChangeRoleClicked($event, item)">Cambiar rol</a></li>
+							<li><a class="dropdown-item cursor-pointer" (click)="onUpdatePersonalDataClicked($event, item)">Actualizar datos personales</a></li>
 						</ul>
 					</div>
 				</td>

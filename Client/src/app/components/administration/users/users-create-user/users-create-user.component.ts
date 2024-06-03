@@ -19,7 +19,6 @@ import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 export class UsersCreateUserComponent extends FormBase implements OnInit {
     
     _userRoles: Tuple2<string,string>[] = [];
-	_navigation = ListFactory.getNavigation('home-true,hack-true');
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -32,7 +31,7 @@ export class UsersCreateUserComponent extends FormBase implements OnInit {
 
 	async ngOnInit() {
         this.setLists();
-		this.setupFormAsync();
+		await this.setupFormAsync();
 	}
 
     setLists() {
@@ -42,8 +41,8 @@ export class UsersCreateUserComponent extends FormBase implements OnInit {
         this._userRoles.push(new Tuple2(EnumRole.UserCustomer, pipe.transform(EnumRole.UserCustomer)));
     }
 
-	override setupFormAsync(): void {
-		this.setupForm();
+	override async setupFormAsync() {
+		await this.setupForm();
 	}
 
 	setupForm() {
@@ -87,13 +86,5 @@ export class UsersCreateUserComponent extends FormBase implements OnInit {
 					this.router.navigateByUrl('/administration/users');
 				}
 			});
-	}
-
-	onHomeClicked() {
-		this.router.navigateByUrl('/home');
-	}
-
-	onBackClicked() {
-		this.router.navigateByUrl('/administration/users');
 	}
 }

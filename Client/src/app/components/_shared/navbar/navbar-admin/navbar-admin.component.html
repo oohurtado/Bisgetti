@@ -24,7 +24,7 @@
                         Mi cuenta <b>[admin]</b>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Mis datos personales</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['user/personal-data']">Mis datos personales</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#" (click)="onLogoutClicked()">Cerrar sesión</a></li>
                     </ul>

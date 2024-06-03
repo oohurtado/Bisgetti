@@ -3,9 +3,9 @@ import { FormGroup } from "@angular/forms";
 export abstract class FormBase {
 
     _myForm!: FormGroup;
-    _error!: string;
     _isProcessing!: boolean;
     _isLoading!: boolean;
+    _error: string|null = null;
     
     constructor() {
         this._error = null!;     

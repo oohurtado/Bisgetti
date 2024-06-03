@@ -21,7 +21,6 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
     _userRole!: string;
 
     _userRoles: Tuple2<string,string>[] = [];
-	_navigation = ListFactory.getNavigation('home-true,hack-true');
     
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -33,18 +32,16 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
     }
 
     async ngOnInit() {
-        this.setParameters();
+        this.setUrlParameters();
         this.setLists();
         await this.setupFormAsync();
     }
 
-    setParameters() {
+    setUrlParameters() {
         this.activatedRoute.params.subscribe(async params => {			
 			this._userId = params['userId'];
             this._userEmail = params['userEmail'];
             this._userRole = params['userRole'];
-
-            console.log(this._userId,this._userEmail,this._userRole)
 		});	
     }
 
@@ -82,21 +79,13 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
 				complete: () => {
 					this._isProcessing = false;
 				},
-				error: (errorResponse : string) => {
+				error: (e : string) => {
 					this._isProcessing = false;
-					this._error = errorResponse;
+					this._error = e;
 				},
 				next: (val) => {
 					this.router.navigateByUrl('/administration/users');
 				}
 			});
     }
-
-    onHomeClicked() {
-		this.router.navigateByUrl('/home');
-	}
-
-	onBackClicked() {
-		this.router.navigateByUrl('/administration/users');
-	}
 }

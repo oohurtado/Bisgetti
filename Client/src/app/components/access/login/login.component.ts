@@ -25,10 +25,10 @@ export class LoginComponent extends FormBase implements OnInit {
     }
 
 	async ngOnInit() {
-		this.setupFormAsync();
+		await this.setupFormAsync();
 	}
 
-	override setupFormAsync(): void {
+	override async setupFormAsync() {
 		this.setupForm();
 	}
 

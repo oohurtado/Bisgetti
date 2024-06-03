@@ -1,12 +1,18 @@
 <div class="mt-2 mb-2 mx-auto" style="width: 400px;">
     <div class="card">
         <div class="card-header">
-            Crear usuario
+            Mis datos personales
         </div>
         <div class="card-body">
-            <h5 class="card-title">Crea una cuenta a continuación</h5>
+            <app-processing [text]="'Cargando...'" *ngIf="_isLoading"></app-processing>
             <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
                 <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <p>
+                            <strong>Correo electrónico</strong><br>
+                            {{ _user.email }}
+                        </p>
+                    </div>                       
                     <div class="col-md-6 mt-3">
                         <div class="form-floating">
                             <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="Nombre(s)">
@@ -31,37 +37,10 @@
                         <span *ngIf="hasError('phoneNumber', 'required')" class="text-danger">Este campo es requerido</span>
                         <span *ngIf="hasError('phoneNumber', 'minlength') || hasError('phoneNumber', 'maxlength')" class="text-danger">Este campo debe contener 10 caracteres</span>
                     </div> 
-                    <div class="col-md-12 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="email" type="email" class="form-control" id="email" placeholder="Correo electrónico">
-                            <label for="email">Correo electrónico</label>
-                        </div>
-                        <span *ngIf="hasError('email', 'emailInUse')" class="text-danger">El correo electrónico se encuentra en uso</span>
-                        <span *ngIf="hasError('email', 'email') || hasError('email', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('email', 'maxlength') || hasError('email', 'minlength')" class="text-danger">Este campo debe contener entre 3 y 100 caracteres</span>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="password" type="text" class="form-control" id="password" placeholder="Contraseña">
-                            <label for="password">Contraseña</label>
-                        </div>
-                        <span *ngIf="hasError('password', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('password', 'minlength') || hasError('password', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 100 caracteres</span>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div class="form-floating">
-                            <select class="form-select" formControlName="userRole" id="userRole" aria-label="Floating label select example">
-                              <option [ngValue]="null" disabled selected>Selecciona una opción</option>
-                              <option *ngFor="let item of _userRoles" [value]="item.param1">{{ item.param2 }}</option>
-                            </select>
-                            <label for="floatingSelect">Rol</label>
-                        </div>
-                        <span *ngIf="hasError('userRole', 'required')" class="text-danger">Este campo es requerido</span>
-                    </div>                    
                     <div class="col-12 mt-3 mb-3">
                         <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
                             <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
-                            <span *ngIf="!_isProcessing"><i class="fas fa-paper-plane"></i>&nbsp;&nbsp;Crear cuenta</span>
+                            <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
                         </button>
                     </div>
                     <ng-container *ngIf="_error !== null">
@@ -76,4 +55,3 @@
         </div>
     </div>
 </div>
-

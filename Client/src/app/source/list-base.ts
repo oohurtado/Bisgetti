@@ -31,13 +31,17 @@ export abstract class ListBase<T> {
     _pageNavigation!: INavigation;
 	_pageNavigationOptionSelecter!: INavigationOptionSelected;
 
+	_error: string|null = null;
+	
     async onSyncClicked()  {
+		this._error = null;
 		this.pageNumber = 1;
 		await this.getDataAsync();
 	}
 
     async onOrderClicked(orderSelected: IOrderSelected)
 	{	
+		this._error = null;
 		this._pageOrderSelected = orderSelected;
 		this.pageNumber = 1;
 		await this.getDataAsync();	
@@ -48,7 +52,8 @@ export abstract class ListBase<T> {
 	abstract onBackClicked(): void;
 	abstract onHomeClicked(): void;
 
-	updatePage(pageData: PageData<T>) {		
+	updatePage(pageData: PageData<T>) {	
+		this._error = null;	
 		let pageFrom = (this.pageNumber * this.pageSize) - this.pageSize + 1;
 		let pageTo = pageFrom + this._pageData.data.length - 1;
 		let pageTotal = pageData.grandTotal;
@@ -62,6 +67,7 @@ export abstract class ListBase<T> {
 	}
 
 	async onPageOptionClicked(option: string) {
+		this._error = null;
 		let lastPage = Math.ceil(this._pageData.grandTotal / this.pageSize);
 
 		switch (option) {
@@ -87,6 +93,7 @@ export abstract class ListBase<T> {
 	}
 
 	async onPageSizeClicked(pageSize: number) {
+		this._error = null;
 		this.pageNumber = 1;
 		this.pageSize = pageSize;
 		await this.getDataAsync();

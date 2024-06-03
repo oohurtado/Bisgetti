@@ -10,16 +10,14 @@ export class UserCommonService {
 
     constructor(private requestService: RequestService) { }
 
-    getPersonalData(userId: string = null!) {
-        if (userId === null) {
-            return this.requestService.get<UserResponse>(`/user/common/personal-data`);
-        }
-        else {
-            return this.requestService.get<UserResponse>(`/user/common/personal-data?userId=${userId}`);
-        }
+    getPersonalData(userId: string|null) {
+		if (userId === null) {
+			userId = '';
+		}
+		return this.requestService.get<UserResponse>(`/user/common/personal-data?userId=${userId}`);
     }
 
-    getPersonalDataAsync(userId: string = null!) : Promise<UserResponse> {
+    getPersonalDataAsync(userId: string|null) : Promise<UserResponse> {
 		return new Promise((resolve, reject) => {
 			this.getPersonalData(userId)
 			.subscribe({
@@ -33,7 +31,10 @@ export class UserCommonService {
 		});
 	}
 
-    changeRole(model: UserUpdatePersonalDataRequest) {
-		return this.requestService.put('/user/common/personal-data', model);
+    updatePersonalData(model: UserUpdatePersonalDataRequest, userId: string|null) {
+		if (userId === null) {
+			userId = '';
+		}
+		return this.requestService.put(`/user/common/personal-data?userId=${userId}`, model);
 	}
 }

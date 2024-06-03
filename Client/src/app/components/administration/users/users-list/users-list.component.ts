@@ -5,6 +5,7 @@ import { UserAdministrationService } from '../../../../services/business/user/us
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { ListBase } from '../../../../source/list-base';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
+import { Utils } from '../../../../source/utils';
 
 @Component({
     selector: 'app-users-list',
@@ -12,7 +13,7 @@ import { INavigationOptionSelected } from '../../../../source/models/interfaces/
     styleUrl: './users-list.component.css'
 })
 export class UsersListComponent extends ListBase<UserResponse> implements OnInit {
-    
+   
     constructor(
         private userAdministrationService: UserAdministrationService,
 		private router: Router,
@@ -26,6 +27,7 @@ export class UsersListComponent extends ListBase<UserResponse> implements OnInit
 	}
 
     override async getDataAsync() {
+		this._error = null;
 		this._isProcessing = true;		
 		await this.userAdministrationService
 			.getByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
@@ -35,7 +37,7 @@ export class UsersListComponent extends ListBase<UserResponse> implements OnInit
 				this.updatePage(p);
 			})
 			.catch(e => {
-				// this.errors = Utils.getErrorsResponse(e);	
+				this._error = Utils.getErrorsResponse(e);	
 			});
 		this._isProcessing = false;
     }
@@ -54,5 +56,9 @@ export class UsersListComponent extends ListBase<UserResponse> implements OnInit
 
 	onChangeRoleClicked(event: Event, user: UserResponse) {
 		this.router.navigateByUrl(`/administration/users/change-role/${user.id}/${user.email}/${user.userRole}`);
+	}
+
+	onUpdatePersonalDataClicked($event: MouseEvent,user: UserResponse) {
+		this.router.navigateByUrl(`user/personal-data/${user.id}`);
 	}
 }

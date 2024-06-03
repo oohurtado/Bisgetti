@@ -30,6 +30,7 @@ import { UsersCreateUserComponent } from './components/administration/users/user
 import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
 import { UsersComponent } from './components/administration/users/users/users.component';
 import { RoleStrPipe } from './pipes/role-str.pipe';
+import { PersonalDataComponent } from './components/common/user/personal-data/personal-data.component';
 
 @NgModule({
 	declarations: [
@@ -55,7 +56,8 @@ import { RoleStrPipe } from './pipes/role-str.pipe';
 		PageQuickMenuComponent,
 		ProcessingComponent,
 		UsersCreateUserComponent,
-  RoleStrPipe,  
+  RoleStrPipe,
+  PersonalDataComponent,  
 	],
 	imports: [
 		BrowserModule,

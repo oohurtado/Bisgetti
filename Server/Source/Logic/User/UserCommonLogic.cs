@@ -30,6 +30,7 @@ namespace Server.Source.Logic.User
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
             };
         }
 

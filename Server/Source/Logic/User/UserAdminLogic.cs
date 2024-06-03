@@ -47,7 +47,8 @@ namespace Server.Source.Logic.User
 
         public async Task ChangeUserRoleAsync(string executingUserRole, UserChangeRoleRequest request)
         {
-            // TODO: validaciones sobre quien ejecuta, a quien se le va a asignar...            
+            // TODO: validaciones sobre quien ejecuta, a quien se le va a asignar...
+            // TODO: enviar correo de cambio de rol
 
             // buscar user del correo a cambiar su rol
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);

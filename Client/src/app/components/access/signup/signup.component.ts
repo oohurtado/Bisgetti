@@ -26,11 +26,11 @@ export class SignupComponent extends FormBase implements OnInit {
 	}
 
 	async ngOnInit() {
-		this.setupFormAsync();
+		await this.setupFormAsync();
 	}
 
-	override setupFormAsync(): void {
-		this.setupForm();
+	override async setupFormAsync() {
+		await this.setupForm();
 	}
 
 	setupForm() {

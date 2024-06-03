@@ -9,6 +9,7 @@ import { UsersChangeRoleComponent } from "./components/administration/users/user
 import { UsersCreateUserComponent } from "./components/administration/users/users-create-user/users-create-user.component";
 import { UsersListComponent } from "./components/administration/users/users-list/users-list.component";
 import { UsersComponent } from "./components/administration/users/users/users.component";
+import { PersonalDataComponent } from "./components/common/user/personal-data/personal-data.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -23,6 +24,8 @@ const ROUTES: Routes = [
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },
+    { path: 'user/personal-data', component: PersonalDataComponent, canActivate: [authGuard] },
+    { path: 'user/personal-data/:userId', component: PersonalDataComponent, canActivate: [authGuard, userAdminGuard] },
 
     { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
