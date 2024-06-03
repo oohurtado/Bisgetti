@@ -4,6 +4,7 @@
             Mis datos personales
         </div>
         <div class="card-body">
+            <h5 class="card-title">Manten tus datos actualizados</h5>
             <app-processing [text]="'Cargando...'" *ngIf="_isLoading"></app-processing>
             <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
                 <div class="row">
