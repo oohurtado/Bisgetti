@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import { registerLocaleData } from '@angular/common';
+import locale_es_mx from '@angular/common/locales/es-MX';
+registerLocaleData(locale_es_mx, 'es-MX');
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -72,11 +76,16 @@ import { PersonalDataComponent } from './components/common/user/personal-data/pe
 		}),
 		AppRouting
 	],
-	providers: [{
-		provide: HTTP_INTERCEPTORS,
-		useClass: AuthInterceptorService,
-		multi: true
-	}],
+	providers: [
+		{ 
+			provide: LOCALE_ID, 
+			useValue: 'es-MX' },
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptorService,
+			multi: true
+		}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
