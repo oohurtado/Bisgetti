@@ -3,12 +3,12 @@ using Server.Source.Models.Enums;
 
 namespace Server.Source.Exceptions
 {
-    public class EatSomeException : Exception
+    public class EatSomeNotFoundErrorException : Exception
     {
-        public EatSomeException(EnumResponseError enumResponseError)
+        public EatSomeNotFoundErrorException(EnumResponseError enumResponseError)
             : base(enumResponseError.GetDescription())
         {
-            
+
         }
-    }
+    }   
 }

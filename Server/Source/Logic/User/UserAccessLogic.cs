@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;
-using Server.Source.Data;
+using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs;
@@ -32,7 +32,7 @@ namespace Server.Source.Logic.User
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
             if (user != null)
             {
-                throw new EatSomeException(EnumResponseError.UserEmailAlreadyExists);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserEmailAlreadyExists);
             }
 
             // construimos usuario con parametros de entrada y registramos usuario en base de datos         
@@ -49,7 +49,7 @@ namespace Server.Source.Logic.User
             // si no es posible registrar mandamos error
             if (!result.Succeeded)
             {
-                throw new EatSomeException(EnumResponseError.InternalServerError);
+                throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
             }
 
             // asignamos role de inicio
@@ -71,7 +71,7 @@ namespace Server.Source.Logic.User
             var result = await _aspNetRepository.LoginAsync(request.Email, request.Password);
             if (!result.Succeeded)
             {
-                throw new EatSomeException(EnumResponseError.UserWrongCredentials);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserWrongCredentials);
             }
 
             // obtenemos roles del usuario

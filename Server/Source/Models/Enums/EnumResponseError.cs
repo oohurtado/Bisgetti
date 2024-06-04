@@ -8,6 +8,10 @@ namespace Server.Source.Models.Enums
         [Description("Error interno del servidor. Vuelva a intentarlo más tarde.")]
         InternalServerError,
 
+        /// <summary>
+        /// usuarios
+        /// </summary>
+
         [Description("El correo electrónico del usuario ya existe")]
         UserEmailAlreadyExists,
 
@@ -26,7 +30,14 @@ namespace Server.Source.Models.Enums
         [Description("Error al actualizar los datos personales")]
         UserErrorUpdaingPersonalData,
 
+        /// <summary>
+        /// paginacion
+        /// </summary>
+
         [Description("No se encontó la columna de ordenamiento")]
         SortColumnKeyNotFound,
+
+        [Description("Dirección no encontrada")]
+        AddressNotFound,
     }
 }

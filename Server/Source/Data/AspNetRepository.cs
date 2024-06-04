@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.Entities;
@@ -85,7 +86,7 @@ namespace Server.Source.Data
 
             if (!result.Succeeded)
             {
-                throw new EatSomeException(EnumResponseError.UserErrorChangingPassword);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorChangingPassword);
             }
 
         }
@@ -110,7 +111,6 @@ namespace Server.Source.Data
             grandTotal = iq.Count();
 
             // ordenamiento
-            Expression<Func<UserEntity, bool>> expOrder = p => true;
             if (sortColumn == "first-name")
             {
                 if (sortOrder == "asc")
@@ -146,7 +146,7 @@ namespace Server.Source.Data
             }
             else
             {
-                throw new EatSomeException(EnumResponseError.SortColumnKeyNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.SortColumnKeyNotFound);
             }
 
             // paginacion
@@ -167,7 +167,7 @@ namespace Server.Source.Data
 
             if (string.IsNullOrEmpty(currentUserRole))
             {
-                throw new EatSomeException(EnumResponseError.UserWithoutUserRole);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserWithoutUserRole);
             }
 
             return currentUserRole!;
@@ -185,7 +185,7 @@ namespace Server.Source.Data
 
             if (!result.Succeeded)
             {
-                throw new EatSomeException(EnumResponseError.UserErrorUpdaingPersonalData);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorUpdaingPersonalData);
             }
         }
     }

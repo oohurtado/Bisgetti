@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Server.Source.Data;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs.Common;
@@ -14,26 +15,28 @@ namespace Server.Source.Logic.User
     {
         private readonly IAspNetRepository _aspNetRepository;
 
-        public UserAdministrationLogic(IAspNetRepository aspNetRepository)
+        public UserAdministrationLogic(
+            IAspNetRepository aspNetRepository            
+            )
         {
             _aspNetRepository = aspNetRepository;
         }
 
         public async Task<PageResponse<UserResponse>> GetUserListByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
-            var users = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();         
+            var data = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();         
 
-            var userList = new List<UserResponse>();
-            foreach (var user in users)
+            var result = new List<UserResponse>();
+            foreach (var item in data)
             {
-                var roles = await _aspNetRepository.GetRolesFromUserAsync(user);
-                userList.Add(new UserResponse()
+                var roles = await _aspNetRepository.GetRolesFromUserAsync(item);
+                result.Add(new UserResponse()
                 {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber,
+                    Id = item.Id,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Email = item.Email,
+                    PhoneNumber = item.PhoneNumber,
                     UserRole = roles.Where(p => p.StartsWith("user-")).FirstOrDefault(),
                 });
             }
@@ -41,7 +44,7 @@ namespace Server.Source.Logic.User
             return new PageResponse<UserResponse> 
             { 
                 GrandTotal = grandTotal,
-                Data = userList,
+                Data = result,
             };
         }
 
@@ -54,11 +57,11 @@ namespace Server.Source.Logic.User
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                throw new EatSomeException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
             }
             if (user.Id != request.Id)
             {
-                throw new EatSomeException(EnumResponseError.InternalServerError);
+                throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
             }
 
             // obtenemos rol del usuario
@@ -74,7 +77,7 @@ namespace Server.Source.Logic.User
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
             if (user != null)
             {
-                throw new EatSomeException(EnumResponseError.UserEmailAlreadyExists);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserEmailAlreadyExists);
             }
 
             // construimos usuario con parametros de entrada y registramos usuario en base de datos         
@@ -91,7 +94,7 @@ namespace Server.Source.Logic.User
             // si no es posible registrar mandamos error
             if (!result.Succeeded)
             {
-                throw new EatSomeException(EnumResponseError.InternalServerError);
+                throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
             }
 
             // asignamos role de inicio

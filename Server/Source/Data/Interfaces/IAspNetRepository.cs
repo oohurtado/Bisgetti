@@ -2,7 +2,7 @@
 using Server.Source.Models.DTOs.User;
 using Server.Source.Models.Entities;
 
-namespace Server.Source.Data
+namespace Server.Source.Data.Interfaces
 {
     public interface IAspNetRepository
     {

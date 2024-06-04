@@ -1,7 +1,7 @@
 ﻿
 using Azure.Core;
 using Microsoft.AspNetCore.Identity;
-using Server.Source.Data;
+using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.User.Common;
 using Server.Source.Models.Enums;
@@ -22,7 +22,7 @@ namespace Server.Source.Logic.User
             var user = await _aspNetRepository.FindByIdAsync(userId!);
             if (user == null)
             {
-                throw new EatSomeException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
             }
 
             return new UserResponse()
@@ -39,7 +39,7 @@ namespace Server.Source.Logic.User
             var user = await _aspNetRepository.FindByIdAsync(userId!);
             if (user == null)
             {
-                throw new EatSomeException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
             }
 
             user.FirstName = request.FirstName;
@@ -53,7 +53,7 @@ namespace Server.Source.Logic.User
             var user = await _aspNetRepository.FindByEmailAsync(email!);
             if (user == null)
             {
-                throw new EatSomeException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
             }
 
             await _aspNetRepository.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);

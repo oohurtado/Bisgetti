@@ -4,16 +4,21 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Server.Source.Data;
+using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Logic;
 using Server.Source.Logic.User;
 using Server.Source.Models.DTOs;
 using Server.Source.Models.Entities;
 using Server.Source.Utilities;
+using System.Diagnostics;
+using System;
 using System.Text;
+using Server.Source.Models.DTOs.User.Address;
 
 namespace Server
 {
@@ -93,6 +98,7 @@ namespace Server
 
             // repositories
             builder.Services.AddScoped<IAspNetRepository, AspNetRepository>();
+            builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
             // logic
             builder.Services.AddScoped<SeedLogic>();
@@ -103,6 +109,11 @@ namespace Server
 
             // utilities
             builder.Services.AddScoped<ConfigurationUtility>();
+
+            builder.Services.AddAutoMapper(p =>
+            {
+                p.CreateMap<AddressEntity, AddressResponse>();                
+            }, typeof(Program));
         }
 
         private static void ConfigureApp(WebApplicationBuilder builder)
@@ -136,12 +147,19 @@ namespace Server
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {                        
-                        var errorMessage = contextFeature.Error.Message;
-                        if (contextFeature.Error is not EatSomeException)              
+                        var errorMessage = "Error interno del servidor. Vuelva a intentarlo más tarde.";
+
+                        if (contextFeature.Error is EatSomeInternalErrorException)              
                         {
-                            errorMessage = "Error interno del servidor. Vuelva a intentarlo más tarde.";
+                            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                            errorMessage = contextFeature.Error.Message;
                         }
-                        
+                        else if (contextFeature.Error is EatSomeNotFoundErrorException)
+                        {
+                            context.Response.StatusCode = StatusCodes.Status404NotFound;
+                            errorMessage = contextFeature.Error.Message;
+                        }
+
                         await context.Response.WriteAsync(JsonConvert.SerializeObject(errorMessage));
                     }
                 });
