@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { RequestService } from '../../common/request.service';
 import { UserResponse } from '../../../source/models/dtos/user/common/user-response';
 import { PageData } from '../../../source/models/common/page-data';
-import { UserCreateUserRequest } from '../../../source/models/dtos/user/administration/user-create-user-request';
-import { UserChangeRoleRequest } from '../../../source/models/dtos/user/administration/user-change-role-request';
+import { CreateUserRequest } from '../../../source/models/dtos/user/administration/create-user-request';
+import { ChangeRoleRequest } from '../../../source/models/dtos/user/administration/change-role-request';
 
 @Injectable({
     providedIn: 'root'
@@ -30,11 +30,11 @@ export class UserAdministrationService {
 		});
 	}
 
-	createUser(model: UserCreateUserRequest) {
+	createUser(model: CreateUserRequest) {
 		return this.requestService.post('/user/administration/users', model);
 	}
 
-	changeRole(model: UserChangeRoleRequest) {
+	changeRole(model: ChangeRoleRequest) {
 		return this.requestService.put('/user/administration/users/role', model);
 	}
 }

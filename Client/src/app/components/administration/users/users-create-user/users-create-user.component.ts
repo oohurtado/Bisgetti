@@ -7,7 +7,7 @@ import { UserValidatorService } from '../../../../services/validators/user-valid
 import { ListFactory } from '../../../../source/factories/list-factory';
 import { FormBase } from '../../../../source/form-base';
 import { Tuple2 } from '../../../../source/models/common/tuple';
-import { UserCreateUserRequest } from '../../../../source/models/dtos/user/administration/user-create-user-request';
+import { CreateUserRequest } from '../../../../source/models/dtos/user/administration/create-user-request';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 
@@ -64,7 +64,7 @@ export class UsersCreateUserComponent extends FormBase implements OnInit {
 		
 		this._isProcessing = true;
 
-        let model = new UserCreateUserRequest(
+        let model = new CreateUserRequest(
 			this._myForm?.controls['firstName'].value, 
 			this._myForm?.controls['lastName'].value, 
 			this._myForm?.controls['phoneNumber'].value,

@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserAccessService } from '../../../services/business/user/user-access.service';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
-import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request';
-import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response';
+import { LoginRequest } from '../../../source/models/dtos/user/access/login-request';
+import { TokenResponse } from '../../../source/models/dtos/user/access/token-response';
 import { Utils } from '../../../source/utils';
 
 @Component({
@@ -46,7 +46,7 @@ export class LoginComponent extends FormBase implements OnInit {
 		}
 		
 		this._isProcessing = true;
-		let model = new UserLoginRequest(
+		let model = new LoginRequest(
 			this._myForm?.controls['email'].value, 
 			this._myForm?.controls['password'].value);
 
@@ -60,7 +60,7 @@ export class LoginComponent extends FormBase implements OnInit {
 					this._error = Utils.getErrorsResponse(errorResponse);					
 				},
 				next: (val) => {
-					let model = Object.assign(new UserTokenResponse(), val);
+					let model = Object.assign(new TokenResponse(), val);
 					this.localStorageService.setValue('token', model.token);
 					this.router.navigateByUrl('/home');
 				}

@@ -1,4 +1,4 @@
-export class UserSignupRequest {
+export class SignupRequest {
     constructor(
         public firstName: string,
         public lastName: string,

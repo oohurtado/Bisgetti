@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../../common/request.service';
-import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request';
-import { UserLoginRequest } from '../../../source/models/dtos/user/access/user-login-request';
+import { SignupRequest } from '../../../source/models/dtos/user/access/signup-request';
+import { LoginRequest } from '../../../source/models/dtos/user/access/login-request';
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +14,11 @@ export class UserAccessService {
 		return this.requestService.get<any>(`/user/access/email-available/${email}`);
 	}
 
-	signup(model: UserSignupRequest) {
+	signup(model: SignupRequest) {
 		return this.requestService.post('/user/access/signup', model);
 	}
 
-	login(model: UserLoginRequest) {
+	login(model: LoginRequest) {
 		return this.requestService.post('/user/access/login', model);
 	}
 }

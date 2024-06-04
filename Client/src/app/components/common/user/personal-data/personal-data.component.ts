@@ -3,7 +3,7 @@ import { FormBase } from '../../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserCommonService } from '../../../../services/business/user/user-common.service';
-import { UserUpdatePersonalDataRequest } from '../../../../source/models/dtos/user/common/user-update-personal-data-request';
+import { UpdatePersonalDataRequest } from '../../../../source/models/dtos/user/common/update-personal-data-request';
 import { UserResponse } from '../../../../source/models/dtos/user/common/user-response';
 import { Utils } from '../../../../source/utils';
 
@@ -73,7 +73,7 @@ export class PersonalDataComponent extends FormBase implements OnInit {
 		
 		this._isProcessing = true;
 
-        let model = new UserUpdatePersonalDataRequest(
+        let model = new UpdatePersonalDataRequest(
 			this._myForm?.controls['firstName'].value, 
 			this._myForm?.controls['lastName'].value, 
 			this._myForm?.controls['phoneNumber'].value,

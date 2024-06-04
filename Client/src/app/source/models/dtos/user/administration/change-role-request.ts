@@ -1,4 +1,4 @@
-export class UserChangeRoleRequest {
+export class ChangeRoleRequest {
     constructor(
         public id: string,
         public email: string,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../../common/request.service';
 import { UserResponse } from '../../../source/models/dtos/user/common/user-response';
-import { UserUpdatePersonalDataRequest } from '../../../source/models/dtos/user/common/user-update-personal-data-request';
+import { UpdatePersonalDataRequest } from '../../../source/models/dtos/user/common/update-personal-data-request';
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +31,7 @@ export class UserCommonService {
 		});
 	}
 
-    updatePersonalData(model: UserUpdatePersonalDataRequest, userId: string|null) {
+    updatePersonalData(model: UpdatePersonalDataRequest, userId: string|null) {
 		if (userId === null) {
 			userId = '';
 		}

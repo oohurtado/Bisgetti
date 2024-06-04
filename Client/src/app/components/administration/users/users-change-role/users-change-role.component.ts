@@ -5,7 +5,7 @@ import { Tuple2 } from '../../../../source/models/common/tuple';
 import { ListFactory } from '../../../../source/factories/list-factory';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
-import { UserChangeRoleRequest } from '../../../../source/models/dtos/user/administration/user-change-role-request';
+import { ChangeRoleRequest } from '../../../../source/models/dtos/user/administration/change-role-request';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 
@@ -68,7 +68,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
 		
 		this._isProcessing = true;
 
-        let model = new UserChangeRoleRequest(		
+        let model = new ChangeRoleRequest(		
             this._userId,
             this._userEmail,
             this._myForm?.controls['userRole'].value

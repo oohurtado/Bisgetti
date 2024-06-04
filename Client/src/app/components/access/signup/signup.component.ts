@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 import { UserAccessService } from '../../../services/business/user/user-access.service';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
-import { UserSignupRequest } from '../../../source/models/dtos/user/access/user-signup-request';
-import { UserTokenResponse } from '../../../source/models/dtos/user/access/user-token-response';
+import { SignupRequest } from '../../../source/models/dtos/user/access/signup-request';
+import { TokenResponse } from '../../../source/models/dtos/user/access/token-response';
 
 @Component({
 	selector: 'app-signup',
@@ -53,7 +53,7 @@ export class SignupComponent extends FormBase implements OnInit {
 		}
 		
 		this._isProcessing = true;
-		let model = new UserSignupRequest(
+		let model = new SignupRequest(
 			this._myForm?.controls['firstName'].value, 
 			this._myForm?.controls['lastName'].value, 
 			this._myForm?.controls['phoneNumber'].value,
@@ -70,7 +70,7 @@ export class SignupComponent extends FormBase implements OnInit {
 					this._error = errorResponse;
 				},
 				next: (val) => {
-					let model = Object.assign(new UserTokenResponse(), val);
+					let model = Object.assign(new TokenResponse(), val);
 					this.localStorageService.setValue('token', model.token);
 					this.router.navigateByUrl('/home');
 				}
