@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Models.Entities;
@@ -66,7 +67,7 @@ namespace Server.Source.Data
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);
 
-            return iq;
+            return iq.AsNoTracking();
         }
 
         public async Task SaveChangesAsync()

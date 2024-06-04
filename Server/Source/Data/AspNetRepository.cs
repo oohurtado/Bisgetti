@@ -154,7 +154,7 @@ namespace Server.Source.Data
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);
 
-            return iq;
+            return iq.AsNoTracking();
         }
 
         public async Task<string> GetUserRoleAsync(UserEntity user)
