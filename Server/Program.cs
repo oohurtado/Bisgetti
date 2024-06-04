@@ -97,7 +97,8 @@ namespace Server
             // logic
             builder.Services.AddScoped<SeedLogic>();
             builder.Services.AddScoped<UserAccessLogic>();
-            builder.Services.AddScoped<UserAdminLogic>();
+            builder.Services.AddScoped<UserAddressLogic>();
+            builder.Services.AddScoped<UserAdministrationLogic>();
             builder.Services.AddScoped<UserCommonLogic>();
 
             // utilities

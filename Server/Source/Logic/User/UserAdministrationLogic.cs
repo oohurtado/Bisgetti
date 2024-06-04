@@ -10,11 +10,11 @@ using Server.Source.Utilities;
 
 namespace Server.Source.Logic.User
 {
-    public class UserAdminLogic
+    public class UserAdministrationLogic
     {
         private readonly IAspNetRepository _aspNetRepository;
 
-        public UserAdminLogic(IAspNetRepository aspNetRepository)
+        public UserAdministrationLogic(IAspNetRepository aspNetRepository)
         {
             _aspNetRepository = aspNetRepository;
         }

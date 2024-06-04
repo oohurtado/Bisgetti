@@ -19,7 +19,7 @@ namespace Server.Controllers
         [HttpGet(template: "administration/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
         public async Task<ActionResult> UserList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {
-            var result = await _userAdminLogic.GetUserListByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
+            var result = await _userAdministrationLogic.GetUserListByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
             return Ok(result);
         }
 
@@ -32,7 +32,7 @@ namespace Server.Controllers
         public async Task<ActionResult> ChangeRole([FromBody] UserChangeRoleRequest request)
         {
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
-            await _userAdminLogic.ChangeUserRoleAsync(executingUserRole!, request);
+            await _userAdministrationLogic.ChangeUserRoleAsync(executingUserRole!, request);
             return Ok();
         }
 
@@ -44,7 +44,7 @@ namespace Server.Controllers
         [HttpPost(template: "administration/users")]
         public async Task<ActionResult> CreateUser([FromBody] UserCreateUserRequest request)
         {
-            await _userAdminLogic.CreateUserAsync(request);
+            await _userAdministrationLogic.CreateUserAsync(request);
             return Ok();
         }
     }
