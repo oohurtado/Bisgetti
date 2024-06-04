@@ -45,7 +45,7 @@ namespace Server.Source.Logic.User
             };
         }
 
-        public async Task ChangeUserRoleAsync(string executingUserRole, UserChangeRoleRequest request)
+        public async Task ChangeUserRoleAsync(string executingUserRole, ChangeRoleRequest request)
         {
             // TODO: validaciones sobre quien ejecuta, a quien se le va a asignar...
             // TODO: enviar correo de cambio de rol
@@ -68,7 +68,7 @@ namespace Server.Source.Logic.User
             await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
         }
 
-        public async Task CreateUserAsync(UserCreateUserRequest request)
+        public async Task CreateUserAsync(CreateUserRequest request)
         {
             // mandamos error si el usuario ya existe
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);

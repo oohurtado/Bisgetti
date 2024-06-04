@@ -32,7 +32,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "common/personal-data")]
-        public async Task<ActionResult> UpdatePersonalData([FromBody] UserUpdatePersonalDataRequest request, string userId = null!)
+        public async Task<ActionResult> UpdatePersonalData([FromBody] UpdatePersonalDataRequest request, string userId = null!)
         {
             if (userId == null)
             {
@@ -47,7 +47,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "common/personal-data/password")]
-        public async Task<ActionResult> ChangePassword([FromBody] UserChangePasswordRequest request)
+        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
             var email = User.FindFirstValue(ClaimTypes.Email!);
             await _userCommonLogic.ChangePasswordAsync(email, request);

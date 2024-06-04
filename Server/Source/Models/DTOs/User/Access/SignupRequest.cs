@@ -2,7 +2,7 @@
 
 namespace Server.Source.Models.DTOs.User.Access
 {
-    public class UserSignupRequest
+    public class SignupRequest
     {
         [Display(Name = "Correo electrónico")]
         [RegularExpression(@"[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,15}", ErrorMessage = "El formato del correo electrónico no es válido")]

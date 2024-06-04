@@ -34,7 +34,7 @@ namespace Server.Source.Logic.User
             };
         }
 
-        public async Task UpdatePersonalDataAsync(string? userId, UserUpdatePersonalDataRequest request)
+        public async Task UpdatePersonalDataAsync(string? userId, UpdatePersonalDataRequest request)
         {
             var user = await _aspNetRepository.FindByIdAsync(userId!);
             if (user == null)
@@ -48,7 +48,7 @@ namespace Server.Source.Logic.User
             await _aspNetRepository.UpdateUserAsync(user);
         }
 
-        public async Task ChangePasswordAsync(string? email, UserChangePasswordRequest request)
+        public async Task ChangePasswordAsync(string? email, ChangePasswordRequest request)
         {
             var user = await _aspNetRepository.FindByEmailAsync(email!);
             if (user == null)

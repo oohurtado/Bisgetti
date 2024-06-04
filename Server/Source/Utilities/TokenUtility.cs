@@ -9,7 +9,7 @@ namespace Server.Source.Utilities
 {
     public static class TokenUtility
     {
-        public static UserTokenResponse BuildToken(List<Claim> claims, string jwtKey)
+        public static TokenResponse BuildToken(List<Claim> claims, string jwtKey)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -23,7 +23,7 @@ namespace Server.Source.Utilities
                 expires: expiration,
                 signingCredentials: creds);
 
-            var userToken = new UserTokenResponse()
+            var userToken = new TokenResponse()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 ExpiresIn = expiration,

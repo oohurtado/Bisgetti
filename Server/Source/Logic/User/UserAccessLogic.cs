@@ -26,7 +26,7 @@ namespace Server.Source.Logic.User
             _configurationUtility = configurationUtility;
         }
 
-        public async Task<UserTokenResponse> SignupAsync(UserSignupRequest request)
+        public async Task<TokenResponse> SignupAsync(SignupRequest request)
         {
             // mandamos error si el usuario ya existe
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
@@ -65,7 +65,7 @@ namespace Server.Source.Logic.User
             return token;
         }
 
-        public async Task<UserTokenResponse> LoginAsync(UserLoginRequest request)
+        public async Task<TokenResponse> LoginAsync(LoginRequest request)
         {
             // iniciamos sesion
             var result = await _aspNetRepository.LoginAsync(request.Email, request.Password);

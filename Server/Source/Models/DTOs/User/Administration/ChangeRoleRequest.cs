@@ -2,7 +2,7 @@
 
 namespace Server.Source.Models.DTOs.User.Administration
 {
-    public class UserChangeRoleRequest
+    public class ChangeRoleRequest
     {
         public string Id { get; set; } = null!;
 
