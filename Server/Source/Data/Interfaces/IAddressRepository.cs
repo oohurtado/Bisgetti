@@ -14,5 +14,15 @@ namespace Server.Source.Data.Interfaces
         /// Obtiene direccion
         /// </summary>
         IQueryable<AddressEntity> GetAddress(int id);
+
+        /// <summary>
+        /// Crea direccion
+        /// </summary>
+        Task CreateAddressAsync(AddressEntity entity);
+
+        /// <summary>
+        /// Guarda cambios
+        /// </summary>
+        Task SaveChangesAsync();
     }
 }

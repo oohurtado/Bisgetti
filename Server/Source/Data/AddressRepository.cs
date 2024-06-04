@@ -16,6 +16,12 @@ namespace Server.Source.Data
             _context = context;
         }
 
+        public async Task CreateAddressAsync(AddressEntity entity)
+        {
+            _context.Addresses.Add(entity);
+            await _context.SaveChangesAsync();
+        }
+
         public IQueryable<AddressEntity> GetAddress(int id)
         {
             return _context.Addresses.Where(p => p.Id == id);
@@ -61,6 +67,11 @@ namespace Server.Source.Data
                 .Take(pageSize);
 
             return iq;
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

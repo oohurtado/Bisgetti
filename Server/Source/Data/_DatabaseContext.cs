@@ -32,8 +32,8 @@ namespace Server.Source.Data
                 e.Property(p => p.State).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.Suburb).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.Street).IsRequired(required: true).HasMaxLength(50);
-                e.Property(p => p.InteriorNumber).IsRequired(required: true).HasMaxLength(10);
-                e.Property(p => p.ExteriorNumber).IsRequired(required: false).HasMaxLength(10);
+                e.Property(p => p.ExteriorNumber).IsRequired(required: true).HasMaxLength(10);
+                e.Property(p => p.InteriorNumber).IsRequired(required: false).HasMaxLength(10);
                 e.Property(p => p.PostalCode).IsRequired(required: true).HasMaxLength(10);
                 e.Property(p => p.PhoneNumber).IsRequired(required: true).HasMaxLength(10);
                 e.Property(p => p.MoreInstructions).IsRequired(required: false).HasMaxLength(250);

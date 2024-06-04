@@ -112,7 +112,8 @@ namespace Server
 
             builder.Services.AddAutoMapper(p =>
             {
-                p.CreateMap<AddressEntity, AddressResponse>();                
+                p.CreateMap<AddressEntity, AddressResponse>();
+                p.CreateMap<CreateOrUpdateAddressRequest, AddressEntity>();
             }, typeof(Program));
         }
 

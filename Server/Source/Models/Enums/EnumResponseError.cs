@@ -37,6 +37,10 @@ namespace Server.Source.Models.Enums
         [Description("No se encontó la columna de ordenamiento")]
         SortColumnKeyNotFound,
 
+        /// <summary>
+        /// direcciones
+        /// </summary>
+
         [Description("Dirección no encontrada")]
         AddressNotFound,
     }

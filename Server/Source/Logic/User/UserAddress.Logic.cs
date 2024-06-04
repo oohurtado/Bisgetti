@@ -7,8 +7,10 @@ using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.Common;
 using Server.Source.Models.DTOs.User.Address;
 using Server.Source.Models.DTOs.User.Common;
+using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using System;
+using System.Diagnostics;
 
 namespace Server.Source.Logic.User
 {
@@ -49,6 +51,27 @@ namespace Server.Source.Logic.User
 
             var result = _mapper.Map<AddressResponse>(data);
             return result;
+        }
+
+        public async Task CreateAddressAsync(CreateOrUpdateAddressRequest request, string userId)
+        {
+            var entity = new AddressEntity()
+            {
+                UserId = userId,
+            };
+            _mapper.Map(request, entity);
+            await _addressRepository.CreateAddressAsync(entity);
+        }
+
+        public async Task UpdteAddressAsync(CreateOrUpdateAddressRequest request, string userId, int id)
+        {
+            var entity = await _addressRepository.GetAddress(id).FirstOrDefaultAsync();
+            if (entity == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
+            }
+            _mapper.Map(request, entity);
+            await _addressRepository.SaveChangesAsync();
         }
     }
 }
