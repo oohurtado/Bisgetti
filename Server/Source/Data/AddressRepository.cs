@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Server.Migrations;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Models.Entities;
@@ -17,18 +18,30 @@ namespace Server.Source.Data
             _context = context;
         }
 
-        public async Task CreateAddressAsync(AddressEntity entity)
+        public async Task CreateAddressAsync(AddressEntity address)
         {
-            _context.Addresses.Add(entity);
+            _context.Addresses.Add(address);
             await _context.SaveChangesAsync();
         }
 
-        public IQueryable<AddressEntity> GetAddress(int id)
+        public async Task<bool> ExistsAsync(string userId, int? id, string name)
         {
-            return _context.Addresses.Where(p => p.Id == id);
+            Expression<Func<AddressEntity, bool>> expId = p => true;
+            if (id != null)
+            {
+                expId = p => p.Id != id;
+            }
+
+            var exists = await _context.Addresses.Where(expId).Where(p => p.UserId == userId && p.Name == name).AnyAsync();
+            return exists;
         }
 
-        public IQueryable<AddressEntity> GetAddressesByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
+        public IQueryable<AddressEntity> GetAddress(string userId, int id)
+        {
+            return _context.Addresses.Where(p => p.UserId == userId).Where(p => p.Id == id);
+        }
+
+        public IQueryable<AddressEntity> GetAddressesByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
         {
             IQueryable<AddressEntity> iq;
             IOrderedQueryable<AddressEntity> ioq = null!;
@@ -40,7 +53,7 @@ namespace Server.Source.Data
                 expSearch = p =>
                     p.Name!.Contains(term);      
             }
-            iq = _context.Addresses.Where(expSearch);
+            iq = _context.Addresses.Where(p => p.UserId == userId).Where(expSearch);
 
             // conteo
             grandTotal = iq.Count();
@@ -70,8 +83,26 @@ namespace Server.Source.Data
             return iq.AsNoTracking();
         }
 
-        public async Task SaveChangesAsync()
+        public async Task ResetDefaultAsync(string userId, int defaultAddressId)
         {
+            var defaults = await _context.Addresses.Where(p => p.UserId == userId).Where(p => p.Id != defaultAddressId && p.IsDefault).ToListAsync();
+
+            defaults.ForEach(p =>
+            {
+                p.IsDefault = false;
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAddressAsync(AddressEntity address)
+        {
+            _context.Addresses.Remove(address!);
             await _context.SaveChangesAsync();
         }
     }

@@ -13,11 +13,6 @@ namespace Server.Controllers
 {
     public partial class UserController
     {
-        // TODO: address put - default, delete
-        // customer/address : PUT - Default
-        // customer/address : DELETE
-        // cuando se crea/actualiza una fireccion, si viene isDefault en true, poner en falso el resto de direcciones
-
         /// <summary>
         /// Obtiene listado de direcciones
         /// </summary>
@@ -26,7 +21,8 @@ namespace Server.Controllers
         [HttpGet(template: "addresses/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
         public async Task<ActionResult> GetAddressesList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {
-            var result = await _userAddressLogic.GetAddressListByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _userAddressLogic.GetAddressListByPageAsync(userId, sortColumn, sortOrder, pageSize, pageNumber, term);
             return Ok(result);
         }
 
@@ -38,7 +34,8 @@ namespace Server.Controllers
         [HttpGet(template: "addresses/{id}")]
         public async Task<ActionResult> GetAddress(int id)
         {
-            var result = await _userAddressLogic.GetAddressAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _userAddressLogic.GetAddressAsync(userId, id);
             return Ok(result);
         }
 
@@ -61,10 +58,36 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-customer")]
         [HttpPut(template: "addresses/{id}")]
-        public async Task<ActionResult> ActualizarAddress([FromBody] CreateOrUpdateAddressRequest request, int id)
+        public async Task<ActionResult> UpdateAddress([FromBody] CreateOrUpdateAddressRequest request, int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _userAddressLogic.UpdteAddressAsync(request, userId, id);
+            await _userAddressLogic.UpdateAddressAsync(request, userId, id);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Borrar direccion
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-customer")]
+        [HttpDelete(template: "addresses/{id}")]
+        public async Task<ActionResult> DeleteAddress(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            await _userAddressLogic.DeleteAddressAsync(userId, id);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Actualizar direccion
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-customer")]
+        [HttpPut(template: "addresses/default/{id}")]
+        public async Task<ActionResult> UpdateAddressDefault([FromBody] UpdateAddressDefaultRequest request, int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            await _userAddressLogic.UpdteAddressDefaultAsync(request, userId, id);
             return Ok();
         }
     }

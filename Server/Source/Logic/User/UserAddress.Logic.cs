@@ -2,6 +2,8 @@
 using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Server.Migrations;
+using Server.Source.Data;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.Common;
@@ -28,9 +30,9 @@ namespace Server.Source.Logic.User
             _mapper = mapper;
         }
 
-        public async Task<PageResponse<AddressResponse>> GetAddressListByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
+        public async Task<PageResponse<AddressResponse>> GetAddressListByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
-            var data = await _addressRepository.GetAddressesByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
+            var data = await _addressRepository.GetAddressesByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
             var result = _mapper.Map<List<AddressResponse>>(data);
 
             return new PageResponse<AddressResponse>
@@ -40,9 +42,9 @@ namespace Server.Source.Logic.User
             };
         }
 
-        public async Task<AddressResponse> GetAddressAsync(int id)
+        public async Task<AddressResponse> GetAddressAsync(string userId, int id)
         {
-            var data = await _addressRepository.GetAddress(id).FirstOrDefaultAsync();
+            var data = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
 
             if (data == null )
             {
@@ -55,23 +57,57 @@ namespace Server.Source.Logic.User
 
         public async Task CreateAddressAsync(CreateOrUpdateAddressRequest request, string userId)
         {
-            var entity = new AddressEntity()
+            var exists = await _addressRepository.ExistsAsync(userId, id: null, request.Name!);
+            if (exists)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressAlreadyExists);
+            }
+
+            var address = new AddressEntity()
             {
                 UserId = userId,
             };
-            _mapper.Map(request, entity);
-            await _addressRepository.CreateAddressAsync(entity);
+            _mapper.Map(request, address);
+            await _addressRepository.CreateAddressAsync(address);
+
+            await _addressRepository.ResetDefaultAsync(userId, address.Id);
         }
 
-        public async Task UpdteAddressAsync(CreateOrUpdateAddressRequest request, string userId, int id)
+        public async Task UpdateAddressAsync(CreateOrUpdateAddressRequest request, string userId, int id)
         {
-            var entity = await _addressRepository.GetAddress(id).FirstOrDefaultAsync();
-            if (entity == null)
+            var exists = await _addressRepository.ExistsAsync(userId, id: id, request.Name!);
+            if (exists)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressAlreadyExists);
+            }
+
+            var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
+            if (address == null)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
             }
-            _mapper.Map(request, entity);
-            await _addressRepository.SaveChangesAsync();
+            _mapper.Map(request, address);
+            await _addressRepository.UpdateAsync();
+
+            await _addressRepository.ResetDefaultAsync(userId, id);
+        }
+
+        public async Task UpdteAddressDefaultAsync(UpdateAddressDefaultRequest request, string userId, int id)
+        {
+            var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
+            address!.IsDefault = request.IsDefault;            
+            await _addressRepository.UpdateAsync();
+
+            if (request.IsDefault)
+            {
+                await _addressRepository.ResetDefaultAsync(userId, id);
+            }
+        }
+
+        public async Task DeleteAddressAsync(string userId, int id)
+        {
+            var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
+            await _addressRepository.DeleteAddressAsync(address!);            
         }
     }
 }

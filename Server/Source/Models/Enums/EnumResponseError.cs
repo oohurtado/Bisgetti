@@ -43,5 +43,8 @@ namespace Server.Source.Models.Enums
 
         [Description("Dirección no encontrada")]
         AddressNotFound,
+
+        [Description("La dirección ya existe")]
+        AddressAlreadyExists,
     }
 }
