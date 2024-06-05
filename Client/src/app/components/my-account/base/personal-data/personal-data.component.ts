@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBase } from '../../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserCommonService } from '../../../../services/business/user/user-common.service';
-import { UpdatePersonalDataRequest } from '../../../../source/models/dtos/user/common/update-personal-data-request';
-import { UserResponse } from '../../../../source/models/dtos/user/common/user-response';
+import { UserMyAccountService } from '../../../../services/business/user/user-my-account.service';
+import { UpdatePersonalDataRequest } from '../../../../source/models/dtos/user/my-account/update-personal-data-request';
+import { UserResponse } from '../../../../source/models/dtos/user/my-account/user-response';
 import { Utils } from '../../../../source/utils';
 
 @Component({
@@ -20,7 +20,7 @@ export class PersonalDataComponent extends FormBase implements OnInit {
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
 		private router: Router,		
-		private userCommonService: UserCommonService,
+		private UserMyAccountService: UserMyAccountService,
     ) {
         super(); 				
     }
@@ -33,8 +33,8 @@ export class PersonalDataComponent extends FormBase implements OnInit {
     async getDataAsync() {
 		this._error = null;
         this._isLoading = true;
-        await this.userCommonService
-            .getPersonalDataAsync(null)
+        await this.UserMyAccountService
+            .getPersonalDataAsync()
             .then(p => {
 				this._user = p;
                 this._isLoading = false;
@@ -67,7 +67,7 @@ export class PersonalDataComponent extends FormBase implements OnInit {
 			this._myForm?.controls['phoneNumber'].value,
         );
 
-        this.userCommonService.updatePersonalData(model, null)
+        this.UserMyAccountService.updatePersonalData(model)
 			.subscribe({
 				complete: () => {
 					this._isProcessing = false;

@@ -16,7 +16,7 @@ namespace Server.Controllers
         /// Obtiene datos personales
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]        
-        [HttpGet(template: "common/personal-data")]
+        [HttpGet(template: "my-account/personal-data")]
         public async Task<ActionResult> GetPersonalData(string userId = null!)
         {
             if (userId == null)
@@ -31,7 +31,7 @@ namespace Server.Controllers
         /// Actualiza datos personales
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut(template: "common/personal-data")]
+        [HttpPut(template: "my-account/personal-data")]
         public async Task<ActionResult> UpdatePersonalData([FromBody] UpdatePersonalDataRequest request, string userId = null!)
         {
             if (userId == null)
@@ -46,7 +46,7 @@ namespace Server.Controllers
         /// Actualiza contraseña
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut(template: "common/personal-data/password")]
+        [HttpPut(template: "my-account/password")]
         public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
             var email = User.FindFirstValue(ClaimTypes.Email!);

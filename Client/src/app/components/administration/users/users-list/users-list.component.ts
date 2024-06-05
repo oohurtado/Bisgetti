@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserResponse } from '../../../../source/models/dtos/user/common/user-response';
+import { UserResponse } from '../../../../source/models/dtos/user/my-account/user-response';
 import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { ListBase } from '../../../../source/list-base';
