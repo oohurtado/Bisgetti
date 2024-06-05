@@ -11,7 +11,7 @@ import { UsersListComponent } from "./components/administration/users/users-list
 import { UsersComponent } from "./components/administration/users/users/users.component";
 import { PersonalDataComponent } from "./components/my-account/base/personal-data/personal-data.component";
 import { BaseComponent } from "./components/my-account/base/base.component";
-import { ChangePasswordComponent } from "./components/access/change-password/change-password.component";
+import { ChangePasswordComponent } from "./components/my-account/base/change-password/change-password.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },

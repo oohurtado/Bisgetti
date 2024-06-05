@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/access/login/login.component';
 import { SignupComponent } from './components/access/signup/signup.component';
-import { ChangePasswordComponent } from './components/access/change-password/change-password.component';
 import { ForbiddenComponent } from './components/access/forbidden/forbidden.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppRouting } from './routes';
@@ -35,6 +34,7 @@ import { UsersComponent } from './components/administration/users/users/users.co
 import { RoleStrPipe } from './pipes/role-str.pipe';
 import { PersonalDataComponent } from './components/my-account/base/personal-data/personal-data.component';
 import { BaseComponent } from './components/my-account/base/base.component';
+import { ChangePasswordComponent } from './components/my-account/base/change-password/change-password.component';
 
 @NgModule({
 	declarations: [
@@ -59,9 +59,9 @@ import { BaseComponent } from './components/my-account/base/base.component';
 		PageQuickMenuComponent,
 		ProcessingComponent,
 		UsersCreateUserComponent,
-  RoleStrPipe,
-  PersonalDataComponent,
-  BaseComponent,  
+		RoleStrPipe,
+		PersonalDataComponent,
+		BaseComponent,  
 	],
 	imports: [
 		BrowserModule,
