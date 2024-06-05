@@ -3,8 +3,8 @@ import { FormBase } from '../../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserMyAccountService } from '../../../../services/business/user/user-my-account.service';
-import { UpdatePersonalDataRequest } from '../../../../source/models/dtos/user/my-account/update-personal-data-request';
-import { UserResponse } from '../../../../source/models/dtos/user/my-account/user-response';
+import { UpdatePersonalDataRequest } from '../../../../source/models/dtos/user/my-account/personal-data/update-personal-data-request';
+import { UserResponse } from '../../../../source/models/business/user-response';
 import { Utils } from '../../../../source/utils';
 
 @Component({

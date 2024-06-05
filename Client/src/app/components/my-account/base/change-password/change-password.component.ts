@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBase } from '../../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserValidatorService } from '../../../../services/validators/user-validator.service';
-import { ChangePasswordRequest } from '../../../../source/models/dtos/user/my-account/change-password.request';
+import { ChangePasswordRequest } from '../../../../source/models/dtos/user/my-account/password/change-password.request';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 
 /*

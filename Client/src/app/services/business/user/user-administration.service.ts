@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../../common/request.service';
-import { UserResponse } from '../../../source/models/dtos/user/my-account/user-response';
+import { UserResponse } from '../../../source/models/business/user-response';
 import { PageData } from '../../../source/models/common/page-data';
-import { CreateUserRequest } from '../../../source/models/dtos/user/administration/create-user-request';
-import { ChangeRoleRequest } from '../../../source/models/dtos/user/administration/change-role-request';
+import { CreateUserRequest } from '../../../source/models/dtos/user/administration/users/create-user-request';
+import { ChangeRoleRequest } from '../../../source/models/dtos/user/administration/users/change-role-request';
 
 @Injectable({
     providedIn: 'root'
@@ -12,13 +12,13 @@ export class UserAdministrationService {
 
     constructor(private requestService: RequestService) { }
 
-    getByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
+    getUsersByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
 		return this.requestService.get<PageData<UserResponse>>(`/user/administration/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
 	}
 
-	getByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<UserResponse>> {
+	getUsersByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<UserResponse>> {
 		return new Promise((resolve, reject) => {
-			this.getByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			this.getUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
