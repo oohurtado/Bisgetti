@@ -33,7 +33,8 @@ import { UsersCreateUserComponent } from './components/administration/users/user
 import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
 import { UsersComponent } from './components/administration/users/users/users.component';
 import { RoleStrPipe } from './pipes/role-str.pipe';
-import { PersonalDataComponent } from './components/common/user/personal-data/personal-data.component';
+import { PersonalDataComponent } from './components/my-account/base/personal-data/personal-data.component';
+import { BaseComponent } from './components/my-account/base/base.component';
 
 @NgModule({
 	declarations: [
@@ -59,7 +60,8 @@ import { PersonalDataComponent } from './components/common/user/personal-data/pe
 		ProcessingComponent,
 		UsersCreateUserComponent,
   RoleStrPipe,
-  PersonalDataComponent,  
+  PersonalDataComponent,
+  BaseComponent,  
 	],
 	imports: [
 		BrowserModule,

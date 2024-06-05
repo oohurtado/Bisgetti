@@ -22,4 +22,8 @@ export class NavbarBossComponent {
         this.localStorageService.clean();
         this.router.navigateByUrl('/home');
     }
+
+    getUser() {
+        return this.localStorageService.getUserFirstName();
+    }
 }
