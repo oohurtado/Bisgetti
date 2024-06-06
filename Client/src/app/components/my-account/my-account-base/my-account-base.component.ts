@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 
 @Component({
-    selector: 'app-base',
-    templateUrl: './base.component.html',
-    styleUrl: './base.component.css'
+    selector: 'app-my-account-base',
+    templateUrl: './my-account-base.component.html',
+    styleUrl: './my-account-base.component.css'
 })
-export class BaseComponent {
+export class MyAccountBaseComponent {
 
     constructor(private localStorageService: LocalStorageService) {
     }

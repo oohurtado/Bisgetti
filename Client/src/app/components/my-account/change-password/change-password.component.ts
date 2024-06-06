@@ -1,24 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserMyAccountService } from '../../../../services/business/user/user-my-account.service';
+import { UserMyAccountService } from '../../../services/business/user/user-my-account.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBase } from '../../../../source/form-base';
+import { FormBase } from '../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserValidatorService } from '../../../../services/validators/user-validator.service';
-import { ChangePasswordRequest } from '../../../../source/models/dtos/user/my-account/password/change-password.request';
-import { LocalStorageService } from '../../../../services/common/local-storage.service';
-
-/*
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBase } from '../../../../source/form-base';
-import { Tuple2 } from '../../../../source/models/common/tuple';
-import { ListFactory } from '../../../../source/factories/list-factory';
-import { FormBuilder, Validators } from '@angular/forms';
-import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
-import { ChangeRoleRequest } from '../../../../source/models/dtos/user/administration/change-role-request';
-import { EnumRole } from '../../../../source/models/enums/role.enum';
-import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
-*/
+import { UserValidatorService } from '../../../services/validators/user-validator.service';
+import { ChangePasswordRequest } from '../../../source/models/dtos/user/my-account/password/change-password.request';
+import { LocalStorageService } from '../../../services/common/local-storage.service';
 
 @Component({
     selector: 'app-change-password',
