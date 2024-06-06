@@ -8,11 +8,11 @@ import { ChangePasswordRequest } from '../../../source/models/dtos/user/my-accou
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 
 @Component({
-    selector: 'app-change-password',
-    templateUrl: './change-password.component.html',
-    styleUrl: './change-password.component.css'
+    selector: 'app-my-account-change-password',
+    templateUrl: './my-account-change-password.component.html',
+    styleUrl: './my-account-change-password.component.css'
 })
-export class ChangePasswordComponent extends FormBase implements OnInit {
+export class MyAccountChangePasswordComponent extends FormBase implements OnInit {
 
     constructor(
         private activatedRoute: ActivatedRoute,

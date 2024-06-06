@@ -8,11 +8,11 @@ import { UserResponse } from '../../../source/models/business/user-response';
 import { Utils } from '../../../source/utils';
 
 @Component({
-    selector: 'app-personal-data',
-    templateUrl: './personal-data.component.html',
-    styleUrl: './personal-data.component.css'
+    selector: 'app-my-account-personal-data',
+    templateUrl: './my-account-personal-data.component.html',
+    styleUrl: './my-account-personal-data.component.css'
 })
-export class PersonalDataComponent extends FormBase implements OnInit {
+export class MyAccountPersonalDataComponent extends FormBase implements OnInit {
     
     _user!: UserResponse;    
     

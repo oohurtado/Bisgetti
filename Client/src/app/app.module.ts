@@ -32,9 +32,9 @@ import { UsersCreateUserComponent } from './components/administration/users/user
 import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
 import { UsersComponent } from './components/administration/users/users/users.component';
 import { RoleStrPipe } from './pipes/role-str.pipe';
-import { MyAccountBaseComponent } from './components/my-account/my-account-base/my-account-base.component';
-import { PersonalDataComponent } from './components/my-account/personal-data/personal-data.component';
-import { ChangePasswordComponent } from './components/my-account/change-password/change-password.component';
+import { MyAccountBaseComponent } from './components/my-account/my-account/my-account.component';
+import { MyAccountPersonalDataComponent } from './components/my-account/my-account-personal-data/my-account-personal-data.component';
+import { MyAccountChangePasswordComponent } from './components/my-account/my-account-change-password/my-account-change-password.component';
 
 @NgModule({
 	declarations: [
@@ -59,9 +59,9 @@ import { ChangePasswordComponent } from './components/my-account/change-password
 		ProcessingComponent,
 		UsersCreateUserComponent,
 		RoleStrPipe,
-		PersonalDataComponent,
+		MyAccountPersonalDataComponent,
 		MyAccountBaseComponent,
-		ChangePasswordComponent,
+		MyAccountChangePasswordComponent,
 	],
 	imports: [
 		BrowserModule,

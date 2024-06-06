@@ -9,9 +9,9 @@ import { UsersChangeRoleComponent } from "./components/administration/users/user
 import { UsersCreateUserComponent } from "./components/administration/users/users-create-user/users-create-user.component";
 import { UsersListComponent } from "./components/administration/users/users-list/users-list.component";
 import { UsersComponent } from "./components/administration/users/users/users.component";
-import { MyAccountBaseComponent } from "./components/my-account/my-account-base/my-account-base.component";
-import { ChangePasswordComponent } from "./components/my-account/change-password/change-password.component";
-import { PersonalDataComponent } from "./components/my-account/personal-data/personal-data.component";
+import { MyAccountBaseComponent } from "./components/my-account/my-account/my-account.component";
+import { MyAccountChangePasswordComponent } from "./components/my-account/my-account-change-password/my-account-change-password.component";
+import { MyAccountPersonalDataComponent } from "./components/my-account/my-account-personal-data/my-account-personal-data.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -27,8 +27,8 @@ const ROUTES: Routes = [
         ]
     },        
     { path: 'my-account', component: MyAccountBaseComponent, canActivate: [authGuard] },
-    { path: 'my-account/personal-data', component: PersonalDataComponent, canActivate: [authGuard] },
-    { path: 'my-account/change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
+    { path: 'my-account/personal-data', component: MyAccountPersonalDataComponent, canActivate: [authGuard] },
+    { path: 'my-account/change-password', component: MyAccountChangePasswordComponent, canActivate: [authGuard] },
 
     { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
