@@ -35,6 +35,8 @@ import { RoleStrPipe } from './pipes/role-str.pipe';
 import { MyAccountBaseComponent } from './components/my-account/my-account/my-account.component';
 import { MyAccountUpdatePersonalDataComponent } from './components/my-account/my-account-update-personal-data/my-account-update-personal-data.component';
 import { MyAccountChangePasswordComponent } from './components/my-account/my-account-change-password/my-account-change-password.component';
+import { MyAccountAddressesListComponent } from './components/my-account/my-account-addresses/my-account-addresses-list/my-account-addresses-list.component';
+import { MyAccountAddressesCreateOrUpdateComponent } from './components/my-account/my-account-addresses/my-account-addresses-create-or-update/my-account-addresses-create-or-update.component';
 
 @NgModule({
 	declarations: [
@@ -62,6 +64,8 @@ import { MyAccountChangePasswordComponent } from './components/my-account/my-acc
 		MyAccountUpdatePersonalDataComponent,
 		MyAccountBaseComponent,
 		MyAccountChangePasswordComponent,
+  		MyAccountAddressesListComponent,
+  		MyAccountAddressesCreateOrUpdateComponent,
 	],
 	imports: [
 		BrowserModule,
