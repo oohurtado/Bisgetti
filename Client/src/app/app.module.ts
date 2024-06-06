@@ -33,7 +33,7 @@ import { UsersListComponent } from './components/administration/users/users-list
 import { UsersComponent } from './components/administration/users/users/users.component';
 import { RoleStrPipe } from './pipes/role-str.pipe';
 import { MyAccountBaseComponent } from './components/my-account/my-account/my-account.component';
-import { MyAccountPersonalDataComponent } from './components/my-account/my-account-personal-data/my-account-personal-data.component';
+import { MyAccountUpdatePersonalDataComponent } from './components/my-account/my-account-update-personal-data/my-account-update-personal-data.component';
 import { MyAccountChangePasswordComponent } from './components/my-account/my-account-change-password/my-account-change-password.component';
 
 @NgModule({
@@ -59,7 +59,7 @@ import { MyAccountChangePasswordComponent } from './components/my-account/my-acc
 		ProcessingComponent,
 		UsersCreateUserComponent,
 		RoleStrPipe,
-		MyAccountPersonalDataComponent,
+		MyAccountUpdatePersonalDataComponent,
 		MyAccountBaseComponent,
 		MyAccountChangePasswordComponent,
 	],
