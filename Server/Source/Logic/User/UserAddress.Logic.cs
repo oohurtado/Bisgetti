@@ -92,7 +92,7 @@ namespace Server.Source.Logic.User
             await _addressRepository.ResetDefaultAsync(userId, id);
         }
 
-        public async Task UpdteAddressDefaultAsync(UpdateAddressDefaultRequest request, string userId, int id)
+        public async Task UpdateAddressDefaultAsync(UpdateAddressDefaultRequest request, string userId, int id)
         {
             var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
             address!.IsDefault = request.IsDefault;            

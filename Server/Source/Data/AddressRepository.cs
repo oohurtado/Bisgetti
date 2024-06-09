@@ -47,9 +47,7 @@ namespace Server.Source.Data
             IOrderedQueryable<AddressEntity> ioq = null!;
 
             iq = _context.Addresses.Where(p => p.UserId == userId);
-            ioq = iq
-                .OrderByDescending(p => p.IsDefault)
-                .ThenBy(p => p.Name);
+            ioq = iq.OrderBy(p => p.Name);
 
             return ioq.AsNoTracking();
         }

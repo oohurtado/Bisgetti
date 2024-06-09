@@ -129,7 +129,7 @@ namespace Server.Controllers
         public async Task<ActionResult> UpdateAddressDefault([FromBody] UpdateAddressDefaultRequest request, int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _userAddressLogic.UpdteAddressDefaultAsync(request, userId, id);
+            await _userAddressLogic.UpdateAddressDefaultAsync(request, userId, id);
             return Ok();
         }
     }

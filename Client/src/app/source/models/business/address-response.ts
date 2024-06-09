@@ -1,5 +1,5 @@
 export class AddressResponse {
-    id!: string;
+    id!: number;
     name!: string;
     country!: string;    
     state!: string;

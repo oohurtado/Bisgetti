@@ -72,18 +72,18 @@ export class UserMyAccountService {
 	}
 
 	createAddress(model: CreateOrUpdateAddressRequest) {
-		return this.requestService.post(`user/my-account/addresses`, model);
+		return this.requestService.post(`/user/my-account/addresses`, model);
 	}
 
 	updateAddress(id: number, model: CreateOrUpdateAddressRequest) {
-		return this.requestService.put(`user/my-account/addresses/${id}`, model);
+		return this.requestService.put(`/user/my-account/addresses/${id}`, model);
 	}
 
 	deleteAddress(id: number) {
-		return this.requestService.delete(`user/my-account/addresses/${id}`);
+		return this.requestService.delete(`/user/my-account/addresses/${id}`);
 	}
 	
 	updateAddressDefault(id: number, model: UpdateAddressDefaultRequest) {
-		return this.requestService.put(`user/my-account/addresses/default/${id}`, model);
+		return this.requestService.put(`/user/my-account/addresses/default/${id}`, model);
 	}
 }
