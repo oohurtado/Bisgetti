@@ -53,6 +53,24 @@ export class UserMyAccountService {
 	// address //
 	/////////////
 
+	getAddress(id: number) {	
+		return this.requestService.get<AddressResponse>(`/user/my-account/addresses/${id}`);
+	}
+
+	getAddressAsync(id: number) : Promise<AddressResponse> {
+		return new Promise((resolve, reject) => {
+			this.getAddress(id)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
 	getAddressesByPage() {	
 		return this.requestService.get<PageData<AddressResponse>>(`/user/my-account/addresses`);
 	}

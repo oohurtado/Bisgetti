@@ -56,9 +56,5 @@ namespace Server.Source.Models.DTOs.User.Address
         [Display(Name = "Más instrucciones")]
         [StringLength(250, MinimumLength = 0, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]
         public string? MoreInstructions { get; set; }
-
-        [Display(Name = "Predeterminado")]
-        [Required(ErrorMessage = "Campo requerido")]
-        public bool IsDefault { get; set; }
     }
 }

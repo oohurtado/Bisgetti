@@ -11,9 +11,11 @@
     <div class="col">
         <div class="card h-100">
             <div class="my-auto text-center">
-                    <a [routerLink]="['/my-account/addresses/create']">Agregar dirección</a>
-                    <br>
-                    <small class="text-muted">Agrega hasta 10 direcciones</small>
+                <br><br><br><br>
+                <a class="cursor-pointer" (click)="onCreateClicked($event)">Agregar dirección</a>
+                <br>
+                <small class="text-muted">Agrega hasta 10 direcciones</small>
+                <br><br><br><br>
             </div>
         </div>
     </div>

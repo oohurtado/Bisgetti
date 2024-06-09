@@ -43,9 +43,16 @@ export class MyAccountAddressesListComponent extends ListBase<AddressResponse> i
 		this._isProcessing = false;
     }
 
+	onCreateClicked(event: Event) {
+		let button = event.target as HTMLButtonElement;
+        button.blur();
+		this.router.navigateByUrl('/my-account/addresses/create');
+	}
+
 	onUpdateClicked(event: Event, address: AddressResponse) {
 		let button = event.target as HTMLButtonElement;
         button.blur();
+		this.router.navigateByUrl(`/my-account/addresses/update/${address.id}`);
 	}
 	
 	onDeleteClicked(event: Event, address: AddressResponse) {

@@ -69,8 +69,6 @@ namespace Server.Source.Logic.User
             };
             _mapper.Map(request, address);
             await _addressRepository.CreateAddressAsync(address);
-
-            await _addressRepository.ResetDefaultAsync(userId, address.Id);
         }
 
         public async Task UpdateAddressAsync(CreateOrUpdateAddressRequest request, string userId, int id)
@@ -88,8 +86,6 @@ namespace Server.Source.Logic.User
             }
             _mapper.Map(request, address);
             await _addressRepository.UpdateAsync();
-
-            await _addressRepository.ResetDefaultAsync(userId, id);
         }
 
         public async Task UpdateAddressDefaultAsync(UpdateAddressDefaultRequest request, string userId, int id)

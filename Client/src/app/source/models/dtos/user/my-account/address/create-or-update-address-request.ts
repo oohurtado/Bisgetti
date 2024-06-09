@@ -9,8 +9,7 @@ export class CreateOrUpdateAddressRequest {
         public exteriorNumber: string,
         public interiorNumber: string,
         public postalCode: string,
-        public phoneNumber: string,
         public moreInstructions: string,
-        public IsDefault: boolean
+        public phoneNumber: string        
     ) { }
 }
