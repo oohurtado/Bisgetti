@@ -22,7 +22,7 @@ namespace Server.Source.Logic.User
             _aspNetRepository = aspNetRepository;
         }
 
-        public async Task<PageResponse<UserResponse>> GetUserListByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
+        public async Task<PageResponse<UserResponse>> GetUsersByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
             var data = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();         
 

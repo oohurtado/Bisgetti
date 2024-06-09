@@ -1,8 +1,9 @@
 export class AddressResponse {
     id!: string;
     name!: string;
-    country!: string;
+    country!: string;    
     state!: string;
+    city!: string;
     suburb!: string;
     street!: string;
 

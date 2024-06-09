@@ -42,18 +42,6 @@ export class UsersListComponent extends ListBase<UserResponse> implements OnInit
 		this._isProcessing = false;
     }
 
-	override onCreateClicked(optionSelected: INavigationOptionSelected): void {	
-		this.router.navigateByUrl(`/administration/users/create-user`);
-	}
-
-	override onBackClicked(): void {
-		throw new Error('Method not implemented.');
-	}
-	
-	override onHomeClicked(): void {
-		this.router.navigateByUrl(`/home`);
-	}
-
 	onChangeRoleClicked(event: Event, user: UserResponse) {
 		this.router.navigateByUrl(`/administration/users/change-role/${user.id}/${user.email}/${user.userRole}`);
 	}

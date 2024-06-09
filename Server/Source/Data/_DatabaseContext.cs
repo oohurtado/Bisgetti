@@ -30,6 +30,7 @@ namespace Server.Source.Data
                 e.Property(p => p.Name).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.Country).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.State).IsRequired(required: true).HasMaxLength(50);
+                e.Property(p => p.City).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.Suburb).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.Street).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.ExteriorNumber).IsRequired(required: true).HasMaxLength(10);

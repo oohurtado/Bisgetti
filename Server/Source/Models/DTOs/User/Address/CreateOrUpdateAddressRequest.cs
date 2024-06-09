@@ -19,6 +19,11 @@ namespace Server.Source.Models.DTOs.User.Address
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]
         public string? State { get; set; }
 
+        [Display(Name = "Ciudad/Municipio")]
+        [Required(ErrorMessage = "Campo requerido")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]
+        public string? City { get; set; }
+
         [Display(Name = "Colonia/Suburbio")]
         [Required(ErrorMessage = "Campo requerido")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]

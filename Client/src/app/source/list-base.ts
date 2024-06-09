@@ -5,15 +5,17 @@ import { INavigationOptionSelected, IOrder, IOrderSelected, IPageSelected } from
 
 export abstract class ListBase<T> {
 
-	constructor(section: string, localStorageService: LocalStorageService) {
+	constructor(section: string|null, localStorageService: LocalStorageService) {
 
         this.localStorageService = localStorageService;
 
 		this.pageNumber = 1;
 		this.pageSize = localStorageService.getPageSize();	
 
-        this._pageOrder = ListFactory.getOrder(section);		
-        this._pageOrderSelected = ListFactory.getOrderInit(this._pageOrder);
+		if (section !== null) {			
+			this._pageOrder = ListFactory.getOrder(section);		
+			this._pageOrderSelected = ListFactory.getOrderInit(this._pageOrder);
+		}
 	}
 
     localStorageService!: LocalStorageService;
@@ -46,9 +48,6 @@ export abstract class ListBase<T> {
 	}
 
     abstract getDataAsync(): void;
-	abstract onCreateClicked(optionSelected: INavigationOptionSelected): void;
-	abstract onBackClicked(): void;
-	abstract onHomeClicked(): void;
 
 	updatePage(pageData: PageData<T>) {	
 		this._error = null;	

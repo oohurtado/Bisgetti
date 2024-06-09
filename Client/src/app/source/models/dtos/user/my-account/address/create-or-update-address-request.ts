@@ -3,6 +3,7 @@ export class CreateOrUpdateAddressRequest {
         public name: string,
         public country: string,
         public state: string,
+        public city: string,
         public suburb: string,
         public street: string,
         public exteriorNumber: string,

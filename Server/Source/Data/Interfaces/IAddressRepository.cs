@@ -12,7 +12,7 @@ namespace Server.Source.Data.Interfaces
         /// <summary>
         /// Obtiene direcciones
         /// </summary>
-        IQueryable<AddressEntity> GetAddressesByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
+        IQueryable<AddressEntity> GetAddressesList(string userId);
         
         /// <summary>
         /// Obtiene direccion

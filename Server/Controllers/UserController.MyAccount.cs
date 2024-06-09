@@ -60,11 +60,11 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-customer")]
-        [HttpGet(template: "my-account/addresses/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
-        public async Task<ActionResult> GetAddressesList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
+        [HttpGet(template: "my-account/addresses")]
+        public async Task<ActionResult> GetAddressesList()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            var result = await _userAddressLogic.GetAddressListByPageAsync(userId, sortColumn, sortOrder, pageSize, pageNumber, term);
+            var result = await _userAddressLogic.GetAddressesListAsync(userId);
             return Ok(result);
         }
 

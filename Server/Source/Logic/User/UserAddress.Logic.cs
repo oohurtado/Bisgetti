@@ -30,14 +30,14 @@ namespace Server.Source.Logic.User
             _mapper = mapper;
         }
 
-        public async Task<PageResponse<AddressResponse>> GetAddressListByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
+        public async Task<PageResponse<AddressResponse>> GetAddressesListAsync(string userId)
         {
-            var data = await _addressRepository.GetAddressesByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
+            var data = await _addressRepository.GetAddressesList(userId).ToListAsync();
             var result = _mapper.Map<List<AddressResponse>>(data);
 
             return new PageResponse<AddressResponse>
             {
-                GrandTotal = grandTotal,
+                GrandTotal = result.Count,
                 Data = result,
             };
         }

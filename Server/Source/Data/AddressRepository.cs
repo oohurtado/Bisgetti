@@ -41,46 +41,17 @@ namespace Server.Source.Data
             return _context.Addresses.Where(p => p.UserId == userId).Where(p => p.Id == id);
         }
 
-        public IQueryable<AddressEntity> GetAddressesByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
+        public IQueryable<AddressEntity> GetAddressesList(string userId)
         {
             IQueryable<AddressEntity> iq;
             IOrderedQueryable<AddressEntity> ioq = null!;
 
-            // busqueda
-            Expression<Func<AddressEntity, bool>> expSearch = p => true;
-            if (!string.IsNullOrEmpty(term))
-            {
-                expSearch = p =>
-                    p.Name!.Contains(term);      
-            }
-            iq = _context.Addresses.Where(p => p.UserId == userId).Where(expSearch);
+            iq = _context.Addresses.Where(p => p.UserId == userId);
+            ioq = iq
+                .OrderByDescending(p => p.IsDefault)
+                .ThenBy(p => p.Name);
 
-            // conteo
-            grandTotal = iq.Count();
-
-            // ordenamiento
-            if (sortColumn == "name")
-            {
-                if (sortOrder == "asc")
-                {
-                    ioq = iq.OrderBy(p => p.Name);
-                }
-                else if (sortOrder == "desc")
-                {
-                    ioq = iq.OrderByDescending(p => p.Name);
-                }
-            }            
-            else
-            {
-                throw new EatSomeInternalErrorException(EnumResponseError.SortColumnKeyNotFound);
-            }
-
-            // paginacion
-            iq = ioq!
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);
-
-            return iq.AsNoTracking();
+            return ioq.AsNoTracking();
         }
 
         public async Task ResetDefaultAsync(string userId, int defaultAddressId)

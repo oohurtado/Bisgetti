@@ -53,13 +53,13 @@ export class UserMyAccountService {
 	// address //
 	/////////////
 
-	getAddressesByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
-		return this.requestService.get<PageData<AddressResponse>>(`/user/my-account/addresses/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
+	getAddressesByPage() {	
+		return this.requestService.get<PageData<AddressResponse>>(`/user/my-account/addresses`);
 	}
 
-	getAddressesByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<AddressResponse>> {
+	getAddressesByPageAsync() : Promise<PageData<AddressResponse>> {
 		return new Promise((resolve, reject) => {
-			this.getAddressesByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			this.getAddressesByPage()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
