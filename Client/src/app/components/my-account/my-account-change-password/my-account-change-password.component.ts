@@ -23,16 +23,13 @@ export class MyAccountChangePasswordComponent extends FormBase implements OnInit
         private localStorageService: LocalStorageService
     ) {
         super();
-        console.log("fuck");
     }
 
     async ngOnInit() {
-        console.log("fuck");
         await this.setupFormAsync();
     }
 
     override async setupFormAsync() {
-        console.log("fuck");
         this._myForm = this.formBuilder.group({
 			currentPassword: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
             newPassword: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
