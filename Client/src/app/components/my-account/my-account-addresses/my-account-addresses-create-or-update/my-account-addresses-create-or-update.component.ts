@@ -7,6 +7,7 @@ import { UserMyAccountService } from '../../../../services/business/user/user-my
 import { AddressResponse } from '../../../../source/models/business/address-response';
 import { CreateOrUpdateAddressRequest } from '../../../../source/models/dtos/user/my-account/address/create-or-update-address-request';
 import { Utils } from '../../../../source/utils';
+declare let alertify: any;
 
 @Component({
     selector: 'app-my-account-addresses-create-or-update',
@@ -131,6 +132,7 @@ export class MyAccountAddressesCreateOrUpdateComponent extends FormBase implemen
                     },
                     next: (val) => {
                         this.router.navigateByUrl('my-account/addresses/list');
+                        alertify.message("Dirección agregada", 1)
                     }
                 });
         }   
@@ -146,28 +148,10 @@ export class MyAccountAddressesCreateOrUpdateComponent extends FormBase implemen
                     },
                     next: (val) => {
                         this.router.navigateByUrl('my-account/addresses/list');
+                        alertify.message("Cambios guardados", 1)
                     }
                 });
         }         
-
-
-
-
-
-        // this.userAdministrationService.createUser(model)
-		// 	.subscribe({
-		// 		complete: () => {
-		// 			this._isProcessing = false;
-		// 		},
-		// 		error: (errorResponse : string) => {
-		// 			this._isProcessing = false;
-		// 			this._error = errorResponse;
-		// 		},
-		// 		next: (val) => {
-		// 			this.router.navigateByUrl('/administration/users');
-		// 		}
-		// 	});
-
     }
 
     setLists() {

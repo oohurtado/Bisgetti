@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ListBase } from '../../../../source/list-base';
+import { PageBase } from '../../../../source/page-base';
 import { AddressResponse } from '../../../../source/models/business/address-response';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ declare let alertify: any;
     templateUrl: './my-account-addresses-list.component.html',
     styleUrl: './my-account-addresses-list.component.css'
 })
-export class MyAccountAddressesListComponent extends ListBase<AddressResponse> implements OnInit {
+export class MyAccountAddressesListComponent extends PageBase<AddressResponse> implements OnInit {
 
     constructor(
         private router: Router,
@@ -80,6 +80,7 @@ export class MyAccountAddressesListComponent extends ListBase<AddressResponse> i
 						},
 						next: (val) => {							
 							component._pageData.data = component._pageData.data.filter(p => p.id != address.id);
+							alertify.message("Dirección borrada", 1)
 						}
 					});				
 			},
@@ -113,6 +114,7 @@ export class MyAccountAddressesListComponent extends ListBase<AddressResponse> i
 						});
 				}
 				this._pageData.data.filter(p => p.id == address.id)[0].isDefault = !address.isDefault;
+				alertify.message("Cambios guardados", 1)
 			}
 		});
 	}

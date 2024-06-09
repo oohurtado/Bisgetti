@@ -6,7 +6,6 @@ import { authGuard } from "./guards/auth.guard";
 import { HomeComponent } from "./components/home/home.component";
 import { userAdminGuard } from "./guards/user-admin.guard";
 import { UsersChangeRoleComponent } from "./components/administration/users/users-change-role/users-change-role.component";
-import { UsersCreateUserComponent } from "./components/administration/users/users-create-user/users-create-user.component";
 import { UsersListComponent } from "./components/administration/users/users-list/users-list.component";
 import { UsersComponent } from "./components/administration/users/users/users.component";
 import { MyAccountBaseComponent } from "./components/my-account/my-account/my-account.component";
@@ -24,7 +23,6 @@ const ROUTES: Routes = [
         path: 'administration/users', component:  UsersComponent,
         children:[
             { path: 'list', component: UsersListComponent, canActivate: [authGuard, userAdminGuard] },
-            { path: 'create-user', component: UsersCreateUserComponent, canActivate: [authGuard, userAdminGuard] },
             { path: 'change-role/:userId/:userEmail/:userRole', component: UsersChangeRoleComponent, canActivate: [authGuard, userAdminGuard] },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]

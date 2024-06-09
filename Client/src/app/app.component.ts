@@ -46,11 +46,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
     bye(role: EnumRole) {
         if (role === EnumRole.UserAdmin) {
-            alertify.message("Bye!", 3);
+            alertify.message("Bye!", 1);
         } else if (role === EnumRole.UserBoss) {
-            alertify.message("A descansar!", 3);
+            alertify.message("A descansar!", 1);
         } else if (role === EnumRole.UserCustomer) {
-            alertify.message("Vuelva pronto!", 3);
+            alertify.message("Vuelva pronto!", 1);
         }
     }
 

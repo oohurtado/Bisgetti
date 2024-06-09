@@ -1,9 +1,9 @@
 import { LocalStorageService } from "../services/common/local-storage.service";
-import { ListFactory } from "./factories/list-factory";
+import { PageFactory } from "./factories/page-factory";
 import { PageData } from "./models/common/page-data";
 import { INavigationOptionSelected, IOrder, IOrderSelected, IPageSelected } from "./models/interfaces/page.interface";
 
-export abstract class ListBase<T> {
+export abstract class PageBase<T> {
 
 	constructor(section: string|null, localStorageService: LocalStorageService) {
 
@@ -13,8 +13,8 @@ export abstract class ListBase<T> {
 		this.pageSize = localStorageService.getPageSize();	
 
 		if (section !== null) {			
-			this._pageOrder = ListFactory.getOrder(section);		
-			this._pageOrderSelected = ListFactory.getOrderInit(this._pageOrder);
+			this._pageOrder = PageFactory.getOrder(section);		
+			this._pageOrderSelected = PageFactory.getOrderInit(this._pageOrder);
 		}
 	}
 

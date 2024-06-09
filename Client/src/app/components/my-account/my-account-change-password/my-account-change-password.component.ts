@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { ChangePasswordRequest } from '../../../source/models/dtos/user/my-account/password/change-password.request';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
+declare let alertify: any;
 
 @Component({
     selector: 'app-my-account-change-password',
@@ -65,6 +66,7 @@ export class MyAccountChangePasswordComponent extends FormBase implements OnInit
 				next: (val) => {
                     this.localStorageService.clean();
 					this.router.navigateByUrl('/access/login');
+                    alertify.message("Ingrese sus credenciales nuevamente por favor", 3)
 				}
 			});
     }

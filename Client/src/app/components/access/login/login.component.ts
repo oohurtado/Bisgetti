@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../../services/common/local-storage.serv
 import { LoginRequest } from '../../../source/models/dtos/user/access/login-request';
 import { TokenResponse } from '../../../source/models/dtos/user/access/token-response';
 import { Utils } from '../../../source/utils';
+declare let alertify: any;
 
 @Component({
     selector: 'app-login',
@@ -62,7 +63,7 @@ export class LoginComponent extends FormBase implements OnInit {
 				next: (val) => {
 					let model = Object.assign(new TokenResponse(), val);
 					this.localStorageService.setValue('token', model.token);
-					this.router.navigateByUrl('/home');
+					this.router.navigateByUrl('/home');					
 				}
 			});
 	}

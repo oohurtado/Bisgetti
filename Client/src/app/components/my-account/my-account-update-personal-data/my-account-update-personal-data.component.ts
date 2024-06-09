@@ -6,6 +6,7 @@ import { UserMyAccountService } from '../../../services/business/user/user-my-ac
 import { UpdatePersonalDataRequest } from '../../../source/models/dtos/user/my-account/personal-data/update-personal-data-request';
 import { UserResponse } from '../../../source/models/business/user-response';
 import { Utils } from '../../../source/utils';
+declare let alertify: any;
 
 @Component({
     selector: 'app-my-account-update-personal-data',
@@ -78,6 +79,7 @@ export class MyAccountUpdatePersonalDataComponent extends FormBase implements On
 				},
 				next: (val) => {
 					this.router.navigateByUrl('/my-account');
+					alertify.message("Cambios guardados", 1)
 				}
 			});
 	}

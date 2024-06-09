@@ -1,6 +1,6 @@
 import { IOrder, IOrderSelected } from "../models/interfaces/page.interface";
 
-export class ListFactory {
+export class PageFactory {
 
     public static getOrder(section: string): IOrder {
         switch (section) {
@@ -8,7 +8,7 @@ export class ListFactory {
                 return this.adminUsersOrder;
         }
 
-        throw new Error(`ListFactory: '${section}' not implemented.`);
+        throw new Error(`PageFactory: '${section}' not implemented.`);
     }
 
     public static getOrderInit(order: IOrder): IOrderSelected {

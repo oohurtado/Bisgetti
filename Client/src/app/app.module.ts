@@ -28,7 +28,6 @@ import { PageQuickMenuComponent } from './components/_shared/page/page-quick-men
 import { ProcessingComponent } from './components/_shared/processing/processing.component';
 import { AuthInterceptorService } from './services/common/auth-interceptor.service';
 import { UsersChangeRoleComponent } from './components/administration/users/users-change-role/users-change-role.component';
-import { UsersCreateUserComponent } from './components/administration/users/users-create-user/users-create-user.component';
 import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
 import { UsersComponent } from './components/administration/users/users/users.component';
 import { RoleStrPipe } from './pipes/role-str.pipe';
@@ -58,8 +57,7 @@ import { MyAccountAddressesCreateOrUpdateComponent } from './components/my-accou
 		PageSearchComponent,
 		PageSyncComponent,
 		PageQuickMenuComponent,
-		ProcessingComponent,
-		UsersCreateUserComponent,
+		ProcessingComponent,		
 		RoleStrPipe,
 		MyAccountUpdatePersonalDataComponent,
 		MyAccountBaseComponent,

@@ -7,6 +7,7 @@ import { UserAccessService } from '../../../services/business/user/user-access.s
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { SignupRequest } from '../../../source/models/dtos/user/access/signup-request';
 import { TokenResponse } from '../../../source/models/dtos/user/access/token-response';
+declare let alertify: any;
 
 @Component({
 	selector: 'app-signup',
@@ -73,6 +74,7 @@ export class SignupComponent extends FormBase implements OnInit {
 					let model = Object.assign(new TokenResponse(), val);
 					this.localStorageService.setValue('token', model.token);
 					this.router.navigateByUrl('/home');
+					alertify.message("Bienvenido a Bisgetti", 1)
 				}
 			});
 	}

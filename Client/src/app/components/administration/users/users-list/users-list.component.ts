@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { UserResponse } from '../../../../source/models/business/user-response';
 import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
-import { ListBase } from '../../../../source/list-base';
+import { PageBase } from '../../../../source/page-base';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 import { Utils } from '../../../../source/utils';
 
@@ -12,7 +12,7 @@ import { Utils } from '../../../../source/utils';
     templateUrl: './users-list.component.html',
     styleUrl: './users-list.component.css'
 })
-export class UsersListComponent extends ListBase<UserResponse> implements OnInit {
+export class UsersListComponent extends PageBase<UserResponse> implements OnInit {
    
     constructor(
         private userAdministrationService: UserAdministrationService,

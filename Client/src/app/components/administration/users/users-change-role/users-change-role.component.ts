@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBase } from '../../../../source/form-base';
 import { Tuple2 } from '../../../../source/models/common/tuple';
-import { ListFactory } from '../../../../source/factories/list-factory';
+import { PageFactory } from '../../../../source/factories/page-factory';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
 import { ChangeRoleRequest } from '../../../../source/models/dtos/user/administration/users/change-role-request';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
+declare let alertify: any;
 
 @Component({
     selector: 'app-users-change-user-role',
@@ -85,6 +86,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
 				},
 				next: (val) => {
 					this.router.navigateByUrl('/administration/users');
+                    alertify.message("Cambios guardados", 1)
 				}
 			});
     }
