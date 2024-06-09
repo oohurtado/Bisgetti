@@ -7,6 +7,7 @@ import { UserMyAccountService } from '../../../../services/business/user/user-my
 import { AddressResponse } from '../../../../source/models/business/address-response';
 import { CreateOrUpdateAddressRequest } from '../../../../source/models/dtos/user/my-account/address/create-or-update-address-request';
 import { Utils } from '../../../../source/utils';
+import { ListFactory } from '../../../../source/factories/list-factory';
 declare let alertify: any;
 
 @Component({
@@ -156,40 +157,9 @@ export class MyAccountAddressesCreateOrUpdateComponent extends FormBase implemen
 
     setLists() {
         // paises
-        this._countries.push(new Tuple2("México", "México"));
+        this._countries = ListFactory.get("my-account-address-countries");
 
         // estados
-        this._states.push(new Tuple2("Aguascalientes", "Aguascalientes"));
-        this._states.push(new Tuple2("Baja California", "Baja California"));
-        this._states.push(new Tuple2("Baja California Sur", "Baja California Sur"));
-        this._states.push(new Tuple2("Campeche", "Campeche"));
-        this._states.push(new Tuple2("Chiapas", "Chiapas"));
-        this._states.push(new Tuple2("Chihuahua", "Chihuahua"));
-        this._states.push(new Tuple2("Ciudad de México", "Ciudad de México"));
-        this._states.push(new Tuple2("Coahuila", "Coahuila"));
-        this._states.push(new Tuple2("Colima", "Colima"));
-        this._states.push(new Tuple2("Durango", "Durango"));
-        this._states.push(new Tuple2("Guanajuato", "Guanajuato"));
-        this._states.push(new Tuple2("Guerrero", "Guerrero"));
-        this._states.push(new Tuple2("Hidalgo", "Hidalgo"));
-        this._states.push(new Tuple2("Jalisco", "Jalisco"));
-        this._states.push(new Tuple2("Estadi de México", "Estadi de México"));
-        this._states.push(new Tuple2("Michoacán", "Michoacán"));
-        this._states.push(new Tuple2("Morelos", "Morelos"));
-        this._states.push(new Tuple2("Nayarit", "Nayarit"));
-        this._states.push(new Tuple2("Nuevo León", "Nuevo León"));
-        this._states.push(new Tuple2("Oaxaca", "Oaxaca"));
-        this._states.push(new Tuple2("Puebla", "Puebla"));
-        this._states.push(new Tuple2("Querétaro", "Querétaro"));
-        this._states.push(new Tuple2("Quintana Roo", "Quintana Roo"));
-        this._states.push(new Tuple2("San Luis Potosí", "San Luis Potosí"));
-        this._states.push(new Tuple2("Sinaloa", "Sinaloa"));
-        this._states.push(new Tuple2("Sonora", "Sonora"));
-        this._states.push(new Tuple2("Tabasco", "Tabasco"));
-        this._states.push(new Tuple2("Tamaulipas", "Tamaulipas"));
-        this._states.push(new Tuple2("Tlaxcala", "Tlaxcala"));
-        this._states.push(new Tuple2("Veracruz", "Veracruz"));
-        this._states.push(new Tuple2("Yucatán", "Yucatán"));
-        this._states.push(new Tuple2("Zacatecas", "Zacatecas"));
+        this._states = ListFactory.get("my-account-address-states");
     }
 }

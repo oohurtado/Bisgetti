@@ -8,6 +8,7 @@ import { UserAdministrationService } from '../../../../services/business/user/us
 import { ChangeRoleRequest } from '../../../../source/models/dtos/user/administration/users/change-role-request';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
+import { ListFactory } from '../../../../source/factories/list-factory';
 declare let alertify: any;
 
 @Component({
@@ -47,10 +48,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
     }
 
     setLists() {
-        let pipe = new RoleStrPipe();
-        this._userRoles.push(new Tuple2(EnumRole.UserAdmin, pipe.transform(EnumRole.UserAdmin)));
-        this._userRoles.push(new Tuple2(EnumRole.UserBoss, pipe.transform(EnumRole.UserBoss)));
-        this._userRoles.push(new Tuple2(EnumRole.UserCustomer, pipe.transform(EnumRole.UserCustomer)));
+        this._userRoles = ListFactory.get("user-change-role");
     }
 
     override async setupFormAsync() {
