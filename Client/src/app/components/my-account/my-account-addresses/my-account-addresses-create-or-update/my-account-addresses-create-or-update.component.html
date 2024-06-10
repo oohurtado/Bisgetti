@@ -1,10 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+		<h3>{{ _addressId === null || _addressId === undefined ? 'Agregar dirección' : 'Editar dirección' }}</h3>
+	</div>
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/my-account']">Mi cuenta</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/my-account/addresses/list']">Mis direcciones</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ _addressId === null || _addressId === undefined ? 'Agregar dirección' : 'Editar dirección' }}</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
 <div class="mt-2 mb-2 mx-auto" style="width: 800px;">
     <div class="card">
         <div class="card-header">
-            Agregar dirección
+            {{ _addressId === null || _addressId === undefined ? 'Agrega las direcciones que necesites' : 'Manten tu dirección actualizada' }}            
         </div>
         <div class="card-body">
-            <h5 class="card-title">Agrega tus direcciones</h5>
             <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
                 <div class="row">    
                     <div class="col-md-12 mt-3">
