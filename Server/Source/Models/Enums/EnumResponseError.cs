@@ -46,5 +46,8 @@ namespace Server.Source.Models.Enums
 
         [Description("La dirección ya existe")]
         AddressAlreadyExists,
+
+        [Description("Has llegado al límite de direcciones que se pueden crear")]
+        AddressCreateLimit,
     }
 }

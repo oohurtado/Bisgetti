@@ -57,6 +57,12 @@ namespace Server.Source.Logic.User
 
         public async Task CreateAddressAsync(CreateOrUpdateAddressRequest request, string userId)
         {
+            var count = await _addressRepository.CountAsync(userId);
+            if (count == 10)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.AddressCreateLimit);
+            }
+
             var exists = await _addressRepository.ExistsAsync(userId, id: null, request.Name!);
             if (exists)
             {

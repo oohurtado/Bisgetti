@@ -38,5 +38,10 @@ namespace Server.Source.Data.Interfaces
         /// Borra direccion
         /// </summary>
         Task DeleteAddressAsync(AddressEntity address);
+
+        /// <summary>
+        /// Cuenta direcciones
+        /// </summary>
+        Task<int> CountAsync(string userId);
     }
 }

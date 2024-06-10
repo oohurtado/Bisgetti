@@ -6,6 +6,7 @@ using Server.Source.Exceptions;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using System.Linq.Expressions;
+using System.Net;
 
 namespace Server.Source.Data
 {
@@ -73,6 +74,12 @@ namespace Server.Source.Data
         {
             _context.Addresses.Remove(address!);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> CountAsync(string userId)
+        {
+            var count = await _context.Addresses.Where(p => p.UserId == userId).CountAsync();
+            return count;
         }
     }
 }
