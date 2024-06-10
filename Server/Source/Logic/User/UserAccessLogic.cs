@@ -7,8 +7,10 @@ using Server.Source.Models.DTOs;
 using Server.Source.Models.DTOs.User.Access;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
+using Server.Source.Services.Interfaces;
 using Server.Source.Utilities;
 using System.Data;
+using static Server.Source.Services.EmailNotificationService;
 
 namespace Server.Source.Logic.User
 {
@@ -16,14 +18,17 @@ namespace Server.Source.Logic.User
     {
         private readonly IAspNetRepository _aspNetRepository;
         private readonly ConfigurationUtility _configurationUtility;
+        private readonly INotificationService _notificationService;
 
         public UserAccessLogic(
             IAspNetRepository aspNetRepository,
-            ConfigurationUtility configurationUtility
+            ConfigurationUtility configurationUtility,
+            INotificationService notificationService
             )
         {
             _aspNetRepository = aspNetRepository;
             _configurationUtility = configurationUtility;
+            _notificationService = notificationService;
         }
 
         public async Task<TokenResponse> SignupAsync(SignupRequest request)
@@ -60,9 +65,8 @@ namespace Server.Source.Logic.User
             var claims = TokenUtility.CreateClaims(user!, new List<string>() { role });
             var token = TokenUtility.BuildToken(claims, _configurationUtility.GetJWTKey());
 
-            // TODO: enviar correo que se ha creado su usuario
-            // 1 - construir correo
-            // 2 - enviar correo
+            // enviamos correo de bienvenida
+            await SendWelcomeEmailAsync(request);
 
             return token;
         }
@@ -91,6 +95,20 @@ namespace Server.Source.Logic.User
         {
             var user = await _aspNetRepository.FindByEmailAsync(email);
             return user == null;
+        }
+
+        private async Task SendWelcomeEmailAsync(SignupRequest request)
+        {
+            var body = EmailUtility.LoadFile(EnumEmailTemplate.Welcome);
+            var configuration = _configurationUtility.GetRestaurantInformation();
+            body = body.Replace("[user-first-name]", request.FirstName);
+            body = body.Replace("[restaurant-name]", configuration.Name);
+            body = body.Replace("[restaurant-email]", configuration.Email);
+            body = body.Replace("[restaurant-phone-number]", configuration.PhoneNumber);
+
+            _notificationService.SetMessage($"Bienvenido/a a {configuration.Name}", body);
+            _notificationService.SetRecipient(email: request.Email, name: request.FirstName, RecipientType.Recipient);
+            await _notificationService.SendEmailAsync();
         }
     }
 }

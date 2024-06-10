@@ -98,9 +98,7 @@ namespace Server.Source.Services
             }
             catch (Exception ex)
             {
-
-                await Console.Out.WriteLineAsync(ex.Message);
-                throw;
+                // TODO: log crash
             }
         }
     }

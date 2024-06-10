@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Source.Models.Enums;
 using Server.Source.Services.Interfaces;
 using Server.Source.Utilities;
 using static Server.Source.Services.EmailNotificationService;
@@ -35,12 +36,10 @@ namespace Server.Controllers
         [HttpGet(template: "test-email-welcome")]
         public async Task<ActionResult> TestEmailWelcome([FromServices] INotificationService notificationService, [FromServices] ConfigurationUtility configurationUtility)
         {
+            var body = EmailUtility.LoadFile(EnumEmailTemplate.Welcome);
             var configuration = configurationUtility.GetRestaurantInformation();
 
-            var tmp = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var path = Path.Combine(tmp!, "Resources", "Emails", "Welcome.html");
-            string body = System.IO.File.ReadAllText(path);
-   
+            body = body.Replace("[user-first-name]", "Oscar");
             body = body.Replace("[restaurant-name]", configuration.Name);
             body = body.Replace("[restaurant-email]", configuration.Email);
             body = body.Replace("[restaurant-phone-number]", configuration.PhoneNumber);
