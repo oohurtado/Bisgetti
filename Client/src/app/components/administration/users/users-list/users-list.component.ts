@@ -32,13 +32,11 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
 		await this.userAdministrationService
 			.getUsersByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
 			.then(p => {
-				// this.errors = [];
 				this._pageData = p;
 				this.updatePage(p);
 			})
 			.catch(e => {
-				this._error = Utils.getErrorsResponse(e);
-				this._pageData.data = [];
+				this._error = Utils.getErrorsResponse(e);				
 			});
 		this._isProcessing = false;
     }

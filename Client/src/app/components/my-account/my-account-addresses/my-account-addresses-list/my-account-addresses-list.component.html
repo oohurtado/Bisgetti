@@ -13,54 +13,56 @@
 	</div>
 </ng-container>
 
-<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 g-4" *ngIf="_error === null">
-    <div class="col">
-        <div class="card h-100">
-            <div class="my-auto text-center">
-                <br><br><br><br><br>
-                <a class="cursor-pointer" (click)="onCreateClicked($event)">Agregar dirección</a>
-                <br>
-                <small class="text-muted">Agrega hasta 10 direcciones</small>
-                <br><br><br><br><br>
-            </div>
-        </div>
-    </div>
-    <ng-container>
-        <div class="col" *ngFor="let item of _pageData?.data">
+<ng-container *ngIf="_error === null">
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 g-4">
+        <div class="col">
             <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }} <span title="Dirección predeterminada" *ngIf="item.isDefault"><i class="fa-solid fa-star text-warning"></i></span></h5>
-                    <p class="card-text">
-                        <strong>Dirección</strong>
-                        <br>
-                        {{ item.street }}, {{ item.exteriorNumber }} {{ item.interiorNumber }}
-                        <br>
-                        {{ item.suburb }}
-                        <br>
-                        {{ item.city }}, {{ item.state }}, {{ item.postalCode }}
-                        <br>
-                        {{ item.country }}
-                        <br>
-                        <ng-container *ngIf="item.moreInstructions !== null && item.moreInstructions !== ''">
-
-                            <em>{{ item.moreInstructions }}</em>
-                            <br>
-                        </ng-container>
-                        <strong>Número telefónico</strong>
-                        <br>
-                        {{ item.phoneNumber }}
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a class="cursor-pointer" (click)="onUpdateClicked($event, item)">Editar</a>
-                    &nbsp;|&nbsp;
-                    <a class="cursor-pointer" (click)="onDeleteClicked($event, item)">Borrar</a>
-                    <ng-container *ngIf="!item.isDefault">
-                        &nbsp;|&nbsp;
-                        <a class="cursor-pointer" (click)="onDefaultClicked($event, item)">Predeterminado</a>
-                    </ng-container>
+                <div class="my-auto text-center">
+                    <br><br><br><br><br>
+                    <a class="cursor-pointer" (click)="onCreateClicked($event)">Agregar dirección</a>
+                    <br>
+                    <small class="text-muted">Agrega hasta 10 direcciones</small>
+                    <br><br><br><br><br>
                 </div>
             </div>
         </div>
-    </ng-container>
-</div>
+        <ng-container>
+            <div class="col" *ngFor="let item of _pageData?.data">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }} <span title="Dirección predeterminada" *ngIf="item.isDefault"><i class="fa-solid fa-star text-warning"></i></span></h5>
+                        <p class="card-text">
+                            <strong>Dirección</strong>
+                            <br>
+                            {{ item.street }}, {{ item.exteriorNumber }} {{ item.interiorNumber }}
+                            <br>
+                            {{ item.suburb }}
+                            <br>
+                            {{ item.city }}, {{ item.state }}, {{ item.postalCode }}
+                            <br>
+                            {{ item.country }}
+                            <br>
+                            <ng-container *ngIf="item.moreInstructions !== null && item.moreInstructions !== ''">
+
+                                <em>{{ item.moreInstructions }}</em>
+                                <br>
+                            </ng-container>
+                            <strong>Número telefónico</strong>
+                            <br>
+                            {{ item.phoneNumber }}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="cursor-pointer" (click)="onUpdateClicked($event, item)">Editar</a>
+                        &nbsp;|&nbsp;
+                        <a class="cursor-pointer" (click)="onDeleteClicked($event, item)">Borrar</a>
+                        <ng-container *ngIf="!item.isDefault">
+                            &nbsp;|&nbsp;
+                            <a class="cursor-pointer" (click)="onDefaultClicked($event, item)">Predeterminado</a>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>

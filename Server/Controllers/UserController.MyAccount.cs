@@ -62,7 +62,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-customer")]
         [HttpGet(template: "my-account/addresses")]
         public async Task<ActionResult> GetAddressesList()
-        {            
+        {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var result = await _userAddressLogic.GetAddressesListAsync(userId);
             return Ok(result);
