@@ -1,4 +1,6 @@
-﻿namespace Server.Source.Utilities
+﻿using Server.Source.Models.AppSettings;
+
+namespace Server.Source.Utilities
 {
     public class ConfigurationUtility
     {
@@ -17,6 +19,27 @@
         public string GetJWTKey()
         {
             return _configuration["JWT:Key"]!;
+        }
+
+        public EmailNotificationAppSetting GetEmailNotification()
+        {
+            var appSettingsSection = _configuration.GetSection("EmailNotification");
+            var settings = appSettingsSection.Get<EmailNotificationAppSetting>()!;
+            return settings;            
+        }
+
+        public RestaurantInformationAppSetting GetRestaurantInformation()
+        {
+            var appSettingsSection = _configuration.GetSection("RestaurantInformation");
+            var settings = appSettingsSection.Get<RestaurantInformationAppSetting>()!;
+            return settings;
+        }
+
+        public MainAppSetting GetMain()
+        {
+            var appSettingsSection = _configuration.GetSection("Main");
+            var settings = appSettingsSection.Get<MainAppSetting>()!;
+            return settings;
         }
     }
 }

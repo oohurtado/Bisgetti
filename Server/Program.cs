@@ -19,6 +19,8 @@ using System.Diagnostics;
 using System;
 using System.Text;
 using Server.Source.Models.DTOs.User.Address;
+using Server.Source.Services.Interfaces;
+using Server.Source.Services;
 
 namespace Server
 {
@@ -109,6 +111,9 @@ namespace Server
 
             // utilities
             builder.Services.AddScoped<ConfigurationUtility>();
+
+            // services
+            builder.Services.AddScoped<INotificationService, EmailNotificationService>();
 
             builder.Services.AddAutoMapper(p =>
             {

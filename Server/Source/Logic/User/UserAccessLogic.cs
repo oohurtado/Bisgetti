@@ -61,6 +61,8 @@ namespace Server.Source.Logic.User
             var token = TokenUtility.BuildToken(claims, _configurationUtility.GetJWTKey());
 
             // TODO: enviar correo que se ha creado su usuario
+            // 1 - construir correo
+            // 2 - enviar correo
 
             return token;
         }
