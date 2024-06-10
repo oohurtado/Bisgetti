@@ -74,9 +74,9 @@ export class MyAccountAddressesListComponent extends PageBase<AddressResponse> i
 						complete: () => {
 							component._isProcessing = false;
 						},
-						error: (errorResponse : string) => {
+						error: (e : string) => {
 							component._isProcessing = false;
-							component._error = Utils.getErrorsResponse(errorResponse);					
+							component._error = Utils.getErrorsResponse(e);					
 						},
 						next: (val) => {							
 							component._pageData.data = component._pageData.data.filter(p => p.id != address.id);
@@ -101,9 +101,9 @@ export class MyAccountAddressesListComponent extends PageBase<AddressResponse> i
 			complete: () => {
 				this._isProcessing = false;
 			},
-			error: (errorResponse : string) => {
+			error: (e : string) => {
 				this._isProcessing = false;
-				this._error = Utils.getErrorsResponse(errorResponse);					
+				this._error = Utils.getErrorsResponse(e);					
 			},
 			next: (val) => {
 				if (model.isDefault) {					

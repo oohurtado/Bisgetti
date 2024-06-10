@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { ChangePasswordRequest } from '../../../source/models/dtos/user/my-account/password/change-password.request';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
+import { Utils } from '../../../source/utils';
 declare let alertify: any;
 
 @Component({
@@ -61,7 +62,7 @@ export class MyAccountChangePasswordComponent extends FormBase implements OnInit
 				},
 				error: (e : string) => {
 					this._isProcessing = false;
-					this._error = e;
+					this._error = Utils.getErrorsResponse(e);
 				},
 				next: (val) => {
                     this.localStorageService.clean();

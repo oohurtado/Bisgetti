@@ -9,6 +9,7 @@ import { ChangeRoleRequest } from '../../../../source/models/dtos/user/administr
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 import { ListFactory } from '../../../../source/factories/list-factory';
+import { Utils } from '../../../../source/utils';
 declare let alertify: any;
 
 @Component({
@@ -80,7 +81,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
 				},
 				error: (e : string) => {
 					this._isProcessing = false;
-					this._error = e;
+					this._error = Utils.getErrorsResponse(e);
 				},
 				next: (val) => {
 					this.router.navigateByUrl('/administration/users');

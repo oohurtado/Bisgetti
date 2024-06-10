@@ -70,38 +70,5 @@ namespace Server.Source.Logic.User
             // quitamos rol actual y asignamos nuevo rol
             await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
         }
-
-        public async Task CreateUserAsync(CreateUserRequest request)
-        {
-            // mandamos error si el usuario ya existe
-            var user = await _aspNetRepository.FindByEmailAsync(request.Email);
-            if (user != null)
-            {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserEmailAlreadyExists);
-            }
-
-            // construimos usuario con parametros de entrada y registramos usuario en base de datos         
-            user = new()
-            {
-                UserName = request.Email,
-                Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                PhoneNumber = request.PhoneNumber,
-            };
-            var result = await _aspNetRepository.CreateUserAsync(user, request.Password);
-
-            // si no es posible registrar mandamos error
-            if (!result.Succeeded)
-            {
-                throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
-            }
-
-            // asignamos role de inicio
-            var role = request.UserRole;
-            await _aspNetRepository.AddRoleToUserAsync(user, role);
-
-            // TODO: enviar correo que se ha creado su usuario
-        }
     }
 }

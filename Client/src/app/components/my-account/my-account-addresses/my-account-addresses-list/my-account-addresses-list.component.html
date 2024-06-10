@@ -7,7 +7,13 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 g-4">
+<ng-container *ngIf="_error !== null">
+	<div  class="alert alert-danger mt-4 ml-4 mr-4" role="alert">
+		{{ _error }}
+	</div>
+</ng-container>
+
+<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 g-4" *ngIf="_error === null">
     <div class="col">
         <div class="card h-100">
             <div class="my-auto text-center">

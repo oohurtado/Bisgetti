@@ -127,9 +127,9 @@ export class MyAccountAddressesCreateOrUpdateComponent extends FormBase implemen
                     complete: () => {
                         this._isProcessing = false;
                     },
-                    error: (errorResponse : string) => {
+                    error: (e : string) => {
                         this._isProcessing = false;
-                        this._error = errorResponse;
+                        this._error = Utils.getErrorsResponse(e);
                     },
                     next: (val) => {
                         this.router.navigateByUrl('my-account/addresses/list');
@@ -143,9 +143,9 @@ export class MyAccountAddressesCreateOrUpdateComponent extends FormBase implemen
                     complete: () => {
                         this._isProcessing = false;
                     },
-                    error: (errorResponse : string) => {
+                    error: (e : string) => {
                         this._isProcessing = false;
-                        this._error = errorResponse;
+                        this._error = Utils.getErrorsResponse(e);
                     },
                     next: (val) => {
                         this.router.navigateByUrl('my-account/addresses/list');

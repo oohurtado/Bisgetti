@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs.User.Access;
 using Server.Source.Models.DTOs.User.Administration;
@@ -27,7 +28,7 @@ namespace Server.Controllers
         /// </summary>
         [HttpPost(template: "access/login")]
         public async Task<ActionResult> Login([FromBody] LoginRequest request)
-        {
+        {            
             var respose = await _userAccessLogic.LoginAsync(request);
             return Ok(respose);
         }

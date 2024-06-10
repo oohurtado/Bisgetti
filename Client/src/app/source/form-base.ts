@@ -8,8 +8,7 @@ export abstract class FormBase {
     _error: string|null = null;
     
     constructor() {
-        this._error = null!;     
-        this._isLoading = false;
+        this._error = null!;
         this._isLoading = false;
     }
 

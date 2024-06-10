@@ -7,6 +7,7 @@ import { UserAccessService } from '../../../services/business/user/user-access.s
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { SignupRequest } from '../../../source/models/dtos/user/access/signup-request';
 import { TokenResponse } from '../../../source/models/dtos/user/access/token-response';
+import { Utils } from '../../../source/utils';
 declare let alertify: any;
 
 @Component({
@@ -66,9 +67,9 @@ export class SignupComponent extends FormBase implements OnInit {
 				complete: () => {
 					this._isProcessing = false;
 				},
-				error: (errorResponse : string) => {
+				error: (e : string) => {
 					this._isProcessing = false;
-					this._error = errorResponse;
+					this._error = Utils.getErrorsResponse(e);
 				},
 				next: (val) => {
 					let model = Object.assign(new TokenResponse(), val);

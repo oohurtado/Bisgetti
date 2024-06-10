@@ -7,64 +7,61 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-6">
+<ng-container *ngIf="_error !== null">
+	<div  class="alert alert-danger mt-4 ml-4 mr-4" role="alert">
+		{{ _error }}
 	</div>
-	<div class="col-md-6 text-end">
-		<app-page-order class="ms-1 me-1" [data]="_pageOrder" (evt)="onOrderClicked($event)"></app-page-order>
-		<app-page-sync class="ms-1" (evt)="onSyncClicked()"></app-page-sync>
-	</div>
-</div>
+</ng-container>
 
-<div class="table-responsive">
-	<table class="table table-bordered mt-2 mb-2 table-striped">
-		<thead>
-			<tr>
-				<th [width]="'1%'"></th>
-				<th scope="col">Nombre(s)</th>
-				<th scope="col">Apellido(s)</th>
-				<th scope="col">Correo electrónico</th>
-				<th scope="col">Número telefónico</th>
-				<th scope="col">Rol</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>	
-				<td *ngIf="_pageData?.data?.length == 0" colspan="6" class="text-center">
-					No hay datos para mostrar
-				</td>
-			</tr>
-			<ng-container *ngIf="_error !== null">
+<ng-container *ngIf="_error === null">
+	<div class="row">
+		<div class="col-md-6">
+		</div>
+		<div class="col-md-6 text-end">
+			<app-page-order class="ms-1 me-1" [data]="_pageOrder" (evt)="onOrderClicked($event)"></app-page-order>
+			<app-page-sync class="ms-1" (evt)="onSyncClicked()"></app-page-sync>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-bordered mt-2 mb-2 table-striped">
+			<thead>
 				<tr>
-					<td colspan="6">
-						<div  class="alert alert-danger ml-4 mr-4" role="alert">
-							{{ _error }}
+					<th [width]="'1%'"></th>
+					<th scope="col">Nombre(s)</th>
+					<th scope="col">Apellido(s)</th>
+					<th scope="col">Correo electrónico</th>
+					<th scope="col">Número telefónico</th>
+					<th scope="col">Rol</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>	
+					<td *ngIf="_pageData?.data?.length == 0" colspan="6" class="text-center">
+						No hay datos para mostrar
+					</td>
+				</tr>
+				<tr *ngFor="let item of _pageData?.data">
+					<td style="white-space:nowrap;">
+						<div class="dropdown">
+							<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+								<li><a class="dropdown-item cursor-pointer" (click)="onChangeRoleClicked($event, item)">Cambiar rol</a></li>
+							</ul>
 						</div>
 					</td>
-				</tr>	
-			</ng-container>
-			<tr *ngFor="let item of _pageData?.data">
-				<td style="white-space:nowrap;">
-					<div class="dropdown">
-						<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item cursor-pointer" (click)="onChangeRoleClicked($event, item)">Cambiar rol</a></li>
-						</ul>
-					</div>
-				</td>
-				<td style="white-space:nowrap;">{{ item.firstName }}</td>
-				<td style="white-space:nowrap;">{{ item.lastName }}</td>
-				<td style="white-space:nowrap;">{{ item.email }}</td>
-				<td style="white-space:nowrap;">{{ item.phoneNumber }}</td>
-				<td style="white-space:nowrap;">{{ item.userRole | roleStr }}</td>
-			</tr>		
-		</tbody>
-	</table>
-</div>
-
-<div class="row">
-	<div class="col-md-12 text-end">				
-		<app-page-pagination [pageSelected]="pageSelected" [pageSize]="pageSize" (evt_pageOption)="onPageOptionClicked($event)" (evt_pageSize)="onPageSizeClicked($event)"></app-page-pagination>
+					<td style="white-space:nowrap;">{{ item.firstName }}</td>
+					<td style="white-space:nowrap;">{{ item.lastName }}</td>
+					<td style="white-space:nowrap;">{{ item.email }}</td>
+					<td style="white-space:nowrap;">{{ item.phoneNumber }}</td>
+					<td style="white-space:nowrap;">{{ item.userRole | roleStr }}</td>
+				</tr>		
+			</tbody>
+		</table>
 	</div>
-</div>
+	<div class="row">
+		<div class="col-md-12 text-end">				
+			<app-page-pagination [pageSelected]="pageSelected" [pageSize]="pageSize" (evt_pageOption)="onPageOptionClicked($event)" (evt_pageSize)="onPageSizeClicked($event)"></app-page-pagination>
+		</div>
+	</div>
+</ng-container>

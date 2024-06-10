@@ -19,7 +19,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]        
         [HttpGet(template: "my-account/personal-data")]
         public async Task<ActionResult> GetPersonalData(string userId = null!)
-        {
+        {            
             if (userId == null)
             {
                 userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -34,7 +34,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "my-account/personal-data")]
         public async Task<ActionResult> UpdatePersonalData([FromBody] UpdatePersonalDataRequest request, string userId = null!)
-        {
+        {            
             if (userId == null)
             {
                 userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -49,7 +49,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut(template: "my-account/password")]
         public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
-        {
+        {            
             var email = User.FindFirstValue(ClaimTypes.Email!);
             await _userCommonLogic.ChangePasswordAsync(email, request);
             return Ok();
@@ -62,7 +62,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-customer")]
         [HttpGet(template: "my-account/addresses")]
         public async Task<ActionResult> GetAddressesList()
-        {
+        {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var result = await _userAddressLogic.GetAddressesListAsync(userId);
             return Ok(result);
@@ -75,7 +75,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-customer")]
         [HttpGet(template: "my-account/addresses/{id}")]
         public async Task<ActionResult> GetAddress(int id)
-        {
+        {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var result = await _userAddressLogic.GetAddressAsync(userId, id);
             return Ok(result);
@@ -88,7 +88,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-customer")]
         [HttpPost(template: "my-account/addresses")]
         public async Task<ActionResult> CreateAddress([FromBody] CreateOrUpdateAddressRequest request)
-        {
+        {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             await _userAddressLogic.CreateAddressAsync(request, userId);
             return Ok();
@@ -101,7 +101,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-customer")]
         [HttpPut(template: "my-account/addresses/{id}")]
         public async Task<ActionResult> UpdateAddress([FromBody] CreateOrUpdateAddressRequest request, int id)
-        {
+        {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             await _userAddressLogic.UpdateAddressAsync(request, userId, id);
             return Ok();
@@ -114,7 +114,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-customer")]
         [HttpDelete(template: "my-account/addresses/{id}")]
         public async Task<ActionResult> DeleteAddress(int id)
-        {
+        {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             await _userAddressLogic.DeleteAddressAsync(userId, id);
             return Ok();
@@ -127,7 +127,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-customer")]
         [HttpPut(template: "my-account/addresses/default/{id}")]
         public async Task<ActionResult> UpdateAddressDefault([FromBody] UpdateAddressDefaultRequest request, int id)
-        {
+        {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             await _userAddressLogic.UpdateAddressDefaultAsync(request, userId, id);
             return Ok();

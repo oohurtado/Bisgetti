@@ -15,7 +15,7 @@ declare let alertify: any;
 })
 export class MyAccountUpdatePersonalDataComponent extends FormBase implements OnInit {
     
-    _user!: UserResponse;    
+    _user: UserResponse|null = null;
     
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -47,6 +47,10 @@ export class MyAccountUpdatePersonalDataComponent extends FormBase implements On
     }
 
     override setupFormAsync(): void {
+		if (this._user === null) {
+			return;
+		}
+
 		this._myForm = this.formBuilder.group({
 			firstName: [this._user.firstName, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
 			lastName: [this._user.lastName, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
@@ -73,9 +77,9 @@ export class MyAccountUpdatePersonalDataComponent extends FormBase implements On
 				complete: () => {
 					this._isProcessing = false;
 				},
-				error: (errorResponse : string) => {
+				error: (e : string) => {
 					this._isProcessing = false;
-					this._error = errorResponse;
+					this._error = Utils.getErrorsResponse(e);;
 				},
 				next: (val) => {
 					this.router.navigateByUrl('/my-account');

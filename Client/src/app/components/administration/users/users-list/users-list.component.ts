@@ -37,7 +37,8 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
 				this.updatePage(p);
 			})
 			.catch(e => {
-				this._error = Utils.getErrorsResponse(e);	
+				this._error = Utils.getErrorsResponse(e);
+				this._pageData.data = [];
 			});
 		this._isProcessing = false;
     }

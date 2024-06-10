@@ -11,7 +11,7 @@
                     <div class="col-md-12 mt-3">
                         <p>
                             <strong>Correo electrónico</strong><br>
-                            {{ _user.email }}
+                            {{ _user?.email }}
                         </p>
                     </div>                       
                     <div class="col-md-6 mt-3">
@@ -44,15 +44,22 @@
                             <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
                         </button>
                     </div>
-                    <ng-container *ngIf="_error !== null">
-                        <div class="col-12">
-                            <div  class="alert alert-danger ml-4 mr-4" role="alert">
-                                {{ _error }}
-                            </div>
-                        </div>
-                    </ng-container>
                 </div>
             </form>
+            <ng-container *ngIf="_error !== null">
+                <div class="col-12">
+                    <div  class="alert alert-danger ml-4 mr-4" role="alert">
+                        {{ _error }}
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="_error !== null">
+                <div class="col-12">
+                    <div  class="alert alert-danger ml-4 mr-4" role="alert">
+                        {{ _error }}
+                    </div>
+                </div>
+            </ng-container>
         </div>
     </div>
 </div>

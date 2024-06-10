@@ -56,9 +56,9 @@ export class LoginComponent extends FormBase implements OnInit {
 				complete: () => {
 					this._isProcessing = false;
 				},
-				error: (errorResponse : string) => {
+				error: (e : string) => {
 					this._isProcessing = false;
-					this._error = Utils.getErrorsResponse(errorResponse);					
+					this._error = Utils.getErrorsResponse(e);
 				},
 				next: (val) => {
 					let model = Object.assign(new TokenResponse(), val);
