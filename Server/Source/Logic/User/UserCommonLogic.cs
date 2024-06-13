@@ -56,7 +56,11 @@ namespace Server.Source.Logic.User
                 throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
             }
 
-            await _aspNetRepository.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            var result = await _aspNetRepository.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorChangingPassword);
+            }
         }
     }
 }

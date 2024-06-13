@@ -7,5 +7,8 @@ namespace Server.Source.Models.Enums
     {
         [Description("Resources/Emails/Welcome.html")]       
         Welcome,
+
+        [Description("Resources/Emails/PasswordRecovery.html")]
+        PasswordRecovery,
     }
 }

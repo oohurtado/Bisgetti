@@ -33,11 +33,34 @@ namespace Server.Controllers
             return Ok(respose);
         }
 
+        /// <summary>
+        /// Correo disponible
+        /// </summary>
         [HttpGet(template: "access/email-available/{email}")]
         public async Task<ActionResult> IsEmailAvailable(string email)
         {
             var isAvailable = await _userAccessLogic.IsEmailAvailableAsync(email);
             return Ok(isAvailable);
+        }
+
+        /// <summary>
+        /// Recuperar contraseña
+        /// </summary>
+        [HttpPost(template: "access/password-recovery")]
+        public async Task<ActionResult> PasswordRecovery([FromBody] PasswordRecoveryRequest request)
+        {
+            await _userAccessLogic.PasswordRecoveryAsync(request);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Recuperar contraseña
+        /// </summary>
+        [HttpPost(template: "access/set-password")]
+        public async Task<ActionResult> SetPassword([FromBody] SetPasswordRequest request)
+        {
+            await _userAccessLogic.SetPasswordAsync(request);
+            return Ok();
         }
     }
 }

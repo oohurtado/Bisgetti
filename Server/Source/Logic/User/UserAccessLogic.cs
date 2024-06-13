@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
@@ -10,6 +12,7 @@ using Server.Source.Models.Enums;
 using Server.Source.Services.Interfaces;
 using Server.Source.Utilities;
 using System.Data;
+using System.Web;
 using static Server.Source.Services.EmailNotificationService;
 
 namespace Server.Source.Logic.User
@@ -97,6 +100,34 @@ namespace Server.Source.Logic.User
             return user == null;
         }
 
+        public async Task PasswordRecoveryAsync(PasswordRecoveryRequest request)
+        {
+            var user = await _aspNetRepository.FindByEmailAsync(request.Email);
+            if(user == null)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
+            }
+
+            var token = await _aspNetRepository.GeneratePasswordResetTokenAsync(user);
+            var url = $"{request.URL.Replace("password-recovery", "set-password")}/{request.Email}/{HttpUtility.UrlEncode(token)}";
+            await SendPasswordRecoveryEmailAsync(user, url);
+        }
+
+        public async Task SetPasswordAsync(SetPasswordRequest request)
+        {
+            var user = await _aspNetRepository.FindByEmailAsync(request.Email);
+            if (user == null)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
+            }
+
+            var result = await _aspNetRepository.ResetPasswordAsync(user, request.Token, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorChangingPassword);
+            }
+        }
+
         private async Task SendWelcomeEmailAsync(SignupRequest request)
         {
             var body = EmailUtility.LoadFile(EnumEmailTemplate.Welcome);
@@ -108,6 +139,20 @@ namespace Server.Source.Logic.User
 
             _notificationService.SetMessage($"Bienvenido/a a {configuration.Name}", body);
             _notificationService.SetRecipient(email: request.Email, name: request.FirstName, RecipientType.Recipient);
+            await _notificationService.SendEmailAsync();
+        }
+
+        private async Task SendPasswordRecoveryEmailAsync(UserEntity user, string url)
+        {
+            var body = EmailUtility.LoadFile(EnumEmailTemplate.PasswordRecovery);
+            var configuration = _configurationUtility.GetRestaurantInformation();
+
+            body = body.Replace("[user-first-name]", user.FirstName);
+            body = body.Replace("[restaurant-name]", configuration.Name);
+            body = body.Replace("[url]", url);
+
+            _notificationService.SetMessage($"Recuperación de contraseña", body);
+            _notificationService.SetRecipient(email: user.Email!, name: user.FirstName!, RecipientType.Recipient);
             await _notificationService.SendEmailAsync();
         }
     }

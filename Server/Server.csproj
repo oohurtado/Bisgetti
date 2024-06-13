@@ -30,6 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\Emails\PasswordRecovery.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Emails\Welcome.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

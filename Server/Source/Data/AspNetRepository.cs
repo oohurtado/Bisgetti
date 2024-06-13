@@ -80,15 +80,10 @@ namespace Server.Source.Data
             return await _userManager.GetRolesAsync(user!);
         }
 
-        public async Task ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword)
+        public async Task<IdentityResult> ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword)
         {
             var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
-
-            if (!result.Succeeded)
-            {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorChangingPassword);
-            }
-
+            return result;
         }
 
         public IQueryable<UserEntity> GetUsersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term, out int grandTotal)
@@ -187,6 +182,18 @@ namespace Server.Source.Data
             {
                 throw new EatSomeInternalErrorException(EnumResponseError.UserErrorUpdaingPersonalData);
             }
+        }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(UserEntity user)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return token;
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(UserEntity user, string token, string newPassword)
+        {
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            return result;
         }
     }
 }

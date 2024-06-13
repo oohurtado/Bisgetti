@@ -49,7 +49,7 @@ namespace Server.Source.Data.Interfaces
         /// <summary>
         /// Cambio de contraseña
         /// </summary>
-        Task ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword);
+        Task<IdentityResult> ChangePasswordAsync(UserEntity user, string currentPassword, string newPassword);
 
         /// <summary>
         /// Obtiene Usuarios y sus roles
@@ -66,7 +66,19 @@ namespace Server.Source.Data.Interfaces
         /// </summary>
         Task SetUserRoleAsync(UserEntity user, string roleToRemove, string roleToAdd);
 
-        // Actualiza datos personales del usuario
+        /// <summary>
+        /// Actualiza datos personales del usuario
+        /// </summary>
         Task UpdateUserAsync(UserEntity user);
+
+        /// <summary>
+        /// Genera token para resetear password
+        /// </summary>
+        Task<string> GeneratePasswordResetTokenAsync(UserEntity user);
+
+        /// <summary>
+        /// Resetea password
+        /// </summary>
+        Task<IdentityResult> ResetPasswordAsync(UserEntity user, string token, string newPassword);
     }
 }
