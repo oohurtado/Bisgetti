@@ -160,11 +160,6 @@ namespace Server.Source.Data
             // buscamos rol que empiece con user-
             var currentUserRole = roles.Where(p => p.StartsWith("user-")).FirstOrDefault();
 
-            if (string.IsNullOrEmpty(currentUserRole))
-            {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserWithoutUserRole);
-            }
-
             return currentUserRole!;
         }
 

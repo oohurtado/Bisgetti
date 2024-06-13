@@ -67,6 +67,11 @@ namespace Server.Source.Logic.User
             // obtenemos rol del usuario
             var roleToRemove = await _aspNetRepository.GetUserRoleAsync(user);
 
+            if (string.IsNullOrEmpty(roleToRemove))
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.UserWithoutUserRole);
+            }
+
             // quitamos rol actual y asignamos nuevo rol
             await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
         }
