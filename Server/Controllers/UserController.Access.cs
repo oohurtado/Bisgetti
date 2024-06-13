@@ -44,7 +44,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Recuperar contraseña
+        /// Recuperar contraseña 1
         /// </summary>
         [HttpPost(template: "access/password-recovery")]
         public async Task<ActionResult> PasswordRecovery([FromBody] PasswordRecoveryRequest request)
@@ -54,7 +54,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Recuperar contraseña
+        /// Recuperar contraseña 2
         /// </summary>
         [HttpPost(template: "access/set-password")]
         public async Task<ActionResult> SetPassword([FromBody] SetPasswordRequest request)
