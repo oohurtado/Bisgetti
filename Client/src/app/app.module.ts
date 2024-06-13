@@ -36,6 +36,8 @@ import { MyAccountUpdatePersonalDataComponent } from './components/my-account/my
 import { MyAccountChangePasswordComponent } from './components/my-account/my-account-change-password/my-account-change-password.component';
 import { MyAccountAddressesListComponent } from './components/my-account/my-account-addresses/my-account-addresses-list/my-account-addresses-list.component';
 import { MyAccountAddressesCreateOrUpdateComponent } from './components/my-account/my-account-addresses/my-account-addresses-create-or-update/my-account-addresses-create-or-update.component';
+import { PasswordRecoveryComponent } from './components/access/password-recovery/password-recovery.component';
+import { PasswordSetComponent } from './components/access/password-set/password-set.component';
 
 @NgModule({
 	declarations: [
@@ -64,6 +66,8 @@ import { MyAccountAddressesCreateOrUpdateComponent } from './components/my-accou
 		MyAccountChangePasswordComponent,
   		MyAccountAddressesListComponent,
   		MyAccountAddressesCreateOrUpdateComponent,
+    PasswordRecoveryComponent,
+    PasswordSetComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -109,11 +109,11 @@ namespace Server.Source.Logic.User
             }
 
             var token = await _aspNetRepository.GeneratePasswordResetTokenAsync(user);
-            var url = $"{request.URL.Replace("password-recovery", "set-password")}/{request.Email}/{HttpUtility.UrlEncode(token)}";
+            var url = $"{request.URL.Replace("password-recovery", "password-set")}/{request.Email}/{HttpUtility.UrlEncode(token)}";
             await SendPasswordRecoveryEmailAsync(user, url);
         }
 
-        public async Task SetPasswordAsync(SetPasswordRequest request)
+        public async Task PasswordSetAsync(PasswordSetRequest request)
         {
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
             if (user == null)

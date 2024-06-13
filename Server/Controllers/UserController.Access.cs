@@ -56,10 +56,10 @@ namespace Server.Controllers
         /// <summary>
         /// Recuperar contraseña 2
         /// </summary>
-        [HttpPost(template: "access/set-password")]
-        public async Task<ActionResult> SetPassword([FromBody] SetPasswordRequest request)
+        [HttpPost(template: "access/password-set")]
+        public async Task<ActionResult> PasswordSet([FromBody] PasswordSetRequest request)
         {
-            await _userAccessLogic.SetPasswordAsync(request);
+            await _userAccessLogic.PasswordSetAsync(request);
             return Ok();
         }
     }

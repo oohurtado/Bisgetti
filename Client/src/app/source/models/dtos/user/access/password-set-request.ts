@@ -1,4 +1,4 @@
-export class SetPasswordRequest {
+export class PasswordSetRequest {
     constructor(
         public email: string,
         public newPassword: string,

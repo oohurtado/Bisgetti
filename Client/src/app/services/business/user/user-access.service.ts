@@ -3,7 +3,7 @@ import { RequestService } from '../../common/request.service';
 import { SignupRequest } from '../../../source/models/dtos/user/access/signup-request';
 import { LoginRequest } from '../../../source/models/dtos/user/access/login-request';
 import { PasswordRecoveryRequest } from '../../../source/models/dtos/user/access/password-recovery-request';
-import { SetPasswordRequest } from '../../../source/models/dtos/user/access/set-password-request';
+import { PasswordSetRequest } from '../../../source/models/dtos/user/access/password-set-request';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +28,7 @@ export class UserAccessService {
 		return this.requestService.post('/user/access/password-recovery', model);
 	}
 
-	setPassword(model: SetPasswordRequest) {
-		return this.requestService.post('/user/access/set-password', model);
+	passwordSet(model: PasswordSetRequest) {
+		return this.requestService.post('/user/access/password-set', model);
 	}
 }

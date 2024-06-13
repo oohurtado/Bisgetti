@@ -14,19 +14,23 @@ import { MyAccountUpdatePersonalDataComponent } from "./components/my-account/my
 import { userCustomerGuard } from "./guards/user-customer.guard";
 import { MyAccountAddressesListComponent } from "./components/my-account/my-account-addresses/my-account-addresses-list/my-account-addresses-list.component";
 import { MyAccountAddressesCreateOrUpdateComponent } from "./components/my-account/my-account-addresses/my-account-addresses-create-or-update/my-account-addresses-create-or-update.component";
+import { PasswordRecoveryComponent } from "./components/access/password-recovery/password-recovery.component";
+import { PasswordSetComponent } from "./components/access/password-set/password-set.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'access/login', component: LoginComponent, canActivate: [anonGuard] },
     { path: 'access/signup', component: SignupComponent, canActivate: [anonGuard] },
-    { 
+    { path: 'access/password-recovery', component: PasswordRecoveryComponent, canActivate: [anonGuard] },
+    { path: 'access/password-set/:email/:token', component: PasswordSetComponent, canActivate: [anonGuard] },
+    {
         path: 'administration/users', component:  UsersComponent,
         children:[
             { path: 'list', component: UsersListComponent, canActivate: [authGuard, userAdminGuard] },
             { path: 'change-role/:userId/:userEmail/:userRole', component: UsersChangeRoleComponent, canActivate: [authGuard, userAdminGuard] },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
-    },        
+    },
     { path: 'my-account', component: MyAccountBaseComponent, canActivate: [authGuard] },
     { path: 'my-account/update-personal-data', component: MyAccountUpdatePersonalDataComponent, canActivate: [authGuard] },
     { path: 'my-account/change-password', component: MyAccountChangePasswordComponent, canActivate: [authGuard] },

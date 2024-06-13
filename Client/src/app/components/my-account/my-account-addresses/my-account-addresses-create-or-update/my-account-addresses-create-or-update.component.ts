@@ -34,10 +34,10 @@ export class MyAccountAddressesCreateOrUpdateComponent extends FormBase implemen
 
     async ngOnInit() {
         this.setLists();        
-        this.setUrlParameters();
+        await this.setUrlParametersAsync();
     }
 
-    setUrlParameters() {
+    async setUrlParametersAsync() {
         this.activatedRoute.params.subscribe(async params => {			
 			this._addressId = params['id'];
             if (this._addressId !== null && this._addressId !== undefined) {
