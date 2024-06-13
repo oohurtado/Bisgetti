@@ -15,5 +15,9 @@ namespace Server.Source.Models.DTOs.User.Administration
         [Display(Name = "Rol")]
         [Required(ErrorMessage = "Campo requerido")]
         public string Role { get; set; } = null!;
+
+        [Display(Name = "Url")]
+        [Required(ErrorMessage = "Campo requerido")]
+        public string Url { get; set; } = null!;
     }
 }

@@ -3,5 +3,6 @@ export class ChangeRoleRequest {
         public id: string,
         public email: string,
         public role: string,
+        public url: string
     ) { }
 }

@@ -10,5 +10,8 @@ namespace Server.Source.Models.Enums
 
         [Description("Resources/Emails/PasswordRecovery.html")]
         PasswordRecovery,
+
+        [Description("Resources/Emails/ChangeRole.html")]
+        ChangeRole,
     }
 }

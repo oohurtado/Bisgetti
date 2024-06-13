@@ -30,6 +30,9 @@ namespace Server.Source.Models.Enums
         [Description("Error al actualizar los datos personales")]
         UserErrorUpdaingPersonalData,
 
+        [Description("No se puede realizar el cambo de rol, ya que el actual y el nuevo son en mismo rol")]
+        UserOldRoleAndNewRoleAreTheSame,
+
         /// <summary>
         /// paginacion
         /// </summary>

@@ -33,7 +33,7 @@ namespace Server.Controllers
         public async Task<ActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
         {            
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
-            await _userAdministrationLogic.ChangeUserRoleAsync(executingUserRole!, request);
+            await _userAdministrationLogic.ChangeRoleAsync(executingUserRole!, request);
             return Ok();
         }
     }

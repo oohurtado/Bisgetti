@@ -71,7 +71,8 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
         let model = new ChangeRoleRequest(		
             this._userId,
             this._userEmail,
-            this._myForm?.controls['userRole'].value
+            this._myForm?.controls['userRole'].value,
+            window.location.origin
         );
 
         this.userAdministrationService.changeRole(model)
