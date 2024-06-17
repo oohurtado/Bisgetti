@@ -13,7 +13,6 @@ using Server.Source.Exceptions;
 using Server.Source.Logic;
 using Server.Source.Logic.User;
 using Server.Source.Models.DTOs;
-using Server.Source.Models.Entities;
 using Server.Source.Utilities;
 using System.Diagnostics;
 using System;
@@ -21,6 +20,7 @@ using System.Text;
 using Server.Source.Models.DTOs.User.Address;
 using Server.Source.Services.Interfaces;
 using Server.Source.Services;
+using Server.Source.Models.Entities;
 
 namespace Server
 {
