@@ -14,14 +14,14 @@ using Server.Source.Models.Enums;
 using System;
 using System.Diagnostics;
 
-namespace Server.Source.Logic.User
+namespace Server.Source.Logic
 {
-    public class UserAddressLogic
+    public class UserLogicAddress
     {
         private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
 
-        public UserAddressLogic(
+        public UserLogicAddress(
             IAddressRepository addressRepository,
             IMapper mapper
             )
@@ -46,7 +46,7 @@ namespace Server.Source.Logic.User
         {
             var data = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
 
-            if (data == null )
+            if (data == null)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
             }
@@ -97,7 +97,7 @@ namespace Server.Source.Logic.User
         public async Task UpdateAddressDefaultAsync(UpdateAddressDefaultRequest request, string userId, int id)
         {
             var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
-            address!.IsDefault = request.IsDefault;            
+            address!.IsDefault = request.IsDefault;
             await _addressRepository.UpdateAsync();
 
             if (request.IsDefault)
@@ -109,7 +109,7 @@ namespace Server.Source.Logic.User
         public async Task DeleteAddressAsync(string userId, int id)
         {
             var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
-            await _addressRepository.DeleteAddressAsync(address!);            
+            await _addressRepository.DeleteAddressAsync(address!);
         }
     }
 }

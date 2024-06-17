@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Server.Source.Logic.User;
+using Server.Source.Logic;
 using Server.Source.Models.DTOs.User;
 using Server.Source.Models.DTOs.User.Access;
 using Server.Source.Models.DTOs.User.Administration;
@@ -14,22 +14,22 @@ namespace Server.Controllers
     [ApiController]
     public partial class UserController : ControllerBase
     {
-        private readonly UserAccessLogic _userAccessLogic;
-        private readonly UserAdministrationLogic _userAdministrationLogic;
-        private readonly UserCommonLogic _userCommonLogic;
-        private readonly UserAddressLogic _userAddressLogic;
+        private readonly UserLogicAccess _userLogicAccess;
+        private readonly UserLogicAdministration _userLogicAdministration;
+        private readonly UserLogicCommon _userLogicCommon;
+        private readonly UserLogicAddress _userLogicAddress;
 
         public UserController(
-            UserAccessLogic userAccessLogic,
-            UserAdministrationLogic userAdministrationLogic,
-            UserCommonLogic userCommonLogic,
-            UserAddressLogic userAddressLogic
+            UserLogicAccess userLogicAccess,
+            UserLogicAdministration userLogicAdministration,
+            UserLogicCommon userLogicCommon,
+            UserLogicAddress userLogicAdress
             )
         {
-            _userAccessLogic = userAccessLogic;
-            _userAdministrationLogic = userAdministrationLogic;
-            _userCommonLogic = userCommonLogic;
-            _userAddressLogic = userAddressLogic;
+            _userLogicAccess = userLogicAccess;
+            _userLogicAdministration = userLogicAdministration;
+            _userLogicCommon = userLogicCommon;
+            _userLogicAddress = userLogicAdress;
         }
 
         

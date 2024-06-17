@@ -6,13 +6,13 @@ using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.User.Common;
 using Server.Source.Models.Enums;
 
-namespace Server.Source.Logic.User
+namespace Server.Source.Logic
 {
-    public class UserCommonLogic
+    public class UserLogicCommon
     {
         private readonly IAspNetRepository _aspNetRepository;
 
-        public UserCommonLogic(IAspNetRepository aspNetRepository) 
+        public UserLogicCommon(IAspNetRepository aspNetRepository)
         {
             _aspNetRepository = aspNetRepository;
         }

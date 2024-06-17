@@ -19,7 +19,7 @@ namespace Server.Controllers
         [HttpPost(template: "access/signup")]
         public async Task<ActionResult> Signup([FromBody] SignupRequest request)
         {
-            var respose = await _userAccessLogic.SignupAsync(request);
+            var respose = await _userLogicAccess.SignupAsync(request);
             return Ok(respose);
         }
 
@@ -29,7 +29,7 @@ namespace Server.Controllers
         [HttpPost(template: "access/login")]
         public async Task<ActionResult> Login([FromBody] LoginRequest request)
         {            
-            var respose = await _userAccessLogic.LoginAsync(request);
+            var respose = await _userLogicAccess.LoginAsync(request);
             return Ok(respose);
         }
 
@@ -39,7 +39,7 @@ namespace Server.Controllers
         [HttpGet(template: "access/email-available/{email}")]
         public async Task<ActionResult> IsEmailAvailable(string email)
         {
-            var isAvailable = await _userAccessLogic.IsEmailAvailableAsync(email);
+            var isAvailable = await _userLogicAccess.IsEmailAvailableAsync(email);
             return Ok(isAvailable);
         }
 
@@ -49,7 +49,7 @@ namespace Server.Controllers
         [HttpPost(template: "access/password-recovery")]
         public async Task<ActionResult> PasswordRecovery([FromBody] PasswordRecoveryRequest request)
         {
-            await _userAccessLogic.PasswordRecoveryAsync(request);
+            await _userLogicAccess.PasswordRecoveryAsync(request);
             return Ok();
         }
 
@@ -59,7 +59,7 @@ namespace Server.Controllers
         [HttpPost(template: "access/password-set")]
         public async Task<ActionResult> PasswordSet([FromBody] PasswordSetRequest request)
         {
-            await _userAccessLogic.PasswordSetAsync(request);
+            await _userLogicAccess.PasswordSetAsync(request);
             return Ok();
         }
     }

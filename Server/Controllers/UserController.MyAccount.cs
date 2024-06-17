@@ -24,7 +24,7 @@ namespace Server.Controllers
             {
                 userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             }
-            var result = await _userCommonLogic.GetPersonalDataAsync(userId);
+            var result = await _userLogicCommon.GetPersonalDataAsync(userId);
             return Ok(result);
         }
 
@@ -39,7 +39,7 @@ namespace Server.Controllers
             {
                 userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             }
-            await _userCommonLogic.UpdatePersonalDataAsync(userId, request);
+            await _userLogicCommon.UpdatePersonalDataAsync(userId, request);
             return Ok();
         }
 
@@ -51,7 +51,7 @@ namespace Server.Controllers
         public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {            
             var email = User.FindFirstValue(ClaimTypes.Email!);
-            await _userCommonLogic.ChangePasswordAsync(email, request);
+            await _userLogicCommon.ChangePasswordAsync(email, request);
             return Ok();
         }
 
@@ -64,7 +64,7 @@ namespace Server.Controllers
         public async Task<ActionResult> GetAddressesList()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            var result = await _userAddressLogic.GetAddressesListAsync(userId);
+            var result = await _userLogicAddress.GetAddressesListAsync(userId);
             return Ok(result);
         }
 
@@ -77,7 +77,7 @@ namespace Server.Controllers
         public async Task<ActionResult> GetAddress(int id)
         {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            var result = await _userAddressLogic.GetAddressAsync(userId, id);
+            var result = await _userLogicAddress.GetAddressAsync(userId, id);
             return Ok(result);
         }
 
@@ -90,7 +90,7 @@ namespace Server.Controllers
         public async Task<ActionResult> CreateAddress([FromBody] CreateOrUpdateAddressRequest request)
         {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _userAddressLogic.CreateAddressAsync(request, userId);
+            await _userLogicAddress.CreateAddressAsync(request, userId);
             return Ok();
         }
 
@@ -103,7 +103,7 @@ namespace Server.Controllers
         public async Task<ActionResult> UpdateAddress([FromBody] CreateOrUpdateAddressRequest request, int id)
         {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _userAddressLogic.UpdateAddressAsync(request, userId, id);
+            await _userLogicAddress.UpdateAddressAsync(request, userId, id);
             return Ok();
         }
 
@@ -116,7 +116,7 @@ namespace Server.Controllers
         public async Task<ActionResult> DeleteAddress(int id)
         {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _userAddressLogic.DeleteAddressAsync(userId, id);
+            await _userLogicAddress.DeleteAddressAsync(userId, id);
             return Ok();
         }
 
@@ -129,7 +129,7 @@ namespace Server.Controllers
         public async Task<ActionResult> UpdateAddressDefault([FromBody] UpdateAddressDefaultRequest request, int id)
         {            
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _userAddressLogic.UpdateAddressDefaultAsync(request, userId, id);
+            await _userLogicAddress.UpdateAddressDefaultAsync(request, userId, id);
             return Ok();
         }
     }

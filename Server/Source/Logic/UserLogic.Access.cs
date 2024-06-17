@@ -15,15 +15,15 @@ using System.Data;
 using System.Web;
 using static Server.Source.Services.EmailNotificationService;
 
-namespace Server.Source.Logic.User
+namespace Server.Source.Logic
 {
-    public class UserAccessLogic
+    public class UserLogicAccess
     {
         private readonly IAspNetRepository _aspNetRepository;
         private readonly ConfigurationUtility _configurationUtility;
         private readonly INotificationService _notificationService;
 
-        public UserAccessLogic(
+        public UserLogicAccess(
             IAspNetRepository aspNetRepository,
             ConfigurationUtility configurationUtility,
             INotificationService notificationService
@@ -103,7 +103,7 @@ namespace Server.Source.Logic.User
         public async Task PasswordRecoveryAsync(PasswordRecoveryRequest request)
         {
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
-            if(user == null)
+            if (user == null)
             {
                 throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
             }

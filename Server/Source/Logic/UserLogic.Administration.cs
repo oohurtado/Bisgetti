@@ -13,15 +13,15 @@ using Server.Source.Services.Interfaces;
 using Server.Source.Utilities;
 using static Server.Source.Services.EmailNotificationService;
 
-namespace Server.Source.Logic.User
+namespace Server.Source.Logic
 {
-    public class UserAdministrationLogic
+    public class UserLogicAdministration
     {
         private readonly IAspNetRepository _aspNetRepository;
         private readonly INotificationService _notificationService;
         private readonly ConfigurationUtility _configurationUtility;
 
-        public UserAdministrationLogic(
+        public UserLogicAdministration(
             IAspNetRepository aspNetRepository,
             INotificationService notificationService,
             ConfigurationUtility configurationUtility
@@ -34,7 +34,7 @@ namespace Server.Source.Logic.User
 
         public async Task<PageResponse<UserResponse>> GetUsersByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
-            var data = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();         
+            var data = await _aspNetRepository.GetUsersByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
 
             var result = new List<UserResponse>();
             foreach (var item in data)
@@ -51,8 +51,8 @@ namespace Server.Source.Logic.User
                 });
             }
 
-            return new PageResponse<UserResponse> 
-            { 
+            return new PageResponse<UserResponse>
+            {
                 GrandTotal = grandTotal,
                 Data = result,
             };
@@ -94,7 +94,7 @@ namespace Server.Source.Logic.User
         }
 
         private async Task SendChangeRoleEmailAsync(UserEntity user, ChangeRoleRequest request)
-        {            
+        {
             var body = EmailUtility.LoadFile(EnumEmailTemplate.ChangeRole);
             var configuration = _configurationUtility.GetRestaurantInformation();
             body = body.Replace("[user-first-name]", user.FirstName);

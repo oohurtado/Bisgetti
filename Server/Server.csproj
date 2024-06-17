@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Source\Logic\User\" />
   </ItemGroup>
 
   <ItemGroup>

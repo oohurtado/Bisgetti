@@ -11,7 +11,6 @@ using Server.Source.Data;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Logic;
-using Server.Source.Logic.User;
 using Server.Source.Models.DTOs;
 using Server.Source.Utilities;
 using System.Diagnostics;
@@ -104,10 +103,10 @@ namespace Server
 
             // logic
             builder.Services.AddScoped<SeedLogic>();
-            builder.Services.AddScoped<UserAccessLogic>();
-            builder.Services.AddScoped<UserAddressLogic>();
-            builder.Services.AddScoped<UserAdministrationLogic>();
-            builder.Services.AddScoped<UserCommonLogic>();
+            builder.Services.AddScoped<UserLogicAccess>();
+            builder.Services.AddScoped<UserLogicAddress>();
+            builder.Services.AddScoped<UserLogicAdministration>();
+            builder.Services.AddScoped<UserLogicCommon>();
 
             // utilities
             builder.Services.AddScoped<ConfigurationUtility>();
