@@ -5,5 +5,14 @@ namespace Server.Controllers
 {
     public partial class BusinessController
     {
+        // TODO: product
+        /*
+            crear product
+            actualizar product
+            borrar product
+            obtener product
+            obtener products         
+         */
+
     }
 }

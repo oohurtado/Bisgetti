@@ -100,6 +100,7 @@ namespace Server
             // repositories
             builder.Services.AddScoped<IAspNetRepository, AspNetRepository>();
             builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+            builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
 
             // logic
             builder.Services.AddScoped<SeedLogic>();
@@ -107,6 +108,9 @@ namespace Server
             builder.Services.AddScoped<UserLogicAddress>();
             builder.Services.AddScoped<UserLogicAdministration>();
             builder.Services.AddScoped<UserLogicCommon>();
+            builder.Services.AddScoped<BusinessLogicMenu>();
+            builder.Services.AddScoped<BusinessLogicCatalog>();
+            builder.Services.AddScoped<BusinessLogicProduct>();
 
             // utilities
             builder.Services.AddScoped<ConfigurationUtility>();
