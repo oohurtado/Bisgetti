@@ -31,7 +31,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Obtiene direccion
+        /// Obtiene menu
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
