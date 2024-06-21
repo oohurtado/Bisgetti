@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Extensions;
-using Server.Source.Models.DTOs.User.Administration;
+using Server.Source.Models.DTOs.User.User;
 using Server.Source.Models.Enums;
 using System.Security.Claims;
 
@@ -18,7 +18,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin,user-boss")]
         [HttpGet(template: "users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
-        public async Task<ActionResult> GetUsersList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
+        public async Task<ActionResult> GetUsersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {            
             var result = await _userLogicUser.GetUsersByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
             return Ok(result);

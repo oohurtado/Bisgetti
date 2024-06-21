@@ -12,7 +12,7 @@ namespace Server.Source.Data.Interfaces
         /// <summary>
         /// Obtiene direcciones
         /// </summary>
-        IQueryable<AddressEntity> GetAddressesList(string userId);
+        IQueryable<AddressEntity> GetAddresses(string userId);
         
         /// <summary>
         /// Obtiene direccion

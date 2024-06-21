@@ -20,6 +20,7 @@ using Server.Source.Models.DTOs.User.Address;
 using Server.Source.Services.Interfaces;
 using Server.Source.Services;
 using Server.Source.Models.Entities;
+using Server.Source.Models.DTOs.Business;
 
 namespace Server
 {
@@ -122,6 +123,8 @@ namespace Server
             {
                 p.CreateMap<AddressEntity, AddressResponse>();
                 p.CreateMap<CreateOrUpdateAddressRequest, AddressEntity>();
+
+                p.CreateMap<MenuEntity, MenuResponse>();
             }, typeof(Program));
         }
 

@@ -42,7 +42,7 @@ namespace Server.Source.Data
             return _context.Addresses.Where(p => p.UserId == userId).Where(p => p.Id == id);
         }
 
-        public IQueryable<AddressEntity> GetAddressesList(string userId)
+        public IQueryable<AddressEntity> GetAddresses(string userId)
         {
             IQueryable<AddressEntity> iq;
             IOrderedQueryable<AddressEntity> ioq = null!;

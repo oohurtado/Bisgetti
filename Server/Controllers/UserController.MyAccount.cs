@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs.User.Address;
-using Server.Source.Models.DTOs.User.Administration;
 using Server.Source.Models.DTOs.User.Common;
 using Server.Source.Models.Enums;
 using System.Security.Claims;
@@ -61,10 +60,10 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-customer")]
         [HttpGet(template: "my-account/addresses")]
-        public async Task<ActionResult> GetAddressesList()
+        public async Task<ActionResult> GetAddresses()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            var result = await _userLogicAddress.GetAddressesListAsync(userId);
+            var result = await _userLogicAddress.GetAddressesAsync(userId);
             return Ok(result);
         }
 

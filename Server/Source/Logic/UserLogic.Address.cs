@@ -30,9 +30,9 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        public async Task<PageResponse<AddressResponse>> GetAddressesListAsync(string userId)
+        public async Task<PageResponse<AddressResponse>> GetAddressesAsync(string userId)
         {
-            var data = await _addressRepository.GetAddressesList(userId).ToListAsync();
+            var data = await _addressRepository.GetAddresses(userId).ToListAsync();
             var result = _mapper.Map<List<AddressResponse>>(data);
 
             return new PageResponse<AddressResponse>

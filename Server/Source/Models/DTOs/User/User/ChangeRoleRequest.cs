@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Server.Source.Models.DTOs.User.Administration
+namespace Server.Source.Models.DTOs.User.User
 {
     public class ChangeRoleRequest
     {
