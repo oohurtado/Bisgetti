@@ -106,7 +106,7 @@ namespace Server
             builder.Services.AddScoped<SeedLogic>();
             builder.Services.AddScoped<UserLogicAccess>();
             builder.Services.AddScoped<UserLogicAddress>();
-            builder.Services.AddScoped<UserLogicAdministration>();
+            builder.Services.AddScoped<UserLogicUser>();
             builder.Services.AddScoped<UserLogicCommon>();
             builder.Services.AddScoped<BusinessLogicMenu>();
             builder.Services.AddScoped<BusinessLogicCatalog>();

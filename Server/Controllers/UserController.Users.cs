@@ -20,7 +20,7 @@ namespace Server.Controllers
         [HttpGet(template: "users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
         public async Task<ActionResult> GetUsersList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {            
-            var result = await _userLogicAdministration.GetUsersByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
+            var result = await _userLogicUser.GetUsersByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
             return Ok(result);
         }
 
@@ -33,7 +33,7 @@ namespace Server.Controllers
         public async Task<ActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
         {            
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
-            await _userLogicAdministration.ChangeRoleAsync(executingUserRole!, request);
+            await _userLogicUser.ChangeRoleAsync(executingUserRole!, request);
             return Ok();
         }
     }

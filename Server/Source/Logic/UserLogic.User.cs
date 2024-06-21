@@ -15,13 +15,13 @@ using static Server.Source.Services.EmailNotificationService;
 
 namespace Server.Source.Logic
 {
-    public class UserLogicAdministration
+    public class UserLogicUser
     {
         private readonly IAspNetRepository _aspNetRepository;
         private readonly INotificationService _notificationService;
         private readonly ConfigurationUtility _configurationUtility;
 
-        public UserLogicAdministration(
+        public UserLogicUser(
             IAspNetRepository aspNetRepository,
             INotificationService notificationService,
             ConfigurationUtility configurationUtility

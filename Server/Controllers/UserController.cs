@@ -15,19 +15,19 @@ namespace Server.Controllers
     public partial class UserController : ControllerBase
     {
         private readonly UserLogicAccess _userLogicAccess;
-        private readonly UserLogicAdministration _userLogicAdministration;
+        private readonly UserLogicUser _userLogicUser;
         private readonly UserLogicCommon _userLogicCommon;
         private readonly UserLogicAddress _userLogicAddress;
 
         public UserController(
             UserLogicAccess userLogicAccess,
-            UserLogicAdministration userLogicAdministration,
+            UserLogicUser userLogicUser,
             UserLogicCommon userLogicCommon,
             UserLogicAddress userLogicAdress
             )
         {
             _userLogicAccess = userLogicAccess;
-            _userLogicAdministration = userLogicAdministration;
+            _userLogicUser = userLogicUser;
             _userLogicCommon = userLogicCommon;
             _userLogicAddress = userLogicAdress;
         }
