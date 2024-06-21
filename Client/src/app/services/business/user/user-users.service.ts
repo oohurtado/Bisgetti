@@ -8,12 +8,12 @@ import { ChangeRoleRequest } from '../../../source/models/dtos/user/administrati
 @Injectable({
     providedIn: 'root'
 })
-export class UserAdministrationService {
+export class UserUsersService {
 
     constructor(private requestService: RequestService) { }
 
     getUsersByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
-		return this.requestService.get<PageData<UserResponse>>(`/user/administration/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
+		return this.requestService.get<PageData<UserResponse>>(`/user/users/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
 	}
 
 	getUsersByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<UserResponse>> {
@@ -30,11 +30,7 @@ export class UserAdministrationService {
 		});
 	}
 
-	createUser(model: CreateUserRequest) {
-		return this.requestService.post('/user/administration/users', model);
-	}
-
 	changeRole(model: ChangeRoleRequest) {
-		return this.requestService.put('/user/administration/users/role', model);
+		return this.requestService.put('/user/users/role', model);
 	}
 }

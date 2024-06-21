@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserResponse } from '../../../../source/models/business/user-response';
-import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
+import { UserUsersService } from '../../../../services/business/user/user-users.service';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { PageBase } from '../../../../source/page-base';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
@@ -15,7 +15,7 @@ import { Utils } from '../../../../source/utils';
 export class UsersListComponent extends PageBase<UserResponse> implements OnInit {
    
     constructor(
-        private userAdministrationService: UserAdministrationService,
+        private userUsersService: UserUsersService,
 		private router: Router,
 		localStorageService: LocalStorageService
     ) {
@@ -29,7 +29,7 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
     override async getDataAsync() {
 		this._error = null;
 		this._isProcessing = true;		
-		await this.userAdministrationService
+		await this.userUsersService
 			.getUsersByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
 			.then(p => {
 				this._pageData = p;

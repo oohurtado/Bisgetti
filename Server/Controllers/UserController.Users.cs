@@ -17,7 +17,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin,user-boss")]
-        [HttpGet(template: "administration/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
+        [HttpGet(template: "users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
         public async Task<ActionResult> GetUsersList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {            
             var result = await _userLogicAdministration.GetUsersByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
@@ -29,7 +29,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-admin")]
-        [HttpPut(template: "administration/users/role")]
+        [HttpPut(template: "users/role")]
         public async Task<ActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
         {            
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);

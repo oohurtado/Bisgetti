@@ -4,7 +4,7 @@ import { FormBase } from '../../../../source/form-base';
 import { Tuple2 } from '../../../../source/models/common/tuple';
 import { PageFactory } from '../../../../source/factories/page-factory';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserAdministrationService } from '../../../../services/business/user/user-administration.service';
+import { UserUsersService } from '../../../../services/business/user/user-users.service';
 import { ChangeRoleRequest } from '../../../../source/models/dtos/user/administration/users/change-role-request';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
@@ -29,7 +29,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
 		private router: Router,
-        private userAdministrationService: UserAdministrationService
+        private userUsersService: UserUsersService
     ) {
         super();
     }
@@ -75,7 +75,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
             window.location.origin
         );
 
-        this.userAdministrationService.changeRole(model)
+        this.userUsersService.changeRole(model)
 			.subscribe({
 				complete: () => {
 					this._isProcessing = false;
