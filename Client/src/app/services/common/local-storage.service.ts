@@ -75,6 +75,19 @@ export class LocalStorageService {
 		}
 	}
 
+	isUserInAnyRole(roles: string[]) {
+		let inRole = false;
+
+		roles.forEach(p => {
+			if (this.isUserInRole(p)) {
+				inRole = true;
+				return;
+			}			
+		});
+
+		return inRole;
+	}
+
 	getUserId(): string {
 		return this.getDataFromToken(general.MS_ID);
 	}

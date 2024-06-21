@@ -16,6 +16,8 @@ import { MyAccountAddressesListComponent } from "./components/my-account/my-acco
 import { MyAccountAddressesCreateOrUpdateComponent } from "./components/my-account/my-account-addresses/my-account-addresses-create-or-update/my-account-addresses-create-or-update.component";
 import { PasswordRecoveryComponent } from "./components/access/password-recovery/password-recovery.component";
 import { PasswordSetComponent } from "./components/access/password-set/password-set.component";
+import { roleGuard } from "./guards/role.guard";
+import { general } from "./source/general";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -26,8 +28,8 @@ const ROUTES: Routes = [
     {
         path: 'administration/users', component:  UsersComponent,
         children:[
-            { path: 'list', component: UsersListComponent, canActivate: [authGuard, userAdminGuard] },
-            { path: 'change-role/:userId/:userEmail/:userRole', component: UsersChangeRoleComponent, canActivate: [authGuard, userAdminGuard] },
+            { path: 'list', component: UsersListComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_ADMIN, general.LS_ROLE_USER_BOSS] } },
+            { path: 'change-role/:userId/:userEmail/:userRole', component: UsersChangeRoleComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_ADMIN] } },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },

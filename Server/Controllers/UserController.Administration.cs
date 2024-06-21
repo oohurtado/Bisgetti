@@ -16,7 +16,7 @@ namespace Server.Controllers
         /// Listado de usuarios
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-admin")]
+        [Authorize(Roles = "user-admin,user-boss")]
         [HttpGet(template: "administration/users/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
         public async Task<ActionResult> GetUsersList(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {            

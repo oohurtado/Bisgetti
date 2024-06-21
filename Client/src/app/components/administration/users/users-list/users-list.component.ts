@@ -48,4 +48,7 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
 	onUpdatePersonalDataClicked($event: MouseEvent,user: UserResponse) {
 		this.router.navigateByUrl(`user/personal-data/${user.id}`);
 	}
+	isUserInAnyRole(roles: string[]) {
+		return this.localStorageService.isUserInAnyRole(roles);
+	}
 }
