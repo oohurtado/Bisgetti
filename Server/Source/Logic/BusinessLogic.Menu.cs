@@ -7,8 +7,6 @@ using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.Business;
 using Server.Source.Models.DTOs.Business.Menu;
 using Server.Source.Models.DTOs.Common;
-using Server.Source.Models.DTOs.User.Address;
-using Server.Source.Models.DTOs.User.Common;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 
@@ -46,7 +44,7 @@ namespace Server.Source.Logic
 
             if (data == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
             }
 
             var result = _mapper.Map<MenuResponse>(data);
@@ -63,6 +61,35 @@ namespace Server.Source.Logic
      
             var menu = _mapper.Map<MenuEntity>(request);
             await _businessRepository.CreateMenuAsync(menu);
+        }
+
+        public async Task UpdateMenuAsync(CreateOrUpdateMenuRequest request, int id)
+        {
+            var exists = await _businessRepository.ExistsMenuAsync(id: id, request.Name!);
+            if (exists)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuAlreadyExists);
+            }
+
+            var menu = await _businessRepository.GetMenu(id).FirstOrDefaultAsync();
+            if (menu == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
+            }
+            _mapper.Map(request, menu);
+            await _businessRepository.UpdateAsync();
+        }
+
+        public async Task DeleteMenuAsync(int id)
+        {
+            var menu = await _businessRepository.GetMenu(id).FirstOrDefaultAsync();
+
+            if (menu == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
+            }
+
+            await _businessRepository.DeleteMenuAsync(menu!);
         }
     }
 }

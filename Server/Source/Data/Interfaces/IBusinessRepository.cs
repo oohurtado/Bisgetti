@@ -5,6 +5,11 @@ namespace Server.Source.Data.Interfaces
     public interface IBusinessRepository
     {
         /// <summary>
+        /// Guarda cambios
+        /// </summary>
+        Task UpdateAsync();
+
+        /// <summary>
         /// Obtiene menus
         /// </summary>
         IQueryable<MenuEntity> GetMenusByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
@@ -23,5 +28,10 @@ namespace Server.Source.Data.Interfaces
         /// Crea menu
         /// </summary>
         Task CreateMenuAsync(MenuEntity menu);
+
+        /// <summary>
+        /// Borra menu
+        /// </summary>
+        Task DeleteMenuAsync(MenuEntity menu);
     }
 }

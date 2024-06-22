@@ -6,6 +6,7 @@ using Server.Source.Exceptions;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using System.Linq.Expressions;
+using System.Net;
 
 namespace Server.Source.Data
 {
@@ -16,6 +17,11 @@ namespace Server.Source.Data
         public BusinessRepository(DatabaseContext context)
         {
             _context = context;
+        }
+
+        public async Task UpdateAsync()
+        {
+            await _context.SaveChangesAsync();
         }
 
         public IQueryable<MenuEntity> GetMenu(int id)
@@ -82,6 +88,12 @@ namespace Server.Source.Data
 
             var exists = await _context.Menus.Where(expId).Where(p => p.Name == name).AnyAsync();
             return exists;
+        }
+
+        public async Task DeleteMenuAsync(MenuEntity menu)
+        {
+            _context.Menus.Remove(menu!);
+            await _context.SaveChangesAsync();
         }
     }
 }

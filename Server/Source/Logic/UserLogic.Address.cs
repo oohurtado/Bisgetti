@@ -109,6 +109,12 @@ namespace Server.Source.Logic
         public async Task DeleteAddressAsync(string userId, int id)
         {
             var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
+
+            if (address == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
+            }
+
             await _addressRepository.DeleteAddressAsync(address!);
         }
     }

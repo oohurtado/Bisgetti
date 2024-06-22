@@ -57,7 +57,7 @@ namespace Server.Source.Models.Enums
         /// menus
         /// </summary>
         
-        [Description("Menú no encontrada")]
+        [Description("Menú no encontrado")]
         MenuNotFound,
 
         [Description("El menú ya existe")]

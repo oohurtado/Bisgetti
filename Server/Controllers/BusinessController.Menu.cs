@@ -54,5 +54,29 @@ namespace Server.Controllers
             await _businessLogicMenu.CreateMenuAsync(request);
             return Ok();
         }
+
+        /// <summary>
+        /// Actualizar menu
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "menus/{id}")]
+        public async Task<ActionResult> UpdateMenu([FromBody] CreateOrUpdateMenuRequest request, int id)
+        {
+            await _businessLogicMenu.UpdateMenuAsync(request, id);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Borrar menu
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpDelete(template: "menus/{id}")]
+        public async Task<ActionResult> DeleteMenu(int id)
+        {
+            await _businessLogicMenu.DeleteMenuAsync(id);
+            return Ok();
+        }
     }
 }
