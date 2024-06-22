@@ -9,17 +9,17 @@ namespace Server.Controllers
     public partial class BusinessController : ControllerBase
     {
         private readonly BusinessLogicMenu _businessLogicMenu;
-        private readonly BusinessLogicCatalog _businessLogicCatalog;
+        private readonly BusinessLogicCategory _businessLogicCategory;
         private readonly BusinessLogicProduct _businessLogicProduct;
 
         public BusinessController(
             BusinessLogicMenu businessLogicMenu,
-            BusinessLogicCatalog businessLogicCatalog,
+            BusinessLogicCategory businessLogicCategory,
             BusinessLogicProduct businessLogicProduct
             )
         {
             _businessLogicMenu = businessLogicMenu;
-            _businessLogicCatalog = businessLogicCatalog;
+            _businessLogicCategory = businessLogicCategory;
             _businessLogicProduct = businessLogicProduct;
         }
     }

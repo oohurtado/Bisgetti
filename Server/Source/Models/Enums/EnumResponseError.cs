@@ -63,5 +63,25 @@ namespace Server.Source.Models.Enums
         [Description("El menú ya existe")]
         MenuAlreadyExists,
 
+        /// <summary>
+        /// categorias
+        /// </summary>
+
+        [Description("Categoría no encontrada")]
+        CategoryNotFound,
+
+        [Description("La categoría ya existe")]
+        CategoryAlreadyExists,
+
+        /// <summary>
+        /// productos
+        /// </summary>
+
+        [Description("Producto no encontrado")]
+        ProductNotFound,
+
+        [Description("El producto ya existe")]
+        ProductAlreadyExists,
+
     }
 }

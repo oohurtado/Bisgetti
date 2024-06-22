@@ -12,13 +12,6 @@ namespace Server.Controllers
 {
     public partial class BusinessController
     {
-        // TODO: menu
-        /*
-            crear menu
-            actualizar menu
-            borrar menu
-         */
-
         /// <summary>
         /// Listado de menus
         /// </summary>

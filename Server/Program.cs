@@ -113,7 +113,7 @@ namespace Server
             builder.Services.AddScoped<UserLogicUser>();
             builder.Services.AddScoped<UserLogicCommon>();
             builder.Services.AddScoped<BusinessLogicMenu>();
-            builder.Services.AddScoped<BusinessLogicCatalog>();
+            builder.Services.AddScoped<BusinessLogicCategory>();
             builder.Services.AddScoped<BusinessLogicProduct>();
 
             // utilities
