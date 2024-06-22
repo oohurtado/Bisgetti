@@ -52,5 +52,16 @@ namespace Server.Source.Models.Enums
 
         [Description("Has llegado al límite de direcciones que se pueden crear")]
         AddressCreateLimit,
+
+        /// <summary>
+        /// menus
+        /// </summary>
+        
+        [Description("Menú no encontrada")]
+        MenuNotFound,
+
+        [Description("El menú ya existe")]
+        MenuAlreadyExists,
+
     }
 }

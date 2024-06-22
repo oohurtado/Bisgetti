@@ -5,9 +5,11 @@ using Server.Source.Data;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.Business;
+using Server.Source.Models.DTOs.Business.Menu;
 using Server.Source.Models.DTOs.Common;
 using Server.Source.Models.DTOs.User.Address;
 using Server.Source.Models.DTOs.User.Common;
+using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 
 namespace Server.Source.Logic
@@ -49,6 +51,18 @@ namespace Server.Source.Logic
 
             var result = _mapper.Map<MenuResponse>(data);
             return result;
+        }
+
+        public async Task CreateMenuAsync(CreateOrUpdateMenuRequest request)
+        {
+            var exists = await _businessRepository.ExistsMenuAsync(id: null, request.Name!);
+            if (exists)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuAlreadyExists);
+            }
+     
+            var menu = _mapper.Map<MenuEntity>(request);
+            await _businessRepository.CreateMenuAsync(menu);
         }
     }
 }

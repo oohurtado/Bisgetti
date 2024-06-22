@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Server.Migrations;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Models.Entities;
@@ -63,6 +64,24 @@ namespace Server.Source.Data
                 .Take(pageSize);
 
             return iq.AsNoTracking();
+        }
+
+        public async Task CreateMenuAsync(MenuEntity menu)
+        {
+            _context.Menus.Add(menu);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsMenuAsync(int? id, string name)
+        {
+            Expression<Func<MenuEntity, bool>> expId = p => true;
+            if (id != null)
+            {
+                expId = p => p.Id != id;
+            }
+
+            var exists = await _context.Menus.Where(expId).Where(p => p.Name == name).AnyAsync();
+            return exists;
         }
     }
 }

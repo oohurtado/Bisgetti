@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Logic;
+using Server.Source.Models.DTOs.Business.Menu;
 using Server.Source.Models.DTOs.User.Access;
 using Server.Source.Models.DTOs.User.Address;
 using System.Security.Claims;
@@ -40,6 +41,18 @@ namespace Server.Controllers
         {
             var result = await _businessLogicMenu.GetMenuAsync(id);
             return Ok(result);
-        }        
+        }
+
+        /// <summary>
+        /// Crear menu
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPost(template: "menus")]
+        public async Task<ActionResult> CreateMenu([FromBody] CreateOrUpdateMenuRequest request)
+        {            
+            await _businessLogicMenu.CreateMenuAsync(request);
+            return Ok();
+        }
     }
 }

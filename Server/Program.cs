@@ -21,6 +21,7 @@ using Server.Source.Services.Interfaces;
 using Server.Source.Services;
 using Server.Source.Models.Entities;
 using Server.Source.Models.DTOs.Business;
+using Server.Source.Models.DTOs.Business.Menu;
 
 namespace Server
 {
@@ -125,6 +126,7 @@ namespace Server
                 p.CreateMap<CreateOrUpdateAddressRequest, AddressEntity>();
 
                 p.CreateMap<MenuEntity, MenuResponse>();
+                p.CreateMap<CreateOrUpdateMenuRequest, MenuEntity>();
             }, typeof(Program));
         }
 

@@ -13,5 +13,15 @@ namespace Server.Source.Data.Interfaces
         /// Obtiene menu
         /// </summary>
         IQueryable<MenuEntity> GetMenu(int id);
+
+        /// <summary>
+        /// Devuelve si existe o no el menu
+        /// </summary>
+        Task<bool> ExistsMenuAsync(int? id, string name);
+
+        /// <summary>
+        /// Crea menu
+        /// </summary>
+        Task CreateMenuAsync(MenuEntity menu);
     }
 }
