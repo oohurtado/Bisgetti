@@ -96,7 +96,7 @@ namespace Server.Source.Services
                     await _smtpClient.SendMailAsync(_mailMessage);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // TODO: log crash
             }
