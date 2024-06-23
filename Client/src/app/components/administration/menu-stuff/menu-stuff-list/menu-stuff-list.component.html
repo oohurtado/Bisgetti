@@ -1,0 +1,36 @@
+<div class="row">
+	<div class="col-md-12">
+		<h3>Cosas del menú</h3>
+	</div>
+    <div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Cosas del menú</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="list-group">
+    <a [routerLink]="['/menu-stuff/menu-builder']" class="list-group-item list-group-item-action" aria-current="true">
+        Construir mis <strong>menús</strong>
+        <br>
+        <em>Agrega categorías, productos, imágenes a tus menús</em>
+    </a>
+    <a [routerLink]="['/menu-stuff/menus']" class="list-group-item list-group-item-action" aria-current="true">
+        Mis <strong>menús</strong>
+        <br>
+        <em>Crea tus menús</em>                        
+    </a>
+    <a [routerLink]="['/menu-stuff/categories']" class="list-group-item list-group-item-action" aria-current="true">
+        Mis <strong>categorías</strong>
+        <br>
+        <em>Crea tus categorías</em>                        
+    </a>
+    <a [routerLink]="['/menu-stuff/products']" class="list-group-item list-group-item-action" aria-current="true">
+        Mis <strong>productos</strong>
+        <br>
+        <em>Crea tus productos</em>                        
+    </a>
+</div>

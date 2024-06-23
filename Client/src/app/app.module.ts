@@ -39,18 +39,19 @@ import { PasswordRecoveryComponent } from './components/access/password-recovery
 import { PasswordSetComponent } from './components/access/password-set/password-set.component';
 import { MyAccountListComponent } from './components/my-account/my-account-list/my-account-list.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
-import { MenuOptionsComponent } from './components/administration/menu-options/menu-options.component';
-import { MenuBuilderComponent } from './components/administration/menu-options/menu-builder/menu-builder.component';
-import { MenusComponent } from './components/administration/menu-options/menus/menus.component';
-import { CategoriesComponent } from './components/administration/menu-options/categories/categories.component';
-import { ProductsComponent } from './components/administration/menu-options/products/products.component';
-import { MenusListComponent } from './components/administration/menu-options/menus/menus-list/menus-list.component';
-import { MenusCreateOrUpdateComponent } from './components/administration/menu-options/menus/menus-create-or-update/menus-create-or-update.component';
-import { CategoriesListComponent } from './components/administration/menu-options/categories/categories-list/categories-list.component';
-import { CategoriesCreateOrUpdateComponent } from './components/administration/menu-options/categories/categories-create-or-update/categories-create-or-update.component';
-import { ProductsListComponent } from './components/administration/menu-options/products/products-list/products-list.component';
-import { ProductsCreateOrUpdateComponent } from './components/administration/menu-options/products/products-create-or-update/products-create-or-update.component';
+import { CategoriesCreateOrUpdateComponent } from './components/administration/menu-stuff/categories/categories-create-or-update/categories-create-or-update.component';
+import { CategoriesListComponent } from './components/administration/menu-stuff/categories/categories-list/categories-list.component';
+import { CategoriesComponent } from './components/administration/menu-stuff/categories/categories.component';
+import { MenuStuffListComponent } from './components/administration/menu-stuff/menu-stuff-list/menu-stuff-list.component';
+import { MenuStuffComponent } from './components/administration/menu-stuff/menu-stuff.component';
+import { MenusCreateOrUpdateComponent } from './components/administration/menu-stuff/menus/menus-create-or-update/menus-create-or-update.component';
+import { MenusListComponent } from './components/administration/menu-stuff/menus/menus-list/menus-list.component';
+import { MenusComponent } from './components/administration/menu-stuff/menus/menus.component';
+import { ProductsCreateOrUpdateComponent } from './components/administration/menu-stuff/products/products-create-or-update/products-create-or-update.component';
+import { ProductsListComponent } from './components/administration/menu-stuff/products/products-list/products-list.component';
+import { ProductsComponent } from './components/administration/menu-stuff/products/products.component';
 import { AddressesComponent } from './components/my-account/addresses/addresses.component';
+import { MenuBuilderComponent } from './components/administration/menu-stuff/menu-builder/menu-builder.component';
 
 @NgModule({
 	declarations: [
@@ -82,8 +83,8 @@ import { AddressesComponent } from './components/my-account/addresses/addresses.
 		PasswordRecoveryComponent,
 		PasswordSetComponent,
 		MyAccountComponent,
-		MenuOptionsComponent,
-		MenuBuilderComponent,
+		MenuStuffComponent,
+		MenuStuffListComponent,
 		MenusComponent,
 		CategoriesComponent,
 		ProductsComponent,
@@ -93,7 +94,8 @@ import { AddressesComponent } from './components/my-account/addresses/addresses.
 		CategoriesCreateOrUpdateComponent,
 		ProductsListComponent,
 		ProductsCreateOrUpdateComponent,
-  AddressesComponent,
+  		AddressesComponent,
+    MenuBuilderComponent,
 	],
 	imports: [
 		BrowserModule,

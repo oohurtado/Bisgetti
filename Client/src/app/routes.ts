@@ -19,19 +19,20 @@ import { roleGuard } from "./guards/role.guard";
 import { general } from "./source/general";
 import { MyAccountListComponent } from "./components/my-account/my-account-list/my-account-list.component";
 import { MyAccountComponent } from "./components/my-account/my-account.component";
-import { MenuOptionsComponent } from "./components/administration/menu-options/menu-options.component";
-import { MenuBuilderComponent } from "./components/administration/menu-options/menu-builder/menu-builder.component";
 import { userBossGuard } from "./guards/user-boss.guard";
-import { MenusComponent } from "./components/administration/menu-options/menus/menus.component";
-import { CategoriesComponent } from "./components/administration/menu-options/categories/categories.component";
-import { ProductsComponent } from "./components/administration/menu-options/products/products.component";
-import { MenusListComponent } from "./components/administration/menu-options/menus/menus-list/menus-list.component";
-import { MenusCreateOrUpdateComponent } from "./components/administration/menu-options/menus/menus-create-or-update/menus-create-or-update.component";
-import { CategoriesListComponent } from "./components/administration/menu-options/categories/categories-list/categories-list.component";
-import { CategoriesCreateOrUpdateComponent } from "./components/administration/menu-options/categories/categories-create-or-update/categories-create-or-update.component";
-import { ProductsCreateOrUpdateComponent } from "./components/administration/menu-options/products/products-create-or-update/products-create-or-update.component";
-import { ProductsListComponent } from "./components/administration/menu-options/products/products-list/products-list.component";
+import { MenuStuffListComponent } from "./components/administration/menu-stuff/menu-stuff-list/menu-stuff-list.component";
+import { CategoriesCreateOrUpdateComponent } from "./components/administration/menu-stuff/categories/categories-create-or-update/categories-create-or-update.component";
+import { CategoriesListComponent } from "./components/administration/menu-stuff/categories/categories-list/categories-list.component";
+import { CategoriesComponent } from "./components/administration/menu-stuff/categories/categories.component";
+import { MenuStuffComponent } from "./components/administration/menu-stuff/menu-stuff.component";
+import { MenusCreateOrUpdateComponent } from "./components/administration/menu-stuff/menus/menus-create-or-update/menus-create-or-update.component";
+import { MenusListComponent } from "./components/administration/menu-stuff/menus/menus-list/menus-list.component";
+import { MenusComponent } from "./components/administration/menu-stuff/menus/menus.component";
+import { ProductsCreateOrUpdateComponent } from "./components/administration/menu-stuff/products/products-create-or-update/products-create-or-update.component";
+import { ProductsListComponent } from "./components/administration/menu-stuff/products/products-list/products-list.component";
+import { ProductsComponent } from "./components/administration/menu-stuff/products/products.component";
 import { AddressesComponent } from "./components/my-account/addresses/addresses.component";
+import { MenuBuilderComponent } from "./components/administration/menu-stuff/menu-builder/menu-builder.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -66,8 +67,9 @@ const ROUTES: Routes = [
         ]
     },
     {
-        path: 'menu-options', component:  MenuOptionsComponent,
+        path: 'menu-stuff', component:  MenuStuffComponent,
         children:[
+            { path: 'list', component: MenuStuffListComponent, canActivate: [userBossGuard] },
             { path: 'menu-builder', component: MenuBuilderComponent, canActivate: [userBossGuard] },
             { 
                 path: 'menus', component: MenusComponent,
@@ -96,7 +98,7 @@ const ROUTES: Routes = [
                     { path: '**', pathMatch: 'full', redirectTo: 'list' }
                 ]
             },            
-            { path: '**', pathMatch: 'full', redirectTo: 'menu-builder' }
+            { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },
     { path: '**', pathMatch: 'full', redirectTo: 'home' },
