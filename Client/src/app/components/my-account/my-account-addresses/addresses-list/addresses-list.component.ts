@@ -10,11 +10,11 @@ import { UpdateAddressDefaultRequest } from '../../../../source/models/dtos/user
 declare let alertify: any;
 
 @Component({
-    selector: 'app-my-account-addresses-list',
-    templateUrl: './my-account-addresses-list.component.html',
-    styleUrl: './my-account-addresses-list.component.css'
+    selector: 'app-addresses-list',
+    templateUrl: './addresses-list.component.html',
+    styleUrl: './addresses-list.component.css'
 })
-export class MyAccountAddressesListComponent extends PageBase<AddressResponse> implements OnInit {
+export class AddressesListComponent extends PageBase<AddressResponse> implements OnInit {
 
     constructor(
         private router: Router,

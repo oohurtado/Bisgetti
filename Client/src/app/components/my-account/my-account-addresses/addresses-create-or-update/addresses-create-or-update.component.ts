@@ -11,11 +11,11 @@ import { ListFactory } from '../../../../source/factories/list-factory';
 declare let alertify: any;
 
 @Component({
-    selector: 'app-my-account-addresses-create-or-update',
-    templateUrl: './my-account-addresses-create-or-update.component.html',
-    styleUrl: './my-account-addresses-create-or-update.component.css'
+    selector: 'app-addresses-create-or-update',
+    templateUrl: './addresses-create-or-update.component.html',
+    styleUrl: './addresses-create-or-update.component.css'
 })
-export class MyAccountAddressesCreateOrUpdateComponent extends FormBase implements OnInit {
+export class AddressesCreateOrUpdateComponent extends FormBase implements OnInit {
 
     _addressId!: number;
     _address!: AddressResponse;

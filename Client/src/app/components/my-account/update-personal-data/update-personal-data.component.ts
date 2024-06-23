@@ -9,11 +9,11 @@ import { Utils } from '../../../source/utils';
 declare let alertify: any;
 
 @Component({
-    selector: 'app-my-account-update-personal-data',
-    templateUrl: './my-account-update-personal-data.component.html',
-    styleUrl: './my-account-update-personal-data.component.css'
+    selector: 'app-update-personal-data',
+    templateUrl: './update-personal-data.component.html',
+    styleUrl: './update-personal-data.component.css'
 })
-export class MyAccountUpdatePersonalDataComponent extends FormBase implements OnInit {
+export class UpdatePersonalDataComponent extends FormBase implements OnInit {
     
     _user: UserResponse|null = null;
     

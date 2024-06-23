@@ -8,11 +8,11 @@ import { userAdminGuard } from "./guards/user-admin.guard";
 import { UsersChangeRoleComponent } from "./components/administration/users/users-change-role/users-change-role.component";
 import { UsersListComponent } from "./components/administration/users/users-list/users-list.component";
 import { UsersComponent } from "./components/administration/users/users.component";
-import { MyAccountChangePasswordComponent } from "./components/my-account/my-account-change-password/my-account-change-password.component";
-import { MyAccountUpdatePersonalDataComponent } from "./components/my-account/my-account-update-personal-data/my-account-update-personal-data.component";
+import { ChangePasswordComponent } from "./components/my-account/change-password/change-password.component";
+import { UpdatePersonalDataComponent } from "./components/my-account/update-personal-data/update-personal-data.component";
 import { userCustomerGuard } from "./guards/user-customer.guard";
-import { MyAccountAddressesListComponent } from "./components/my-account/my-account-addresses/my-account-addresses-list/my-account-addresses-list.component";
-import { MyAccountAddressesCreateOrUpdateComponent } from "./components/my-account/my-account-addresses/my-account-addresses-create-or-update/my-account-addresses-create-or-update.component";
+import { AddressesListComponent } from "./components/my-account/my-account-addresses/addresses-list/addresses-list.component";
+import { AddressesCreateOrUpdateComponent } from "./components/my-account/my-account-addresses/addresses-create-or-update/addresses-create-or-update.component";
 import { PasswordRecoveryComponent } from "./components/access/password-recovery/password-recovery.component";
 import { PasswordSetComponent } from "./components/access/password-set/password-set.component";
 import { roleGuard } from "./guards/role.guard";
@@ -31,6 +31,7 @@ import { CategoriesListComponent } from "./components/administration/menu-option
 import { CategoriesCreateOrUpdateComponent } from "./components/administration/menu-options/categories/categories-create-or-update/categories-create-or-update.component";
 import { ProductsCreateOrUpdateComponent } from "./components/administration/menu-options/products/products-create-or-update/products-create-or-update.component";
 import { ProductsListComponent } from "./components/administration/menu-options/products/products-list/products-list.component";
+import { AddressesComponent } from "./components/my-account/addresses/addresses.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -50,11 +51,17 @@ const ROUTES: Routes = [
         path: 'my-account', component:  MyAccountComponent,
         children:[
             { path: 'list', component: MyAccountListComponent, canActivate: [authGuard] },
-            { path: 'update-personal-data', component: MyAccountUpdatePersonalDataComponent, canActivate: [authGuard] },
-            { path: 'change-password', component: MyAccountChangePasswordComponent, canActivate: [authGuard] },
-            { path: 'addresses/list', component: MyAccountAddressesListComponent, canActivate: [userCustomerGuard] },
-            { path: 'addresses/create', component: MyAccountAddressesCreateOrUpdateComponent, canActivate: [userCustomerGuard] },
-            { path: 'addresses/update/:id', component: MyAccountAddressesCreateOrUpdateComponent, canActivate: [userCustomerGuard] },
+            { path: 'update-personal-data', component: UpdatePersonalDataComponent, canActivate: [authGuard] },
+            { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
+            { 
+                path: 'addresses', component: AddressesComponent,
+                children:[
+                    { path: 'list', component: AddressesListComponent, canActivate: [userCustomerGuard] },
+                    { path: 'create', component: AddressesCreateOrUpdateComponent, canActivate: [userCustomerGuard] },
+                    { path: 'update/:id', component: AddressesCreateOrUpdateComponent, canActivate: [userCustomerGuard] },
+                    { path: '**', pathMatch: 'full', redirectTo: 'list' }
+                ]
+            },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },
