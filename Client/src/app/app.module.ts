@@ -44,6 +44,12 @@ import { MenuBuilderComponent } from './components/administration/menu-options/m
 import { MenusComponent } from './components/administration/menu-options/menus/menus.component';
 import { CategoriesComponent } from './components/administration/menu-options/categories/categories.component';
 import { ProductsComponent } from './components/administration/menu-options/products/products.component';
+import { MenusListComponent } from './components/administration/menu-options/menus/menus-list/menus-list.component';
+import { MenusCreateOrUpdateComponent } from './components/administration/menu-options/menus/menus-create-or-update/menus-create-or-update.component';
+import { CategoriesListComponent } from './components/administration/menu-options/categories/categories-list/categories-list.component';
+import { CategoriesCreateOrUpdateComponent } from './components/administration/menu-options/categories/categories-create-or-update/categories-create-or-update.component';
+import { ProductsListComponent } from './components/administration/menu-options/products/products-list/products-list.component';
+import { ProductsCreateOrUpdateComponent } from './components/administration/menu-options/products/products-create-or-update/products-create-or-update.component';
 
 @NgModule({
 	declarations: [
@@ -80,6 +86,12 @@ import { ProductsComponent } from './components/administration/menu-options/prod
 		MenusComponent,
 		CategoriesComponent,
 		ProductsComponent,
+		MenusListComponent,
+		MenusCreateOrUpdateComponent,
+		CategoriesListComponent,
+		CategoriesCreateOrUpdateComponent,
+		ProductsListComponent,
+		ProductsCreateOrUpdateComponent,
 	],
 	imports: [
 		BrowserModule,

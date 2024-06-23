@@ -25,6 +25,12 @@ import { userBossGuard } from "./guards/user-boss.guard";
 import { MenusComponent } from "./components/administration/menu-options/menus/menus.component";
 import { CategoriesComponent } from "./components/administration/menu-options/categories/categories.component";
 import { ProductsComponent } from "./components/administration/menu-options/products/products.component";
+import { MenusListComponent } from "./components/administration/menu-options/menus/menus-list/menus-list.component";
+import { MenusCreateOrUpdateComponent } from "./components/administration/menu-options/menus/menus-create-or-update/menus-create-or-update.component";
+import { CategoriesListComponent } from "./components/administration/menu-options/categories/categories-list/categories-list.component";
+import { CategoriesCreateOrUpdateComponent } from "./components/administration/menu-options/categories/categories-create-or-update/categories-create-or-update.component";
+import { ProductsCreateOrUpdateComponent } from "./components/administration/menu-options/products/products-create-or-update/products-create-or-update.component";
+import { ProductsListComponent } from "./components/administration/menu-options/products/products-list/products-list.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -56,9 +62,33 @@ const ROUTES: Routes = [
         path: 'menu-options', component:  MenuOptionsComponent,
         children:[
             { path: 'menu-builder', component: MenuBuilderComponent, canActivate: [userBossGuard] },
-            { path: 'menus', component: MenusComponent, canActivate: [userBossGuard] },
-            { path: 'categories', component: CategoriesComponent, canActivate: [userBossGuard] },
-            { path: 'products', component: ProductsComponent, canActivate: [userBossGuard] },
+            { 
+                path: 'menus', component: MenusComponent,
+                children: [
+                    { path: 'list', component: MenusListComponent, canActivate: [userBossGuard] },
+                    { path: 'create', component: MenusCreateOrUpdateComponent, canActivate: [userBossGuard] },
+                    { path: 'update/:id', component: MenusCreateOrUpdateComponent, canActivate: [userBossGuard] },
+                    { path: '**', pathMatch: 'full', redirectTo: 'list' }
+                ]
+            },
+            { 
+                path: 'categories', component: CategoriesComponent,
+                children: [
+                    { path: 'list', component: CategoriesListComponent, canActivate: [userBossGuard] },
+                    { path: 'create', component: CategoriesCreateOrUpdateComponent, canActivate: [userBossGuard] },
+                    { path: 'update/:id', component: CategoriesCreateOrUpdateComponent, canActivate: [userBossGuard] },
+                    { path: '**', pathMatch: 'full', redirectTo: 'list' }
+                ]
+            },
+            { 
+                path: 'products', component: ProductsComponent,
+                children: [
+                    { path: 'list', component: ProductsListComponent, canActivate: [userBossGuard] },
+                    { path: 'create', component: ProductsCreateOrUpdateComponent, canActivate: [userBossGuard] },
+                    { path: 'update/:id', component: ProductsCreateOrUpdateComponent, canActivate: [userBossGuard] },
+                    { path: '**', pathMatch: 'full', redirectTo: 'list' }
+                ]
+            },            
             { path: '**', pathMatch: 'full', redirectTo: 'menu-builder' }
         ]
     },
