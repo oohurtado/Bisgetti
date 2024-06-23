@@ -19,6 +19,12 @@ import { roleGuard } from "./guards/role.guard";
 import { general } from "./source/general";
 import { MyAccountListComponent } from "./components/my-account/my-account-list/my-account-list.component";
 import { MyAccountComponent } from "./components/my-account/my-account/my-account.component";
+import { MenuOptionsComponent } from "./components/administration/menu-options/menu-options/menu-options.component";
+import { MenuBuilderComponent } from "./components/administration/menu-options/menu-builder/menu-builder.component";
+import { userBossGuard } from "./guards/user-boss.guard";
+import { MenusComponent } from "./components/administration/menu-options/menus/menus.component";
+import { CategoriesComponent } from "./components/administration/menu-options/categories/categories.component";
+import { ProductsComponent } from "./components/administration/menu-options/products/products.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -44,6 +50,16 @@ const ROUTES: Routes = [
             { path: 'addresses/create', component: MyAccountAddressesCreateOrUpdateComponent, canActivate: [userCustomerGuard] },
             { path: 'addresses/update/:id', component: MyAccountAddressesCreateOrUpdateComponent, canActivate: [userCustomerGuard] },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
+        ]
+    },
+    {
+        path: 'menu-options', component:  MenuOptionsComponent,
+        children:[
+            { path: 'menu-builder', component: MenuBuilderComponent, canActivate: [userBossGuard] },
+            { path: 'menus', component: MenusComponent, canActivate: [userBossGuard] },
+            { path: 'categories', component: CategoriesComponent, canActivate: [userBossGuard] },
+            { path: 'products', component: ProductsComponent, canActivate: [userBossGuard] },
+            { path: '**', pathMatch: 'full', redirectTo: 'menu-builder' }
         ]
     },
     { path: '**', pathMatch: 'full', redirectTo: 'home' },

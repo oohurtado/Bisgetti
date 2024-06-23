@@ -39,6 +39,11 @@ import { PasswordRecoveryComponent } from './components/access/password-recovery
 import { PasswordSetComponent } from './components/access/password-set/password-set.component';
 import { MyAccountListComponent } from './components/my-account/my-account-list/my-account-list.component';
 import { MyAccountComponent } from './components/my-account/my-account/my-account.component';
+import { MenuOptionsComponent } from './components/administration/menu-options/menu-options/menu-options.component';
+import { MenuBuilderComponent } from './components/administration/menu-options/menu-builder/menu-builder.component';
+import { MenusComponent } from './components/administration/menu-options/menus/menus.component';
+import { CategoriesComponent } from './components/administration/menu-options/categories/categories.component';
+import { ProductsComponent } from './components/administration/menu-options/products/products.component';
 
 @NgModule({
 	declarations: [
@@ -69,7 +74,12 @@ import { MyAccountComponent } from './components/my-account/my-account/my-accoun
   		MyAccountAddressesCreateOrUpdateComponent,
 		PasswordRecoveryComponent,
 		PasswordSetComponent,
-  MyAccountComponent,
+		MyAccountComponent,
+		MenuOptionsComponent,
+		MenuBuilderComponent,
+		MenusComponent,
+		CategoriesComponent,
+		ProductsComponent,
 	],
 	imports: [
 		BrowserModule,
