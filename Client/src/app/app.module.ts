@@ -29,7 +29,7 @@ import { ProcessingComponent } from './components/_shared/processing/processing.
 import { AuthInterceptorService } from './services/common/auth-interceptor.service';
 import { UsersChangeRoleComponent } from './components/administration/users/users-change-role/users-change-role.component';
 import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
-import { UsersComponent } from './components/administration/users/users/users.component';
+import { UsersComponent } from './components/administration/users/users.component';
 import { RoleStrPipe } from './pipes/role-str.pipe';
 import { MyAccountUpdatePersonalDataComponent } from './components/my-account/my-account-update-personal-data/my-account-update-personal-data.component';
 import { MyAccountChangePasswordComponent } from './components/my-account/my-account-change-password/my-account-change-password.component';
@@ -38,8 +38,8 @@ import { MyAccountAddressesCreateOrUpdateComponent } from './components/my-accou
 import { PasswordRecoveryComponent } from './components/access/password-recovery/password-recovery.component';
 import { PasswordSetComponent } from './components/access/password-set/password-set.component';
 import { MyAccountListComponent } from './components/my-account/my-account-list/my-account-list.component';
-import { MyAccountComponent } from './components/my-account/my-account/my-account.component';
-import { MenuOptionsComponent } from './components/administration/menu-options/menu-options/menu-options.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
+import { MenuOptionsComponent } from './components/administration/menu-options/menu-options.component';
 import { MenuBuilderComponent } from './components/administration/menu-options/menu-builder/menu-builder.component';
 import { MenusComponent } from './components/administration/menu-options/menus/menus.component';
 import { CategoriesComponent } from './components/administration/menu-options/categories/categories.component';
