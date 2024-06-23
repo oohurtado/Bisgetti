@@ -31,13 +31,14 @@ import { UsersChangeRoleComponent } from './components/administration/users/user
 import { UsersListComponent } from './components/administration/users/users-list/users-list.component';
 import { UsersComponent } from './components/administration/users/users/users.component';
 import { RoleStrPipe } from './pipes/role-str.pipe';
-import { MyAccountBaseComponent } from './components/my-account/my-account/my-account.component';
 import { MyAccountUpdatePersonalDataComponent } from './components/my-account/my-account-update-personal-data/my-account-update-personal-data.component';
 import { MyAccountChangePasswordComponent } from './components/my-account/my-account-change-password/my-account-change-password.component';
 import { MyAccountAddressesListComponent } from './components/my-account/my-account-addresses/my-account-addresses-list/my-account-addresses-list.component';
 import { MyAccountAddressesCreateOrUpdateComponent } from './components/my-account/my-account-addresses/my-account-addresses-create-or-update/my-account-addresses-create-or-update.component';
 import { PasswordRecoveryComponent } from './components/access/password-recovery/password-recovery.component';
 import { PasswordSetComponent } from './components/access/password-set/password-set.component';
+import { MyAccountListComponent } from './components/my-account/my-account-list/my-account-list.component';
+import { MyAccountComponent } from './components/my-account/my-account/my-account.component';
 
 @NgModule({
 	declarations: [
@@ -62,12 +63,13 @@ import { PasswordSetComponent } from './components/access/password-set/password-
 		ProcessingComponent,		
 		RoleStrPipe,
 		MyAccountUpdatePersonalDataComponent,
-		MyAccountBaseComponent,
+		MyAccountListComponent,
 		MyAccountChangePasswordComponent,
   		MyAccountAddressesListComponent,
   		MyAccountAddressesCreateOrUpdateComponent,
-    PasswordRecoveryComponent,
-    PasswordSetComponent,
+		PasswordRecoveryComponent,
+		PasswordSetComponent,
+  MyAccountComponent,
 	],
 	imports: [
 		BrowserModule,

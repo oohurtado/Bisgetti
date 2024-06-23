@@ -85,7 +85,7 @@ export class UsersChangeRoleComponent extends FormBase implements OnInit {
 					this._error = Utils.getErrorsResponse(e);
 				},
 				next: (val) => {
-					this.router.navigateByUrl('/administration/users');
+					this.router.navigateByUrl('/users');
                     alertify.message("Cambios guardados", 1)
 				}
 			});

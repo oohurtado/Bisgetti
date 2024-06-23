@@ -42,7 +42,7 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
     }
 
 	onChangeRoleClicked(event: Event, user: UserResponse) {
-		this.router.navigateByUrl(`/administration/users/change-role/${user.id}/${user.email}/${user.userRole}`);
+		this.router.navigateByUrl(`/users/change-role/${user.id}/${user.email}/${user.userRole}`);
 	}
 
 	onUpdatePersonalDataClicked($event: MouseEvent,user: UserResponse) {
