@@ -11,8 +11,8 @@ import { UsersComponent } from "./components/administration/users/users.componen
 import { ChangePasswordComponent } from "./components/my-account/change-password/change-password.component";
 import { UpdatePersonalDataComponent } from "./components/my-account/update-personal-data/update-personal-data.component";
 import { userCustomerGuard } from "./guards/user-customer.guard";
-import { AddressesListComponent } from "./components/my-account/my-account-addresses/addresses-list/addresses-list.component";
-import { AddressesCreateOrUpdateComponent } from "./components/my-account/my-account-addresses/addresses-create-or-update/addresses-create-or-update.component";
+import { AddressesListComponent } from "./components/my-account/addresses/addresses-list/addresses-list.component";
+import { AddressesCreateOrUpdateComponent } from "./components/my-account/addresses/addresses-create-or-update/addresses-create-or-update.component";
 import { PasswordRecoveryComponent } from "./components/access/password-recovery/password-recovery.component";
 import { PasswordSetComponent } from "./components/access/password-set/password-set.component";
 import { roleGuard } from "./guards/role.guard";
