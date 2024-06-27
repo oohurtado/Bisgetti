@@ -28,9 +28,9 @@
             <div class="card h-100">
                 <div class="my-auto text-center">
                     <br><br><br><br><br>
-                    <a class="cursor-pointer" (click)="onCreateClicked($event)">Agregar dirección</a>
+                    <a class="cursor-pointer" (click)="onCreateClicked($event)">Crear dirección</a>
                     <br>
-                    <small class="text-muted">Agrega hasta 10 direcciones</small>
+                    <small class="text-muted">Crea hasta 10 direcciones</small>
                     <br><br><br><br><br>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a class="cursor-pointer" (click)="onUpdateClicked($event, item)">Editar</a>
+                        <a class="cursor-pointer" (click)="onUpdateClicked($event, item)">Actualizar</a>
                         &nbsp;|&nbsp;
                         <a class="cursor-pointer" (click)="onDeleteClicked($event, item)">Borrar</a>
                         <ng-container *ngIf="!item.isDefault">

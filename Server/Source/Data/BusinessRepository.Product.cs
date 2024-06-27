@@ -48,6 +48,17 @@ namespace Server.Source.Data
                     ioq = iq.OrderByDescending(p => p.Name);
                 }
             }
+            else if (sortColumn == "price")
+            {
+                if (sortOrder == "asc")
+                {
+                    ioq = iq.OrderBy(p => p.Price);
+                }
+                else if (sortOrder == "desc")
+                {
+                    ioq = iq.OrderByDescending(p => p.Price);
+                }
+            }
             else
             {
                 throw new EatSomeInternalErrorException(EnumResponseError.SortColumnKeyNotFound);

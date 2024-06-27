@@ -19,7 +19,7 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
 		private router: Router,
 		localStorageService: LocalStorageService
     ) {
-        super('admin-users', localStorageService);
+        super('users', localStorageService);
     }  
 
     async ngOnInit() {
@@ -48,6 +48,7 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
 	onUpdatePersonalDataClicked($event: MouseEvent,user: UserResponse) {
 		this.router.navigateByUrl(`user/personal-data/${user.id}`);
 	}
+	
 	isUserInAnyRole(roles: string[]) {
 		return this.localStorageService.isUserInAnyRole(roles);
 	}

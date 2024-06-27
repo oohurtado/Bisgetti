@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-		<h3>{{ _addressId === null || _addressId === undefined ? 'Agregar dirección' : 'Editar dirección' }}</h3>
+		<h3>{{ _addressId === null || _addressId === undefined ? 'Crear dirección' : 'Actualizar dirección' }}</h3>
 	</div>
 	<div class="col-md-12">
 		<nav aria-label="breadcrumb">
@@ -8,7 +8,7 @@
 				<li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
                 <li class="breadcrumb-item"><a [routerLink]="['/my-account']">Mi cuenta</a></li>
                 <li class="breadcrumb-item"><a [routerLink]="['/my-account/addresses/list']">Mis direcciones</a></li>
-				<li class="breadcrumb-item active" aria-current="page">{{ _addressId === null || _addressId === undefined ? 'Agregar dirección' : 'Editar dirección' }}</li>
+				<li class="breadcrumb-item active" aria-current="page">{{ _addressId === null || _addressId === undefined ? 'Crear dirección' : 'Actualizar dirección' }}</li>
 			</ol>
 		</nav>
 	</div>

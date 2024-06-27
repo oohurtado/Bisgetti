@@ -4,7 +4,7 @@ export class PageFactory {
 
     public static getOrder(section: string): IOrder {
         switch (section) {
-            case 'admin-users':
+            case 'users':
                 return {
                     isAscending: true,
                     startPosition: 0,
@@ -14,6 +14,31 @@ export class PageFactory {
                         { data: "email", text: "Correo electrónico", divider: false },
                     ],
                 }
+            case 'menus':
+                return {
+                    isAscending: true,
+                    startPosition: 0,
+                    list: [
+                        { data: "name", text: "Nombre", divider: false },
+                    ],
+                }   
+            case 'categories':
+                return {
+                    isAscending: true,
+                    startPosition: 0,
+                    list: [
+                        { data: "name", text: "Nombre", divider: false },
+                    ],
+                } 
+            case 'products':
+                return {
+                    isAscending: true,
+                    startPosition: 0,
+                    list: [
+                        { data: "name", text: "Nombre", divider: false },
+                        { data: "price", text: "Precio", divider: false },
+                    ],
+                }                                    
         }
 
         throw new Error(`PageFactory: '${section}' not implemented.`);

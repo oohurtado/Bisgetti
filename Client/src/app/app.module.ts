@@ -95,7 +95,7 @@ import { MenuBuilderComponent } from './components/administration/menu-stuff/men
 		ProductsListComponent,
 		ProductsCreateOrUpdateComponent,
   		AddressesComponent,
-    MenuBuilderComponent,
+    	MenuBuilderComponent,
 	],
 	imports: [
 		BrowserModule,
