@@ -3,7 +3,7 @@ import { FormBase } from '../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
-import { PasswordSetRequest } from '../../../source/models/dtos/user/access/password-set-request';
+import { PasswordSetRequest } from '../../../source/models/dtos/users/access/password-set-request';
 import { Utils } from '../../../source/utils';
 import { UserAccessService } from '../../../services/business/user-access.service';
 declare let alertify: any;

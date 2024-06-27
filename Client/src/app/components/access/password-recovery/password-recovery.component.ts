@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBase } from '../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PasswordRecoveryRequest } from '../../../source/models/dtos/user/access/password-recovery-request';
+import { PasswordRecoveryRequest } from '../../../source/models/dtos/users/access/password-recovery-request';
 import { Utils } from '../../../source/utils';
 import { UserAccessService } from '../../../services/business/user-access.service';
 declare let alertify: any;

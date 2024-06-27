@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Tuple2 } from '../../../../source/models/common/tuple';
 import { UserMyAccountService } from '../../../../services/business/user-my-account.service';
 import { AddressResponse } from '../../../../source/models/business/address-response';
-import { CreateOrUpdateAddressRequest } from '../../../../source/models/dtos/user/my-account/address/create-or-update-address-request';
+import { CreateOrUpdateAddressRequest } from '../../../../source/models/dtos/users/address/create-or-update-address-request';
 import { Utils } from '../../../../source/utils';
 import { ListFactory } from '../../../../source/factories/list-factory';
 declare let alertify: any;
