@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserMyAccountService } from '../../../services/business/user/user-my-account.service';
+import { UserMyAccountService } from '../../../services/business/user-my-account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBase } from '../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';

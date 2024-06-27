@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from '../../common/request.service';
-import { UserResponse } from '../../../source/models/business/user-response';
-import { PageData } from '../../../source/models/common/page-data';
-import { CreateUserRequest } from '../../../source/models/dtos/user/administration/users/create-user-request';
-import { ChangeRoleRequest } from '../../../source/models/dtos/user/administration/users/change-role-request';
+import { RequestService } from '../common/request.service';
+import { UserResponse } from '../../source/models/business/user-response';
+import { PageData } from '../../source/models/common/page-data';
+import { CreateUserRequest } from '../../source/models/dtos/user/administration/users/create-user-request';
+import { ChangeRoleRequest } from '../../source/models/dtos/user/administration/users/change-role-request';
 
 @Injectable({
     providedIn: 'root'

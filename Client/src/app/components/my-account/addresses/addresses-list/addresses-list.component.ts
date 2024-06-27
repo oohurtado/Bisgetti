@@ -4,7 +4,7 @@ import { AddressResponse } from '../../../../source/models/business/address-resp
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
-import { UserMyAccountService } from '../../../../services/business/user/user-my-account.service';
+import { UserMyAccountService } from '../../../../services/business/user-my-account.service';
 import { Utils } from '../../../../source/utils';
 import { UpdateAddressDefaultRequest } from '../../../../source/models/dtos/user/my-account/address/update-address-default-request';
 declare let alertify: any;

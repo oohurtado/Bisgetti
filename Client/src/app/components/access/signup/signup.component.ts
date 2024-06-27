@@ -3,11 +3,11 @@ import { FormBase } from '../../../source/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
-import { UserAccessService } from '../../../services/business/user/user-access.service';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { SignupRequest } from '../../../source/models/dtos/user/access/signup-request';
 import { TokenResponse } from '../../../source/models/dtos/user/access/token-response';
 import { Utils } from '../../../source/utils';
+import { UserAccessService } from '../../../services/business/user-access.service';
 declare let alertify: any;
 
 @Component({

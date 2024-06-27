@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserResponse } from '../../../../source/models/business/user-response';
-import { UserUsersService } from '../../../../services/business/user/user-users.service';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { PageBase } from '../../../../source/page-base';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 import { Utils } from '../../../../source/utils';
+import { UserUsersService } from '../../../../services/business/user-users.service';
 
 @Component({
     selector: 'app-users-list',

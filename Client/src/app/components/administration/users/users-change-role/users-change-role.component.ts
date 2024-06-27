@@ -4,12 +4,12 @@ import { FormBase } from '../../../../source/form-base';
 import { Tuple2 } from '../../../../source/models/common/tuple';
 import { PageFactory } from '../../../../source/factories/page-factory';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserUsersService } from '../../../../services/business/user/user-users.service';
 import { ChangeRoleRequest } from '../../../../source/models/dtos/user/administration/users/change-role-request';
 import { EnumRole } from '../../../../source/models/enums/role.enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 import { ListFactory } from '../../../../source/factories/list-factory';
 import { Utils } from '../../../../source/utils';
+import { UserUsersService } from '../../../../services/business/user-users.service';
 declare let alertify: any;
 
 @Component({

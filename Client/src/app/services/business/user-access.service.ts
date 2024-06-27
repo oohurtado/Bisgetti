@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from '../../common/request.service';
-import { SignupRequest } from '../../../source/models/dtos/user/access/signup-request';
-import { LoginRequest } from '../../../source/models/dtos/user/access/login-request';
-import { PasswordRecoveryRequest } from '../../../source/models/dtos/user/access/password-recovery-request';
-import { PasswordSetRequest } from '../../../source/models/dtos/user/access/password-set-request';
+import { RequestService } from '../common/request.service';
+import { SignupRequest } from '../../source/models/dtos/user/access/signup-request';
+import { LoginRequest } from '../../source/models/dtos/user/access/login-request';
+import { PasswordRecoveryRequest } from '../../source/models/dtos/user/access/password-recovery-request';
+import { PasswordSetRequest } from '../../source/models/dtos/user/access/password-set-request';
 
 @Injectable({
     providedIn: 'root'
