@@ -13,6 +13,7 @@ import { Utils } from '../../../../../source/utils';
     styleUrl: './products-list.component.css'
 })
 export class ProductsListComponent extends PageBase<ProductResponse> implements OnInit {
+    
     constructor(
         private menuStuffService: MenuStuffService,
         private router: Router,
@@ -42,5 +43,9 @@ export class ProductsListComponent extends PageBase<ProductResponse> implements 
 
     onUpdateClicked(event: Event, product: ProductResponse) {
         this.router.navigateByUrl(`/menu-stuff/products/update/${product.id}`);
+    }
+
+    override onCreateClicked(event: Event): void {
+        this.router.navigateByUrl(`/menu-stuff/products/create`);
     }
 }

@@ -32,7 +32,9 @@ export abstract class PageBase<T> {
 	_pageNavigationOptionSelecter!: INavigationOptionSelected;
 
 	_error: string|null = null;
-	
+
+	abstract onCreateClicked(event: Event): void;
+
     async onSyncClicked()  {
 		this._error = null;
 		this.pageNumber = 1;

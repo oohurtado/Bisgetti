@@ -13,6 +13,7 @@ import { Utils } from '../../../../../source/utils';
     styleUrl: './categories-list.component.css'
 })
 export class CategoriesListComponent extends PageBase<CategoryResponse> implements OnInit {
+    
     constructor(
         private menuStuffService: MenuStuffService,
         private router: Router,
@@ -42,5 +43,9 @@ export class CategoriesListComponent extends PageBase<CategoryResponse> implemen
 
     onUpdateClicked(event: Event, category: CategoryResponse) {
         this.router.navigateByUrl(`/menu-stuff/categories/update/${category.id}`);
+    }
+
+    override onCreateClicked(event: Event): void {
+        this.router.navigateByUrl(`/menu-stuff/categories/create`);
     }
 }

@@ -52,4 +52,8 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
 	isUserInAnyRole(roles: string[]) {
 		return this.localStorageService.isUserInAnyRole(roles);
 	}
+
+	override onCreateClicked(event: Event): void {
+		throw new Error('Method not implemented.');
+	}
 }

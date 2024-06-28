@@ -43,4 +43,8 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
     onUpdateClicked(event: Event, menu: MenuResponse) {
 		this.router.navigateByUrl(`/menu-stuff/menus/update/${menu.id}`);
 	}
+
+	override onCreateClicked(event: Event): void {
+		this.router.navigateByUrl(`/menu-stuff/menus/create`);
+	}
 }

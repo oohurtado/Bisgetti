@@ -24,7 +24,6 @@ import { PageOrderComponent } from './components/_shared/page/page-order/page-or
 import { PagePaginationComponent } from './components/_shared/page/page-pagination/page-pagination.component';
 import { PageSearchComponent } from './components/_shared/page/page-search/page-search.component';
 import { PageSyncComponent } from './components/_shared/page/page-sync/page-sync.component';
-import { PageQuickMenuComponent } from './components/_shared/page/page-quick-menu/page-quick-menu.component';
 import { ProcessingComponent } from './components/_shared/processing/processing.component';
 import { AuthInterceptorService } from './services/common/auth-interceptor.service';
 import { UsersChangeRoleComponent } from './components/administration/users/users-change-role/users-change-role.component';
@@ -52,6 +51,7 @@ import { ProductsListComponent } from './components/administration/menu-stuff/pr
 import { ProductsComponent } from './components/administration/menu-stuff/products/products.component';
 import { AddressesComponent } from './components/my-account/addresses/addresses.component';
 import { MenuBuilderComponent } from './components/administration/menu-stuff/menu-builder/menu-builder.component';
+import { PageCreateComponent } from './components/_shared/page/page-create/page-create.component';
 
 @NgModule({
 	declarations: [
@@ -72,7 +72,6 @@ import { MenuBuilderComponent } from './components/administration/menu-stuff/men
 		PagePaginationComponent,
 		PageSearchComponent,
 		PageSyncComponent,
-		PageQuickMenuComponent,
 		ProcessingComponent,		
 		RoleStrPipe,
 		UpdatePersonalDataComponent,
@@ -96,6 +95,7 @@ import { MenuBuilderComponent } from './components/administration/menu-stuff/men
 		ProductsCreateOrUpdateComponent,
   		AddressesComponent,
     	MenuBuilderComponent,
+     PageCreateComponent,
 	],
 	imports: [
 		BrowserModule,

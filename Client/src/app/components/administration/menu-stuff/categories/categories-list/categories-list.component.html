@@ -28,13 +28,14 @@
 		<div class="col-md-6">
 		</div>
 		<div class="col-md-6 text-end">
+			<app-page-create class="ms-1" (evt)="onCreateClicked($event)"></app-page-create>
 			<app-page-order class="ms-1 me-1" [data]="_pageOrder" (evt)="onOrderClicked($event)"></app-page-order>
 			<app-page-sync class="ms-1" (evt)="onSyncClicked()"></app-page-sync>
 		</div>
 	</div>
 	<div class="table-responsive">
-		<table class="table table-bordered mt-2 mb-2 table-striped">
-			<thead>
+		<table class="table table-bordered mt-2 mb-2">
+			<thead class="table-light">
 				<tr>
 					<th [width]="'1%'"></th>
 					<th [width]="'25%'" scope="col">Nombre</th>
