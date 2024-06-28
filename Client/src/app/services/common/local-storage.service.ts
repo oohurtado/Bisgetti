@@ -88,6 +88,7 @@ export class LocalStorageService {
 		return inRole;
 	}
 
+	/*
 	getUserId(): string {
 		return this.getDataFromToken(general.MS_ID);
 	}
@@ -102,6 +103,19 @@ export class LocalStorageService {
 
 	getUserLastName(): string {
 		return this.getDataFromToken(general.MS_LAST_NAME);
+	}
+	*/
+
+	getUserEmail(): string {
+		return this.getValue(general.LS_EMAIL_ADDRESS)!;
+	}
+
+	getUserFirstName(): string {
+		return this.getValue(general.LS_FIRST_NAME)!;
+	}
+
+	getUserLastName(): string {
+		return this.getValue(general.LS_LAST_NAME)!;
 	}
 
 	getUserFullName(): string {

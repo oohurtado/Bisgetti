@@ -6,6 +6,8 @@ import { UserMyAccountService } from '../../../services/business/user-my-account
 import { UpdatePersonalDataRequest } from '../../../source/models/dtos/users/personal-data/update-personal-data-request';
 import { UserResponse } from '../../../source/models/business/user-response';
 import { Utils } from '../../../source/utils';
+import { LocalStorageService } from '../../../services/common/local-storage.service';
+import { general } from '../../../source/general';
 declare let alertify: any;
 
 @Component({
@@ -21,7 +23,8 @@ export class UpdatePersonalDataComponent extends FormBase implements OnInit {
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
 		private router: Router,		
-		private UserMyAccountService: UserMyAccountService,
+		private userMyAccountService: UserMyAccountService,
+		private localStorageService: LocalStorageService
     ) {
         super(); 				
     }
@@ -34,7 +37,7 @@ export class UpdatePersonalDataComponent extends FormBase implements OnInit {
     async getDataAsync() {
 		this._error = null;
         this._isLoading = true;
-        await this.UserMyAccountService
+        await this.userMyAccountService
             .getPersonalDataAsync()
             .then(p => {
 				this._user = p;
@@ -72,7 +75,7 @@ export class UpdatePersonalDataComponent extends FormBase implements OnInit {
 			this._myForm?.controls['phoneNumber'].value,
         );
 
-        this.UserMyAccountService.updatePersonalData(model)
+        this.userMyAccountService.updatePersonalData(model)
 			.subscribe({
 				complete: () => {
 					this._isProcessing = false;
@@ -83,7 +86,10 @@ export class UpdatePersonalDataComponent extends FormBase implements OnInit {
 				},
 				next: (val) => {
 					this.router.navigateByUrl('/my-account');
-					alertify.message("Cambios guardados", 1)
+					alertify.message("Cambios guardados", 1);
+
+					this.localStorageService.setValue(general.LS_FIRST_NAME, model.firstName);
+					this.localStorageService.setValue(general.LS_LAST_NAME, model.lastName);
 				}
 			});
 	}
