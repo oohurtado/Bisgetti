@@ -55,6 +55,9 @@
                         <button type="submit" class="btn btn-light border btn-sm" (click)="onUpdateClicked($event, item)">
                             <i class="fa-solid fa-pen"></i>
                         </button>
+                        <button type="button" class="btn btn-light border btn-sm" (click)="onDeleteClicked($event, item)">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>										
 					</td>
 					<td style="white-space:nowrap;">{{ item.name }}</td>
 					<td style="white-space:nowrap; text-align: end;">{{ item.price | currency:'$' }}</td>

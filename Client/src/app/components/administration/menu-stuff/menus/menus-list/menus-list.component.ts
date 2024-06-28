@@ -74,7 +74,7 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
 						},
 						next: (val) => {							
 							component._pageData.data = component._pageData.data.filter(p => p.id != menu.id);
-							alertify.message("Menú borrada", 1)
+							alertify.message("Menú borrado", 1)
 						}
 					});				
 			},

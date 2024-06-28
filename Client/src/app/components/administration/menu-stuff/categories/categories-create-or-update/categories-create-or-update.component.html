@@ -1,1 +1,57 @@
-<p>categories-create-or-update works!</p>
+<div class="row">
+    <div class="col-md-12">
+		<h3>{{ _categoryId === null || _categoryId === undefined ? 'Crear categoría' : 'Actualizar categoría' }}</h3>
+	</div>
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/menu-stuff']">Cosas del menú</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/menu-stuff/categories/list']">Categorías</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ _categoryId === null || _categoryId === undefined ? 'Crear categoría' : 'Actualizar categoría' }}</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="mt-2 mb-2 mx-auto" style="width: 800px;">
+    <div class="card">
+        <div class="card-header">
+            {{ _categoryId === null || _categoryId === undefined ? 'Crea los menús que necesites' : 'Manten tus categorías actualizadas' }}            
+        </div>
+        <div class="card-body">
+            <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
+                <div class="row">    
+                    <div class="col-md-12 mt-3">
+                        <div class="form-floating">
+                            <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre">
+                            <label for="name">Nombre</label>
+                        </div>
+                        <span *ngIf="hasError('name', 'required')" class="text-danger">Este campo es requerido</span>
+                        <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
+                    </div>                 
+                    <div class="col-md-12 mt-3">
+                        <div class="form-floating">
+                            <textarea formControlName="description" class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px"></textarea>
+                            <label for="description">Descripción</label>
+                          </div>                 
+                        <span *ngIf="hasError('description', 'maxlength')" class="text-danger">Este campo debe un máximo de 100 caracteres</span>
+                    </div>      
+                    <div class="col-12 mt-3 mb-3">
+                        <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
+                            <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
+                            <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
+                        </button>
+                    </div>                    
+                </div>
+            </form>
+            <ng-container *ngIf="_error !== null">
+                <div class="col-12">
+                    <div  class="alert alert-danger ml-4 mr-4" role="alert">
+                        {{ _error }}
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
