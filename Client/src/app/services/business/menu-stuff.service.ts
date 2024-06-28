@@ -162,7 +162,7 @@ export class MenuStuffService {
 		return this.requestService.post(`/business/products`, model);
 	}
 
-	updateProducts(id: number, model: CreateOrUpdateProductRequest) {
+	updateProduct(id: number, model: CreateOrUpdateProductRequest) {
 		return this.requestService.put(`/business/products/${id}`, model);
 	}
 

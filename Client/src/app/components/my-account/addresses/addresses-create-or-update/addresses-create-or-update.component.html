@@ -99,14 +99,14 @@
                     </div>    
                     <div class="col-md-12 mt-3">
                         <div class="form-floating">
-                            <textarea formControlName="moreInstructions" class="form-control" placeholder="Leave a comment here" id="moreInstructions" style="height: 100px"></textarea>
+                            <textarea formControlName="moreInstructions" class="form-control" placeholder="Las instrucciones van aquí" id="moreInstructions" style="height: 100px"></textarea>
                             <label for="moreInstructions">Más instrucciones</label>
                           </div>                 
                         <span *ngIf="hasError('moreInstructions', 'maxlength')" class="text-danger">Este campo debe un máximo de 250 caracteres</span>
                     </div>
                     <div class="col-md-3 mt-3">
                         <div class="form-floating">
-                            <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Número telefónico">
+                            <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Número telefónico" maxlength="10">
                             <label for="phoneNumber">Número telefónico</label>
                         </div>
                         <span *ngIf="hasError('phoneNumber', 'required')" class="text-danger">Este campo es requerido</span>

@@ -14,6 +14,7 @@ declare let alertify: any;
     styleUrl: './categories-create-or-update.component.css'
 })
 export class CategoriesCreateOrUpdateComponent extends FormBase implements OnInit {
+
     _categoryId!: number;
     _category!: CategoryResponse;
 
