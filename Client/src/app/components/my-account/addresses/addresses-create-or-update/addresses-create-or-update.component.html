@@ -17,7 +17,7 @@
 <div class="mt-2 mb-2 mx-auto" style="width: 800px;">
     <div class="card">
         <div class="card-header">
-            {{ _addressId === null || _addressId === undefined ? 'Agrega las direcciones que necesites' : 'Manten tu dirección actualizada' }}            
+            {{ _addressId === null || _addressId === undefined ? 'Crea las direcciones que necesites' : 'Manten tu dirección actualizada' }}            
         </div>
         <div class="card-body">
             <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">

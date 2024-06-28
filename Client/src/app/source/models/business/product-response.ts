@@ -1,5 +1,5 @@
 export class ProductResponse {
-    id!: string;
+    id!: number;
     name!: string;
     description!: string;
     ingredients!: string;

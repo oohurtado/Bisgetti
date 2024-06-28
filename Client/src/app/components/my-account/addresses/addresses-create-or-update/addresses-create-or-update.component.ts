@@ -133,7 +133,7 @@ export class AddressesCreateOrUpdateComponent extends FormBase implements OnInit
                     },
                     next: (val) => {
                         this.router.navigateByUrl('my-account/addresses/list');
-                        alertify.message("Dirección agregada", 1)
+                        alertify.message("Dirección creada", 1)
                     }
                 });
         }   

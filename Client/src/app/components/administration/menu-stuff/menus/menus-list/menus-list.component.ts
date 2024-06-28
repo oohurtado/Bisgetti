@@ -5,6 +5,7 @@ import { MenuStuffService } from '../../../../../services/business/menu-stuff.se
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../../../services/common/local-storage.service';
 import { Utils } from '../../../../../source/utils';
+declare let alertify: any;
 
 @Component({
     selector: 'app-menus-list',
@@ -46,5 +47,39 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
 
 	override onCreateClicked(event: Event): void {
 		this.router.navigateByUrl(`/menu-stuff/menus/create`);
+	}
+
+	onDeleteClicked(event: Event, menu: MenuResponse) {
+		let button = event.target as HTMLButtonElement;
+        button.blur();
+
+		let message: string = `
+			¿Estás seguro de querer borrar el menú: <b>${menu.name}</b>?
+			<br>
+			<small><strong>Ten en cuenta lo siguiente:</strong> Las categorías y productos agregados al menú no serán borrados.</small>
+			`;
+
+		let component = this;
+		alertify.confirm("Confirmar eliminación", message,
+			function () {
+				component._isProcessing = true;
+				component.menuStuffService.deleteMenu(menu.id)
+					.subscribe({
+						complete: () => {
+							component._isProcessing = false;
+						},
+						error: (e : string) => {
+							component._isProcessing = false;
+							component._error = Utils.getErrorsResponse(e);					
+						},
+						next: (val) => {							
+							component._pageData.data = component._pageData.data.filter(p => p.id != menu.id);
+							alertify.message("Menú borrada", 1)
+						}
+					});				
+			},
+			function () {
+				// ...
+			});		
 	}
 }
