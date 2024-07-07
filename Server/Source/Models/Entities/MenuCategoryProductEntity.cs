@@ -7,9 +7,26 @@
         /// </summary>
 
         public string? ImagePath { get; set; }
+
+        /// <summary>
+        /// Aplica a: categoría, producto
+        /// </summary>
         public int? Position { get; set; }
+
+        /// <summary>
+        /// Aplica a: menú, categoría, producto
+        /// </summary>
         public bool IsVisible { get; set; }
+
+        /// <summary>
+        /// Aplica a: menú, producto
+        /// </summary>
         public bool IsAvailable { get; set; }
+
+        /// <summary>
+        /// Aplica a: producto
+        /// </summary>
+        public bool IsSoldOut { get; set; }
 
         /// <summary>
         /// Relationships
