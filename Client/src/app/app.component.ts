@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { EnumRole } from './source/models/enums/role.enum';
 import { SystemService } from './services/business/system.service';
 import { DateService } from './services/common/date.service';
+import { MenuStuffService } from './services/business/menu-stuff.service';
 declare let alertify: any;
 
 @Component({
@@ -18,11 +19,12 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(
         private sharedService: SharedService,
         private systemService: SystemService,
-        private dateService: DateService
+        private dateService: DateService,
+        private menuStuffService: MenuStuffService
     ) {
     }
 
-	ngOnInit(): void {
+	async ngOnInit() {
         alertify.set('notifier','position', 'top-right');
 
 		this.sharedService.logout.subscribe(p => {
@@ -37,6 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
                 this._serverTime = Object.assign(new Date, value);
             },
         });
+
+        await this.testStuff();
 	}
 
 	ngOnDestroy(): void {
@@ -61,4 +65,18 @@ export class AppComponent implements OnInit, OnDestroy {
         
         return "..."
     }
+
+    async testStuff() {
+        await this.menuStuffService.getCategoriesAsync()
+            .then(p => {
+                console.log(p)
+            })
+            .catch(e => { });
+        await this.menuStuffService.getProductsAsync()
+            .then(p => {
+                console.log(p)
+            })
+            .catch(e => { });            
+    }
 }
+

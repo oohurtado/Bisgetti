@@ -8,23 +8,13 @@ namespace Server.Controllers
 {
     public partial class BusinessController
     {
-   
+
         // TODO: oohg menu builder
 
         /*        
             * Init
-                * get categories
-                * get products
-                
-            * Imagenes                 
-                * agregar imagen a menu/categoria/producto
-                    * post
-                    * menu-builder/image/add-remove
-                    * AddImage(elementId, typeElement=menu/category/product, file)
-                *  quitar imagen de menu/categoria/producto
-                    * delete
-                    * menu-builder/image
-                    * DeleteImage(elementId, typeElement=menu/category/product)
+                X get categories
+                X get products               
 
             * Elementos agregar/quitar
                 * agregar 'categoria a menu'/'producto a categoria'
@@ -49,7 +39,18 @@ namespace Server.Controllers
                 * move up/down
                     * put
                     * menu-builder/position
-                    * UpdatePositionElement(elementId, direction=up/down)       
+                    * UpdatePositionElement(elementId, direction=up/down) 
+         
+            * Imagenes                 
+                * agregar imagen a menu/categoria/producto
+                    * post
+                    * menu-builder/image/add-remove
+                    * AddImage(elementId, typeElement=menu/category/product, file)
+                *  quitar imagen de menu/categoria/producto
+                    * delete
+                    * menu-builder/image
+                    * DeleteImage(elementId, typeElement=menu/category/product)
+                    
         */
     }
 }

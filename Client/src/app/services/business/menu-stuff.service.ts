@@ -107,6 +107,24 @@ export class MenuStuffService {
 		});
 	}
 
+	getCategories() {	
+		return this.requestService.get<CategoryResponse[]>(`/business/categories`);
+	}
+
+	getCategoriesAsync() : Promise<CategoryResponse[]> {
+		return new Promise((resolve, reject) => {
+			this.getCategories()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
 	createCategory(model: CreateOrUpdateCategoryRequest) {
 		return this.requestService.post(`/business/categories`, model);
 	}
@@ -147,6 +165,24 @@ export class MenuStuffService {
 	getProductsByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<ProductResponse>> {
 		return new Promise((resolve, reject) => {
 			this.getProductsByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	getProducts() {	
+		return this.requestService.get<ProductResponse[]>(`/business/products`);
+	}
+
+	getProductsAsync() : Promise<ProductResponse[]> {
+		return new Promise((resolve, reject) => {
+			this.getProducts()
 			.subscribe({
 				next: (value) => {
 					resolve(value);

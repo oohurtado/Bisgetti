@@ -7,6 +7,7 @@ using Server.Source.Models.DTOs.Common;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 
 namespace Server.Source.Logic
 {
@@ -34,6 +35,13 @@ namespace Server.Source.Logic
                 GrandTotal = result.Count,
                 Data = result,
             };
+        }
+
+        public async Task<List<ProductResponse>> GetProductsAsync()
+        {
+            var data = await _businessRepository.GetProducts().ToListAsync();
+            var result = _mapper.Map<List<ProductResponse>>(data);
+            return result;
         }
 
         public async Task<ProductResponse> GetProductAsync(int id)

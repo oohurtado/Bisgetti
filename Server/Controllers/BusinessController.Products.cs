@@ -9,7 +9,7 @@ namespace Server.Controllers
     public partial class BusinessController
     {
         /// <summary>
-        /// Listado de productos
+        /// Listado de productos - por página
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
@@ -17,6 +17,18 @@ namespace Server.Controllers
         public async Task<ActionResult> GetProductsByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
         {
             var result = await _businessLogicProduct.GetProductsByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Listado de productos - todos
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpGet(template: "products")]
+        public async Task<ActionResult> GetProducts()
+        {
+            var result = await _businessLogicProduct.GetProductsAsync();
             return Ok(result);
         }
 

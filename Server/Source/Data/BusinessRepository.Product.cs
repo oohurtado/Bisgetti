@@ -72,6 +72,12 @@ namespace Server.Source.Data
             return iq.AsNoTracking();
         }
 
+        public IQueryable<ProductEntity> GetProducts()
+        {
+            var iq = _context.Products;
+            return iq;
+        }
+
         public async Task CreateProductAsync(ProductEntity product)
         {
             _context.Products.Add(product);
