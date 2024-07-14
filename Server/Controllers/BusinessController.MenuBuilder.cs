@@ -12,7 +12,11 @@ namespace Server.Controllers
         // TODO: oohg menu builder
 
         /*        
-             * Imagenes                 
+            * Init
+                * get categories
+                * get products
+                
+            * Imagenes                 
                 * agregar imagen a menu/categoria/producto
                     * post
                     * menu-builder/image/add-remove
@@ -32,7 +36,7 @@ namespace Server.Controllers
                     *  menu-buider/element
                     *  DeleteElement(elementId, elementType=category/product, fromElementId, fromElementType=menu/category)
         
-             * Visibilidad 
+            * Visibilidad 
                 - Mostrar/Ocultar = isVisible            
                 - Disponible/No disponible = isAvailable
                 - Vendido = isSoldOut

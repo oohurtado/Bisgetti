@@ -32,7 +32,6 @@ import { ProductsCreateOrUpdateComponent } from "./components/administration/men
 import { ProductsListComponent } from "./components/administration/menu-stuff/products/products-list/products-list.component";
 import { ProductsComponent } from "./components/administration/menu-stuff/products/products.component";
 import { AddressesComponent } from "./components/my-account/addresses/addresses.component";
-import { MenuBuilderComponent } from "./components/administration/menu-stuff/menu-builder/menu-builder.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -70,7 +69,6 @@ const ROUTES: Routes = [
         path: 'menu-stuff', component:  MenuStuffComponent,
         children:[
             { path: 'list', component: MenuStuffListComponent, canActivate: [userBossGuard] },
-            { path: 'menu-builder', component: MenuBuilderComponent, canActivate: [userBossGuard] },
             { 
                 path: 'menus', component: MenusComponent,
                 children: [

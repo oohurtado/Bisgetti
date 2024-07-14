@@ -50,7 +50,6 @@ import { ProductsCreateOrUpdateComponent } from './components/administration/men
 import { ProductsListComponent } from './components/administration/menu-stuff/products/products-list/products-list.component';
 import { ProductsComponent } from './components/administration/menu-stuff/products/products.component';
 import { AddressesComponent } from './components/my-account/addresses/addresses.component';
-import { MenuBuilderComponent } from './components/administration/menu-stuff/menu-builder/menu-builder.component';
 import { PageCreateComponent } from './components/_shared/page/page-create/page-create.component';
 import { NavbarUserNameComponent } from './components/_shared/navbar/navbar-user-name/navbar-user-name.component';
 
@@ -95,9 +94,8 @@ import { NavbarUserNameComponent } from './components/_shared/navbar/navbar-user
 		ProductsListComponent,
 		ProductsCreateOrUpdateComponent,
   		AddressesComponent,
-    	MenuBuilderComponent,
-     PageCreateComponent,
-     NavbarUserNameComponent,
+		PageCreateComponent,
+		NavbarUserNameComponent,
 	],
 	imports: [
 		BrowserModule,

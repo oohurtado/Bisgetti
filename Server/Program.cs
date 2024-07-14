@@ -115,6 +115,7 @@ namespace Server
             builder.Services.AddScoped<BusinessLogicMenu>();
             builder.Services.AddScoped<BusinessLogicCategory>();
             builder.Services.AddScoped<BusinessLogicProduct>();
+            builder.Services.AddScoped<BusinessLogicMenuBuilder>();
 
             // utilities
             builder.Services.AddScoped<ConfigurationUtility>();
