@@ -8,6 +8,7 @@ namespace Server.Source.Data.Interfaces
         /// Obtiene categorias
         /// </summary>
         IQueryable<CategoryEntity> GetCategoriesByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
+        IQueryable<CategoryEntity> GetCategories();
 
         /// <summary>
         /// Obtiene cateoria

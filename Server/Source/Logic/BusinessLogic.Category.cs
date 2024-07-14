@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
@@ -34,6 +35,13 @@ namespace Server.Source.Logic
                 GrandTotal = result.Count,
                 Data = result,
             };
+        }
+
+        public async Task<List<CategoryResponse>> GetCategoriesAsync()
+        {
+            var data = await _businessRepository.GetCategories().ToListAsync();
+            var result = _mapper.Map<List<CategoryResponse>>(data);
+            return result;
         }
 
         public async Task<CategoryResponse> GetCategoryAsync(int id)

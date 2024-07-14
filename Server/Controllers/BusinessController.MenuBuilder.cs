@@ -8,20 +8,10 @@ namespace Server.Controllers
 {
     public partial class BusinessController
     {
+   
         // TODO: oohg menu builder
 
         /*        
-            * Init
-                * obtener categorias
-                    * get:menu-builder/categories
-                    * GetCategories
-                * obtener productos
-                    * get:menu-builder/products
-                    * GetProducts
-                * obtener menu
-                    * get:menu-builder/menus/{menuId}
-                    * GetMenu
-        
              * Imagenes                 
                 * agregar imagen a menu/categoria/producto
                     * post

@@ -7,7 +7,7 @@ namespace Server.Source.Data.Interfaces
         /// <summary>
         /// Obtiene productos
         /// </summary>
-        IQueryable<ProductEntity> GetProductsByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);
+        IQueryable<ProductEntity> GetProductsByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal);        
 
         /// <summary>
         /// Obtiene producto
@@ -27,6 +27,6 @@ namespace Server.Source.Data.Interfaces
         /// <summary>
         /// Borra producto
         /// </summary>
-        Task DeleteProductAsync(ProductEntity product);
+        Task DeleteProductAsync(ProductEntity product);        
     }
 }

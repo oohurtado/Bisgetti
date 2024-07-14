@@ -60,6 +60,12 @@ namespace Server.Source.Data
             return iq.AsNoTracking();
         }
 
+        public IQueryable<CategoryEntity> GetCategories()
+        {
+            var iq = _context.Categories;
+            return iq;
+        }
+
         public async Task CreateCategoryAsync(CategoryEntity category)
         {
             _context.Categories.Add(category);
