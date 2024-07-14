@@ -5,6 +5,7 @@ using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Models.DTOs.Business;
 using Server.Source.Models.DTOs.Business.Category;
+using Server.Source.Models.DTOs.Business.MenuBuilder;
 using Server.Source.Models.DTOs.Common;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
@@ -23,19 +24,6 @@ namespace Server.Source.Logic
         {
             _businessRepository = businessRepository;
             _mapper = mapper;
-        }
-
-        public async Task<MenuResponse> GetMenuAsync(int id)
-        {
-            var data = await _businessRepository.GetMenu(id).FirstOrDefaultAsync();
-
-            if (data == null)
-            {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
-            }
-
-            var result = _mapper.Map<MenuResponse>(data);
-            return result;
-        }
+        } 
     }
 }

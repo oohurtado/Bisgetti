@@ -8,23 +8,55 @@ namespace Server.Controllers
 {
     public partial class BusinessController
     {
+        ///// <summary>
+        ///// Configuracion de menu
+        ///// </summary>
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(Roles = "user-boss")]
+        //[HttpGet(template: "menu-builder/menus/{menuId}")]
+        //public async Task<ActionResult> GetMenuStuff(int menuId)
+        //{
+        //    var result = await _businessLogicMenuBuilder.GetMenuStuffAsync(menuId);
+        //    return Ok(result);
+        //}
+
 
         // TODO: oohg menu builder
+
+
 
         /*        
             * Init
                 X get categories
                 X get products               
+            * Menu-Builder
+                * get menu stuff(menuId) : MenuCategoryProductResponse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             * Elementos agregar/quitar
                 * agregar 'categoria a menu'/'producto a categoria'
                     * post
-                    * menu-builder/add-remove
-                    * AddElement(elementId, elementType=category/product, toElementId, toElementType=menu/category)
+                    * menu-builder/element
+                    * AddElement(int elementId, string elementType=category/product, int toElementId, string toElementType=menu/category)
                 *  quitar 'categoria de menu'/'producto de menu'
                     *  delete
                     *  menu-buider/element
-                    *  DeleteElement(elementId, elementType=category/product, fromElementId, fromElementType=menu/category)
+                    *  DeleteElement(int elementId, string elementType=category/product, int fromElementId, string fromElementType=menu/category)
         
             * Visibilidad 
                 - Mostrar/Ocultar = isVisible            
@@ -32,23 +64,23 @@ namespace Server.Controllers
                 - Vendido = isSoldOut
                 * actualizar ...
                     * put
-                    * menu-builder/visibility
-                    * UpdateVisibilityElement(elementId, elementType=menu/category/product, field=visible/available/sold-out, value=true/false)
+                    * menu-builder/element/visibility
+                    * UpdateVisibilityElement(int elementId, string elementType=menu/category/product, string field=visible/available/sold-out, bool value=true/false)
 
             * Mover elementos en el menu
                 * move up/down
                     * put
-                    * menu-builder/position
+                    * menu-builder/element/position
                     * UpdatePositionElement(elementId, direction=up/down) 
          
             * Imagenes                 
                 * agregar imagen a menu/categoria/producto
                     * post
-                    * menu-builder/image/add-remove
+                    * menu-builder/element/image
                     * AddImage(elementId, typeElement=menu/category/product, file)
                 *  quitar imagen de menu/categoria/producto
                     * delete
-                    * menu-builder/image
+                    * menu-builder/element/image
                     * DeleteImage(elementId, typeElement=menu/category/product)
                     
         */
