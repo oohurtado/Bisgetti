@@ -257,7 +257,33 @@ namespace Server.Migrations
                     b.ToTable("Categories", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Source.Models.Entities.MenuCategoryProductEntity", b =>
+            modelBuilder.Entity("Server.Source.Models.Entities.MenuEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("MenuId");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Menus", (string)null);
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.MenuStuffEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,33 +326,7 @@ namespace Server.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("MenuCategoryProducts", (string)null);
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.MenuEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("MenuId");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Menus", (string)null);
+                    b.ToTable("MenuStuff", (string)null);
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.ProductEntity", b =>
@@ -494,21 +494,21 @@ namespace Server.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.Source.Models.Entities.MenuCategoryProductEntity", b =>
+            modelBuilder.Entity("Server.Source.Models.Entities.MenuStuffEntity", b =>
                 {
                     b.HasOne("Server.Source.Models.Entities.CategoryEntity", "Category")
-                        .WithMany("MenuCategoryProducts")
+                        .WithMany("MenuStuff")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Server.Source.Models.Entities.MenuEntity", "Menu")
-                        .WithMany("MenuCategoryProducts")
+                        .WithMany("MenuStuff")
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Server.Source.Models.Entities.ProductEntity", "Product")
-                        .WithMany("MenuCategoryProducts")
+                        .WithMany("MenuStuff")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -521,17 +521,17 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Source.Models.Entities.CategoryEntity", b =>
                 {
-                    b.Navigation("MenuCategoryProducts");
+                    b.Navigation("MenuStuff");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.MenuEntity", b =>
                 {
-                    b.Navigation("MenuCategoryProducts");
+                    b.Navigation("MenuStuff");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.ProductEntity", b =>
                 {
-                    b.Navigation("MenuCategoryProducts");
+                    b.Navigation("MenuStuff");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.UserEntity", b =>

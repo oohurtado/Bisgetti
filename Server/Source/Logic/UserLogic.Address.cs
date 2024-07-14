@@ -2,7 +2,6 @@
 using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Server.Migrations;
 using Server.Source.Data;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;

@@ -8,37 +8,25 @@ namespace Server.Controllers
 {
     public partial class BusinessController
     {
-        ///// <summary>
-        ///// Configuracion de menu
-        ///// </summary>
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[Authorize(Roles = "user-boss")]
-        //[HttpGet(template: "menu-builder/menus/{menuId}")]
-        //public async Task<ActionResult> GetMenuStuff(int menuId)
-        //{
-        //    var result = await _businessLogicMenuBuilder.GetMenuStuffAsync(menuId);
-        //    return Ok(result);
-        //}
+        /// <summary>
+        /// Cosas del menu
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpGet(template: "menu-stuff/{menuId}")]
+        public async Task<ActionResult> GetMenuStuff(int menuId)
+        {
+            var result = await _businessLogicMenuStuff.GetMenuStuffAsync(menuId);
+            return Ok(result);
+        }
 
 
-        // TODO: oohg menu builder
-
-
+        // TODO: oohg menu stuff
 
         /*        
-            * Init
-                X get categories
-                X get products               
-            * Menu-Builder
-                * get menu stuff(menuId) : MenuCategoryProductResponse
-
-
-
-
-
-
-
-
+            get categories - business/categories
+            get products - business/products
+            get menu stuff - business/menu-stuff/{menuId}
 
 
 

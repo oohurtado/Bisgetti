@@ -12,7 +12,7 @@ namespace Server.Source.Data
         public virtual DbSet<MenuEntity> Menus { get; set; }
         public virtual DbSet<CategoryEntity> Categories { get; set; }
         public virtual DbSet<ProductEntity> Products { get; set; }
-        public virtual DbSet<MenuCategoryProductEntity> MenuCategoryProducts { get; set; }
+        public virtual DbSet<MenuStuffEntity> MenuStuff { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
@@ -27,7 +27,7 @@ namespace Server.Source.Data
             builder.Entity<MenuEntity>().ToTable("Menus");
             builder.Entity<CategoryEntity>().ToTable("Categories");
             builder.Entity<ProductEntity>().ToTable("Products");
-            builder.Entity<MenuCategoryProductEntity>().ToTable("MenuCategoryProducts");
+            builder.Entity<MenuStuffEntity>().ToTable("MenuStuff");
 
             builder.Entity<UserEntity>(e =>
             {
@@ -65,7 +65,7 @@ namespace Server.Source.Data
 
                 e.HasIndex(p => new { p.Name }).IsUnique();
 
-                e.HasMany(p => p.MenuCategoryProducts).WithOne(p => p.Menu).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.MenuStuff).WithOne(p => p.Menu).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<CategoryEntity>(e =>
@@ -77,7 +77,7 @@ namespace Server.Source.Data
 
                 e.HasIndex(p => new { p.Name }).IsUnique();
 
-                e.HasMany(p => p.MenuCategoryProducts).WithOne(p => p.Category).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.MenuStuff).WithOne(p => p.Category).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<ProductEntity>(e =>
@@ -91,10 +91,10 @@ namespace Server.Source.Data
 
                 e.HasIndex(p => new { p.Name }).IsUnique();
 
-                e.HasMany(p => p.MenuCategoryProducts).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.MenuStuff).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<MenuCategoryProductEntity>(e =>
+            builder.Entity<MenuStuffEntity>(e =>
             {
                 e.Property(p => p.Id).HasColumnName("MenuCategoryProductId");
 

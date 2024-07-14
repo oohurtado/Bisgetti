@@ -1,6 +1,6 @@
 ﻿namespace Server.Source.Models.Entities
 {
-    public class MenuCategoryProductEntity
+    public class MenuStuffEntity
     {
         /// <summary>
         /// Fields

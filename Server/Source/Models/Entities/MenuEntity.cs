@@ -4,7 +4,7 @@
     {
         public MenuEntity()
         {
-            MenuCategoryProducts = [];
+            MenuStuff = [];
         }
 
         /// <summary>
@@ -19,6 +19,6 @@
         /// </summary>
         public int Id { get; set; }
 
-        public ICollection<MenuCategoryProductEntity>? MenuCategoryProducts { get; set; }
+        public ICollection<MenuStuffEntity>? MenuStuff { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Server.Source.Models.Entities;
 
-namespace Server.Source.Models.DTOs.Business.MenuBuilder
+namespace Server.Source.Models.DTOs.Business.MenuStuff
 {
-    public class MenuCategoryProductResponse
+    public class MenuStuffResponse
     {
         public int Id { get; set; }
         public string? ImagePath { get; set; }

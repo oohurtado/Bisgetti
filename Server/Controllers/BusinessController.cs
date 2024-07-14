@@ -11,19 +11,19 @@ namespace Server.Controllers
         private readonly BusinessLogicMenu _businessLogicMenu;
         private readonly BusinessLogicCategory _businessLogicCategory;
         private readonly BusinessLogicProduct _businessLogicProduct;
-        private readonly BusinessLogicMenuBuilder _businessLogicMenuBuilder;
+        private readonly BusinessLogicMenuStuff _businessLogicMenuStuff;
 
         public BusinessController(
             BusinessLogicMenu businessLogicMenu,
             BusinessLogicCategory businessLogicCategory,
             BusinessLogicProduct businessLogicProduct,
-            BusinessLogicMenuBuilder businessLogicMenuBuilder
+            BusinessLogicMenuStuff businessLogicMenuStuff
             )
         {
             _businessLogicMenu = businessLogicMenu;
             _businessLogicCategory = businessLogicCategory;
             _businessLogicProduct = businessLogicProduct;
-            _businessLogicMenuBuilder = businessLogicMenuBuilder;
+            _businessLogicMenuStuff = businessLogicMenuStuff;
         }
     }
 }
