@@ -83,5 +83,18 @@ namespace Server.Source.Models.Enums
         [Description("El producto ya existe")]
         ProductAlreadyExists,
 
+        /// <summary>
+        /// Business
+        /// </summary>
+
+        [Description("Error al agregar elemento...")]
+        BusinessAddElement,
+
+        [Description("Error al quitar elemento")]
+        BusinessRemoveElement,
+
+        [Description("Elemento desconocido")]
+        BusinessUnknownElement
+
     }
 }

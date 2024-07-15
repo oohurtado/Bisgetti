@@ -2,8 +2,13 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Server.Source.Data.Interfaces;
+using Server.Source.Exceptions;
+using Server.Source.Extensions;
 using Server.Source.Models.DTOs.Business.MenuStuff;
 using Server.Source.Models.DTOs.Business.Product;
+using Server.Source.Models.Entities;
+using Server.Source.Models.Enums;
+using System.Xml.Linq;
 
 namespace Server.Source.Logic
 {
@@ -28,16 +33,81 @@ namespace Server.Source.Logic
             return result;
         }
 
-        public async Task AddElementAsync(AddElementRequest request)
+        public async Task AddElementAsync(ElementRequest request)
         {
-            // EnumAddElement
-            throw new NotImplementedException();
+            if (request.Action == EnumAddElement.CategoryToMenu.GetDescription())
+            {
+                if (request.MenuId == null || request.CategoryId == null)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessAddElement);
+                }
+
+                var position = await _businessRepository.GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId != null && p.ProductId == null);
+
+                var element = new MenuStuffEntity()
+                {
+                    MenuId = request.MenuId,
+                    CategoryId = request.CategoryId,                    
+                    IsVisible = true,
+                    Position = position + 1,
+                };
+
+                await _businessRepository.AddElementAsync(element);
+                return;
+            }
+
+            if (request.Action == EnumAddElement.ProductToCategory.GetDescription())
+            {
+                if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessAddElement);
+                }
+
+                var position = await _businessRepository.GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId != null);
+
+                var element = new MenuStuffEntity()
+                {
+                    MenuId = request.MenuId,
+                    CategoryId = request.CategoryId,
+                    ProductId = request.ProductId,
+                    IsVisible = true,
+                    IsAvailable = true,
+                    IsSoldOut = false,                    
+                    Position = position + 1,
+                };
+
+                await _businessRepository.AddElementAsync(element);
+                return;
+            }
+
+            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
         }
 
-        public async Task RemoveElementAsync(RemoveElementRequest request)
+        public async Task RemoveElementAsync(ElementRequest request)
         {
-            // EnumRemoveElement
-            throw new NotImplementedException();
+            if (request.Action == EnumRemoveElement.CategoryFromMenu.GetDescription())
+            {
+                if (request.MenuId == null || request.CategoryId == null)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessRemoveElement);
+                }
+
+                await _businessRepository.RemoveElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId);
+                return;
+            }
+
+            if (request.Action == EnumRemoveElement.ProductFromCategory.GetDescription())
+            {
+                if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessRemoveElement);
+                }
+
+                await _businessRepository.RemoveElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId);
+                return;
+            }
+
+            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
         }
     }
 }

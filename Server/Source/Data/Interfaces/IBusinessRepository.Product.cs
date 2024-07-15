@@ -1,4 +1,5 @@
 ﻿using Server.Source.Models.Entities;
+using System.Linq.Expressions;
 
 namespace Server.Source.Data.Interfaces
 {
@@ -36,5 +37,24 @@ namespace Server.Source.Data.Interfaces
         /// <param name="menuId"></param>
         /// <returns></returns>
         IQueryable<MenuStuffEntity> GetMenuStuff(int menuId);
+
+        /// <summary>
+        /// Agrega elemento al menu
+        /// </summary>
+        Task AddElementAsync(MenuStuffEntity element);
+
+        /// <summary>
+        /// Quitar elemento del menu
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        Task RemoveElementAsync(Expression<Func<MenuStuffEntity, bool>> exp);
+
+        /// <summary>
+        /// Posicion del ultimo elemento
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        Task<int?> GetPositionFromLastElementAsync(Expression<Func<MenuStuffEntity, bool>> exp);
     }
 }
