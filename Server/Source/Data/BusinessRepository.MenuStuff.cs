@@ -9,18 +9,12 @@ using System.Net;
 
 namespace Server.Source.Data
 {
-    public partial class BusinessRepository : IBusinessRepository
+    public partial class BusinessRepository
     {
-        private readonly DatabaseContext _context;
-
-        public BusinessRepository(DatabaseContext context)
+        public IQueryable<MenuStuffEntity> GetMenuStuff(int menuId)
         {
-            _context = context;
-        }
-
-        public async Task UpdateAsync()
-        {
-            await _context.SaveChangesAsync();
+            var iq = _context.MenuStuff.Where(p => p.MenuId == menuId);
+            return iq;
         }
     }
 }

@@ -24,6 +24,7 @@ using Server.Source.Models.DTOs.Business;
 using Server.Source.Models.DTOs.Business.Menu;
 using Server.Source.Models.DTOs.Business.Category;
 using Server.Source.Models.DTOs.Business.Product;
+using Server.Source.Models.DTOs.Business.MenuStuff;
 
 namespace Server
 {
@@ -136,6 +137,8 @@ namespace Server
 
                 p.CreateMap<ProductEntity, ProductResponse>();
                 p.CreateMap<CreateOrUpdateProductRequest, ProductEntity>();
+
+                p.CreateMap<MenuStuffEntity, MenuStuffResponse>();
             }, typeof(Program));
         }
 

@@ -28,6 +28,13 @@ namespace Server.Source.Data.Interfaces
         /// <summary>
         /// Borra producto
         /// </summary>
-        Task DeleteProductAsync(ProductEntity product);        
+        Task DeleteProductAsync(ProductEntity product);
+
+        /// <summary>
+        /// Obtiene cosas del menu
+        /// </summary>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
+        IQueryable<MenuStuffEntity> GetMenuStuff(int menuId);
     }
 }

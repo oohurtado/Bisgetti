@@ -67,17 +67,29 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     async testStuff() {
-        // await this.menuStuffService.getCategoriesAsync()
-        //     .then(p => {
-        //         console.log(p)
-        //     })
-        //     .catch(e => { });
+        await this.menuStuffService.getMenuAsync(1)
+            .then(p => {
+                console.log(p)
+            })
+            .catch(e => { });
+
+        await this.menuStuffService.getMenuStuffAsync(0)
+            .then(p => {
+                console.log(p)
+            })
+            .catch(e => { });
+
+        await this.menuStuffService.getCategoriesAsync()
+            .then(p => {
+                console.log(p)
+            })
+            .catch(e => { });
         
-        // await this.menuStuffService.getProductsAsync()
-        //     .then(p => {
-        //         console.log(p)
-        //     })
-        //     .catch(e => { });
+        await this.menuStuffService.getProductsAsync()
+            .then(p => {
+                console.log(p)
+            })
+            .catch(e => { });
     }
 }
 

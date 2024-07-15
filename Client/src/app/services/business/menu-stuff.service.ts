@@ -7,6 +7,7 @@ import { CategoryResponse } from '../../source/models/business/category-response
 import { CreateOrUpdateCategoryRequest } from '../../source/models/dtos/menus/create-or-update-category-request';
 import { ProductResponse } from '../../source/models/business/product-response';
 import { CreateOrUpdateProductRequest } from '../../source/models/dtos/menus/create-or-update-product-request';
+import { MenuStuffResponse } from '../../source/models/business/menu-stuff-response';
 
 @Injectable({
     providedIn: 'root'
@@ -204,5 +205,27 @@ export class MenuStuffService {
 
 	deleteProduct(id: number) {
 		return this.requestService.delete(`/business/products/${id}`);
+	}
+
+	////////////////
+	// menu-stuff //
+	////////////////
+
+	getMenuStuff(menuId: number) {	
+		return this.requestService.get<MenuStuffResponse[]>(`/business/menu-stuff/${menuId}`);
+	}
+
+	getMenuStuffAsync(menuId: number) : Promise<MenuStuffResponse[]> {
+		return new Promise((resolve, reject) => {
+			this.getMenuStuff(menuId)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
 	}
 }

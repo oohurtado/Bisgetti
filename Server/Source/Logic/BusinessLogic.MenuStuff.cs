@@ -1,7 +1,9 @@
 ﻿
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Server.Source.Data.Interfaces;
 using Server.Source.Models.DTOs.Business.MenuStuff;
+using Server.Source.Models.DTOs.Business.Product;
 
 namespace Server.Source.Logic
 {
@@ -21,6 +23,20 @@ namespace Server.Source.Logic
 
         public async Task<List<MenuStuffResponse>> GetMenuStuffAsync(int menuId)
         {
+            var data = await _businessRepository.GetMenuStuff(menuId).ToListAsync();
+            var result = _mapper.Map<List<MenuStuffResponse>>(data);
+            return result;
+        }
+
+        public async Task AddElementAsync(AddElementRequest request)
+        {
+            // EnumAddElement
+            throw new NotImplementedException();
+        }
+
+        public async Task RemoveElementAsync(RemoveElementRequest request)
+        {
+            // EnumRemoveElement
             throw new NotImplementedException();
         }
     }
