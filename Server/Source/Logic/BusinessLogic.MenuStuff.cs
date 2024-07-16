@@ -54,11 +54,6 @@ namespace Server.Source.Logic
             // agregando categoria a menu
             if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
             {
-                if (request.MenuId == null || request.CategoryId == null)
-                {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessAddElement);
-                }
-
                 var position = await _businessRepository.GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId != null && p.ProductId == null);
 
                 var element = new MenuStuffEntity()
@@ -81,11 +76,6 @@ namespace Server.Source.Logic
 
             if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
-                if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
-                {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessAddElement);
-                }
-
                 var position = await _businessRepository.GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId != null);
 
                 var element = new MenuStuffEntity()
@@ -116,11 +106,6 @@ namespace Server.Source.Logic
         {
             if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
             {
-                if (request.MenuId == null || request.CategoryId == null)
-                {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessRemoveElement);
-                }
-
                 var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId);
                 if (!any)
                 {
@@ -133,11 +118,6 @@ namespace Server.Source.Logic
 
             if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
-                if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
-                {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessRemoveElement);
-                }
-
                 var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId);
                 if (!any)
                 {

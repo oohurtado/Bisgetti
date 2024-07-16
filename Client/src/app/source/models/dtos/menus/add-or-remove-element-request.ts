@@ -3,6 +3,6 @@ export class AddOrRemoveElementRequest {
         public menuId: number|null,
         public categoryId: number|null,
         public productId: number|null,
-        public action: string
+        public action: string // add/remove/move-up/move-down
     ) { }
 }

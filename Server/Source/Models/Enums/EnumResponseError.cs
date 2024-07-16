@@ -87,12 +87,6 @@ namespace Server.Source.Models.Enums
         /// Business
         /// </summary>
 
-        [Description("Error al agregar elemento...")]
-        BusinessAddElement,
-
-        [Description("Error al quitar elemento")]
-        BusinessRemoveElement,
-
         [Description("Acción desconocida para el elemento")]
         BusinessUnknownActionForElement,
 
