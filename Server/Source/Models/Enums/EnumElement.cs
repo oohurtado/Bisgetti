@@ -2,21 +2,18 @@
 
 namespace Server.Source.Models.Enums
 {
-    public enum EnumAddElement
+    public enum EnumElementAction
     {
-        [Description("category-to-menu")]
-        CategoryToMenu,
+        [Description("add")]
+        Add,
 
-        [Description("product-to-category")]
-        ProductToCategory,
-    }
+        [Description("remove")]
+        Remove,
 
-    public enum EnumRemoveElement
-    {
-        [Description("category-from-menu")]
-        CategoryFromMenu,
+        [Description("move-up")]
+        MoveUp,
 
-        [Description("product-from-category")]
-        ProductFromCategory,
-    }
+        [Description("move-down")]
+        MoveDown,
+    }  
 }

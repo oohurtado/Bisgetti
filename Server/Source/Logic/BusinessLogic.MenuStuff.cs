@@ -35,12 +35,12 @@ namespace Server.Source.Logic
 
         public async Task AddOrRemoveElementAsync(AddOrRemoveElementRequest request)
         {
-            if (request.Action == "add")
+            if (request.Action == EnumElementAction.Add.GetDescription())
             {
                 await AddElementAsync(request);
                 return;
             }
-            else if (request.Action == "remove")
+            else if (request.Action == EnumElementAction.Remove.GetDescription())
             {
                 await RemoveElementAsync(request);
                 return;
@@ -51,7 +51,8 @@ namespace Server.Source.Logic
 
         private async Task AddElementAsync(AddOrRemoveElementRequest request)
         {
-            if (request.ElementType == EnumAddElement.CategoryToMenu.GetDescription())
+            // agregando categoria a menu
+            if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
             {
                 if (request.MenuId == null || request.CategoryId == null)
                 {
@@ -78,7 +79,7 @@ namespace Server.Source.Logic
                 return;
             }
 
-            if (request.ElementType == EnumAddElement.ProductToCategory.GetDescription())
+            if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
                 if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
                 {
@@ -108,12 +109,12 @@ namespace Server.Source.Logic
                 return;
             }
 
-            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
+            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
         }
 
         private async Task RemoveElementAsync(AddOrRemoveElementRequest request)
         {
-            if (request.ElementType == EnumRemoveElement.CategoryFromMenu.GetDescription())
+            if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
             {
                 if (request.MenuId == null || request.CategoryId == null)
                 {
@@ -130,7 +131,7 @@ namespace Server.Source.Logic
                 return;
             }
 
-            if (request.ElementType == EnumRemoveElement.ProductFromCategory.GetDescription())
+            if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
                 if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
                 {
@@ -147,11 +148,22 @@ namespace Server.Source.Logic
                 return;
             }
 
-            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
+            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
         }
 
         public async Task MoveElementAsync(MoveElementRequest request)
         {
+            if (request.Action == EnumElementAction.MoveUp.GetDescription())
+            {
+                //await AddElementAsync(request);
+                return;
+            }
+            else if (request.Action == EnumElementAction.MoveDown.GetDescription())
+            {
+                //await RemoveElementAsync(request);
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

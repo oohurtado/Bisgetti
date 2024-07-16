@@ -93,8 +93,8 @@ namespace Server.Source.Models.Enums
         [Description("Error al quitar elemento")]
         BusinessRemoveElement,
 
-        [Description("Elemento desconocido")]
-        BusinessUnknownElement,
+        [Description("Acción desconocida para el elemento")]
+        BusinessUnknownActionForElement,
 
         [Description("Elemento ya existe")]
         BusinessElementAlreadyExists,

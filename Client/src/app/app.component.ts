@@ -93,8 +93,8 @@ export class AppComponent implements OnInit, OnDestroy {
         //     })
         //     .catch(e => { });
 
-        //let tmp = new AddOrRemoveElementRequest(6, 1, null,  "add", "category-to-menu");
-        // let tmp = new AddOrRemoveElementRequest(6, 1, 3, "add", "product-to-category");
+        //let tmp = new AddOrRemoveElementRequest(6, 1, null,  "add");
+        // let tmp = new AddOrRemoveElementRequest(6, 1, 3, "add");
         // this.menuStuffService.addOrRemoveElement(tmp)
         //     .subscribe({
         //         complete: () => {
@@ -108,20 +108,20 @@ export class AppComponent implements OnInit, OnDestroy {
         //         }
         //     });
 
-        let tmp = new AddOrRemoveElementRequest(6, 1, null, "remove", "category-from-menu");
-        //let tmp = new AddOrRemoveElementRequest(6, 1, 1, "remove", "product-from-category");
-        this.menuStuffService.addOrRemoveElement(tmp)
-            .subscribe({
-                complete: () => {
-                    console.log("completado");
-                },
-                error: (e : string) => {
-                    console.log(Utils.getErrorsResponse(e))
-                },
-                next: (val) => {
-                    console.log("agregado");
-                }
-            });
+        // let tmp = new AddOrRemoveElementRequest(6, 1, null, "remove");
+        // //let tmp = new AddOrRemoveElementRequest(6, 1, 1, "remove");
+        // this.menuStuffService.addOrRemoveElement(tmp)
+        //     .subscribe({
+        //         complete: () => {
+        //             console.log("completado");
+        //         },
+        //         error: (e : string) => {
+        //             console.log(Utils.getErrorsResponse(e))
+        //         },
+        //         next: (val) => {
+        //             console.log("agregado");
+        //         }
+        //     });
     }
 }
 
