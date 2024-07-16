@@ -33,7 +33,7 @@ namespace Server.Source.Logic
             return result;
         }
 
-        public async Task AddOrRemoveElementAsync(ElementRequest request)
+        public async Task AddOrRemoveElementAsync(AddOrRemoveElementRequest request)
         {
             if (request.Action == "add")
             {
@@ -49,7 +49,7 @@ namespace Server.Source.Logic
             throw new NotImplementedException();
         }
 
-        private async Task AddElementAsync(ElementRequest request)
+        private async Task AddElementAsync(AddOrRemoveElementRequest request)
         {
             if (request.ElementType == EnumAddElement.CategoryToMenu.GetDescription())
             {
@@ -111,7 +111,7 @@ namespace Server.Source.Logic
             throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
         }
 
-        private async Task RemoveElementAsync(ElementRequest request)
+        private async Task RemoveElementAsync(AddOrRemoveElementRequest request)
         {
             if (request.ElementType == EnumRemoveElement.CategoryFromMenu.GetDescription())
             {
@@ -148,6 +148,11 @@ namespace Server.Source.Logic
             }
 
             throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
-        } 
+        }
+
+        public async Task MoveElementAsync(MoveElementRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Server.Source.Models.DTOs.Business.MenuStuff
 {
-    public class ElementRequest
+    public class AddOrRemoveElementRequest
     {
         public int? MenuId { get; set; }
         public int? CategoryId { get; set; }

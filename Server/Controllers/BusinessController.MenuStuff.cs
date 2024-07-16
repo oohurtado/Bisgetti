@@ -22,22 +22,32 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Agregar elemento
+        /// Agregar/Quitar elemento del menu
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
         [HttpPut(template: "menu-stuff/element")]
-        public async Task<ActionResult> AddOrRemoveElement([FromBody] ElementRequest request)
+        public async Task<ActionResult> AddOrRemoveElement([FromBody] AddOrRemoveElementRequest request)
         {
             await _businessLogicMenuStuff.AddOrRemoveElementAsync(request);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Mover elemento en el menu
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "menu-stuff/element/position")]
+        public async Task<ActionResult> MoveElement([FromBody] MoveElementRequest request)
+        {
+            await _businessLogicMenuStuff.MoveElementAsync(request);
             return Ok();
         }
 
         // TODO: oohg menu stuff        
 
         /*        
-            ! crear index a menu-stuff            
-
             get menu stuff                      business/menu-stuff/{menuId}                tested
             get categories                      business/categories                         tested
             get products                        business/products                           tested
