@@ -63,6 +63,14 @@ namespace Server.Source.Data
         {
             _context.Menus.Add(menu);
             await _context.SaveChangesAsync();
+
+            var menuStuff = new MenuStuffEntity()
+            {
+                MenuId = menu.Id,                
+            };
+            _context.MenuStuff.Add(menuStuff);
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task<bool> ExistsMenuAsync(int? id, string name)
