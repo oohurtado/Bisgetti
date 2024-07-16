@@ -8,6 +8,7 @@ import { CreateOrUpdateCategoryRequest } from '../../source/models/dtos/menus/cr
 import { ProductResponse } from '../../source/models/business/product-response';
 import { CreateOrUpdateProductRequest } from '../../source/models/dtos/menus/create-or-update-product-request';
 import { MenuStuffResponse } from '../../source/models/business/menu-stuff-response';
+import { AddOrRemoveElementRequest } from '../../source/models/dtos/menus/add-or-remove-element-request';
 
 @Injectable({
     providedIn: 'root'
@@ -227,5 +228,9 @@ export class MenuStuffService {
 				}
 			});
 		});
+	}
+
+	addOrRemoveElement(model: AddOrRemoveElementRequest) {
+		return this.requestService.put(`/business/menu-stuff/element`, model);
 	}
 }

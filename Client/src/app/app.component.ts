@@ -5,6 +5,8 @@ import { EnumRole } from './source/models/enums/role.enum';
 import { SystemService } from './services/business/system.service';
 import { DateService } from './services/common/date.service';
 import { MenuStuffService } from './services/business/menu-stuff.service';
+import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-remove-element-request';
+import { Utils } from './source/utils';
 declare let alertify: any;
 
 @Component({
@@ -90,6 +92,36 @@ export class AppComponent implements OnInit, OnDestroy {
                 console.log(p)
             })
             .catch(e => { });
+
+        // let tmp = new AddOrRemoveElementRequest(4, 2, null,  "add", "category-to-menu");
+        // let tmp = new AddOrRemoveElementRequest(4, 2, 1, "add", "product-to-category");
+        // this.menuStuffService.addOrRemoveElement(tmp)
+        //     .subscribe({
+        //         complete: () => {
+        //             console.log("completado");
+        //         },
+        //         error: (e : string) => {
+        //             console.log(Utils.getErrorsResponse(e))
+        //         },
+        //         next: (val) => {
+        //             console.log("agregado");
+        //         }
+        //     });
+
+        // let tmp = new AddOrRemoveElementRequest(4, 2, null, "remove", "category-from-menu");
+        // let tmp = new AddOrRemoveElementRequest(4, 2, 1, "remove", "product-from-category");
+        // this.menuStuffService.addOrRemoveElement(tmp)
+        //     .subscribe({
+        //         complete: () => {
+        //             console.log("completado");
+        //         },
+        //         error: (e : string) => {
+        //             console.log(Utils.getErrorsResponse(e))
+        //         },
+        //         next: (val) => {
+        //             console.log("agregado");
+        //         }
+        //     });
     }
 }
 

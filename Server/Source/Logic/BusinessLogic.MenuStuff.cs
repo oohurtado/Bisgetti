@@ -33,9 +33,24 @@ namespace Server.Source.Logic
             return result;
         }
 
-        public async Task AddElementAsync(ElementRequest request)
+        public async Task AddOrRemoveElementAsync(ElementRequest request)
         {
-            if (request.Action == EnumAddElement.CategoryToMenu.GetDescription())
+            if (request.Action == "add")
+            {
+                await AddElementAsync(request);
+                return;
+            }
+            else if (request.Action == "remove")
+            {
+                await RemoveElementAsync(request);
+                return;
+            }
+            throw new NotImplementedException();
+        }
+
+        private async Task AddElementAsync(ElementRequest request)
+        {
+            if (request.ElementType == EnumAddElement.CategoryToMenu.GetDescription())
             {
                 if (request.MenuId == null || request.CategoryId == null)
                 {
@@ -56,7 +71,7 @@ namespace Server.Source.Logic
                 return;
             }
 
-            if (request.Action == EnumAddElement.ProductToCategory.GetDescription())
+            if (request.ElementType == EnumAddElement.ProductToCategory.GetDescription())
             {
                 if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
                 {
@@ -83,9 +98,9 @@ namespace Server.Source.Logic
             throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
         }
 
-        public async Task RemoveElementAsync(ElementRequest request)
+        private async Task RemoveElementAsync(ElementRequest request)
         {
-            if (request.Action == EnumRemoveElement.CategoryFromMenu.GetDescription())
+            if (request.ElementType == EnumRemoveElement.CategoryFromMenu.GetDescription())
             {
                 if (request.MenuId == null || request.CategoryId == null)
                 {
@@ -96,7 +111,7 @@ namespace Server.Source.Logic
                 return;
             }
 
-            if (request.Action == EnumRemoveElement.ProductFromCategory.GetDescription())
+            if (request.ElementType == EnumRemoveElement.ProductFromCategory.GetDescription())
             {
                 if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
                 {
@@ -108,6 +123,6 @@ namespace Server.Source.Logic
             }
 
             throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownElement);
-        }
+        } 
     }
 }

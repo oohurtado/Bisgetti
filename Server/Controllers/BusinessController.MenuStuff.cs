@@ -26,42 +26,22 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
-        [HttpPost(template: "menu-stuff/element")]
-        public async Task<ActionResult> AddElement([FromBody] ElementRequest request)
+        [HttpPut(template: "menu-stuff/element")]
+        public async Task<ActionResult> AddOrRemoveElement([FromBody] ElementRequest request)
         {
-            await _businessLogicMenuStuff.AddElementAsync(request);
+            await _businessLogicMenuStuff.AddOrRemoveElementAsync(request);
             return Ok();
         }
-
-        /// <summary>
-        /// Agregar elemento
-        /// </summary>
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
-        [HttpDelete(template: "menu-stuff/element")]
-        public async Task<ActionResult> RemoveElement([FromBody] ElementRequest request)
-        {
-            await _businessLogicMenuStuff.RemoveElementAsync(request);
-            return Ok();
-        }
-
-
 
         // TODO: oohg menu stuff        
 
         /*        
-            ! crear index a menu-stuff
-            ! crear menu en menu-stuff al crear un menu
+            ! crear index a menu-stuff            
 
             get menu stuff                      business/menu-stuff/{menuId}                tested
             get categories                      business/categories                         tested
             get products                        business/products                           tested
-            post add element                    business/menu-stuff/element                 pending to test
-            delete remove element               business/menu-stuff/element                 pending to test
-
-
-
-
+            put add or remove element           business/menu-stuff/element                 tested
 
            * Mover elementos en el menu
                 * move up/down

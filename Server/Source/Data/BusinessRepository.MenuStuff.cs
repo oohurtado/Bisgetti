@@ -27,7 +27,8 @@ namespace Server.Source.Data
         public async Task RemoveElementAsync(Expression<Func<MenuStuffEntity, bool>> exp)
         {
             var iq = _context.MenuStuff.Where(exp);
-            _context.Remove(iq);
+            var entities = await iq.ToListAsync();
+            _context.MenuStuff.RemoveRange(entities);
             await _context.SaveChangesAsync();
         }
 

@@ -6,5 +6,6 @@
         public int? CategoryId { get; set; }
         public int? ProductId { get; set; }
         public string Action { get; set; } = null!;
+        public string ElementType { get; set; } = null!;
     }
 }
