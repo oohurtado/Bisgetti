@@ -45,6 +45,7 @@ namespace Server.Source.Logic
                 await RemoveElementAsync(request);
                 return;
             }
+
             throw new NotImplementedException();
         }
 
@@ -66,6 +67,12 @@ namespace Server.Source.Logic
                     IsVisible = true,
                     Position = position + 1,
                 };
+
+                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == null);
+                if (any)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementAlreadyExists);
+                }
 
                 await _businessRepository.AddElementAsync(element);
                 return;
@@ -91,6 +98,12 @@ namespace Server.Source.Logic
                     Position = position + 1,
                 };
 
+                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == element.ProductId);
+                if (any)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementAlreadyExists);
+                }
+
                 await _businessRepository.AddElementAsync(element);
                 return;
             }
@@ -107,6 +120,12 @@ namespace Server.Source.Logic
                     throw new EatSomeInternalErrorException(EnumResponseError.BusinessRemoveElement);
                 }
 
+                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId);
+                if (!any)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementDoesNotExists);
+                }
+
                 await _businessRepository.RemoveElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId);
                 return;
             }
@@ -116,6 +135,12 @@ namespace Server.Source.Logic
                 if (request.MenuId == null || request.CategoryId == null || request.ProductId == null)
                 {
                     throw new EatSomeInternalErrorException(EnumResponseError.BusinessRemoveElement);
+                }
+
+                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId);
+                if (!any)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementDoesNotExists);
                 }
 
                 await _businessRepository.RemoveElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId);

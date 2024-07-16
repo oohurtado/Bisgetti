@@ -56,5 +56,10 @@ namespace Server.Source.Data.Interfaces
         /// <param name="exp"></param>
         /// <returns></returns>
         Task<int?> GetPositionFromLastElementAsync(Expression<Func<MenuStuffEntity, bool>> exp);
+
+        /// <summary>
+        /// Checa si elemento existe
+        /// </summary>
+        Task<bool> ElementExistsAsync(Expression<Func<MenuStuffEntity, bool>> exp);
     }
 }

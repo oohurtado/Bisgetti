@@ -42,5 +42,11 @@ namespace Server.Source.Data
 
             return position ?? 0;
         }
+
+        public async Task<bool> ElementExistsAsync(Expression<Func<MenuStuffEntity, bool>> exp)
+        {
+            var any = await _context.MenuStuff.Where(exp).AnyAsync();
+            return any;
+        }
     }
 }

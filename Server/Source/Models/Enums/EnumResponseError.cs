@@ -94,7 +94,13 @@ namespace Server.Source.Models.Enums
         BusinessRemoveElement,
 
         [Description("Elemento desconocido")]
-        BusinessUnknownElement
+        BusinessUnknownElement,
+
+        [Description("Elemento ya existe")]
+        BusinessElementAlreadyExists,
+
+        [Description("Elemento no existe")]
+        BusinessElementDoesNotExists
 
     }
 }
