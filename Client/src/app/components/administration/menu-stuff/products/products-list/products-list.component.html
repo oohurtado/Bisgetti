@@ -52,12 +52,14 @@
 				</tr>
 				<tr *ngFor="let item of _pageData?.data">
 					<td style="white-space:nowrap;">
-                        <button type="submit" class="btn btn-light border btn-sm" (click)="onUpdateClicked($event, item)">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-                        <button type="button" class="btn btn-light border btn-sm" (click)="onDeleteClicked($event, item)">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>										
+						<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+							<button type="submit" class="btn btn-light border btn-sm" (click)="onUpdateClicked($event, item)">
+								<i class="fa-solid fa-pen"></i>
+							</button>
+							<button type="button" class="btn btn-light border btn-sm" (click)="onDeleteClicked($event, item)">
+								<i class="fa-solid fa-trash"></i>
+							</button>										
+						</div>
 					</td>
 					<td style="white-space:nowrap;">{{ item.name }}</td>
 					<td style="white-space:nowrap; text-align: end;">{{ item.price | currency:'$' }}</td>
