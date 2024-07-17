@@ -66,9 +66,10 @@ namespace Server.Controllers
             put add or remove element           business/menu-stuff/element                 tested
             put position element                business/menu-stuff/element/move            tested
             put visibility element              business/menu-stuff/element/move            tested                  
+            put image element                   business/menu-stuff/element/image           to do
          
             * Imagenes                 
-                * agregar imagen a menu/categoria/producto
+                * crear/actualizar imagen a menu/categoria/producto
                     * post
                     * menu-builder/element/image
                     * AddImage(elementId, typeElement=menu/category/product, file)
