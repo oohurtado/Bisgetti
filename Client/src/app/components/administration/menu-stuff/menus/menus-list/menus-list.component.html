@@ -49,7 +49,7 @@
 				</tr>
 				<tr *ngFor="let item of _pageData?.data">
 					<td style="white-space:nowrap;">
-                        <button type="button" class="btn btn-light border btn-sm me-1" (click)="onUpdateClicked($event, item)">
+                        <button type="button" class="btn btn-light border btn-sm" (click)="onUpdateClicked($event, item)">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                         <button type="button" class="btn btn-light border btn-sm" (click)="onDeleteClicked($event, item)">

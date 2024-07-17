@@ -8,6 +8,7 @@ import { MenuStuffService } from './services/business/menu-stuff.service';
 import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from './source/utils';
 import { PositionElementRequest } from './source/models/dtos/menus/position-element-request';
+import { VisibilityElementRequest } from './source/models/dtos/menus/visibility-element-request';
 declare let alertify: any;
 
 @Component({
@@ -137,7 +138,23 @@ export class AppComponent implements OnInit, OnDestroy {
         //         next: (val) => {
         //             console.log("agregado");
         //         }
-        //     });        
+        //     });     
+        
+        //let tmp = new VisibilityElementRequest(6, null, null, false, true, null);
+        //let tmp = new VisibilityElementRequest(6, 1, null, false, null, null);
+        // let tmp = new VisibilityElementRequest(6, 1, 2, false, false, false);
+        // this.menuStuffService.updateElementVisibility(tmp)
+        //     .subscribe({
+        //         complete: () => {
+        //             console.log("completado!!!!!!!!!");
+        //         },
+        //         error: (e : string) => {
+        //             console.log(Utils.getErrorsResponse(e))
+        //         },
+        //         next: (val) => {
+        //             console.log("agregado");
+        //         }
+        //     });           
     }
 }
 

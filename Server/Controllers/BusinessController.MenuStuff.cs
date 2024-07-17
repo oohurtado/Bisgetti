@@ -64,16 +64,8 @@ namespace Server.Controllers
             get categories                      business/categories                         tested
             get products                        business/products                           tested
             put add or remove element           business/menu-stuff/element                 tested
-            put move element                    business/menu-stuff/element/move           
-        
-            * Visibilidad 
-                - Mostrar/Ocultar = isVisible                   // menu, category, product      
-                - Disponible/No disponible = isAvailable        // menu, product
-                - Vendido = isSoldOut                           // product
-                * actualizar ...
-                    * put
-                    * menu-builder/element/visibility
-                    * UpdateVisibilityElement(int elementId, string elementType=menu/category/product, string field=visible/available/sold-out, bool value=true/false)
+            put position element                business/menu-stuff/element/move            tested
+            put visibility element              business/menu-stuff/element/move            tested                  
          
             * Imagenes                 
                 * agregar imagen a menu/categoria/producto

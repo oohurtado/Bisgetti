@@ -216,29 +216,31 @@ namespace Server.Source.Logic
             // menu
             if (element.MenuId != null && element.CategoryId == null && element.ProductId == null)
             {
+                element.IsVisible = request.IsVisible ?? false;
+                element.IsAvailable = request.IsAvailable ?? false;
+                await _businessRepository.UpdateAsync();
                 return;
             }
 
             // categoria
             if (element.MenuId != null && element.CategoryId != null && element.ProductId == null)
             {
+                element.IsVisible = request.IsVisible ?? false;
+                await _businessRepository.UpdateAsync();
                 return;
             }
 
             // producto
             if (element.MenuId != null && element.CategoryId != null && element.ProductId != null)
             {
+                element.IsVisible = request.IsVisible ?? false;
+                element.IsAvailable = request.IsAvailable ?? false;
+                element.IsSoldOut = request.IsSoldOut ?? false;
+                await _businessRepository.UpdateAsync();
                 return;
             }
 
-
-            //if (elements)
-            /*
-            - Mostrar/Ocultar = isVisible                   // menu, category, product      
-            - Disponible/No disponible = isAvailable        // menu, product
-            - Vendido = isSoldOut                           // product
-             */
-            throw new NotImplementedException();
+            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
         }
     }
 }
