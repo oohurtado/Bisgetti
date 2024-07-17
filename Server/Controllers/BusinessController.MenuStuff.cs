@@ -38,7 +38,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
-        [HttpPut(template: "menu-stuff/element/position")]
+        [HttpPut(template: "menu-stuff/element/move")]
         public async Task<ActionResult> MoveElement([FromBody] MoveElementRequest request)
         {
             await _businessLogicMenuStuff.MoveElementAsync(request);
@@ -52,17 +52,12 @@ namespace Server.Controllers
             get categories                      business/categories                         tested
             get products                        business/products                           tested
             put add or remove element           business/menu-stuff/element                 tested
-
-           * Mover elementos en el menu
-                * move up/down
-                    * put
-                    * menu-builder/element/position
-                    * UpdatePositionElement(elementId, direction=up/down) 
+            put move element                    business/menu-stuff/element/move           
         
             * Visibilidad 
-                - Mostrar/Ocultar = isVisible            
-                - Disponible/No disponible = isAvailable
-                - Vendido = isSoldOut
+                - Mostrar/Ocultar = isVisible                   // menu, category, product      
+                - Disponible/No disponible = isAvailable        // menu, product
+                - Vendido = isSoldOut                           // product
                 * actualizar ...
                     * put
                     * menu-builder/element/visibility

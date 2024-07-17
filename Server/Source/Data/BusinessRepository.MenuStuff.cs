@@ -48,5 +48,11 @@ namespace Server.Source.Data
             var any = await _context.MenuStuff.Where(exp).AnyAsync();
             return any;
         }
+
+        public IQueryable<MenuStuffEntity> GetMenuStuff(Expression<Func<MenuStuffEntity, bool>> exp)
+        {
+            var iq = _context.MenuStuff.Where(exp);
+            return iq;
+        }
     }
 }

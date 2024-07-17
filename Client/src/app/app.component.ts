@@ -7,6 +7,7 @@ import { DateService } from './services/common/date.service';
 import { MenuStuffService } from './services/business/menu-stuff.service';
 import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from './source/utils';
+import { MoveElementRequest } from './source/models/dtos/menus/move-element-request';
 declare let alertify: any;
 
 @Component({
@@ -93,8 +94,8 @@ export class AppComponent implements OnInit, OnDestroy {
         //     })
         //     .catch(e => { });
 
-        //let tmp = new AddOrRemoveElementRequest(6, 1, null,  "add");
-        // let tmp = new AddOrRemoveElementRequest(6, 1, 3, "add");
+        // let tmp = new AddOrRemoveElementRequest(6, 2, null,  "add");
+        //let tmp = new AddOrRemoveElementRequest(6, 1, 3, "add");
         // this.menuStuffService.addOrRemoveElement(tmp)
         //     .subscribe({
         //         complete: () => {
@@ -122,6 +123,21 @@ export class AppComponent implements OnInit, OnDestroy {
         //             console.log("agregado");
         //         }
         //     });
+
+        //let tmp = new MoveElementRequest(6, 1, null, "move-down");
+        // let tmp = new MoveElementRequest(6, 1, 1, "move-up");
+        // this.menuStuffService.moveElement(tmp)
+        //     .subscribe({
+        //         complete: () => {
+        //             console.log("completado!!!!!!!!");
+        //         },
+        //         error: (e : string) => {
+        //             console.log(Utils.getErrorsResponse(e))
+        //         },
+        //         next: (val) => {
+        //             console.log("agregado");
+        //         }
+        //     });        
     }
 }
 

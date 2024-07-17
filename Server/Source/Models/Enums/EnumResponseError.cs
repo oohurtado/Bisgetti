@@ -90,6 +90,9 @@ namespace Server.Source.Models.Enums
         [Description("Acción desconocida para el elemento")]
         BusinessUnknownActionForElement,
 
+        [Description("Acción prohibida para el elemento")]
+        BusinessForbiddenActionForElement,
+
         [Description("Elemento ya existe")]
         BusinessElementAlreadyExists,
 

@@ -8,6 +8,7 @@ using Server.Source.Models.DTOs.Business.MenuStuff;
 using Server.Source.Models.DTOs.Business.Product;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
+using System.Linq.Expressions;
 using System.Xml.Linq;
 
 namespace Server.Source.Logic
@@ -74,6 +75,7 @@ namespace Server.Source.Logic
                 return;
             }
 
+            // agregando producto a categoria
             if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
                 var position = await _businessRepository.GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId != null);
@@ -104,6 +106,7 @@ namespace Server.Source.Logic
 
         private async Task RemoveElementAsync(AddOrRemoveElementRequest request)
         {
+            // quitando categoria
             if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
             {
                 var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId);
@@ -116,6 +119,7 @@ namespace Server.Source.Logic
                 return;
             }
 
+            // quitando producto
             if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
                 var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId);
@@ -133,18 +137,85 @@ namespace Server.Source.Logic
 
         public async Task MoveElementAsync(MoveElementRequest request)
         {
-            if (request.Action == EnumElementAction.MoveUp.GetDescription())
-            {
-                //await AddElementAsync(request);
-                return;
-            }
-            else if (request.Action == EnumElementAction.MoveDown.GetDescription())
-            {
-                //await RemoveElementAsync(request);
-                return;
-            }
+            Expression<Func<MenuStuffEntity, bool>> exp = p => true;
 
-            throw new NotImplementedException();
+            // identificamos que moveremos, si categoria
+            if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
+            {
+                exp = p => p.MenuId == request.MenuId && p.CategoryId != null && p.ProductId == null;
+            }
+            // identificamos que moveremos, si producto
+            else if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
+            {
+                exp = p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId != null;
+            }
+            else
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+            }
+            
+            // obtenemos o todas las categorias del menú o todos los productos de la categoria del menú, EN ORDEN
+            var elements = await _businessRepository
+                .GetMenuStuff(exp)
+                .OrderBy(p => p.Position)
+                .ToListAsync();
+
+            for (int i = 0; i < elements.Count; i++)
+            {
+                // identificamos elemento a mover
+                if (elements[i].MenuId == request.MenuId && elements[i].CategoryId == request.CategoryId && elements[i].ProductId == request.ProductId)
+                {
+                    if (request.Action == EnumElementAction.MoveUp.GetDescription())
+                    {
+                        if (i == 0)
+                        {
+                            throw new EatSomeInternalErrorException(EnumResponseError.BusinessForbiddenActionForElement);
+                        }
+
+                        var tmp = elements[i].Position;
+                        elements[i].Position = elements[i - 1].Position;
+                        elements[i - 1].Position = tmp;
+                        await _businessRepository.UpdateAsync();
+
+                        return;
+                    }
+                    else if (request.Action == EnumElementAction.MoveDown.GetDescription())
+                    {
+                        if (i == elements.Count - 1)
+                        {
+                            throw new EatSomeInternalErrorException(EnumResponseError.BusinessForbiddenActionForElement);
+                        }
+
+                        var tmp = elements[i].Position;
+                        elements[i].Position = elements[i + 1].Position;
+                        elements[i + 1].Position = tmp;
+                        await _businessRepository.UpdateAsync();
+
+                        return;
+                    }
+                    else
+                    {
+                        throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+                    }
+                }
+            }
+            
+                // TODO: oohg - actualizando posicion
+       
+                // iterar
+                //      identificar elemento a mover
+                //          si arriba
+                //              si nada arriba
+                //                  mandamos error
+                //              si hay algo arriba
+                //                  intercambiamos posiciones
+                //                  guardamos
+                //                  rompemos iteracion
+                //          si abajo
+                //              lo mismo que si arriba a la inversa
+
+
+            
         }
     }
 }
