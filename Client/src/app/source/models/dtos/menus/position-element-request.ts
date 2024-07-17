@@ -1,4 +1,4 @@
-export class MoveElementRequest {
+export class PositionElementRequest {
     constructor(
         public menuId: number|null,
         public categoryId: number|null,

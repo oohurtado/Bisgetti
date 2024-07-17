@@ -7,7 +7,7 @@ import { DateService } from './services/common/date.service';
 import { MenuStuffService } from './services/business/menu-stuff.service';
 import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from './source/utils';
-import { MoveElementRequest } from './source/models/dtos/menus/move-element-request';
+import { PositionElementRequest } from './source/models/dtos/menus/position-element-request';
 declare let alertify: any;
 
 @Component({
@@ -126,7 +126,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         //let tmp = new MoveElementRequest(6, 1, null, "move-down");
         // let tmp = new MoveElementRequest(6, 1, 1, "move-up");
-        // this.menuStuffService.moveElement(tmp)
+        // this.menuStuffService.updateElementPosition(tmp)
         //     .subscribe({
         //         complete: () => {
         //             console.log("completado!!!!!!!!");

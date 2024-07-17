@@ -9,7 +9,8 @@ import { ProductResponse } from '../../source/models/business/product-response';
 import { CreateOrUpdateProductRequest } from '../../source/models/dtos/menus/create-or-update-product-request';
 import { MenuStuffResponse } from '../../source/models/business/menu-stuff-response';
 import { AddOrRemoveElementRequest } from '../../source/models/dtos/menus/add-or-remove-element-request';
-import { MoveElementRequest } from '../../source/models/dtos/menus/move-element-request';
+import { PositionElementRequest } from '../../source/models/dtos/menus/position-element-request';
+import { VisibilityElementRequest } from '../../source/models/dtos/menus/visibility-element-request';
 
 @Injectable({
     providedIn: 'root'
@@ -235,7 +236,11 @@ export class MenuStuffService {
 		return this.requestService.put(`/business/menu-stuff/element`, model);
 	}
 
-	moveElement(model: MoveElementRequest) {
+	updateElementPosition(model: PositionElementRequest) {
 		return this.requestService.put(`/business/menu-stuff/element/position`, model);
+	}	
+
+	updateElementVisibility(model: VisibilityElementRequest) {
+		return this.requestService.put(`/business/menu-stuff/element/visibility`, model);
 	}	
 }
