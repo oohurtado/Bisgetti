@@ -1,14 +1,13 @@
 ﻿namespace Server.Source.Models.DTOs.Business.MenuStuff
 {
-    public class AddOrRemoveElementRequest
+    public class VisibilityElementRequest
     {
         public int? MenuId { get; set; }
         public int? CategoryId { get; set; }
         public int? ProductId { get; set; }
 
-        /// <summary>
-        /// EnumElementAction
-        /// </summary>
-        public string Action { get; set; } = null!;
+        public bool? IsVisible { get; set; }
+        public bool? IsAvailable { get; set; }
+        public bool? IsSoldOut { get; set; }
     }
 }

@@ -135,7 +135,7 @@ namespace Server.Source.Logic
             throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
         }
 
-        public async Task MoveElementAsync(MoveElementRequest request)
+        public async Task UpdateElementPositionAsync(PositionElementRequest request)
         {
             Expression<Func<MenuStuffEntity, bool>> exp = p => true;
 
@@ -198,24 +198,47 @@ namespace Server.Source.Logic
                         throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
                     }
                 }
+            }            
+        }
+
+        public async Task UpdateElementVisibilityAsync(VisibilityElementRequest request)
+        {
+            var element = await _businessRepository
+                .GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)
+                .OrderBy(p => p.Position)
+                .FirstOrDefaultAsync();
+
+            if (element == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.BusinessElementDoesNotExists);
             }
-            
-                // TODO: oohg - actualizando posicion
-       
-                // iterar
-                //      identificar elemento a mover
-                //          si arriba
-                //              si nada arriba
-                //                  mandamos error
-                //              si hay algo arriba
-                //                  intercambiamos posiciones
-                //                  guardamos
-                //                  rompemos iteracion
-                //          si abajo
-                //              lo mismo que si arriba a la inversa
+
+            // menu
+            if (element.MenuId != null && element.CategoryId == null && element.ProductId == null)
+            {
+                return;
+            }
+
+            // categoria
+            if (element.MenuId != null && element.CategoryId != null && element.ProductId == null)
+            {
+                return;
+            }
+
+            // producto
+            if (element.MenuId != null && element.CategoryId != null && element.ProductId != null)
+            {
+                return;
+            }
 
 
-            
+            //if (elements)
+            /*
+            - Mostrar/Ocultar = isVisible                   // menu, category, product      
+            - Disponible/No disponible = isAvailable        // menu, product
+            - Vendido = isSoldOut                           // product
+             */
+            throw new NotImplementedException();
         }
     }
 }

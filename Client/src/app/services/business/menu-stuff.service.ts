@@ -236,6 +236,6 @@ export class MenuStuffService {
 	}
 
 	moveElement(model: MoveElementRequest) {
-		return this.requestService.put(`/business/menu-stuff/element/move`, model);
+		return this.requestService.put(`/business/menu-stuff/element/position`, model);
 	}	
 }

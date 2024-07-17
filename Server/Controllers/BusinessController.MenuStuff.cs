@@ -38,10 +38,22 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
-        [HttpPut(template: "menu-stuff/element/move")]
-        public async Task<ActionResult> MoveElement([FromBody] MoveElementRequest request)
+        [HttpPut(template: "menu-stuff/element/position")]
+        public async Task<ActionResult> UpdateElementPosition([FromBody] PositionElementRequest request)
         {
-            await _businessLogicMenuStuff.MoveElementAsync(request);
+            await _businessLogicMenuStuff.UpdateElementPositionAsync(request);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Actualizar elemento en el menu
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "menu-stuff/element/visibility")]
+        public async Task<ActionResult> UpdateElementVisibility([FromBody] VisibilityElementRequest request)
+        {
+            await _businessLogicMenuStuff.UpdateElementVisibilityAsync(request);
             return Ok();
         }
 
