@@ -270,10 +270,23 @@ namespace Server.Source.Logic
             await _businessRepository.UpdateAsync();
         }
 
-        internal async Task DeleteElementImageAsync(ImageElementRequest request)
+        internal async Task DeleteElementImageAsync(int? menuId, int? categoryId, int? productId)
         {
+            if (menuId == 0)
+            {
+                menuId = null;
+            }
+            if (categoryId == 0)
+            {
+                categoryId = null;
+            }
+            if (productId == 0)
+            {
+                productId = null;
+            }
+
             var element = await _businessRepository
-                .GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)
+                .GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)
                 .FirstOrDefaultAsync();
 
             string currentImage = element?.Image!;

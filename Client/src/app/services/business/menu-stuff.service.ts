@@ -11,6 +11,7 @@ import { MenuStuffResponse } from '../../source/models/business/menu-stuff-respo
 import { AddOrRemoveElementRequest } from '../../source/models/dtos/menus/add-or-remove-element-request';
 import { PositionElementRequest } from '../../source/models/dtos/menus/position-element-request';
 import { VisibilityElementRequest } from '../../source/models/dtos/menus/visibility-element-request';
+import { ImageElementRequest } from '../../source/models/dtos/menus/image-element-request';
 
 @Injectable({
     providedIn: 'root'
@@ -242,5 +243,22 @@ export class MenuStuffService {
 
 	updateElementVisibility(model: VisibilityElementRequest) {
 		return this.requestService.put(`/business/menu-stuff/element/visibility`, model);
-	}	
+	}
+
+	updateElementImage(model: FormData) {
+		return this.requestService.put(`/business/menu-stuff/element/image`, model);
+	}
+
+	deleteElementImage(model: ImageElementRequest) {
+		if (model.menuId == null) {
+			model.menuId = 0;
+		}
+		if (model.categoryId == null) {
+			model.categoryId = 0;
+		}
+		if (model.productId == null) {
+			model.productId = 0;
+		}
+		return this.requestService.delete(`/business/menu-stuff/element/image/${model.menuId}/${model.categoryId}/${model.productId}`);
+	}
 }
