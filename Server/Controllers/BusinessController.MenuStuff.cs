@@ -57,6 +57,30 @@ namespace Server.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Crear o Cambiar imagen del elemento
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "menu-stuff/element/image")]
+        public async Task<ActionResult> UpdateElementImage([FromBody] ImageElementRequest request)
+        {
+            await _businessLogicMenuStuff.UpdateElementImageAsync(request);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Borra imagen del elemento
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpDelete(template: "menu-stuff/element/image")]
+        public async Task<ActionResult> DeleteElementImage([FromBody] ImageElementRequest request)
+        {
+            await _businessLogicMenuStuff.DeleteElementImageAsync(request);
+            return Ok();
+        }
+
         // TODO: oohg menu stuff
 
         /*        
@@ -66,18 +90,8 @@ namespace Server.Controllers
             put add or remove element           business/menu-stuff/element                 tested
             put position element                business/menu-stuff/element/move            tested
             put visibility element              business/menu-stuff/element/move            tested                  
-            put image element                   business/menu-stuff/element/image           to do
-         
-            * Imagenes                 
-                * crear/actualizar imagen a menu/categoria/producto
-                    * post
-                    * menu-builder/element/image
-                    * AddImage(elementId, typeElement=menu/category/product, file)
-                *  quitar imagen de menu/categoria/producto
-                    * delete
-                    * menu-builder/element/image
-                    * DeleteImage(elementId, typeElement=menu/category/product)
-                    
+            put image element                   business/menu-stuff/element/image           to test
+            delete image element                business/menu-stuff/element/image           to test                            
         */
     }
 }

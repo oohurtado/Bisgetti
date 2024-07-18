@@ -6,7 +6,7 @@
         /// Fields
         /// </summary>
 
-        public string? ImagePath { get; set; }
+        public string? Image { get; set; }
 
         /// <summary>
         /// Aplica a: categoría, producto

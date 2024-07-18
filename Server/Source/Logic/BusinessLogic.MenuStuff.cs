@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
@@ -8,6 +9,9 @@ using Server.Source.Models.DTOs.Business.MenuStuff;
 using Server.Source.Models.DTOs.Business.Product;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
+using Server.Source.Services.Interfaces;
+using Server.Source.Utilities;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Xml.Linq;
 
@@ -16,14 +20,19 @@ namespace Server.Source.Logic
     public class BusinessLogicMenuStuff
     {
         private readonly IBusinessRepository _businessRepository;
+        private readonly IStorageFile _storageFile;
         private readonly IMapper _mapper;
+
+        private const string CONTAINER_FILE = "menu-images";
 
         public BusinessLogicMenuStuff(
             IBusinessRepository businessRepository,
+            IStorageFile storageFile,
             IMapper mapper
             )
         {
             _businessRepository = businessRepository;
+            _storageFile = storageFile;
             _mapper = mapper;
         }
 
@@ -241,6 +250,37 @@ namespace Server.Source.Logic
             }
 
             throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+        }
+
+        public async Task UpdateElementImageAsync(ImageElementRequest request)
+        {
+            if (request.File == null)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementImageMissing);
+            }
+
+            var element = await _businessRepository
+                .GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)                
+                .FirstOrDefaultAsync();
+
+            string currentImage = element?.Image!;
+            var newFilename = await FileUtility.CreateOrUpdateAsync(_storageFile, request.File, currentImage, CONTAINER_FILE);
+
+            element!.Image = newFilename;
+            await _businessRepository.UpdateAsync();
+        }
+
+        internal async Task DeleteElementImageAsync(ImageElementRequest request)
+        {
+            var element = await _businessRepository
+                .GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)
+                .FirstOrDefaultAsync();
+
+            string currentImage = element?.Image!;
+            await FileUtility.DeleteAsync(_storageFile, currentImage, CONTAINER_FILE);
+
+            element!.Image = null;
+            await _businessRepository.UpdateAsync();
         }
     }
 }

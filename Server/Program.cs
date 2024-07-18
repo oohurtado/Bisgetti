@@ -123,6 +123,7 @@ namespace Server
 
             // services
             builder.Services.AddScoped<INotificationService, EmailNotificationService>();
+            builder.Services.AddTransient<IStorageFile, StorageFileLocal>();
 
             builder.Services.AddAutoMapper(p =>
             {

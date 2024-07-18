@@ -97,7 +97,10 @@ namespace Server.Source.Models.Enums
         BusinessElementAlreadyExists,
 
         [Description("Elemento no existe")]
-        BusinessElementDoesNotExists
+        BusinessElementDoesNotExists,
+
+        [Description("Proporcione una imagen")]
+        BusinessElementImageMissing
 
     }
 }

@@ -98,7 +98,7 @@ namespace Server.Source.Data
             {
                 e.Property(p => p.Id).HasColumnName("MenuCategoryProductId");
 
-                e.Property(p => p.ImagePath).IsRequired(required: false).HasMaxLength(250);
+                e.Property(p => p.Image).IsRequired(required: false).HasMaxLength(250);
                 e.Property(p => p.Position).IsRequired(required: false);
                 e.Property(p => p.IsVisible).IsRequired(required: true);
                 e.Property(p => p.IsAvailable).IsRequired(required: true);
@@ -106,8 +106,6 @@ namespace Server.Source.Data
                 e.Property(p => p.MenuId).IsRequired(required: true);
                 e.Property(p => p.CategoryId).IsRequired(required: false);
                 e.Property(p => p.ProductId).IsRequired(required: false);
-
-                e.HasIndex(p => new { p.MenuId, p.CategoryId, p.ProductId }).IsUnique();
             });
         }
     }
