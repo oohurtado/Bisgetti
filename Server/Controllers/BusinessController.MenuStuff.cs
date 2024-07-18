@@ -63,7 +63,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
         [HttpPut(template: "menu-stuff/element/image")]
-        public async Task<ActionResult> UpdateElementImage([FromBody] ImageElementRequest request)
+        public async Task<ActionResult> UpdateElementImage([FromForm] ImageElementRequest request)
         {
             await _businessLogicMenuStuff.UpdateElementImageAsync(request);
             return Ok();
@@ -90,8 +90,8 @@ namespace Server.Controllers
             put add or remove element           business/menu-stuff/element                 tested
             put position element                business/menu-stuff/element/move            tested
             put visibility element              business/menu-stuff/element/move            tested                  
-            put image element                   business/menu-stuff/element/image           to test
-            delete image element                business/menu-stuff/element/image           to test                            
+            put image element                   business/menu-stuff/element/image           tested
+            delete image element                business/menu-stuff/element/image           tested
         */
     }
 }

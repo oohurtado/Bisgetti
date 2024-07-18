@@ -4,18 +4,23 @@ namespace Server.Source.Services
 {
     public class StorageFileLocal : IStorageFile
     {
-        private readonly IWebHostEnvironment env;
-        private readonly IHttpContextAccessor accessor;
+        private readonly IWebHostEnvironment _env;
+        private readonly IHttpContextAccessor _accessor;
 
         public StorageFileLocal(IWebHostEnvironment env, IHttpContextAccessor accessor)
         {
-            this.env = env;
-            this.accessor = accessor;
+            _env = env;
+            _accessor = accessor;
+
+            if (string.IsNullOrWhiteSpace(_env.WebRootPath))
+            {
+                env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
         }
 
         public Task DeleteFileAsync(string filename, string container)
         {
-            var path = Path.Combine(env.WebRootPath, container, filename);
+            var path = Path.Combine(_env.WebRootPath, container, filename);
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -27,7 +32,7 @@ namespace Server.Source.Services
         public async Task<string> SaveFileAsync(byte[] content, string extension, string container)
         {
             var fileName = $"{Guid.NewGuid()}{extension}";
-            var folder = Path.Combine(env.WebRootPath, container);
+            var folder = Path.Combine(_env.WebRootPath, container);
 
             if (!Directory.Exists(folder))
             {
@@ -42,7 +47,7 @@ namespace Server.Source.Services
 
         public string GetUrl(string filename, string container)
         {
-            var host = $"{accessor.HttpContext?.Request.Scheme}://{accessor.HttpContext?.Request.Host}";
+            var host = $"{_accessor.HttpContext?.Request.Scheme}://{_accessor.HttpContext?.Request.Host}";
             var url = Path.Combine(host, container, filename).Replace("\\", "/");
             return url;
         }
