@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../common/request.service';
-import { UserResponse } from '../../source/models/business/user-response';
+import { UserResponse } from '../../source/models/business/responses/user-response';
 import { UpdatePersonalDataRequest } from '../../source/models/dtos/users/personal-data/update-personal-data-request';
 import { ChangePasswordRequest } from '../../source/models/dtos/users/password/change-password.request';
 import { CreateOrUpdateAddressRequest } from '../../source/models/dtos/users/address/create-or-update-address-request';
 import { UpdateAddressDefaultRequest } from '../../source/models/dtos/users/address/update-address-default-request';
 import { PageData } from '../../source/models/common/page-data';
-import { AddressResponse } from '../../source/models/business/address-response';
+import { AddressResponse } from '../../source/models/business/responses/address-response';
 
 @Injectable({
     providedIn: 'root'

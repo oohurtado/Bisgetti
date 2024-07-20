@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuResponse } from '../../../../../source/models/business/menu-response';
+import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
 import { PageBase } from '../../../../../source/page-base';
 import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
 import { Router } from '@angular/router';
@@ -81,5 +81,9 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
 			function () {
 				// ...
 			});		
+	}
+
+    onBuilderClicked(event: Event, menu: MenuResponse) {
+		this.router.navigateByUrl(`/menu-stuff/menus/builder/${menu.id}`);
 	}
 }

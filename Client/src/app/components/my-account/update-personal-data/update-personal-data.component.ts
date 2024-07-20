@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserMyAccountService } from '../../../services/business/user-my-account.service';
 import { UpdatePersonalDataRequest } from '../../../source/models/dtos/users/personal-data/update-personal-data-request';
-import { UserResponse } from '../../../source/models/business/user-response';
+import { UserResponse } from '../../../source/models/business/responses/user-response';
 import { Utils } from '../../../source/utils';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 import { general } from '../../../source/general';

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../common/request.service';
-import { MenuResponse } from '../../source/models/business/menu-response';
+import { MenuResponse } from '../../source/models/business/responses/menu-response';
 import { PageData } from '../../source/models/common/page-data';
 import { CreateOrUpdateMenuRequest } from '../../source/models/dtos/menus/create-or-update-menu-request';
-import { CategoryResponse } from '../../source/models/business/category-response';
+import { CategoryResponse } from '../../source/models/business/responses/category-response';
 import { CreateOrUpdateCategoryRequest } from '../../source/models/dtos/menus/create-or-update-category-request';
-import { ProductResponse } from '../../source/models/business/product-response';
+import { ProductResponse } from '../../source/models/business/responses/product-response';
 import { CreateOrUpdateProductRequest } from '../../source/models/dtos/menus/create-or-update-product-request';
-import { MenuStuffResponse } from '../../source/models/business/menu-stuff-response';
+import { MenuStuffResponse } from '../../source/models/business/responses/menu-stuff-response';
 import { AddOrRemoveElementRequest } from '../../source/models/dtos/menus/add-or-remove-element-request';
 import { PositionElementRequest } from '../../source/models/dtos/menus/position-element-request';
 import { VisibilityElementRequest } from '../../source/models/dtos/menus/visibility-element-request';

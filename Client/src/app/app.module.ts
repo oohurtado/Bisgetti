@@ -52,6 +52,7 @@ import { ProductsComponent } from './components/administration/menu-stuff/produc
 import { AddressesComponent } from './components/my-account/addresses/addresses.component';
 import { PageCreateComponent } from './components/_shared/page/page-create/page-create.component';
 import { NavbarUserNameComponent } from './components/_shared/navbar/navbar-user-name/navbar-user-name.component';
+import { MenusBuilderComponent } from './components/administration/menu-stuff/menus/menus-builder/menus-builder.component';
 
 @NgModule({
 	declarations: [
@@ -96,6 +97,7 @@ import { NavbarUserNameComponent } from './components/_shared/navbar/navbar-user
   		AddressesComponent,
 		PageCreateComponent,
 		NavbarUserNameComponent,
+  MenusBuilderComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryResponse } from '../../../../../source/models/business/category-response';
+import { CategoryResponse } from '../../../../../source/models/business/responses/category-response';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
