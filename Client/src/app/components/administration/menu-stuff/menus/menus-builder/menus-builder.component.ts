@@ -143,4 +143,21 @@ export class MenusBuilderComponent implements OnInit {
             
         return elements;
     }
+
+    onMouseEnter(item: MenuElement) {
+        item.isShowingMenu = true;
+    }
+    
+    onMouseLeave(item: MenuElement) {
+        item.isShowingMenu = false;
+    }
+
+    onElementClicked(event: Event, element: MenuElement, action: string) {
+        // menu: add/image/visibility/preview
+        // category: add/remove/image/visibility/move-up/move-down
+        // product: remove/image/visibility/move-up/move-down
+        console.log(action)
+
+        throw new Error("Action is not valid");
+    }
 }

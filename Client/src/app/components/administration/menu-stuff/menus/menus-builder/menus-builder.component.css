@@ -9,3 +9,7 @@
 .product-element-margin {
     margin-left: 100px; margin-top: 1px;
 }
+
+.element:hover {
+    background-color: #EAECEE;    
+}

@@ -17,14 +17,67 @@
     </div>
 </div>
 
-<div *ngFor="let item of _data" class="card" [class]="item.css">
+<div *ngFor="let item of _data" class="card element" [class]="item.css" (mouseenter)="onMouseEnter(item)" (mouseleave)='onMouseLeave(item)'>
     <div class="card-body">
         {{ item.text }}
+        <ng-container *ngIf="item.isShowingMenu">
+            <ng-container *ngIf="item.categoryId == null && item.productId == null">
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Agregar categoría al menú" (click)="onElementClicked($event, item, 'add')">                    
+                    <i class="fa-solid fa-bolt-lightning fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen" (click)="onElementClicked($event, item, 'image')">
+                    <i class="fa-solid fa-image fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de visibilidad" (click)="onElementClicked($event, item, 'visibility')">
+                    <i class="fa-solid fa-eye fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Previsualizar menú" (click)="onElementClicked($event, item, 'preview')">
+                    <i class="fa-solid fa-utensils fa-lg"></i>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="item.categoryId != null && item.productId == null">
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Agregar producto a categoría" (click)="onElementClicked($event, item, 'add')">
+                    <i class="fa-solid fa-bolt-lightning fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Quitar categoría del menú" (click)="onElementClicked($event, item, 'remove')">
+                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen" (click)="onElementClicked($event, item, 'image')">
+                    <i class="fa-solid fa-image fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de visibilidad" (click)="onElementClicked($event, item, 'visibility')">
+                    <i class="fa-solid fa-eye fa-lg"></i>
+                </a>    
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Mover categoría hacia arriba" (click)="onElementClicked($event, item, 'move-up')">
+                    <i class="fa-solid fa-arrow-up fa-lg"></i>
+                </a>    
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Mover categoría hacia abajo" (click)="onElementClicked($event, item, 'move-down')">
+                    <i class="fa-solid fa-arrow-down fa-lg"></i>
+                </a>                
+            </ng-container>
+            <ng-container *ngIf="item.productId != null">
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Quitar producto de la categoría" (click)="onElementClicked($event, item, 'remove')">
+                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen" (click)="onElementClicked($event, item, 'image')">
+                    <i class="fa-solid fa-image fa-lg"></i>
+                </a>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de visibilidad" (click)="onElementClicked($event, item, 'visibility')">
+                    <i class="fa-solid fa-eye fa-lg"></i>
+                </a>    
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Mover producto hacia arriba" (click)="onElementClicked($event, item, 'move-up')">
+                    <i class="fa-solid fa-arrow-up fa-lg"></i>
+                </a>    
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Mover producto hacia abajo" (click)="onElementClicked($event, item, 'move-down')">
+                    <i class="fa-solid fa-arrow-down fa-lg"></i>
+                </a>    
+            </ng-container>
+        </ng-container>
     </div>
 </div>
 
-
 <!-- <br><br><br><br>
+<pre>{{ _data | json }}</pre>  -->
 
 <!-- 
 <p>menus-builder works!</p>
@@ -33,5 +86,4 @@
 <pre>{{ _menuStuff | json }}</pre>
 <pre>{{ _categories | json }}</pre>
 <pre>{{ _products | json }}</pre>
-<pre>{{ _data | json }}</pre> 
 -->

@@ -98,7 +98,7 @@ namespace Server.Source.Services
             }
             catch
             {
-                // TODO: log crash
+                // TODO: oohg - log crash
             }
         }
     }
