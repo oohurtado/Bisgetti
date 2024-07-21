@@ -7,9 +7,9 @@ import { MenuStuffResponse } from '../../../../../source/models/business/respons
 import { CategoryResponse } from '../../../../../source/models/business/responses/category-response';
 import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
 import { MenuElement } from '../../../../../source/models/business/menu-element';
-import * as lodash from 'lodash';
 import { Tuple2 } from '../../../../../source/models/common/tuple';
 import { PositionElementRequest } from '../../../../../source/models/dtos/menus/position-element-request';
+import * as lodash from 'lodash';
 declare let alertify: any;
 
 @Component({
@@ -32,6 +32,8 @@ export class MenusBuilderComponent implements OnInit {
     
     _elementsAvaialable!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
     _elementClicked!: MenuElement;
+
+    _openModal_addElementToElement: boolean = false;
 
     constructor(
         private menuStuffService: MenuStuffService,
@@ -161,11 +163,9 @@ export class MenusBuilderComponent implements OnInit {
         this._elementClicked = element;    
         console.log(this._elementClicked);
 
-        // TODO: oohg - 1
         // aplica a: menu / category
         if (action === "add") {
-            this.onAddAction(element);
-            console.log(this._elementsAvaialable);
+            this.onAddAction(element);            
             return;
         }
 
@@ -207,6 +207,10 @@ export class MenusBuilderComponent implements OnInit {
     }
 
     onAddAction(element: MenuElement) {
+        // TODO: oohg - 1
+        console.log(this._elementsAvaialable);
+        this._openModal_addElementToElement = true;
+
         // usuario seleccionó agregar categoria a menú'           
         if (element.categoryId == null && element.productId == null) {
                         
@@ -273,5 +277,13 @@ export class MenusBuilderComponent implements OnInit {
 
     onPreviewAction(element: MenuElement) {
         throw new Error('Method not implemented.');
+    }
+
+    onAddElementToElementOkClicked(ids: number[]) {  
+        this._openModal_addElementToElement = false;      
+    }
+
+    onAddElementToElementCloseClicked() {
+        this._openModal_addElementToElement = false;
     }
 }
