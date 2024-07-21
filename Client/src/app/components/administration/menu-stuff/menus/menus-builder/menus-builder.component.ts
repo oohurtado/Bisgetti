@@ -9,6 +9,8 @@ import { ProductResponse } from '../../../../../source/models/business/responses
 import { MenuElement } from '../../../../../source/models/business/menu-element';
 import * as lodash from 'lodash';
 import { Tuple2 } from '../../../../../source/models/common/tuple';
+import { PositionElementRequest } from '../../../../../source/models/dtos/menus/position-element-request';
+declare let alertify: any;
 
 @Component({
     selector: 'app-menus-builder',
@@ -29,10 +31,8 @@ export class MenusBuilderComponent implements OnInit {
     _data!: MenuElement[] | null;
 
     
-    modal_availableElements!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
-    modal_parentId!: number;
-    modal_parentText!: string;
-
+    modalAdd_availableElements!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
+    elementClicked!: MenuElement;
 
     constructor(
         private menuStuffService: MenuStuffService,
@@ -47,6 +47,7 @@ export class MenusBuilderComponent implements OnInit {
     }
 
     async ngOnInit() {
+        alertify.set('notifier','position', 'top-right');
         await this.setUrlParametersAsync();
     }
 
@@ -73,8 +74,6 @@ export class MenusBuilderComponent implements OnInit {
             });
         this._isProcessing = false;
     }
-
-
 
     buildMenu() {
         this._data = [];
@@ -159,65 +158,117 @@ export class MenusBuilderComponent implements OnInit {
         item.isShowingMenu = false;
     }
 
- 
+    // TODO: oohg
     onElementClicked(event: Event, element: MenuElement, action: string) {
+        this.elementClicked = element;    
+        console.log(this.elementClicked);
+
+        // aplica a: menu / category
         if (action === "add") {
-            
-            // usuario seleccionó agregar categoria a menú'           
-            if (element.categoryId == null && element.productId == null) {
-                
-                // categorias actuales del menú a una tupla
-                let currentCategories = this._data?.filter(p => p.categoryId != null && p.productId == null).map(p => new Tuple2<number, string>(p.categoryId, p.text));
-                
-                // categorias de base de datos a una tupla
-                let availableElements = this._categories?.map(p => new Tuple2<number, string>(p.id, p.name))!;
-                
-                // obtenemos categorias que no estan en uso
-                this.modal_availableElements = availableElements.filter(p => 
-                    !currentCategories?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
-                );
-                this.modal_parentId = element.menuId;
-                this.modal_parentText = element.text!;
-                
-                // TODO: oohg - agregar categorias a menu
-                console.log(this.modal_availableElements);
-                console.log(this.modal_parentId);
-                console.log(this.modal_parentText);
-
-                return;
-            }
-            
-            // agregar seleccionó agregar producto a categoría
-            if (element.categoryId != null && element.productId == null) {
-
-                // productos actuales de todo el menú a una tupla
-                let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.text));
-                
-                // productos de base de datos a una tupla
-                let availableElements = this._products?.map(p => new Tuple2<number, string>(p.id, p.name))!;                
-                
-                // obtenemos productos que no estan en uso
-                this.modal_availableElements = availableElements.filter(p => 
-                    !currentProducts?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
-                );
-                this.modal_parentId = element.categoryId;
-                this.modal_parentText = element.text!;
-
-                // TODO: oohg - agregar productos a categoria
-                console.log(this.modal_availableElements);
-                console.log(this.modal_parentId);
-                console.log(this.modal_parentText);
-
-                return;
-            }
-
+            this.onAddAction(element);
+            console.log(this.modalAdd_availableElements);
+            return;
         }
+
+        // aplica a: categoria, producto
+        if (action === "remove") {
+            this.onRemoveAction(element);
+            return;
+        }
+
+        // aplica a: menu, categoria, producto
+        if (action == "visibility") {
+            this.onVisibilityAction(element);
+            return;
+        }
+
+        // aplica a: menu, categoria, producto
+        if (action == "image") {
+            this.onImageAction(element);
+            return;
+        }
+        
+        // aplica a: menu
+        if (action == "preview") {
+            this.onPreviewAction(element);
+            return;
+        }
+
+        // aplica a: categoria, producto
+        if (action == "move-up" || action == "move-down") {
+            this.onMoveUpOrMoveDown(element, action);
+            return;
+        }      
 
         throw new Error("Action is not valid");
     }
+
+    onAddAction(element: MenuElement) {
+        // usuario seleccionó agregar categoria a menú'           
+        if (element.categoryId == null && element.productId == null) {
+                        
+            // categorias actuales del menú a una tupla
+            let currentCategories = this._data?.filter(p => p.categoryId != null && p.productId == null).map(p => new Tuple2<number, string>(p.categoryId, p.text));
+            
+            // categorias de base de datos a una tupla
+            let availableElements = this._categories?.map(p => new Tuple2<number, string>(p.id, p.name))!;
+            
+            // obtenemos categorias que no estan en uso
+            this.modalAdd_availableElements = availableElements.filter(p => 
+                !currentCategories?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
+            );                    
+            return;
+        }
+
+        // agregar seleccionó agregar producto a categoría
+        if (element.categoryId != null && element.productId == null) {
+
+            // productos actuales de todo el menú a una tupla
+            let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.text));
+            
+            // productos de base de datos a una tupla
+            let availableElements = this._products?.map(p => new Tuple2<number, string>(p.id, p.name))!;                
+            
+            // obtenemos productos que no estan en uso
+            this.modalAdd_availableElements = availableElements.filter(p => 
+                !currentProducts?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
+            );
+            return;
+        }
+    }
+
+    onRemoveAction(element: MenuElement) {
+        throw new Error('Method not implemented.');
+    }
+
+    onVisibilityAction(element: MenuElement) {
+        throw new Error('Method not implemented.');
+    }    
+
+    onImageAction(element: MenuElement) {
+        throw new Error('Method not implemented.');
+    }
+    
+    onMoveUpOrMoveDown(element: MenuElement, action: string) {
+        let model = new PositionElementRequest(element.menuId, element.categoryId, element.productId, action);
+        this.menuStuffService.updateElementPosition(model)
+            .subscribe({
+                complete: () => {
+                    this._isProcessing = false;
+                },
+                error: (e : string) => {
+                    this._isProcessing = false;
+                    this._error = Utils.getErrorsResponse(e);
+                    alertify.error(this._error, 3);
+                },
+                next: (val) => {                
+                    alertify.message("Posición actualizada", 1)
+                    this.getDataAsync();
+                }
+            });                  
+    }
+
+    onPreviewAction(element: MenuElement) {
+        throw new Error('Method not implemented.');
+    }
 }
-
-
-    // menu: add/image/visibility/preview
-    // category: add/remove/image/visibility/move-up/move-down
-    // product: remove/image/visibility/move-up/move-down   
