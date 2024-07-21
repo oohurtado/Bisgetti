@@ -32,7 +32,7 @@ namespace Server.Source.Logic
 
             return new PageResponse<ProductResponse>
             {
-                GrandTotal = result.Count,
+                GrandTotal = grandTotal,
                 Data = result,
             };
         }

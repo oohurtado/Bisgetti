@@ -8,6 +8,7 @@ import { CategoryResponse } from '../../../../../source/models/business/response
 import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
 import { MenuElement } from '../../../../../source/models/business/menu-element';
 import * as lodash from 'lodash';
+import { Tuple2 } from '../../../../../source/models/common/tuple';
 
 @Component({
     selector: 'app-menus-builder',
@@ -26,6 +27,12 @@ export class MenusBuilderComponent implements OnInit {
     _products!: ProductResponse[] | null;
 
     _data!: MenuElement[] | null;
+
+    
+    modal_availableElements!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
+    modal_parentId!: number;
+    modal_parentText!: string;
+
 
     constructor(
         private menuStuffService: MenuStuffService,
@@ -75,23 +82,23 @@ export class MenusBuilderComponent implements OnInit {
         let categories: MenuElement[];
         let products: MenuElement[];
 
-        // menu
-        menu = this.getMenu();        
+        // obtenemos menu de menu stuff
+        menu = this.getMenuFromMenuStuff();        
         this._data?.push(menu);
 
         // categorias
-        categories = this.getCategories();
+        categories = this.getCategoriesFromMenuStuff();
         this._data = this._data?.concat(categories);
 
         // productos
-        categories.forEach(p => {            
-            products = this.getProduct(p.categoryId);
+        categories.forEach(p => {
+            products = this.getProductsFromMenuStuff(p.categoryId);
             let index = this._data?.findIndex(q => q.categoryId == p.categoryId) ?? 0;
             this._data?.splice(index + 1, 0, ...products)
         });
     }
 
-    getMenu() : MenuElement {
+    getMenuFromMenuStuff() : MenuElement {
         // obtenemos el elemento menu de menustuff
         let tmpStuffElement = this._menuStuff?.filter(p => p.categoryId == null && p.productId == null)[0];
         let element = Object.assign(new MenuElement(), tmpStuffElement);
@@ -102,7 +109,7 @@ export class MenusBuilderComponent implements OnInit {
         return element;
     }
 
-    getCategories() : MenuElement[] {
+    getCategoriesFromMenuStuff() : MenuElement[] {
         let elements: MenuElement[] = [];
 
         // obtenemos los elementos categorias de menustuff y ordenamos        
@@ -123,7 +130,7 @@ export class MenusBuilderComponent implements OnInit {
         return elements;
     }
 
-    getProduct(categoryId: number) : MenuElement[] {
+    getProductsFromMenuStuff(categoryId: number) : MenuElement[] {
         let elements: MenuElement[] = [];
 
         // obtenemos los elementos productos de x categoria de menustuff y ordenamos
@@ -152,12 +159,65 @@ export class MenusBuilderComponent implements OnInit {
         item.isShowingMenu = false;
     }
 
+ 
     onElementClicked(event: Event, element: MenuElement, action: string) {
-        // menu: add/image/visibility/preview
-        // category: add/remove/image/visibility/move-up/move-down
-        // product: remove/image/visibility/move-up/move-down
-        console.log(action)
+        if (action === "add") {
+            
+            // usuario seleccionó agregar categoria a menú'           
+            if (element.categoryId == null && element.productId == null) {
+                
+                // categorias actuales del menú a una tupla
+                let currentCategories = this._data?.filter(p => p.categoryId != null && p.productId == null).map(p => new Tuple2<number, string>(p.categoryId, p.text));
+                
+                // categorias de base de datos a una tupla
+                let availableElements = this._categories?.map(p => new Tuple2<number, string>(p.id, p.name))!;
+                
+                // obtenemos categorias que no estan en uso
+                this.modal_availableElements = availableElements.filter(p => 
+                    !currentCategories?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
+                );
+                this.modal_parentId = element.menuId;
+                this.modal_parentText = element.text!;
+                
+                // TODO: oohg - agregar categorias a menu
+                console.log(this.modal_availableElements);
+                console.log(this.modal_parentId);
+                console.log(this.modal_parentText);
+
+                return;
+            }
+            
+            // agregar seleccionó agregar producto a categoría
+            if (element.categoryId != null && element.productId == null) {
+
+                // productos actuales de todo el menú a una tupla
+                let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.text));
+                
+                // productos de base de datos a una tupla
+                let availableElements = this._products?.map(p => new Tuple2<number, string>(p.id, p.name))!;                
+                
+                // obtenemos productos que no estan en uso
+                this.modal_availableElements = availableElements.filter(p => 
+                    !currentProducts?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
+                );
+                this.modal_parentId = element.categoryId;
+                this.modal_parentText = element.text!;
+
+                // TODO: oohg - agregar productos a categoria
+                console.log(this.modal_availableElements);
+                console.log(this.modal_parentId);
+                console.log(this.modal_parentText);
+
+                return;
+            }
+
+        }
 
         throw new Error("Action is not valid");
     }
 }
+
+
+    // menu: add/image/visibility/preview
+    // category: add/remove/image/visibility/move-up/move-down
+    // product: remove/image/visibility/move-up/move-down   

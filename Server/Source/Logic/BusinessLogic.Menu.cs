@@ -33,7 +33,7 @@ namespace Server.Source.Logic
 
             return new PageResponse<MenuResponse>
             {
-                GrandTotal = result.Count,
+                GrandTotal = grandTotal,
                 Data = result,
             };
         }
