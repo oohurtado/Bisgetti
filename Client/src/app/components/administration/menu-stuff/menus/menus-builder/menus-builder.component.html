@@ -20,7 +20,7 @@
 <div *ngFor="let item of _data" class="card element" [class]="item.css" (mouseenter)="onMouseEnter(item)" (mouseleave)='onMouseLeave(item)'>
     <div class="card-body">
         {{ item.text }}
-        <ng-container *ngIf="item.isShowingMenu">
+        <ng-container *ngIf="item.isMouseOverElement">
             <ng-container *ngIf="item.categoryId == null && item.productId == null">
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Agregar categoría al menú" (click)="onElementClicked($event, item, 'add')">                    
                     <i class="fa-solid fa-bolt-lightning fa-lg"></i>
@@ -76,7 +76,7 @@
     </div>
 </div>
 
-<app-add-element-to-element></app-add-element-to-element>
+<app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked"></app-add-element-to-element>
 
 <!-- <br><br><br><br>
 <pre>{{ _data | json }}</pre>  -->

@@ -29,10 +29,9 @@ export class MenusBuilderComponent implements OnInit {
     _products!: ProductResponse[] | null;
 
     _data!: MenuElement[] | null;
-
     
-    modalAdd_availableElements!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
-    elementClicked!: MenuElement;
+    _elementsAvaialable!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
+    _elementClicked!: MenuElement;
 
     constructor(
         private menuStuffService: MenuStuffService,
@@ -151,43 +150,47 @@ export class MenusBuilderComponent implements OnInit {
     }
 
     onMouseEnter(item: MenuElement) {
-        item.isShowingMenu = true;
+        item.isMouseOverElement = true;
     }
     
     onMouseLeave(item: MenuElement) {
-        item.isShowingMenu = false;
+        item.isMouseOverElement = false;
     }
-
-    // TODO: oohg
+    
     onElementClicked(event: Event, element: MenuElement, action: string) {
-        this.elementClicked = element;    
-        console.log(this.elementClicked);
+        this._elementClicked = element;    
+        console.log(this._elementClicked);
 
+        // TODO: oohg - 1
         // aplica a: menu / category
         if (action === "add") {
             this.onAddAction(element);
-            console.log(this.modalAdd_availableElements);
+            console.log(this._elementsAvaialable);
             return;
         }
 
+        // TODO: oohg - 2
         // aplica a: categoria, producto
         if (action === "remove") {
             this.onRemoveAction(element);
             return;
         }
 
+        // TODO: oohg - 3
         // aplica a: menu, categoria, producto
         if (action == "visibility") {
             this.onVisibilityAction(element);
             return;
         }
 
+        // TODO: oohg - 4
         // aplica a: menu, categoria, producto
         if (action == "image") {
             this.onImageAction(element);
             return;
         }
         
+        // TODO: oohg - 5
         // aplica a: menu
         if (action == "preview") {
             this.onPreviewAction(element);
@@ -211,10 +214,10 @@ export class MenusBuilderComponent implements OnInit {
             let currentCategories = this._data?.filter(p => p.categoryId != null && p.productId == null).map(p => new Tuple2<number, string>(p.categoryId, p.text));
             
             // categorias de base de datos a una tupla
-            let availableElements = this._categories?.map(p => new Tuple2<number, string>(p.id, p.name))!;
+            let elementsAvaialable = this._categories?.map(p => new Tuple2<number, string>(p.id, p.name))!;
             
             // obtenemos categorias que no estan en uso
-            this.modalAdd_availableElements = availableElements.filter(p => 
+            this._elementsAvaialable = elementsAvaialable.filter(p => 
                 !currentCategories?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
             );                    
             return;
@@ -227,10 +230,10 @@ export class MenusBuilderComponent implements OnInit {
             let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.text));
             
             // productos de base de datos a una tupla
-            let availableElements = this._products?.map(p => new Tuple2<number, string>(p.id, p.name))!;                
+            let elementsAvaialable = this._products?.map(p => new Tuple2<number, string>(p.id, p.name))!;                
             
             // obtenemos productos que no estan en uso
-            this.modalAdd_availableElements = availableElements.filter(p => 
+            this._elementsAvaialable = elementsAvaialable.filter(p => 
                 !currentProducts?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
             );
             return;
