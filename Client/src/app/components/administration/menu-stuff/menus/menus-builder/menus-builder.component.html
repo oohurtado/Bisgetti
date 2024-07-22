@@ -25,7 +25,7 @@
             <ng-container *ngIf="item.categoryId == null && item.productId == null">
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Agregar categoría al menú"
                     (click)="onElementClicked($event, item, 'add')">
-                    <i class="fa-solid fa-bolt-lightning fa-lg"></i>
+                    <i class="fa-solid fa-plus fa-lg"></i>
                 </a>
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
@@ -43,11 +43,11 @@
             <ng-container *ngIf="item.categoryId != null && item.productId == null">
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Agregar producto a categoría"
                     (click)="onElementClicked($event, item, 'add')">
-                    <i class="fa-solid fa-bolt-lightning fa-lg"></i>
+                    <i class="fa-solid fa-plus fa-lg"></i>
                 </a>
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Quitar categoría del menú"
                     (click)="onElementClicked($event, item, 'remove')">
-                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                    <i class="fa-solid fa-xmark fa-lg"></i>
                 </a>
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
@@ -69,7 +69,7 @@
             <ng-container *ngIf="item.productId != null">
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Quitar producto de la categoría"
                     (click)="onElementClicked($event, item, 'remove')">
-                    <i class="fa-regular fa-trash-can fa-lg"></i>
+                    <i class="fa-solid fa-xmark fa-lg"></i>
                 </a>
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
