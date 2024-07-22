@@ -92,16 +92,4 @@
     </div>
 </div>
 
-<app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked" [open]="_openModal_addElementToElement" (evtOk)="onAddElementToElementOkClicked($event)" (evtClose)="onAddElementToElementCloseClicked()"></app-add-element-to-element>
-
-<!-- <br><br><br><br>
-<pre>{{ _data | json }}</pre>  -->
-
-<!-- 
-<p>menus-builder works!</p>
-<pre>{{ _menuId }}</pre>
-<pre>{{ _menu | json }}</pre>
-<pre>{{ _menuStuff | json }}</pre>
-<pre>{{ _categories | json }}</pre>
-<pre>{{ _products | json }}</pre>
--->
+<app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked" [open]="_openModal_addElementToElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-add-element-to-element>

@@ -11,8 +11,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">{{ _textTitle }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    (click)="onCloseClicked()"></button>
+                <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseClicked()"></button>
             </div>
             <div class="modal-body">
                 <strong>{{ _textDescription }}</strong>                
@@ -22,13 +21,14 @@
                         {{ item.param2}}
                     </label>
                 </div>
-                <span *ngIf="elements.length == 0">{{ _textNoData }}</span>
+                <p *ngIf="elements?.length == 0">{{ _textNoData }}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">{{
-                    _textBtnClose }}</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onOkClicked()">{{
-                    _textBtnOk }}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">{{ _textBtnClose }}</button>
+                <button type="button" class="btn btn-primary" (click)="onOkClicked()" [disabled]="_isProcessing">
+                    <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
+                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;{{ _textBtnOk }}</span>                                        
+                </button>
             </div>
         </div>
     </div>

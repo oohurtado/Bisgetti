@@ -161,7 +161,6 @@ export class MenusBuilderComponent implements OnInit {
     
     onElementClicked(event: Event, element: MenuElement, action: string) {
         this._elementClicked = element;    
-        console.log(this._elementClicked);
 
         // aplica a: menu / category
         if (action === "add") {
@@ -207,8 +206,6 @@ export class MenusBuilderComponent implements OnInit {
     }
 
     onAddAction(element: MenuElement) {
-        // TODO: oohg - 1
-        console.log(this._elementsAvaialable);
         this._openModal_addElementToElement = true;
 
         // usuario seleccionó agregar categoria a menú'           
@@ -279,11 +276,12 @@ export class MenusBuilderComponent implements OnInit {
         throw new Error('Method not implemented.');
     }
 
-    onAddElementToElementOkClicked(ids: number[]) {  
+    onModalClosedClicked() {  
         this._openModal_addElementToElement = false;      
     }
 
-    onAddElementToElementCloseClicked() {
+    async onModalOkClicked() {
         this._openModal_addElementToElement = false;
+        await this.getDataAsync();
     }
 }

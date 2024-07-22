@@ -237,6 +237,20 @@ export class MenuStuffService {
 		return this.requestService.put(`/business/menu-stuff/element`, model);
 	}
 
+	addOrRemoveElementAsync(model: AddOrRemoveElementRequest) {
+		return new Promise((resolve, reject) => {
+			this.addOrRemoveElement(model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
 	updateElementPosition(model: PositionElementRequest) {
 		return this.requestService.put(`/business/menu-stuff/element/position`, model);
 	}	
