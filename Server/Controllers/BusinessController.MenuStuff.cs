@@ -83,8 +83,7 @@ namespace Server.Controllers
 
         // TODO: oohg - menu stuff
 
-        /*        
-            put remove element           business/menu-stuff/element                 tested
+        /*                    
             put visibility element              business/menu-stuff/element/move            tested                  
             put image element                   business/menu-stuff/element/image           tested
             delete image element                business/menu-stuff/element/image           tested
