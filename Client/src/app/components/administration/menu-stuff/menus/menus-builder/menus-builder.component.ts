@@ -34,6 +34,7 @@ export class MenusBuilderComponent implements OnInit {
     _elementClicked!: MenuElement;
 
     _openModal_addElementToElement: boolean = false;
+    _openModal_removeElementFromElement: boolean = false;
 
     constructor(
         private menuStuffService: MenuStuffService,
@@ -168,7 +169,6 @@ export class MenusBuilderComponent implements OnInit {
             return;
         }
 
-        // TODO: oohg - 2
         // aplica a: categoria, producto
         if (action === "remove") {
             this.onRemoveAction(element);
@@ -242,7 +242,7 @@ export class MenusBuilderComponent implements OnInit {
     }
 
     onRemoveAction(element: MenuElement) {
-        throw new Error('Method not implemented.');
+        this._openModal_removeElementFromElement = true;        
     }
 
     onVisibilityAction(element: MenuElement) {
@@ -278,10 +278,12 @@ export class MenusBuilderComponent implements OnInit {
 
     onModalClosedClicked() {  
         this._openModal_addElementToElement = false;      
+        this._openModal_removeElementFromElement = false;
     }
 
     async onModalOkClicked() {
-        this._openModal_addElementToElement = false;
+        this._openModal_addElementToElement = false;      
+        this._openModal_removeElementFromElement = false;
         await this.getDataAsync();
     }
 }

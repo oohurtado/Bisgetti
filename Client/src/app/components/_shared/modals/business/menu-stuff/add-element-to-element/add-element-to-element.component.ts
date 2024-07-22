@@ -30,8 +30,8 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
 	@Output() evtClose!: EventEmitter<void>;
     
     ids: number[] = [];
+    
     _isProcessing: boolean = false;
-
     _error!: string|null;
 
 	constructor(
@@ -64,11 +64,11 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
         this.openModal.nativeElement.click();
     
         if (this.element.categoryId == null) {
-            this._textTitle = "Agregar elemento a menú";
+            this._textTitle = "Agregar categoría a menú";
             this._textDescription = "Categorías disponibles:";
             this._textNoData = "No hay categorías disponibles";
         } else if (this.element.categoryId != null) {
-            this._textTitle = "Agregar elemento a categoría";
+            this._textTitle = "Agregar producto a categoría";
             this._textDescription = "Productos disponibles:";
             this._textNoData = "No hay productos disponibles";
         }  

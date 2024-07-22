@@ -84,11 +84,7 @@ namespace Server.Controllers
         // TODO: oohg - menu stuff
 
         /*        
-            get menu stuff                      business/menu-stuff/{menuId}                tested
-            get categories                      business/categories                         tested
-            get products                        business/products                           tested
-            put add or remove element           business/menu-stuff/element                 tested
-            put position element                business/menu-stuff/element/move            tested
+            put remove element           business/menu-stuff/element                 tested
             put visibility element              business/menu-stuff/element/move            tested                  
             put image element                   business/menu-stuff/element/image           tested
             delete image element                business/menu-stuff/element/image           tested
