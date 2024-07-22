@@ -53,13 +53,15 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
 		
 		if (this.open) {            
             this.init();
-		}
+		} else {
+            this.elements = [];
+            this.ids = [];
+            this._error = null;
+        }
 	}
     
     init() {
         this.openModal.nativeElement.click();
-
-        this.ids = [];
     
         if (this.element.categoryId == null) {
             this._textTitle = "Agregar elemento a menú";
