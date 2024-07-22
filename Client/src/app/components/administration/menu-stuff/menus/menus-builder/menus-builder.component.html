@@ -17,8 +17,7 @@
     </div>
 </div>
 
-<div *ngFor="let item of _data" class="card element" [class]="item.css" (mouseenter)="onMouseEnter(item)"
-    (mouseleave)='onMouseLeave(item)'>
+<div *ngFor="let item of _data" class="card element" [class]="item.css" (mouseenter)="onMouseEnter(item)" (mouseleave)='onMouseLeave(item)'>
     <div class="card-body pt-1 pb-1">
         {{ item.text }}
         <ng-container *ngIf="item.isMouseOverElement">
@@ -92,5 +91,9 @@
     </div>
 </div>
 
-<app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked" [open]="_openModal_addElementToElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-add-element-to-element>
-<app-remove-element-from-element [element]="_elementClicked" [open]="_openModal_removeElementFromElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-remove-element-from-element>
+<ng-container *ngIf="_openModal_addElementToElement">
+    <app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked" [open]="_openModal_addElementToElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-add-element-to-element>
+</ng-container>
+<ng-container *ngIf="_openModal_removeElementFromElement">
+    <app-remove-element-from-element [element]="_elementClicked" [open]="_openModal_removeElementFromElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-remove-element-from-element>
+</ng-container>
