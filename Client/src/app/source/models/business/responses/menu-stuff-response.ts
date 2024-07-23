@@ -4,7 +4,6 @@ export class MenuStuffResponse {
     position!: number;
     isVisible!: boolean;
     isAvailable!: boolean;
-    isSoldOut!: boolean;
     menuId!: number;
     categoryId!: number;
     productId!: number;

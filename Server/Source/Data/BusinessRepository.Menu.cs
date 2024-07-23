@@ -66,7 +66,7 @@ namespace Server.Source.Data
 
             var menuStuff = new MenuStuffEntity()
             {
-                MenuId = menu.Id,                
+                MenuId = menu.Id,
             };
             _context.MenuStuff.Add(menuStuff);
             await _context.SaveChangesAsync();

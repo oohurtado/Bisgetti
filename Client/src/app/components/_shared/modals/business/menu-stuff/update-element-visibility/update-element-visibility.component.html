@@ -25,46 +25,48 @@
             </div>
             <div class="modal-body">
                 <strong class="d-block">{{ element.text }}</strong> 
+
+                <!--Menú-->
                 <ng-container *ngIf="element.categoryId == null">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="show" (change)="onChangeStatus($event)">
-                        <label class="form-check-label" for="show">
-                            Mostrar menú a los clientes (mostrar)
+                        <input class="form-check-input" type="checkbox" value="true" id="visible" (change)="onChangeStatus($event)" [checked]="_isVisible">
+                        <label class="form-check-label" for="visible">
+                            El cliente podrá ver el menú
                         </label>
                     </div>  
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="available" (change)="onChangeStatus($event)">
+                        <input class="form-check-input" type="checkbox" value="true" id="available" (change)="onChangeStatus($event)" [checked]="_isAvailable">
                         <label class="form-check-label" for="available">
-                            Los clientes podrán realizar pedidos (activar)
+                            El cliente podrá realizar pedidos
                         </label>
                     </div>                      
                 </ng-container>
+
+                <!-- categoría -->
                 <ng-container *ngIf="element.categoryId != null && element.productId == null">
-                    categoría
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="visible" (change)="onChangeStatus($event)" [checked]="_isVisible">
+                        <label class="form-check-label" for="visible">
+                            El cliente podrá ver la categoría en el menú
+                        </label>
+                    </div>  
                 </ng-container>   
+
+                <!-- producto -->                 
                 <ng-container *ngIf="element.productId != null">
-                    producto
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="visible" (change)="onChangeStatus($event)" [checked]="_isVisible">
+                        <label class="form-check-label" for="visible">
+                            El cliente podrá ver el producto en el menú
+                        </label>
+                    </div>  
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="available" (change)="onChangeStatus($event)" [checked]="_isAvailable">
+                        <label class="form-check-label" for="available">
+                            El cliente podra agregar el producto al carrito de compras
+                        </label>
+                    </div>                      
                 </ng-container>                   
-                <!-- 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="true" id="show" (change)="onChangeStatus($event)">
-                    <label class="form-check-label" for="show">
-                        Mostrar (se mostrará el menú a los clientes)
-                    </label>
-                </div>              
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="true" id="available" (change)="onChangeStatus($event)">
-                    <label class="form-check-label" for="available">
-                        Disponible (los clientes podrán realizar pedidos)
-                    </label>
-                </div>     
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="true" id="soldOut" (change)="onChangeStatus($event)">
-                    <label class="form-check-label" for="soldOut">
-                        Vendido (se mostrará la leyenda)
-                    </label>
-                </div>   
-                -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>

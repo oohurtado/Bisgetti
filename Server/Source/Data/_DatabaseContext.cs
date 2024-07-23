@@ -102,7 +102,6 @@ namespace Server.Source.Data
                 e.Property(p => p.Position).IsRequired(required: false);
                 e.Property(p => p.IsVisible).IsRequired(required: true);
                 e.Property(p => p.IsAvailable).IsRequired(required: true);
-                e.Property(p => p.IsSoldOut).IsRequired(required: true);
                 e.Property(p => p.MenuId).IsRequired(required: true);
                 e.Property(p => p.CategoryId).IsRequired(required: false);
                 e.Property(p => p.ProductId).IsRequired(required: false);

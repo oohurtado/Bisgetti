@@ -3,6 +3,7 @@ import { MenuElement } from '../../../../../../source/models/business/menu-eleme
 import { MenuStuffService } from '../../../../../../services/business/menu-stuff.service';
 import { AddOrRemoveElementRequest } from '../../../../../../source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from '../../../../../../source/utils';
+import { VisibilityElementRequest } from '../../../../../../source/models/dtos/menus/visibility-element-request';
 
 @Component({
     selector: 'app-update-element-visibility',
@@ -22,6 +23,9 @@ export class UpdateElementVisibilityComponent implements OnChanges, OnInit {
     
     _isProcessing: boolean = false;
     _error!: string|null;
+
+    _isVisible: boolean = false;
+    _isAvailable: boolean = false;
 
     constructor(
         private menuStuffService: MenuStuffService
@@ -47,6 +51,9 @@ export class UpdateElementVisibilityComponent implements OnChanges, OnInit {
     
     init() {
         this.openModal.nativeElement.click();
+
+        this._isVisible = this.element.isVisible;
+        this._isAvailable = this.element.isAvailable;
     }
 
 	onCloseClicked(): void {
@@ -56,12 +63,13 @@ export class UpdateElementVisibilityComponent implements OnChanges, OnInit {
 
 	async onOkClicked() {
         this._isProcessing = true;
-
-        // await this.menuStuffService.addOrRemoveElementAsync(model!)
-        // .then(r => {       
-        // }, e => {
-        //     this._error = Utils.getErrorsResponse(e);
-        // });
+        
+        let model = new VisibilityElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, this._isVisible, this._isAvailable);
+        await this.menuStuffService.updateElementVisibilityAsync(model!)
+            .then(r => {       
+            }, e => {
+                this._error = Utils.getErrorsResponse(e);
+            });
 
         this._isProcessing = false;
 
@@ -70,13 +78,14 @@ export class UpdateElementVisibilityComponent implements OnChanges, OnInit {
 	}
 
     onChangeStatus(event:Event){
-        // let isChecked = (<HTMLInputElement>event.target).checked;
-        // let value = (<HTMLInputElement>event.target).value;
-
-        // if (isChecked) {
-        //     this.ids.push(+value);
-        // } else {
-        //     this.ids = this.ids.filter(p => p != (+value));
-        // }
+        let id = (<HTMLInputElement>event.target).id;
+        let isChecked = (<HTMLInputElement>event.target).checked;
+        let value = (<HTMLInputElement>event.target).value;
+        
+        if (id === "visible") {
+            this._isVisible = isChecked;            
+        } else if (id === "available") {
+            this._isAvailable = isChecked;            
+        }
     }
 }

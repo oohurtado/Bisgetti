@@ -8,6 +8,5 @@
 
         public bool? IsVisible { get; set; }
         public bool? IsAvailable { get; set; }
-        public bool? IsSoldOut { get; set; }
     }
 }

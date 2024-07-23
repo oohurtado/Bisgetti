@@ -71,6 +71,7 @@ namespace Server.Source.Logic
                     MenuId = request.MenuId,
                     CategoryId = request.CategoryId,                    
                     IsVisible = true,
+                    IsAvailable = true,
                     Position = position + 1,
                 };
 
@@ -96,7 +97,6 @@ namespace Server.Source.Logic
                     ProductId = request.ProductId,
                     IsVisible = true,
                     IsAvailable = true,
-                    IsSoldOut = false,                    
                     Position = position + 1,
                 };
 
@@ -244,7 +244,6 @@ namespace Server.Source.Logic
             {
                 element.IsVisible = request.IsVisible ?? false;
                 element.IsAvailable = request.IsAvailable ?? false;
-                element.IsSoldOut = request.IsSoldOut ?? false;
                 await _businessRepository.UpdateAsync();
                 return;
             }

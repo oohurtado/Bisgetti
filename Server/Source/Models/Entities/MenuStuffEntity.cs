@@ -24,11 +24,6 @@
         public bool IsAvailable { get; set; }
 
         /// <summary>
-        /// Aplica a: producto
-        /// </summary>
-        public bool IsSoldOut { get; set; }
-
-        /// <summary>
         /// Relationships
         /// </summary>
 
