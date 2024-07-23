@@ -15,12 +15,7 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
     @Input() open!: boolean;
     
     @ViewChild('openModal', { static: true }) openModal!: ElementRef;
-    @ViewChild('closeModal', { static: true }) closeModal!: ElementRef;
-    
-    _textTitle: string = "Quitar elemento";
-    _textDescription: string = "¿Deseas quitar el elemento del elemento?"
-    _textBtnOk: string = "Aceptar";
-    _textBtnClose: string = "Cancelar";
+    @ViewChild('closeModal', { static: true }) closeModal!: ElementRef;  
 
     @Output() evtOk!: EventEmitter<void>;
 	@Output() evtClose!: EventEmitter<void>;
@@ -52,14 +47,6 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
 
     init() {
         this.openModal.nativeElement.click();
-    
-        if (this.element.productId == null) {
-            this._textTitle = "Quitar categoría del menú";
-            this._textDescription = `¿Deseas quitar la categoría ${this.element.text} del menú?`;
-        } else if (this.element.productId != null) {
-            this._textTitle = "Quitar producto de la categoría";
-            this._textDescription = `¿Deseas quitar el producto ${this.element.text} de la categoría?`;
-        }  
     }
 
     onCloseClicked(): void {

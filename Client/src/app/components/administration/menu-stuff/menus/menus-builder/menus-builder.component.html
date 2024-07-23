@@ -97,3 +97,6 @@
 <ng-container *ngIf="_openModal_removeElementFromElement">
     <app-remove-element-from-element [element]="_elementClicked" [open]="_openModal_removeElementFromElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-remove-element-from-element>
 </ng-container>
+<ng-container *ngIf="_openModal_updateElementVisibility">
+    <app-update-element-visibility [element]="_elementClicked" [open]="_openModal_updateElementVisibility" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-visibility>
+</ng-container>

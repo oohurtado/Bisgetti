@@ -1,1 +1,78 @@
-<p>update-element-visibility works!</p>
+<!-- Button trigger modal -->
+<button #openModal type="button" class="btn btn-primary collapse" data-bs-toggle="modal"
+    data-bs-target="#addElementToElement">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addElementToElement" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">
+                    <ng-container *ngIf="element.categoryId == null">
+                        Actualizar opciones de visibilidad en menú
+                    </ng-container>
+                    <ng-container *ngIf="element.categoryId != null && element.productId == null">
+                        Actualizar opciones de visibilidad en categoría
+                    </ng-container>   
+                    <ng-container *ngIf="element.productId != null">
+                        Actualizar opciones de visibilidad en producto
+                    </ng-container>                          
+                </h5>
+                <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseClicked()"></button>
+            </div>
+            <div class="modal-body">
+                <strong class="d-block">{{ element.text }}</strong> 
+                <ng-container *ngIf="element.categoryId == null">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="show" (change)="onChangeStatus($event)">
+                        <label class="form-check-label" for="show">
+                            Mostrar menú a los clientes (mostrar)
+                        </label>
+                    </div>  
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="available" (change)="onChangeStatus($event)">
+                        <label class="form-check-label" for="available">
+                            Los clientes podrán realizar pedidos (activar)
+                        </label>
+                    </div>                      
+                </ng-container>
+                <ng-container *ngIf="element.categoryId != null && element.productId == null">
+                    categoría
+                </ng-container>   
+                <ng-container *ngIf="element.productId != null">
+                    producto
+                </ng-container>                   
+                <!-- 
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="true" id="show" (change)="onChangeStatus($event)">
+                    <label class="form-check-label" for="show">
+                        Mostrar (se mostrará el menú a los clientes)
+                    </label>
+                </div>              
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="true" id="available" (change)="onChangeStatus($event)">
+                    <label class="form-check-label" for="available">
+                        Disponible (los clientes podrán realizar pedidos)
+                    </label>
+                </div>     
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="true" id="soldOut" (change)="onChangeStatus($event)">
+                    <label class="form-check-label" for="soldOut">
+                        Vendido (se mostrará la leyenda)
+                    </label>
+                </div>   
+                -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="onOkClicked()" [disabled]="_isProcessing">
+                    <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
+                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Aceptar</span>                                        
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

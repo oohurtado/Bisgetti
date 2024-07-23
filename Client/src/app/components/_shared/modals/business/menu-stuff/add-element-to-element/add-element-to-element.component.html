@@ -10,24 +10,37 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">{{ _textTitle }}</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">                    
+                    <ng-container *ngIf="element.categoryId == null">
+                        Agregar categorías al menú
+                    </ng-container>
+                    <ng-container *ngIf="element.categoryId != null">
+                        Agregar productos a la categoría
+                    </ng-container>                           
+                </h5>
                 <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseClicked()"></button>
             </div>
             <div class="modal-body">
-                <strong>{{ _textDescription }}</strong>                
+                <strong class="d-block">{{ element.text }}</strong>
+                <ng-container *ngIf="element.categoryId == null">
+                    Categorías disponibles:
+                </ng-container>
+                <ng-container *ngIf="element.categoryId != null">
+                    Productos disponibles:
+                </ng-container>                
                 <div class="form-check" *ngFor="let item of elements">
                     <input class="form-check-input" type="checkbox" value="{{ item.param1 }}" id="id{{ item.param1 }}" (change)="onChangeStatus($event)">
                     <label class="form-check-label" for="id{{ item.param1 }}">
                         {{ item.param2}}
                     </label>
                 </div>
-                <p *ngIf="elements?.length == 0">{{ _textNoData }}</p>
+                <p *ngIf="elements?.length == 0">No hay elementos disponibles</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">{{ _textBtnClose }}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>
                 <button type="button" class="btn btn-primary" (click)="onOkClicked()" [disabled]="_isProcessing">
                     <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
-                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;{{ _textBtnOk }}</span>                                        
+                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Aceptar</span>                                        
                 </button>
             </div>
         </div>

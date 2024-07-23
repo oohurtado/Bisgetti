@@ -10,17 +10,30 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">{{ _textTitle }}</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">
+                    <ng-container *ngIf="element.productId == null">
+                        Quitar categorías del menú
+                    </ng-container>
+                    <ng-container *ngIf="element.productId != null">
+                        Quitar productos de la categoría
+                    </ng-container>
+                </h5>
                 <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseClicked()"></button>
             </div>
             <div class="modal-body">
-                <strong>{{ _textDescription }}</strong>                
+                <strong class="d-block">{{ element.text }}</strong>                
+                <ng-container *ngIf="element.productId == null">
+                    ¿Deseas quitar la categoría del menú?
+                </ng-container>
+                <ng-container *ngIf="element.productId != null">
+                    ¿Deseas quitar el producto de la categoría?
+                </ng-container>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">{{ _textBtnClose }}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>
                 <button type="button" class="btn btn-primary" (click)="onOkClicked()" [disabled]="_isProcessing">
                     <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
-                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;{{ _textBtnOk }}</span>                                        
+                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Aceptar</span>                                        
                 </button>
             </div>
         </div>

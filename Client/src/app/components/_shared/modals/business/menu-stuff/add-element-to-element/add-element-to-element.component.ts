@@ -20,12 +20,6 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
     @ViewChild('openModal', { static: true }) openModal!: ElementRef;
     @ViewChild('closeModal', { static: true }) closeModal!: ElementRef;
 
-    _textTitle: string = "Agregar elemento";
-    _textDescription: string = "Elementos disponibles"
-    _textNoData: string = "No hay elementos disponibles";
-    _textBtnOk: string = "Aceptar";
-    _textBtnClose: string = "Cancelar";
-
     @Output() evtOk!: EventEmitter<void>;
 	@Output() evtClose!: EventEmitter<void>;
     
@@ -61,18 +55,7 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
 	}
     
     init() {
-        this.openModal.nativeElement.click();
-    
-        if (this.element.categoryId == null) {
-            this._textTitle = "Agregar categoría a menú";
-            this._textDescription = "Categorías disponibles:";
-            this._textNoData = "No hay categorías disponibles";
-        } else if (this.element.categoryId != null) {
-            this._textTitle = "Agregar producto a categoría";
-            this._textDescription = "Productos disponibles:";
-            this._textNoData = "No hay productos disponibles";
-        }  
-        
+        this.openModal.nativeElement.click();      
         this.elements = lodash.sortBy(this.elements, p => p.param2);
     }
 
