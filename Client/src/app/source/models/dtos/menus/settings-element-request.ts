@@ -1,4 +1,4 @@
-export class VisibilityElementRequest {
+export class SettingsElementRequest {
     constructor(
         public menuId: number|null,
         public categoryId: number|null,

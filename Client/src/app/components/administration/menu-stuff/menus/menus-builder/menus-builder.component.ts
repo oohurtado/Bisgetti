@@ -36,6 +36,7 @@ export class MenusBuilderComponent implements OnInit {
     _openModal_addElementToElement: boolean = false;
     _openModal_removeElementFromElement: boolean = false;
     _openModal_updateElementSettings: boolean = false;
+    _openModal_updateElementImage: boolean = false;
 
     constructor(
         private menuStuffService: MenuStuffService,
@@ -250,7 +251,7 @@ export class MenusBuilderComponent implements OnInit {
     }    
 
     onImageAction(element: MenuElement) {
-        throw new Error('Method not implemented.');
+        this._openModal_updateElementImage = true;
     }
     
     onMoveUpOrMoveDown(element: MenuElement, action: string) {
@@ -280,6 +281,7 @@ export class MenusBuilderComponent implements OnInit {
         this._openModal_addElementToElement = false;      
         this._openModal_removeElementFromElement = false;
         this._openModal_updateElementSettings = false;
+        this._openModal_updateElementImage = false;
     }
 
     async onModalOkClicked() {

@@ -100,3 +100,6 @@
 <ng-container *ngIf="_openModal_updateElementSettings">
     <app-update-element-settings [element]="_elementClicked" [open]="_openModal_updateElementSettings" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-settings>
 </ng-container>
+<ng-container *ngIf="_openModal_updateElementImage">
+    <app-update-element-image [element]="_elementClicked" [open]="_openModal_updateElementImage" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-image>
+</ng-container>

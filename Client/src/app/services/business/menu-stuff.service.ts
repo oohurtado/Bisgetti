@@ -10,7 +10,7 @@ import { CreateOrUpdateProductRequest } from '../../source/models/dtos/menus/cre
 import { MenuStuffResponse } from '../../source/models/business/responses/menu-stuff-response';
 import { AddOrRemoveElementRequest } from '../../source/models/dtos/menus/add-or-remove-element-request';
 import { PositionElementRequest } from '../../source/models/dtos/menus/position-element-request';
-import { VisibilityElementRequest } from '../../source/models/dtos/menus/visibility-element-request';
+import { SettingsElementRequest } from '../../source/models/dtos/menus/settings-element-request';
 import { ImageElementRequest } from '../../source/models/dtos/menus/image-element-request';
 
 @Injectable({
@@ -255,13 +255,13 @@ export class MenuStuffService {
 		return this.requestService.put(`/business/menu-stuff/element/position`, model);
 	}	
 
-	updateElementVisibility(model: VisibilityElementRequest) {
-		return this.requestService.put(`/business/menu-stuff/element/visibility`, model);
+	updateElementSettings(model: SettingsElementRequest) {
+		return this.requestService.put(`/business/menu-stuff/element/settings`, model);
 	}
 
-	updateElementVisibilityAsync(model: VisibilityElementRequest) {
+	updateElementSettingsAsync(model: SettingsElementRequest) {
 		return new Promise((resolve, reject) => {
-			this.updateElementVisibility(model)
+			this.updateElementSettings(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);

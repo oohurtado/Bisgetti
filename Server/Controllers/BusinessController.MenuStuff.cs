@@ -50,10 +50,10 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
-        [HttpPut(template: "menu-stuff/element/visibility")]
-        public async Task<ActionResult> UpdateElementVisibility([FromBody] VisibilityElementRequest request)
+        [HttpPut(template: "menu-stuff/element/settings")]
+        public async Task<ActionResult> UpdateElementSettings([FromBody] SettingsElementRequest request)
         {
-            await _businessLogicMenuStuff.UpdateElementVisibilityAsync(request);
+            await _businessLogicMenuStuff.UpdateElementSettingsAsync(request);
             return Ok();
         }
 

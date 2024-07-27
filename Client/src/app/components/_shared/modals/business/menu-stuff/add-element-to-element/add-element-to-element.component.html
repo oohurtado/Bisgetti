@@ -1,21 +1,21 @@
 <!-- Button trigger modal -->
 <button #openModal type="button" class="btn btn-primary collapse" data-bs-toggle="modal"
-    data-bs-target="#addElementToElement">
+    data-bs-target="#mymodal">
     Launch static backdrop modal
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="addElementToElement" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="mymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">                    
                     <ng-container *ngIf="element.categoryId == null">
-                        Agregar categorías al menú
+                        Menú - Agregar categorías
                     </ng-container>
                     <ng-container *ngIf="element.categoryId != null">
-                        Agregar productos a la categoría
+                        Categoría - Agregar productos
                     </ng-container>                           
                 </h5>
                 <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseClicked()"></button>

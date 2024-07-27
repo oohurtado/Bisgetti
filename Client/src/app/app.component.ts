@@ -8,7 +8,7 @@ import { MenuStuffService } from './services/business/menu-stuff.service';
 import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from './source/utils';
 import { PositionElementRequest } from './source/models/dtos/menus/position-element-request';
-import { VisibilityElementRequest } from './source/models/dtos/menus/visibility-element-request';
+import { SettingsElementRequest } from './source/models/dtos/menus/settings-element-request';
 declare let alertify: any;
 
 @Component({

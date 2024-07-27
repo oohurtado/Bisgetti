@@ -3,7 +3,7 @@ import { MenuElement } from '../../../../../../source/models/business/menu-eleme
 import { MenuStuffService } from '../../../../../../services/business/menu-stuff.service';
 import { AddOrRemoveElementRequest } from '../../../../../../source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from '../../../../../../source/utils';
-import { VisibilityElementRequest } from '../../../../../../source/models/dtos/menus/visibility-element-request';
+import { SettingsElementRequest } from '../../../../../../source/models/dtos/menus/settings-element-request';
 
 @Component({
     selector: 'app-update-element-settings',
@@ -64,8 +64,8 @@ export class UpdateElementSettingsComponent implements OnChanges, OnInit {
 	async onOkClicked() {
         this._isProcessing = true;
         
-        let model = new VisibilityElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, this._isVisible, this._isAvailable);
-        await this.menuStuffService.updateElementVisibilityAsync(model!)
+        let model = new SettingsElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, this._isVisible, this._isAvailable);
+        await this.menuStuffService.updateElementSettingsAsync(model!)
             .then(r => {       
             }, e => {
                 this._error = Utils.getErrorsResponse(e);

@@ -210,7 +210,7 @@ namespace Server.Source.Logic
             }            
         }
 
-        public async Task UpdateElementVisibilityAsync(VisibilityElementRequest request)
+        public async Task UpdateElementSettingsAsync(SettingsElementRequest request)
         {
             var element = await _businessRepository
                 .GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)
