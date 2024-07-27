@@ -55,7 +55,7 @@ import { NavbarUserNameComponent } from './components/_shared/navbar/navbar-user
 import { MenusBuilderComponent } from './components/administration/menu-stuff/menus/menus-builder/menus-builder.component';
 import { AddElementToElementComponent } from './components/_shared/modals/business/menu-stuff/add-element-to-element/add-element-to-element.component';
 import { UpdateElementImageComponent } from './components/_shared/modals/business/menu-stuff/update-element-image/update-element-image.component';
-import { UpdateElementVisibilityComponent } from './components/_shared/modals/business/menu-stuff/update-element-visibility/update-element-visibility.component';
+import { UpdateElementSettingsComponent } from './components/_shared/modals/business/menu-stuff/update-element-settings/update-element-settings.component';
 import { RemoveElementFromElementComponent } from './components/_shared/modals/business/menu-stuff/remove-element-from-element/remove-element-from-element.component';
 
 @NgModule({
@@ -104,7 +104,7 @@ import { RemoveElementFromElementComponent } from './components/_shared/modals/b
   MenusBuilderComponent,
   AddElementToElementComponent,
   UpdateElementImageComponent,
-  UpdateElementVisibilityComponent,
+  UpdateElementSettingsComponent,
   RemoveElementFromElementComponent,
 	],
 	imports: [

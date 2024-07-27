@@ -6,11 +6,11 @@ import { Utils } from '../../../../../../source/utils';
 import { VisibilityElementRequest } from '../../../../../../source/models/dtos/menus/visibility-element-request';
 
 @Component({
-    selector: 'app-update-element-visibility',
-    templateUrl: './update-element-visibility.component.html',
-    styleUrl: './update-element-visibility.component.css'
+    selector: 'app-update-element-settings',
+    templateUrl: './update-element-settings.component.html',
+    styleUrl: './update-element-settings.component.css'
 })
-export class UpdateElementVisibilityComponent implements OnChanges, OnInit {
+export class UpdateElementSettingsComponent implements OnChanges, OnInit {
     
     @Input() element!: MenuElement;
     @Input() open!: boolean;

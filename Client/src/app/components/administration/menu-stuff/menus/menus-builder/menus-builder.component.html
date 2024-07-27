@@ -30,9 +30,9 @@
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
                 </a>
-                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de visibilidad"
-                    (click)="onElementClicked($event, item, 'visibility')">
-                    <i class="fa-solid fa-eye fa-lg"></i>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de configuación"
+                    (click)="onElementClicked($event, item, 'settings')">
+                    <i class="fa-solid fa-gear fa-lg"></i>
                 </a>
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Previsualizar menú"
                     (click)="onElementClicked($event, item, 'preview')">
@@ -52,9 +52,9 @@
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
                 </a>
-                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de visibilidad"
-                    (click)="onElementClicked($event, item, 'visibility')">
-                    <i class="fa-solid fa-eye fa-lg"></i>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de configuación"
+                    (click)="onElementClicked($event, item, 'settings')">
+                    <i class="fa-solid fa-gear fa-lg"></i>
                 </a>
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Mover categoría hacia arriba"
                     (click)="onElementClicked($event, item, 'move-up')">
@@ -74,9 +74,9 @@
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
                 </a>
-                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de visibilidad"
-                    (click)="onElementClicked($event, item, 'visibility')">
-                    <i class="fa-solid fa-eye fa-lg"></i>
+                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de configuación"
+                    (click)="onElementClicked($event, item, 'settings')">
+                    <i class="fa-solid fa-gear fa-lg"></i>
                 </a>
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Mover producto hacia arriba"
                     (click)="onElementClicked($event, item, 'move-up')">
@@ -97,6 +97,6 @@
 <ng-container *ngIf="_openModal_removeElementFromElement">
     <app-remove-element-from-element [element]="_elementClicked" [open]="_openModal_removeElementFromElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-remove-element-from-element>
 </ng-container>
-<ng-container *ngIf="_openModal_updateElementVisibility">
-    <app-update-element-visibility [element]="_elementClicked" [open]="_openModal_updateElementVisibility" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-visibility>
+<ng-container *ngIf="_openModal_updateElementSettings">
+    <app-update-element-settings [element]="_elementClicked" [open]="_openModal_updateElementSettings" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-settings>
 </ng-container>
