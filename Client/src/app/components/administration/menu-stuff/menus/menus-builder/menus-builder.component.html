@@ -26,7 +26,7 @@
                     (click)="onElementClicked($event, item, 'add')">
                     <i class="fa-solid fa-plus fa-lg"></i>
                 </a>
-                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen"
+                <a class="cursor-pointer ms-2 me-2" [ngClass]="{'link-secondary': item.image == null, 'link-primary': item.image != null }" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
                 </a>
@@ -48,7 +48,7 @@
                     (click)="onElementClicked($event, item, 'remove')">
                     <i class="fa-solid fa-xmark fa-lg"></i>
                 </a>
-                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen"
+                <a class="cursor-pointer ms-2 me-2" [ngClass]="{'link-secondary': item.image == null, 'link-primary': item.image != null }" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
                 </a>
@@ -70,7 +70,7 @@
                     (click)="onElementClicked($event, item, 'remove')">
                     <i class="fa-solid fa-xmark fa-lg"></i>
                 </a>
-                <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar imagen"
+                <a class="cursor-pointer ms-2 me-2" [ngClass]="{'link-secondary': item.image == null, 'link-primary': item.image != null }" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
                 </a>
