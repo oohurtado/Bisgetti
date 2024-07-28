@@ -70,6 +70,18 @@ namespace Server.Controllers
         }
 
         /// <summary>
+        /// Obtener imagen del elemento
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpGet(template: "menu-stuff/element/image/{menuId}/{categoryId}/{productId}")]
+        public async Task<ActionResult> GetElementImage(int menuId, int categoryId, int productId)
+        {
+            var result = await _businessLogicMenuStuff.GetElementImageAsync(menuId, categoryId, productId);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Borra imagen del elemento
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

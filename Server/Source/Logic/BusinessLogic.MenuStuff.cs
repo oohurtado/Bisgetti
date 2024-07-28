@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Server.Source.Data.Interfaces;
@@ -249,6 +250,39 @@ namespace Server.Source.Logic
             }
 
             throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+        }
+
+        public async Task<ImageElementResponse> GetElementImageAsync(int? menuId, int? categoryId, int? productId)
+        {
+            if (menuId == 0)
+            {
+                menuId = null;
+            }
+            if (categoryId == 0)
+            {
+                categoryId = null;
+            }
+            if (productId == 0)
+            {
+                productId = null;
+            }
+
+            var element = await _businessRepository
+                .GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)            
+                .FirstOrDefaultAsync();
+
+            if (element == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.BusinessElementDoesNotExists);
+            }
+
+            if (!string.IsNullOrEmpty(element.Image))
+            {
+                var url = FileUtility.GetUrlFile(_storageFile, element.Image, CONTAINER_FILE);
+                return new ImageElementResponse() { Url = url };
+            }
+
+            throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
         }
 
         public async Task UpdateElementImageAsync(ImageElementRequest request)

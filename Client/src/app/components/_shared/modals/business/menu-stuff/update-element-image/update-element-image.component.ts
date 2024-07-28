@@ -1,6 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MenuElement } from '../../../../../../source/models/business/menu-element';
 import { MenuStuffService } from '../../../../../../services/business/menu-stuff.service';
+import { FormBuilder } from '@angular/forms';
+import { Utils } from '../../../../../../source/utils';
+import { ImageElementResponse } from '../../../../../../source/models/dtos/menus/image-element-response';
 
 @Component({
     selector: 'app-update-element-image',
@@ -16,13 +19,16 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
 
     @Output() evtOk!: EventEmitter<void>;
     @Output() evtClose!: EventEmitter<void>;
-
+    
     _isProcessing: boolean = false;
     _isProcessingExtra: boolean = false;
     _error!: string | null;
 
+    _url!: ImageElementResponse;
+
     constructor(
-        private menuStuffService: MenuStuffService
+        private menuStuffService: MenuStuffService,
+        private formBuilder: FormBuilder,
     ) {
 		this.evtOk = new EventEmitter<void>();
 		this.evtClose = new EventEmitter<void>();
@@ -45,6 +51,21 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
 
     init() {
         this.openModal.nativeElement.click();
+
+        if (this.element.imagePath !== null)
+            {
+                this.menuStuffService.getElementImage(this.element.menuId, this.element.categoryId, this.element.productId)
+                .subscribe({
+                    complete: () => {
+                    },
+                    error: (e : string) => {
+                        this._error = Utils.getErrorsResponse(e);
+                    },
+                    next: (val) => {
+                        this._url = val;
+                    }
+                });
+            }        
     }
 
     onCloseClicked(): void {
@@ -53,5 +74,8 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
 	}
 
     async onOkClicked() {
+	}
+
+    async onOkExtraClicked() {
 	}
 }

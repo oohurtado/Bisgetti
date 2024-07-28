@@ -12,6 +12,7 @@ import { AddOrRemoveElementRequest } from '../../source/models/dtos/menus/add-or
 import { PositionElementRequest } from '../../source/models/dtos/menus/position-element-request';
 import { SettingsElementRequest } from '../../source/models/dtos/menus/settings-element-request';
 import { ImageElementRequest } from '../../source/models/dtos/menus/image-element-request';
+import { ImageElementResponse } from '../../source/models/dtos/menus/image-element-response';
 
 @Injectable({
     providedIn: 'root'
@@ -271,6 +272,19 @@ export class MenuStuffService {
 				}
 			});
 		});
+	}
+
+	getElementImage(menuId: number, categoryId: number, productId: number) {
+		if (menuId == null) {
+			menuId = 0;
+		}
+		if (categoryId == null) {
+			categoryId = 0;
+		}
+		if (productId == null) {
+			productId = 0;
+		}
+		return this.requestService.get<ImageElementResponse>(`/business/menu-stuff/element/image/${menuId}/${categoryId}/${productId}`);
 	}
 
 	updateElementImage(model: FormData) {
