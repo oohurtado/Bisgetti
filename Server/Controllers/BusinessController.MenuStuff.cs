@@ -58,18 +58,6 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Crear o Cambiar imagen del elemento
-        /// </summary>
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
-        [HttpPut(template: "menu-stuff/element/image")]
-        public async Task<ActionResult> UpdateElementImage([FromForm] ImageElementRequest request)
-        {
-            await _businessLogicMenuStuff.UpdateElementImageAsync(request);
-            return Ok();
-        }
-
-        /// <summary>
         /// Obtener imagen del elemento
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -79,6 +67,18 @@ namespace Server.Controllers
         {
             var result = await _businessLogicMenuStuff.GetElementImageAsync(menuId, categoryId, productId);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Crear o Cambiar imagen del elemento
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "menu-stuff/element/image/{menuId}/{categoryId}/{productId}")]
+        public async Task<ActionResult> UpdateElementImage([FromForm] ImageElementRequest request, int menuId, int categoryId, int productId)
+        {
+            await _businessLogicMenuStuff.UpdateElementImageAsync(request, menuId, categoryId, productId);
+            return Ok();
         }
 
         /// <summary>

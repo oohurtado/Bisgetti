@@ -24,15 +24,22 @@
                 <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseClicked()"></button>
             </div>
             <div class="modal-body">
-                <pre>{{ element | json }}</pre>
-
+                <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onOkClicked()" autocomplete="off">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="formFile" class="form-label">Imagen</label>
+                            <input formControlName="picture" class="form-control" type="file" id="formFile" (change)="onControlFileChanged($event.target)">
+                            <span *ngIf="hasError('picture', 'required')" class="text-danger">Este campo es requerido</span>                            
+                        </div>
+                    </div>                       
+                </form>
                 <ng-container *ngIf="_url != null">
-
+                    <img src="{{ _url.url }}" class="img-thumbnail" alt="...">
                 </ng-container>
             </div>
             <div class="modal-footer">           
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>
-                <button type="button" class="btn btn-danger" (click)="onOkExtraClicked()" [disabled]="(element.imagePath === null || element.imagePath === '') || _isProcessing || _isProcessingExtra">
+                <button type="button" class="btn btn-danger" (click)="onOkExtraClicked()" [disabled]="(element.image === null || element.image === '') || _isProcessing || _isProcessingExtra">
                     <span *ngIf="_isProcessingExtra"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
                     <span *ngIf="!_isProcessingExtra"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Borrar</span>                                        
                 </button>                     

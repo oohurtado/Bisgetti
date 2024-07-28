@@ -287,8 +287,31 @@ export class MenuStuffService {
 		return this.requestService.get<ImageElementResponse>(`/business/menu-stuff/element/image/${menuId}/${categoryId}/${productId}`);
 	}
 
-	updateElementImage(model: FormData) {
-		return this.requestService.put(`/business/menu-stuff/element/image`, model);
+	updateElementImage(model: FormData, menuId: number, categoryId: number, productId: number) {
+		if (menuId == null) {
+			menuId = 0;
+		}
+		if (categoryId == null) {
+			categoryId = 0;
+		}
+		if (productId == null) {
+			productId = 0;
+		}
+		return this.requestService.put(`/business/menu-stuff/element/image/${menuId}/${categoryId}/${productId}`, model);
+	}
+
+	updateElementImageAsync(model: FormData, menuId: number, categoryId: number, productId: number) {
+		return new Promise((resolve, reject) => {
+			this.updateElementImage(model, menuId, categoryId, productId)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
 	}
 
 	deleteElementImage(model: ImageElementRequest) {
@@ -302,5 +325,19 @@ export class MenuStuffService {
 			model.productId = 0;
 		}
 		return this.requestService.delete(`/business/menu-stuff/element/image/${model.menuId}/${model.categoryId}/${model.productId}`);
+	}
+
+	deleteElementImageAsync(model: ImageElementRequest) {
+		return new Promise((resolve, reject) => {
+			this.deleteElementImage(model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
 	}
 }

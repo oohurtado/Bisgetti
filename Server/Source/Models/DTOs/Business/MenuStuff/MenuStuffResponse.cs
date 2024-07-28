@@ -5,7 +5,7 @@ namespace Server.Source.Models.DTOs.Business.MenuStuff
     public class MenuStuffResponse
     {
         public int Id { get; set; }
-        public string? ImagePath { get; set; }
+        public string? Image { get; set; }
         public int? Position { get; set; }
         public bool IsVisible { get; set; }
         public bool IsAvailable { get; set; }

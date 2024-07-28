@@ -285,15 +285,28 @@ namespace Server.Source.Logic
             throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
         }
 
-        public async Task UpdateElementImageAsync(ImageElementRequest request)
+        public async Task UpdateElementImageAsync(ImageElementRequest request, int? menuId, int? categoryId, int? productId)
         {
+            if (menuId == 0)
+            {
+                menuId = null;
+            }
+            if (categoryId == 0)
+            {
+                categoryId = null;
+            }
+            if (productId == 0)
+            {
+                productId = null;
+            }
+
             if (request.File == null)
             {
                 throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementImageMissing);
             }
 
             var element = await _businessRepository
-                .GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)                
+                .GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)                
                 .FirstOrDefaultAsync();
 
             string currentImage = element?.Image!;
@@ -303,7 +316,7 @@ namespace Server.Source.Logic
             await _businessRepository.UpdateAsync();
         }
 
-        internal async Task DeleteElementImageAsync(int? menuId, int? categoryId, int? productId)
+        public async Task DeleteElementImageAsync(int? menuId, int? categoryId, int? productId)
         {
             if (menuId == 0)
             {

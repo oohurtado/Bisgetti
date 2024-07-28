@@ -1,6 +1,6 @@
 export class MenuStuffResponse {
     id!: number;
-    imagePath!: string;
+    image!: string;
     position!: number;
     isVisible!: boolean;
     isAvailable!: boolean;
