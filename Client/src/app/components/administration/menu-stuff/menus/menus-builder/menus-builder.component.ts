@@ -156,6 +156,11 @@ export class MenusBuilderComponent implements OnInit {
 
     onMouseEnter(item: MenuElement) {
         item.isMouseOverElement = true;
+        this._data
+            ?.filter(p => p.id != item.id && p.isMouseOverElement)
+            .forEach(p => {
+                p.isMouseOverElement = false;
+        });
     }
     
     onMouseLeave(item: MenuElement) {
