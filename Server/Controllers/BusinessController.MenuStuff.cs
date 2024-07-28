@@ -92,13 +92,5 @@ namespace Server.Controllers
             await _businessLogicMenuStuff.DeleteElementImageAsync(menuId, categoryId, productId);
             return Ok();
         }
-
-        // TODO: oohg - menu stuff
-
-        /*                    
-            put visibility element              business/menu-stuff/element/move            tested                  
-            put image element                   business/menu-stuff/element/image           tested
-            delete image element                business/menu-stuff/element/image           tested
-        */
     }
 }
