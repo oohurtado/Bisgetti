@@ -35,6 +35,11 @@
                     </label>
                 </div>
                 <p *ngIf="elements?.length == 0">No hay elementos disponibles</p>
+                <ng-container *ngIf="_error !== null">                                        
+                    <div class="alert alert-danger ml-4 mr-4 mt-4" role="alert">
+                        {{ _error }}
+                    </div>                    
+                </ng-container>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>

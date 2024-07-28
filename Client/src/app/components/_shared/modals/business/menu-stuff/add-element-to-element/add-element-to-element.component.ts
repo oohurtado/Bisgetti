@@ -65,6 +65,8 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
 	}
 
 	async onOkClicked() {
+        this._error = null!;
+
         if (this.ids.length == 0) {
             this.closeModal.nativeElement.click();
             return;            
@@ -86,8 +88,10 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
         }
         this._isProcessing = false;
 
-        this.closeModal.nativeElement.click();
-		this.evtOk.emit();
+        if (this._error == null) {
+            this.closeModal.nativeElement.click();
+            this.evtOk.emit();
+        }
 	}
 
     onChangeStatus(event:Event){

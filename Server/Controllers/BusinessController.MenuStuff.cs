@@ -88,7 +88,7 @@ namespace Server.Controllers
         [Authorize(Roles = "user-boss")]
         [HttpDelete(template: "menu-stuff/element/image/{menuId}/{categoryId}/{productId}")]
         public async Task<ActionResult> DeleteElementImage(int menuId, int categoryId, int productId)
-        {
+        {            
             await _businessLogicMenuStuff.DeleteElementImageAsync(menuId, categoryId, productId);
             return Ok();
         }

@@ -55,6 +55,7 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
 	}
 
     async onOkClicked() {
+        this._error = null;
         this._isProcessing = true;
             
         let model: AddOrRemoveElementRequest;
@@ -66,7 +67,9 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
             });
         this._isProcessing = false;
 
-        this.closeModal.nativeElement.click();
-		this.evtOk.emit();
+        if (this._error == null) {
+            this.closeModal.nativeElement.click();
+            this.evtOk.emit();
+        }
 	}
 }

@@ -62,6 +62,7 @@ export class UpdateElementSettingsComponent implements OnChanges, OnInit {
 	}
 
 	async onOkClicked() {
+        this._error = null;
         this._isProcessing = true;
         
         let model = new SettingsElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, this._isVisible, this._isAvailable);
@@ -73,8 +74,10 @@ export class UpdateElementSettingsComponent implements OnChanges, OnInit {
 
         this._isProcessing = false;
 
-        this.closeModal.nativeElement.click();
-		this.evtOk.emit();
+        if (this._error == null) {
+            this.closeModal.nativeElement.click();
+            this.evtOk.emit();
+        }
 	}
 
     onChangeStatus(event:Event){

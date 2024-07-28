@@ -85,10 +85,12 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
     }
 
     async onOkClicked() {
+    
         if (!this.isFormValid()) {
             return;
         }
 
+        this._error = null;
         this._isProcessing = true;
 
         let formData = new FormData();
@@ -102,8 +104,10 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
 
         this._isProcessing = false;
 
-        this.closeModal.nativeElement.click();
-        this.evtOk.emit();
+        if (this._error == null) {
+            this.closeModal.nativeElement.click();
+            this.evtOk.emit();
+        }
     }
 
     async onOkExtraClicked() {
