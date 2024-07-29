@@ -57,6 +57,7 @@ import { AddElementToElementComponent } from './components/_shared/modals/busine
 import { UpdateElementImageComponent } from './components/_shared/modals/business/menu-stuff/update-element-image/update-element-image.component';
 import { UpdateElementSettingsComponent } from './components/_shared/modals/business/menu-stuff/update-element-settings/update-element-settings.component';
 import { RemoveElementFromElementComponent } from './components/_shared/modals/business/menu-stuff/remove-element-from-element/remove-element-from-element.component';
+import { MenusPreviewComponent } from './components/administration/menu-stuff/menus/menus-preview/menus-preview.component';
 
 @NgModule({
 	declarations: [
@@ -65,25 +66,25 @@ import { RemoveElementFromElementComponent } from './components/_shared/modals/b
 		SignupComponent,
 		ForbiddenComponent,
 		HomeComponent,
-  		NavbarComponent,
-  		NavbarAdminComponent,
-    	NavbarCustomerComponent,
-    	NavbarBossComponent,
-    	NavbarAnonComponent,
+		NavbarComponent,
+		NavbarAdminComponent,
+		NavbarCustomerComponent,
+		NavbarBossComponent,
+		NavbarAnonComponent,
 		UsersComponent,
-  		UsersListComponent,
+		UsersListComponent,
 		UsersChangeRoleComponent,
 		PageOrderComponent,
 		PagePaginationComponent,
 		PageSearchComponent,
 		PageSyncComponent,
-		ProcessingComponent,		
+		ProcessingComponent,
 		RoleStrPipe,
 		UpdatePersonalDataComponent,
 		MyAccountListComponent,
 		ChangePasswordComponent,
-  		AddressesListComponent,
-  		AddressesCreateOrUpdateComponent,
+		AddressesListComponent,
+		AddressesCreateOrUpdateComponent,
 		PasswordRecoveryComponent,
 		PasswordSetComponent,
 		MyAccountComponent,
@@ -98,14 +99,15 @@ import { RemoveElementFromElementComponent } from './components/_shared/modals/b
 		CategoriesCreateOrUpdateComponent,
 		ProductsListComponent,
 		ProductsCreateOrUpdateComponent,
-  		AddressesComponent,
+		AddressesComponent,
 		PageCreateComponent,
 		NavbarUserNameComponent,
-  MenusBuilderComponent,
-  AddElementToElementComponent,
-  UpdateElementImageComponent,
-  UpdateElementSettingsComponent,
-  RemoveElementFromElementComponent,
+		MenusBuilderComponent,
+		AddElementToElementComponent,
+		UpdateElementImageComponent,
+		UpdateElementSettingsComponent,
+		RemoveElementFromElementComponent,
+  MenusPreviewComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -123,9 +125,10 @@ import { RemoveElementFromElementComponent } from './components/_shared/modals/b
 		AppRouting
 	],
 	providers: [
-		{ 
-			provide: LOCALE_ID, 
-			useValue: 'es-MX' },
+		{
+			provide: LOCALE_ID,
+			useValue: 'es-MX'
+		},
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptorService,

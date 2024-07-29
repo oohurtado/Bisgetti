@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
 import { Utils } from '../../../../../source/utils';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
 import { MenuStuffResponse } from '../../../../../source/models/business/responses/menu-stuff-response';
 import { CategoryResponse } from '../../../../../source/models/business/responses/category-response';
@@ -41,6 +41,7 @@ export class MenusBuilderComponent implements OnInit {
     constructor(
         private menuStuffService: MenuStuffService,
         private activatedRoute: ActivatedRoute,
+        private router: Router
     ) {
         this._menuId = null;
         this._menu = null;
@@ -71,12 +72,14 @@ export class MenusBuilderComponent implements OnInit {
                 this._menu = r[0] as MenuResponse;
                 this._menuStuff = r[1] as MenuStuffResponse[];
                 this._categories = r[2] as CategoryResponse[];
-                this._products = r[3] as ProductResponse[];
-                this.buildMenu();
+                this._products = r[3] as ProductResponse[]; 
+                this.buildMenu();               
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
+                alertify.error(this._error, 1)
+                this.router.navigateByUrl('menu-stuff/menus/list');
             });
-        this._isProcessing = false;
+        this._isProcessing = false;        
     }
 
     buildMenu() {

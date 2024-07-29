@@ -33,6 +33,7 @@ import { ProductsListComponent } from "./components/administration/menu-stuff/pr
 import { ProductsComponent } from "./components/administration/menu-stuff/products/products.component";
 import { AddressesComponent } from "./components/my-account/addresses/addresses.component";
 import { MenusBuilderComponent } from "./components/administration/menu-stuff/menus/menus-builder/menus-builder.component";
+import { MenusPreviewComponent } from "./components/administration/menu-stuff/menus/menus-preview/menus-preview.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -77,6 +78,7 @@ const ROUTES: Routes = [
                     { path: 'create', component: MenusCreateOrUpdateComponent, canActivate: [userBossGuard] },
                     { path: 'update/:id', component: MenusCreateOrUpdateComponent, canActivate: [userBossGuard] },
                     { path: 'builder/:id', component: MenusBuilderComponent, canActivate: [userBossGuard] },
+                    { path: 'preview/:id', component: MenusPreviewComponent, canActivate: [userBossGuard] },
                     { path: '**', pathMatch: 'full', redirectTo: 'list' }
                 ]
             },
