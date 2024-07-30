@@ -169,4 +169,8 @@ export class MenusPreviewComponent implements OnInit {
         
         return products;
     }
+
+    onElementClicked(event: Event) {
+        alertify.message('Agregando al carrito...')
+    }
 }
