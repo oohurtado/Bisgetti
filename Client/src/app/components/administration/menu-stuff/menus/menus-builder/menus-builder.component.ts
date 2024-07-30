@@ -27,7 +27,6 @@ export class MenusBuilderComponent implements OnInit {
     _menuStuff!: MenuStuffResponse[] | null;
     _categories!: CategoryResponse[] | null;
     _products!: ProductResponse[] | null;
-
     _data!: MenuElement[] | null;
     
     _elementsAvaialable!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados

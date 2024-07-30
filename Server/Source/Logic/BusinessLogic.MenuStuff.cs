@@ -41,6 +41,16 @@ namespace Server.Source.Logic
         {
             var data = await _businessRepository.GetMenuStuff(menuId).ToListAsync();
             var result = _mapper.Map<List<MenuStuffResponse>>(data);
+
+            foreach (var item in result )
+            {
+                if (!string.IsNullOrEmpty(item.Image))
+                {
+                    item.Image = GetUrl(item.Image);
+                }
+                
+            }
+
             return result;
         }
 
@@ -340,6 +350,12 @@ namespace Server.Source.Logic
 
             element!.Image = null;
             await _businessRepository.UpdateAsync();
+        }
+
+        private string GetUrl(string image)
+        {
+            var url = FileUtility.GetUrlFile(_storageFile, image, CONTAINER_FILE);
+            return url;
         }
     }
 }
