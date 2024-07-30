@@ -11,6 +11,7 @@
                 <li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
                 <li class="breadcrumb-item"><a [routerLink]="['/menu-stuff']">Cosas del menú</a></li>
                 <li class="breadcrumb-item"><a [routerLink]="['/menu-stuff/menus']">Menús</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/menu-stuff/menus/builder/' + _menuId]">Construir menú</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Previsualizar menú</li>
             </ol>
         </nav>
@@ -28,7 +29,7 @@
 
 <ng-container *ngFor="let category of getCategories()">
     <div class="mb-2">
-        <span class="fs-4 d-block">{{ category.category.name }}</span>
+        <span class="fs-2 d-block">{{ category.category.name }}</span>
         <ng-container *ngIf="category.category.description !== ''">
             <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
         </ng-container>
@@ -67,7 +68,3 @@
 
     </div>
 </ng-container>
-
-<br><br><br><br>
-
-<pre>{{ _data | json }}</pre>

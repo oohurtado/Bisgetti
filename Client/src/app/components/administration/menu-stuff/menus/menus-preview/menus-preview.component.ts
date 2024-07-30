@@ -113,7 +113,7 @@ export class MenusPreviewComponent implements OnInit {
         let elements: MenuElement[] = [];
 
         // obtenemos los elementos categorias de menustuff y ordenamos        
-        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId != null && p.productId == null);
+        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId != null && p.productId == null && p.isVisible);
         tmpStuffElements = lodash.sortBy(tmpStuffElements, p => p.position);
 
         // iteramos
@@ -131,7 +131,7 @@ export class MenusPreviewComponent implements OnInit {
         let elements: MenuElement[] = [];
 
         // obtenemos los elementos productos de x categoria de menustuff y ordenamos
-        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId == categoryId && p.productId != null);
+        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId == categoryId && p.productId != null && p.isVisible);
         tmpStuffElements = lodash.sortBy(tmpStuffElements, p => p.position);
 
         // iteramos

@@ -281,7 +281,7 @@ export class MenusBuilderComponent implements OnInit {
     }
 
     onPreviewAction(element: MenuElement) {
-        throw new Error('Method not implemented.');
+        this.router.navigateByUrl(`/menu-stuff/menus/preview/${element.menuId}`);        
     }
 
     onModalClosedClicked() {  
