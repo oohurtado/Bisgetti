@@ -118,7 +118,8 @@ namespace PuppeteerStuff
                     var close = await page.QuerySelectorAllAsync("#header-profile > .nav-item > .dropdown-menu > .dropdown-footer > b-button"); // button
                     var button = close.FirstOrDefault();
                     await button!.ClickAsync();
-                }           
+                }
+            }
         }
     }
 }
