@@ -126,33 +126,44 @@ namespace Server.Source.Logic
 
         private async Task RemoveElementAsync(AddOrRemoveElementRequest request)
         {
-            // quitando categoria
+            Expression<Func<MenuStuffEntity, bool>> exp = p => true;
+            
+            // si categoria
             if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
             {
-                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId);
-                if (!any)
-                {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementDoesNotExists);
-                }
-
-                await _businessRepository.RemoveElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId);
-                return;
+                exp = p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId;
             }
-
-            // quitando producto
-            if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
+            // si producto
+            else if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
-                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId);
-                if (!any)
-                {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementDoesNotExists);
-                }
-
-                await _businessRepository.RemoveElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId);
-                return;
+                exp = p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId;
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
 
-            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+            var elementsToDelete = await _businessRepository
+                .GetMenuStuff(exp)
+                .ToListAsync();
+
+            if (elementsToDelete.Count == 0)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementDoesNotExists);
+            }
+
+            // borramos imagenes
+            elementsToDelete
+                .Where(p => !string.IsNullOrEmpty(p.Image))
+                .Select(p => p.Image)
+                .ToList()
+                .ForEach(async p =>
+                {
+                    await FileUtility.DeleteAsync(_storageFile, p!, CONTAINER_FILE);
+                });
+
+            await _businessRepository.RemoveElementAsync(exp);
+            return;
         }
 
         public async Task UpdateElementPositionAsync(PositionElementRequest request)
