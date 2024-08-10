@@ -28,13 +28,24 @@ namespace Server.Source.Logic
 
         public async Task<PageResponse<MenuResponse>> GetMenusByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
-            var data = await _businessRepository.GetMenusByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
-            var result = _mapper.Map<List<MenuResponse>>(data);
+            var data = await _businessRepository
+                .GetMenusByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal)
+                .Select(p => new MenuResponse()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    IsVisible = p.MenuStuff!.Where(q => q.CategoryId == null).FirstOrDefault()!.IsVisible,
+                    IsAvailable = p.MenuStuff!.Where(q => q.CategoryId == null).FirstOrDefault()!.IsAvailable,
+                })
+                .ToListAsync();
+            //var result = _mapper.Map<List<MenuResponse>>(data);
 
             return new PageResponse<MenuResponse>
             {
                 GrandTotal = grandTotal,
-                Data = result,
+                //Data = result,
+                Data = data
             };
         }
 
