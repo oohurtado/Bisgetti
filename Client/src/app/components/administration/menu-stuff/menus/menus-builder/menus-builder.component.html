@@ -20,16 +20,20 @@
 <div *ngFor="let item of _data" class="card element" [class]="item.css" (mouseenter)="onMouseEnter(item)" (mouseleave)='onMouseLeave(item)'>
     <div class="card-body pt-1 pb-1">
         {{ item.text }}
+
+        <!-- menu -->
         <ng-container *ngIf="item.isMouseOverElement">
             <ng-container *ngIf="item.categoryId == null && item.productId == null">
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Agregar categoría al menú"
                     (click)="onElementClicked($event, item, 'add')">
                     <i class="fa-solid fa-plus fa-lg"></i>
                 </a>
+                <!-- 
                 <a class="cursor-pointer ms-2 me-2" [ngClass]="{'link-secondary': item.image == null, 'link-primary': item.image != null }" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
-                </a>
+                </a> 
+                -->
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de configuación"
                     (click)="onElementClicked($event, item, 'settings')">
                     <i class="fa-solid fa-gear fa-lg"></i>
@@ -39,6 +43,8 @@
                     <i class="fa-solid fa-utensils fa-lg"></i>
                 </a>
             </ng-container>
+
+            <!-- categoria -->
             <ng-container *ngIf="item.categoryId != null && item.productId == null">
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Agregar producto a categoría"
                     (click)="onElementClicked($event, item, 'add')">
@@ -48,10 +54,12 @@
                     (click)="onElementClicked($event, item, 'remove')">
                     <i class="fa-solid fa-xmark fa-lg"></i>
                 </a>
+                <!-- 
                 <a class="cursor-pointer ms-2 me-2" [ngClass]="{'link-secondary': item.image == null, 'link-primary': item.image != null }" title="Actualizar imagen"
                     (click)="onElementClicked($event, item, 'image')">
                     <i class="fa-solid fa-image fa-lg"></i>
-                </a>
+                </a> 
+                -->
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Actualizar opciones de configuación"
                     (click)="onElementClicked($event, item, 'settings')">
                     <i class="fa-solid fa-gear fa-lg"></i>
@@ -65,6 +73,8 @@
                     <i class="fa-solid fa-arrow-down fa-lg"></i>
                 </a>
             </ng-container>
+
+            <!-- producto -->
             <ng-container *ngIf="item.productId != null">
                 <a class="cursor-pointer link-secondary ms-2 me-2" title="Quitar producto de la categoría"
                     (click)="onElementClicked($event, item, 'remove')">

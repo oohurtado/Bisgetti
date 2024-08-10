@@ -239,6 +239,17 @@ namespace Server.Source.Logic
                 element.IsVisible = request.IsVisible ?? false;
                 element.IsAvailable = request.IsAvailable ?? false;
                 await _businessRepository.UpdateAsync();
+
+                if (element.IsVisible)
+                {
+                    var otherMenus = await _businessRepository.GetMenuStuff(p => p.Id != element.Id && p.IsVisible && (p.CategoryId == null && p.ProductId == null)).ToListAsync();
+                    foreach (var otherMenu in otherMenus)
+                    {
+                        otherMenu.IsVisible = false;
+                        await _businessRepository.UpdateAsync();
+                    }
+                }
+
                 return;
             }
 
