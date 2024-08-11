@@ -24,10 +24,6 @@ export class MenusPreviewComponent implements OnInit {
     _menuHelper: MenuHelper | null = null;
 
     _menuId!: number | null;
-    _menu!: MenuResponse | null;
-    _menuStuff!: MenuStuffResponse[] | null;
-    _categories!: CategoryResponse[] | null;
-    _products!: ProductResponse[] | null;
     _data: MenuElement[];
 
     _elementsAvaialable!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
@@ -44,11 +40,8 @@ export class MenusPreviewComponent implements OnInit {
         private router: Router
     ) {
         this._menuId = null;
-        this._menu = null;
-        this._menuStuff = [];
-        this._categories = [];
-        this._products = [];
         this._data = [];
+        this._menuHelper = new MenuHelper();
     }
 
     async ngOnInit() {
@@ -81,7 +74,7 @@ export class MenusPreviewComponent implements OnInit {
                 let menuStuff = r[3] as MenuStuffResponse[];
 
                 this._menuHelper?.setData(this._menuId, menu, categories, products, menuStuff);
-                this._data = this._menuHelper?.buildMenu() ?? [];                                       
+                this._data = this._menuHelper?.buildMenu() ?? [];
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
                 alertify.error(this._error, 1)
@@ -90,12 +83,12 @@ export class MenusPreviewComponent implements OnInit {
         this._isProcessing = false;        
     }  
 
-    getMenu() : MenuElement | null {
-        return this._menuHelper!.getMenu();
+    getMenu() : MenuElement | null | undefined {
+        return this._menuHelper?.getMenu();
     }
 
-    getCategories() : MenuElement[] | undefined {
-        return this._menuHelper!.getCategories();
+    getCategories() : MenuElement[] | null | undefined {
+        return this._menuHelper?.getCategories();
     }
 
     getProducts(categoryId: number) : MenuElement[] | undefined {
