@@ -9,6 +9,7 @@ import { MenuStuffService } from '../../../../../services/business/menu-stuff.se
 import { Tuple2 } from '../../../../../source/models/common/tuple';
 import * as lodash from 'lodash';
 import { Utils } from '../../../../../source/utils';
+import { MenuHelper } from '../../../../../source/menu-helper';
 declare let alertify: any;
 
 @Component({
@@ -20,12 +21,14 @@ export class MenusPreviewComponent implements OnInit {
     _error: string | null = null;
     _isProcessing: boolean = false;
 
+    _menuHelper: MenuHelper | null = null;
+
     _menuId!: number | null;
     _menu!: MenuResponse | null;
     _menuStuff!: MenuStuffResponse[] | null;
     _categories!: CategoryResponse[] | null;
     _products!: ProductResponse[] | null;
-    _data!: MenuElement[] | null;
+    _data: MenuElement[];
 
     _elementsAvaialable!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
     _elementClicked!: MenuElement;
@@ -64,110 +67,39 @@ export class MenusPreviewComponent implements OnInit {
 
     async getDataAsync() {
         this._isProcessing = true;
-        await Promise.all([this.menuStuffService.getMenuAsync(this._menuId ?? 0), this.menuStuffService.getMenuStuffAsync(this._menuId ?? 0), this.menuStuffService.getCategoriesAsync(), this.menuStuffService.getProductsAsync()])
+        await Promise.all(
+            [
+                this.menuStuffService.getMenuAsync(this._menuId ?? 0), 
+                this.menuStuffService.getCategoriesAsync(), 
+                this.menuStuffService.getProductsAsync(),
+                this.menuStuffService.getMenuStuffAsync(this._menuId ?? 0)
+            ])
             .then(r => {
-                this._menu = r[0] as MenuResponse;
-                this._menuStuff = r[1] as MenuStuffResponse[];
-                this._categories = r[2] as CategoryResponse[];
-                this._products = r[3] as ProductResponse[]; 
-                this.buildMenu();               
+                let menu = r[0] as MenuResponse;
+                let categories = r[1] as CategoryResponse[];
+                let products = r[2] as ProductResponse[]; 
+                let menuStuff = r[3] as MenuStuffResponse[];
+
+                this._menuHelper?.setData(this._menuId, menu, categories, products, menuStuff);
+                this._data = this._menuHelper?.buildMenu() ?? [];                                       
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
                 alertify.error(this._error, 1)
                 this.router.navigateByUrl('menu-stuff/menus/list');
             });
         this._isProcessing = false;        
-    }
-
-    buildMenu() {
-        this._data = [];
-        let menu: MenuElement;
-        let categories: MenuElement[];
-        let products: MenuElement[];
-
-        // obtenemos menu de menu stuff
-        menu = this.getMenuFromMenuStuff();        
-        this._data?.push(menu);
-
-        // categorias
-        categories = this.getCategoriesFromMenuStuff();
-        this._data = this._data?.concat(categories);
-
-        // productos
-        categories.forEach(p => {
-            products = this.getProductsFromMenuStuff(p.categoryId);
-            let index = this._data?.findIndex(q => q.categoryId == p.categoryId) ?? 0;
-            this._data?.splice(index + 1, 0, ...products)
-        });
-    }
-
-    getMenuFromMenuStuff() : MenuElement {
-        // obtenemos el elemento menu de menustuff
-        let tmpStuffElement = this._menuStuff?.filter(p => p.categoryId == null && p.productId == null)[0];
-        let element = Object.assign(new MenuElement(), tmpStuffElement);
-        element.menu = this._menu!;
-        return element;
-    }
-
-    getCategoriesFromMenuStuff() : MenuElement[] {
-        let elements: MenuElement[] = [];
-
-        // obtenemos los elementos categorias de menustuff y ordenamos        
-        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId != null && p.productId == null && p.isVisible);
-        tmpStuffElements = lodash.sortBy(tmpStuffElements, p => p.position);
-
-        // iteramos
-        tmpStuffElements.forEach(p => {
-            let category = this._categories?.filter(q => q.id == p.categoryId)[0];
-            let element = Object.assign(new MenuElement(), p);
-            element.category = category!;
-            elements.push(element);
-        });     
-            
-        return elements;
-    }
-
-    getProductsFromMenuStuff(categoryId: number) : MenuElement[] {
-        let elements: MenuElement[] = [];
-
-        // obtenemos los elementos productos de x categoria de menustuff y ordenamos
-        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId == categoryId && p.productId != null && p.isVisible);
-        tmpStuffElements = lodash.sortBy(tmpStuffElements, p => p.position);
-
-        // iteramos
-        tmpStuffElements.forEach(p => {
-            let product = this._products?.filter(q => q.id == p.productId)[0];
-            let element = Object.assign(new MenuElement(), p);
-            element.product = product!;
-            elements.push(element);
-        });     
-            
-        return elements;
-    }
+    }  
 
     getMenu() : MenuElement | null {
-        let menu = this._data?.at(0); 
-        return menu!;
+        return this._menuHelper!.getMenu();
     }
 
     getCategories() : MenuElement[] | undefined {
-        let categories = this._data?.filter(p => p.categoryId != null && p.productId == null); 
-
-        if (categories?.length == 0) {
-            return [];
-        }
-        
-        return categories;
+        return this._menuHelper!.getCategories();
     }
 
     getProducts(categoryId: number) : MenuElement[] | undefined {
-        let products = this._data?.filter(p => p.categoryId ==categoryId && p.productId != null); 
-
-        if (products?.length == 0) {
-            return [];
-        }
-        
-        return products;
+        return this._menuHelper?.getProducts(categoryId);
     }
 
     onElementClicked(event: Event) {
