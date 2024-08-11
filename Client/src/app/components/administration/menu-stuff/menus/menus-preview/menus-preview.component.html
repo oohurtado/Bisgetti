@@ -19,22 +19,69 @@
 </div>
 
 <ng-container *ngIf="_data != null && _data.length > 0">
-    <div class="m-1">
-        <p class="text-center">
+
+<div>
+    <div class="form-check form-switch">
+        <input class="form-check-input cursor-pointer" type="checkbox" id="flexSwitchCheckDefault" [checked]="_designMode" (click)="onDesignClicked($event)" >
+        <label class="form-check-label cursor-pointer" for="flexSwitchCheckDefault">Mostrar botones para diseñar el menú</label>
+      </div>
+</div>
+
+    <div class="m-1 text-center">        
             <span class="fs-1 d-block">{{ getMenu()?.menu?.name }}</span>
             <ng-container *ngIf="getMenu()?.menu?.description !== ''">
                 <span class="fs-6 fw-light fst-italic d-block">{{ getMenu()?.menu?.description }}</span>
-            </ng-container>
-        </p>
+            </ng-container>        
     </div>
+    <ng-container *ngIf="_designMode">
+        <div class="text-center">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" title="Editar menú">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button type="button" class="btn btn-primary" title="Agregar categorías al menú">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-primary" title="Más opciones">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
+        </div>
+    </ng-container>
 </ng-container>
 
 <ng-container *ngFor="let category of getCategories()">
     <div class="m-4">
-        <span class="fs-2 d-block">{{ category.category.name }}</span>
-        <ng-container *ngIf="category.category.description !== ''">
-            <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
+        <div class="m-2">
+            <span class="fs-2 d-block">{{ category.category.name }}</span>
+            <ng-container *ngIf="category.category.description !== ''">
+                <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
+            </ng-container>
+            <ng-container *ngIf="_designMode">
+                <div class="text-start">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary" title="Editar categoría">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" title="Agregar productos a categoría">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" title="Quitar productos de categoría">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>                    
+                    <button type="button" class="btn btn-primary" title="Más opciones">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" title="Mover hacia arriba">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" title="Mover hacia abajo">
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                </div>
+            </div>            
         </ng-container>
+        </div>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <ng-container *ngFor="let product of getProducts(category.category.id)">
@@ -63,10 +110,30 @@
                                 <small class="text-muted">No disponible por el momento</small>
                             </div>       
                         </ng-container>
-                    </div>
+                        <ng-container *ngIf="_designMode">
+                            <div class="text-start">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-primary" title="Editar producto">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>                 
+                                    <button type="button" class="btn btn-primary" title="Quitar producto de categoría">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>                    
+                                    <button type="button" class="btn btn-primary" title="Más opciones">
+                                        <i class="fa-solid fa-gear"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" title="Mover hacia arriba">
+                                        <i class="fa-solid fa-arrow-up"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" title="Mover hacia abajo">
+                                        <i class="fa-solid fa-arrow-down"></i>
+                                    </button>
+                                </div>
+                            </div>                           
+                        </ng-container>
+                    </div>                
                 </div> 
             </ng-container>
         </div>
-
     </div>
 </ng-container>

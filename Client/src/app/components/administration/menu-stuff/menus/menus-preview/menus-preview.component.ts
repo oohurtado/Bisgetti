@@ -26,13 +26,7 @@ export class MenusPreviewComponent implements OnInit {
     _menuId!: number | null;
     _data: MenuElement[];
 
-    _elementsAvaialable!: Tuple2<number,string>[]; // id element, text element // para usar en modal, pueden ser categorias o productos que aun no se estan usando, y pueden ser asignados
-    _elementClicked!: MenuElement;
-
-    _openModal_addElementToElement: boolean = false;
-    _openModal_removeElementFromElement: boolean = false;
-    _openModal_updateElementSettings: boolean = false;
-    _openModal_updateElementImage: boolean = false;
+    _designMode: boolean = false;
     
     constructor(
         private menuStuffService: MenuStuffService,
@@ -97,5 +91,9 @@ export class MenusPreviewComponent implements OnInit {
 
     onElementClicked(event: Event) {
         alertify.message('Agregando al carrito...')
+    }
+
+    onDesignClicked(event: Event) {
+        this._designMode = !this._designMode;
     }
 }
