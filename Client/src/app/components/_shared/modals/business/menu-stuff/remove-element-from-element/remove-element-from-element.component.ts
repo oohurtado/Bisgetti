@@ -39,15 +39,11 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
 		this.open = changes['open']?.currentValue;
 		
 		if (this.open) {            
-            this.init();
+            this.openModal.nativeElement.click();
 		} else {
             this._error = null;
         }
 	}
-
-    init() {
-        this.openModal.nativeElement.click();
-    }
 
     onCloseClicked(): void {
         this.closeModal.nativeElement.click();

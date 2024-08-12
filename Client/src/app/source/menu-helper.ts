@@ -72,7 +72,7 @@ export class MenuHelper {
         let elements: MenuElement[] = [];
 
         // obtenemos los elementos categorias de menustuff y ordenamos        
-        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId != null && p.productId == null && p.isVisible);
+        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId != null && p.productId == null);
         tmpStuffElements = lodash.sortBy(tmpStuffElements, p => p.position);
 
         // iteramos
@@ -90,7 +90,7 @@ export class MenuHelper {
         let elements: MenuElement[] = [];
 
         // obtenemos los elementos productos de x categoria de menustuff y ordenamos
-        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId == categoryId && p.productId != null && p.isVisible);
+        let  tmpStuffElements = this._menuStuff?.filter(p => p.categoryId == categoryId && p.productId != null);
         tmpStuffElements = lodash.sortBy(tmpStuffElements, p => p.position);
 
         // iteramos

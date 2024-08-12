@@ -46,18 +46,14 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
 		this.open = changes['open']?.currentValue;
 		
 		if (this.open) {            
-            this.init();
+            this.openModal.nativeElement.click();      
+            this.elements = lodash.sortBy(this.elements, p => p.param2);
 		} else {
             this.elements = [];
             this.ids = [];
             this._error = null;
         }
 	}
-    
-    init() {
-        this.openModal.nativeElement.click();      
-        this.elements = lodash.sortBy(this.elements, p => p.param2);
-    }
 
 	onCloseClicked(): void {
         this.closeModal.nativeElement.click();

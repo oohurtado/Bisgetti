@@ -43,19 +43,15 @@ export class UpdateElementSettingsComponent implements OnChanges, OnInit {
 		this.open = changes['open']?.currentValue;
 		
 		if (this.open) {            
-            this.init();
+            this.openModal.nativeElement.click();
+
+            this._isVisible = this.element.isVisible;
+            this._isAvailable = this.element.isAvailable;
 		} else {
             this._error = null;
         }
 	}
     
-    init() {
-        this.openModal.nativeElement.click();
-
-        this._isVisible = this.element.isVisible;
-        this._isAvailable = this.element.isAvailable;
-    }
-
 	onCloseClicked(): void {
         this.closeModal.nativeElement.click();
 		this.evtClose.emit();

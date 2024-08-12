@@ -53,10 +53,12 @@
 <ng-container *ngFor="let category of getCategories()">
     <div class="m-4">
         <div class="m-2">
-            <span class="fs-2 d-block">{{ category.category.name }}</span>
-            <ng-container *ngIf="category.category.description !== ''">
-                <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
-            </ng-container>
+            <div>
+                <span class="fs-2">{{ category.category.name }}</span>&nbsp;<span class="text-danger fs-2">{{ !category.isVisible ? '(no visible)' : '' }}</span>
+                <ng-container *ngIf="category.category.description !== ''">
+                    <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
+                </ng-container>
+            </div>
             <ng-container *ngIf="_designMode">
                 <div class="text-start">
                     <div class="btn-group" role="group" aria-label="Basic example">

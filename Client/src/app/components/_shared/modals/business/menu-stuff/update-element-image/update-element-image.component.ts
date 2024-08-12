@@ -49,27 +49,23 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
         this.open = changes['open']?.currentValue;
 
         if (this.open) {
-            this.init();
+            this.openModal.nativeElement.click();
+
+            if (this.element.image !== null) {
+                this.menuStuffService.getElementImage(this.element.menuId, this.element.categoryId, this.element.productId)
+                    .subscribe({
+                        complete: () => {
+                        },
+                        error: (e: string) => {
+                            this._error = Utils.getErrorsResponse(e);
+                        },
+                        next: (val) => {
+                            this._url = val;
+                        }
+                    });
+            }
         } else {
             this._error = null;
-        }
-    }
-
-    init() {
-        this.openModal.nativeElement.click();
-
-        if (this.element.image !== null) {
-            this.menuStuffService.getElementImage(this.element.menuId, this.element.categoryId, this.element.productId)
-                .subscribe({
-                    complete: () => {
-                    },
-                    error: (e: string) => {
-                        this._error = Utils.getErrorsResponse(e);
-                    },
-                    next: (val) => {
-                        this._url = val;
-                    }
-                });
         }
     }
 
