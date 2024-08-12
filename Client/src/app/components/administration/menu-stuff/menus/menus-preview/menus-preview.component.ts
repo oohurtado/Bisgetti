@@ -10,6 +10,7 @@ import { Tuple2 } from '../../../../../source/models/common/tuple';
 import * as lodash from 'lodash';
 import { Utils } from '../../../../../source/utils';
 import { MenuHelper } from '../../../../../source/menu-helper';
+import { PositionElementRequest } from '../../../../../source/models/dtos/menus/position-element-request';
 declare let alertify: any;
 
 @Component({
@@ -95,11 +96,140 @@ export class MenusPreviewComponent implements OnInit {
         return this._menuHelper?.getProductElements(categoryId);
     }
 
-    onElementClicked(event: Event) {
+    onAddToCartClicked(event: Event) {
         alertify.message('Agregando al carrito...')
     }
 
     onDesignClicked(event: Event) {
         this._designMode = !this._designMode;
+    }
+
+    /* modals */
+
+    onElementClicked(event: Event, element: MenuElement, action: string) {
+        this._elementClicked = element;    
+
+        // aplica a: menu / category
+        if (action === "add") {
+            this.onAddAction(element);            
+            return;
+        }
+
+        // aplica a: categoria, producto
+        if (action === "remove") {
+            this.onRemoveAction(element);
+            return;
+        }
+        
+        // aplica a: menu, categoria, producto
+        if (action == "settings") {
+            this.onSettingsAction(element);
+            return;
+        }
+
+        // TODO: oohg - 4
+        // aplica a: menu, categoria, producto
+        if (action == "image") {
+            this.onImageAction(element);
+            return;
+        }
+        
+        // TODO: oohg - 5
+        // aplica a: menu
+        if (action == "preview") {
+            this.onPreviewAction(element);
+            return;
+        }
+
+        // aplica a: categoria, producto
+        if (action == "move-up" || action == "move-down") {
+            this.onMoveUpOrMoveDown(element, action);
+            return;
+        }      
+
+        throw new Error("Action is not valid");
+    }
+
+    onAddAction(element: MenuElement) {
+        this._openModal_addElementToElement = true;
+
+        // usuario seleccionó agregar categoria a menú'           
+        if (element.categoryId == null && element.productId == null) {
+                        
+            // categorias actuales del menú a una tupla
+            let currentCategories = this._data?.filter(p => p.categoryId != null && p.productId == null).map(p => new Tuple2<number, string>(p.categoryId, p.text));
+            
+            // categorias de base de datos a una tupla
+            let elementsAvaialable = this._menuHelper?.getCategories()?.map(p => new Tuple2<number, string>(p.id, p.name))!;
+            
+            // obtenemos categorias que no estan en uso
+            this._elementsAvaialable = elementsAvaialable.filter(p => 
+                !currentCategories?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
+            );                    
+            return;
+        }
+
+        // agregar seleccionó agregar producto a categoría
+        if (element.categoryId != null && element.productId == null) {
+
+            // productos actuales de todo el menú a una tupla
+            let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.text));
+            
+            // productos de base de datos a una tupla
+            let elementsAvaialable = this._menuHelper?.getProducts()?.map(p => new Tuple2<number, string>(p.id, p.name))!;                
+            
+            // obtenemos productos que no estan en uso
+            this._elementsAvaialable = elementsAvaialable.filter(p => 
+                !currentProducts?.some(q => p.param1 === q.param1 && p.param2 == q.param2)
+            );
+            return;
+        }
+    }
+
+    onRemoveAction(element: MenuElement) {
+        this._openModal_removeElementFromElement = true;        
+    }
+
+    onSettingsAction(element: MenuElement) {
+        this._openModal_updateElementSettings = true;
+    }    
+
+    onImageAction(element: MenuElement) {
+        this._openModal_updateElementImage = true;
+    }
+    
+    onMoveUpOrMoveDown(element: MenuElement, action: string) {
+        let model = new PositionElementRequest(element.menuId, element.categoryId, element.productId, action);
+        this.menuStuffService.updateElementPosition(model)
+            .subscribe({
+                complete: () => {
+                    this._isProcessing = false;
+                },
+                error: (e : string) => {
+                    this._isProcessing = false;
+                    this._error = Utils.getErrorsResponse(e);
+                    alertify.error(this._error, 3);
+                },
+                next: (val) => {                
+                    alertify.message("Posición actualizada", 1)
+                    this.getDataAsync();
+                }
+            });                  
+    }
+
+    onPreviewAction(element: MenuElement) {
+        this.router.navigateByUrl(`/menu-stuff/menus/preview/${element.menuId}`);        
+    }
+
+    onModalClosedClicked() {  
+        this._openModal_addElementToElement = false;      
+        this._openModal_removeElementFromElement = false;
+        this._openModal_updateElementSettings = false;
+        this._openModal_updateElementImage = false;
+    }
+
+    async onModalOkClicked() {
+        this.onModalClosedClicked();
+        await this.getDataAsync();
     }
 }

@@ -39,10 +39,10 @@
                 <button type="button" class="btn btn-primary" title="Editar menú">
                     <i class="fa-solid fa-pen"></i>
                 </button>
-                <button type="button" class="btn btn-primary" title="Agregar categorías al menú">
+                <button type="button" class="btn btn-primary" title="Agregar categorías al menú" (click)="onElementClicked($event, getMenuElement()!, 'add')">
                     <i class="fa-solid fa-plus"></i>
                 </button>
-                <button type="button" class="btn btn-primary" title="Más opciones">
+                <button type="button" class="btn btn-primary" title="Más opciones" (click)="onElementClicked($event, getMenuElement()!, 'settings')">
                     <i class="fa-solid fa-gear"></i>
                 </button>
             </div>
@@ -54,7 +54,8 @@
     <div class="m-4">
         <div class="m-2">
             <div>
-                <span class="fs-2">{{ category.category.name }}</span>&nbsp;<span class="text-danger fs-2">{{ !category.isVisible ? '(no visible)' : '' }}</span>
+                <span class="fs-2 d-block">{{ category.category.name }}</span>
+                <span class="text-danger fs-2 d-block">{{ !category.isVisible ? '(no visible)' : '' }}</span>
                 <ng-container *ngIf="category.category.description !== ''">
                     <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
                 </ng-container>
@@ -65,19 +66,19 @@
                     <button type="button" class="btn btn-primary" title="Editar categoría">
                         <i class="fa-solid fa-pen"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" title="Agregar productos a categoría">
+                    <button type="button" class="btn btn-primary" title="Agregar productos a categoría" (click)="onElementClicked($event, category, 'add')">
                         <i class="fa-solid fa-plus"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" title="Quitar productos de categoría">
+                    <button type="button" class="btn btn-primary" title="Quitar productos de categoría" (click)="onElementClicked($event, category, 'remove')">
                         <i class="fa-solid fa-xmark"></i>
                     </button>                    
-                    <button type="button" class="btn btn-primary" title="Más opciones">
+                    <button type="button" class="btn btn-primary" title="Más opciones" (click)="onElementClicked($event, category, 'settings')">
                         <i class="fa-solid fa-gear"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" title="Mover hacia arriba">
+                    <button type="button" class="btn btn-primary" title="Mover hacia arriba" (click)="onElementClicked($event, category, 'move-up')">
                         <i class="fa-solid fa-arrow-up"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" title="Mover hacia abajo">
+                    <button type="button" class="btn btn-primary" title="Mover hacia abajo" (click)="onElementClicked($event, category, 'move-down')">
                         <i class="fa-solid fa-arrow-down"></i>
                     </button>
                 </div>
@@ -93,8 +94,11 @@
                         <img *ngIf="product.image === null" src="./assets/common/no-image.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-text">
-                                <span class="fs-5 d-block">
-                                    {{ product.product.name }} <strong>{{ product.product.price | currency:'$' }}</strong>
+                                <span class="fs-5">
+                                    {{ product.product.name }} <strong>{{ product.product.price | currency:'$' }}</strong>                                    
+                                </span>
+                                <span class="text-danger fs-2 d-block">
+                                    {{ !product.isVisible ? '(no visible)' : '' }}
                                 </span>
                                 <span *ngIf="product.product.description !== ''" class="d-block">
                                     {{ product.product.description }}
@@ -104,7 +108,7 @@
                                 </span>
                             </p>
                             <ng-container *ngIf="product.isAvailable">
-                                <button type="button" class="btn btn-warning" (click)="onElementClicked($event)">Agregar al carrito</button>
+                                <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event)">Agregar al carrito</button>
                             </ng-container>
                         </div>  
                         <ng-container *ngIf="!product.isAvailable">
@@ -118,16 +122,19 @@
                                     <button type="button" class="btn btn-primary" title="Editar producto">
                                         <i class="fa-solid fa-pen"></i>
                                     </button>                 
-                                    <button type="button" class="btn btn-primary" title="Quitar producto de categoría">
+                                    <button type="button" class="btn btn-primary" title="Quitar producto de categoría" (click)="onElementClicked($event, product, 'remove')">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>                    
-                                    <button type="button" class="btn btn-primary" title="Más opciones">
+                                    <button type="button" class="btn btn-primary" title="Más opciones" (click)="onElementClicked($event, product, 'settings')">
                                         <i class="fa-solid fa-gear"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary" title="Mover hacia arriba">
+                                    <button type="button" class="btn btn-primary" title="Actualizar imagen" (click)="onElementClicked($event, product, 'image')">
+                                        <i class="fa-solid fa-image"></i>
+                                    </button>                                    
+                                    <button type="button" class="btn btn-primary" title="Mover hacia arriba" (click)="onElementClicked($event, product, 'move-up')">
                                         <i class="fa-solid fa-arrow-up"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary" title="Mover hacia abajo">
+                                    <button type="button" class="btn btn-primary" title="Mover hacia abajo" (click)="onElementClicked($event, product, 'move-down')">
                                         <i class="fa-solid fa-arrow-down"></i>
                                     </button>
                                 </div>
@@ -138,4 +145,17 @@
             </ng-container>
         </div>
     </div>
+</ng-container>
+
+<ng-container *ngIf="_openModal_addElementToElement">
+    <app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked" [open]="_openModal_addElementToElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-add-element-to-element>
+</ng-container>
+<ng-container *ngIf="_openModal_removeElementFromElement">
+    <app-remove-element-from-element [element]="_elementClicked" [open]="_openModal_removeElementFromElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-remove-element-from-element>
+</ng-container>
+<ng-container *ngIf="_openModal_updateElementSettings">
+    <app-update-element-settings [element]="_elementClicked" [open]="_openModal_updateElementSettings" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-settings>
+</ng-container>
+<ng-container *ngIf="_openModal_updateElementImage">
+    <app-update-element-image [element]="_elementClicked" [open]="_openModal_updateElementImage" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-image>
 </ng-container>
