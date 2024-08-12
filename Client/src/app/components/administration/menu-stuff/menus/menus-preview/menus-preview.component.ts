@@ -157,8 +157,8 @@ export class MenusPreviewComponent implements OnInit {
         if (element.categoryId == null && element.productId == null) {
                         
             // categorias actuales del menú a una tupla
-            let currentCategories = this._data?.filter(p => p.categoryId != null && p.productId == null).map(p => new Tuple2<number, string>(p.categoryId, p.text));
-            
+            let currentCategories = this._data?.filter(p => p.categoryId != null && p.productId == null).map(p => new Tuple2<number, string>(p.categoryId, p.category.name));
+
             // categorias de base de datos a una tupla
             let elementsAvaialable = this._menuHelper?.getCategories()?.map(p => new Tuple2<number, string>(p.id, p.name))!;
             
@@ -173,7 +173,7 @@ export class MenusPreviewComponent implements OnInit {
         if (element.categoryId != null && element.productId == null) {
 
             // productos actuales de todo el menú a una tupla
-            let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.text));
+            let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.product.name));
             
             // productos de base de datos a una tupla
             let elementsAvaialable = this._menuHelper?.getProducts()?.map(p => new Tuple2<number, string>(p.id, p.name))!;                
