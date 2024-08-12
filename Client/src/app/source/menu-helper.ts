@@ -104,12 +104,16 @@ export class MenuHelper {
         return elements;
     }
 
-    getMenu() : MenuElement | null {
+    getMenuElement() : MenuElement | null {
         let menu = this._data?.at(0); 
         return menu!;
     }
 
-    getCategories() : MenuElement[] | undefined {
+    getMenu() : MenuResponse | null {
+        return this._menu;
+    }
+
+    getCategoryElements() : MenuElement[] | undefined {
         let categories = this._data?.filter(p => p.categoryId != null && p.productId == null); 
 
         if (categories?.length == 0) {
@@ -119,7 +123,11 @@ export class MenuHelper {
         return categories;
     }
 
-    getProducts(categoryId: number) : MenuElement[] | undefined {
+    getCategories() : CategoryResponse[] | null {
+        return this._categories;
+    }
+
+    getProductElements(categoryId: number) : MenuElement[] | undefined {
         let products = this._data?.filter(p => p.categoryId ==categoryId && p.productId != null); 
 
         if (products?.length == 0) {
@@ -129,4 +137,7 @@ export class MenuHelper {
         return products;
     }
 
+    getProducts() : ProductResponse[] | null {
+        return this._products;
+    }
 }

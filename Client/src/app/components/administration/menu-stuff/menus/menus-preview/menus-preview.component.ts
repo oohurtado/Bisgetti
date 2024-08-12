@@ -22,12 +22,18 @@ export class MenusPreviewComponent implements OnInit {
     _isProcessing: boolean = false;
 
     _menuHelper: MenuHelper | null = null;
-
+    _designMode: boolean = false;
     _menuId!: number | null;
     _data: MenuElement[];
 
-    _designMode: boolean = false;
-    
+    _openModal_addElementToElement: boolean = false;
+    _openModal_removeElementFromElement: boolean = false;
+    _openModal_updateElementSettings: boolean = false;
+    _openModal_updateElementImage: boolean = false;
+
+    _elementsAvaialable!: Tuple2<number,string>[];
+    _elementClicked!: MenuElement;
+
     constructor(
         private menuStuffService: MenuStuffService,
         private activatedRoute: ActivatedRoute,
@@ -77,16 +83,16 @@ export class MenusPreviewComponent implements OnInit {
         this._isProcessing = false;        
     }  
 
-    getMenu() : MenuElement | null | undefined {
-        return this._menuHelper?.getMenu();
+    getMenuElement() : MenuElement | null | undefined {
+        return this._menuHelper?.getMenuElement();
     }
 
-    getCategories() : MenuElement[] | null | undefined {
-        return this._menuHelper?.getCategories();
+    getCategoryElements() : MenuElement[] | null | undefined {
+        return this._menuHelper?.getCategoryElements();
     }
 
-    getProducts(categoryId: number) : MenuElement[] | undefined {
-        return this._menuHelper?.getProducts(categoryId);
+    getProductElements(categoryId: number) : MenuElement[] | undefined {
+        return this._menuHelper?.getProductElements(categoryId);
     }
 
     onElementClicked(event: Event) {

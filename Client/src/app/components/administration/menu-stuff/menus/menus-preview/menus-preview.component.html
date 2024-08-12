@@ -28,9 +28,9 @@
 </div>
 
     <div class="m-1 text-center">        
-            <span class="fs-1 d-block">{{ getMenu()?.menu?.name }}</span>
-            <ng-container *ngIf="getMenu()?.menu?.description !== ''">
-                <span class="fs-6 fw-light fst-italic d-block">{{ getMenu()?.menu?.description }}</span>
+            <span class="fs-1 d-block">{{ getMenuElement()?.menu?.name }}</span>
+            <ng-container *ngIf="getMenuElement()?.menu?.description !== ''">
+                <span class="fs-6 fw-light fst-italic d-block">{{ getMenuElement()?.menu?.description }}</span>
             </ng-container>        
     </div>
     <ng-container *ngIf="_designMode">
@@ -50,7 +50,7 @@
     </ng-container>
 </ng-container>
 
-<ng-container *ngFor="let category of getCategories()">
+<ng-container *ngFor="let category of getCategoryElements()">
     <div class="m-4">
         <div class="m-2">
             <div>
@@ -86,7 +86,7 @@
         </div>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            <ng-container *ngFor="let product of getProducts(category.category.id)">
+            <ng-container *ngFor="let product of getProductElements(category.category.id)">
                 <div class="col">
                     <div class="card h-100">
                         <img *ngIf="product.image !== null" src="{{ product.image }}" class="card-img-top" alt="...">
