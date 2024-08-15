@@ -10,6 +10,18 @@ namespace Server.Controllers
     public partial class BusinessController
     {
         /// <summary>
+        /// Devuelve menu activo
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpGet(template: "menu-stuff/active")]
+        public async Task<ActionResult> GetActiveMenu()
+        {
+            var result = await _businessLogicMenuStuff.GetActiveMenuAsync();
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Cosas del menu
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

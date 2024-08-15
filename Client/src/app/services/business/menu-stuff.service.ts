@@ -216,6 +216,24 @@ export class MenuStuffService {
 	// menu-stuff //
 	////////////////
 
+	getActiveMenu() {
+		return this.requestService.get<number | null>(`/business/menu-stuff/active`);
+	}
+
+	getActiveMenuAsync() : Promise<number | null> {
+		return new Promise((resolve, reject) => {
+			this.getActiveMenu()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
 	getMenuStuff(menuId: number) {	
 		return this.requestService.get<MenuStuffResponse[]>(`/business/menu-stuff/${menuId}`);
 	}

@@ -37,6 +37,16 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
+        public async Task<int?> GetActiveMenuAsync()
+        {
+            var menuId = await _businessRepository
+                .GetMenuStuff(p => p.IsVisible)
+                .Select(p => p.MenuId)
+                .FirstOrDefaultAsync();
+            
+            return menuId;
+        }
+
         public async Task<List<MenuStuffResponse>> GetMenuStuffAsync(int menuId)
         {
             var data = await _businessRepository.GetMenuStuff(menuId).ToListAsync();
