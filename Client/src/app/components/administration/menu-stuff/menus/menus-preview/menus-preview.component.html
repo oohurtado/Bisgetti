@@ -35,9 +35,11 @@
     <ng-container *ngIf="_designMode">
         <div class="text-center">
             <div class="btn-group" role="group" aria-label="Basic example">
+                <!-- 
                 <button type="button" class="btn btn-primary" title="Editar menú">
                     <i class="fa-solid fa-pen"></i>
-                </button>
+                </button> 
+                -->
                 <button type="button" class="btn btn-primary" title="Agregar categorías al menú" (click)="onElementClicked($event, getMenuElement()!, 'add')">
                     <i class="fa-solid fa-plus"></i>
                 </button>
@@ -62,9 +64,11 @@
             <ng-container *ngIf="_designMode">
                 <div class="text-start">
                     <div class="btn-group" role="group" aria-label="Basic example">
+                    <!-- 
                     <button type="button" class="btn btn-primary" title="Editar categoría">
                         <i class="fa-solid fa-pen"></i>
-                    </button>
+                    </button> 
+                    -->
                     <button type="button" class="btn btn-primary" title="Agregar productos a categoría" (click)="onElementClicked($event, category, 'add')">
                         <i class="fa-solid fa-plus"></i>
                     </button>
@@ -118,9 +122,11 @@
                         <ng-container *ngIf="_designMode">
                             <div class="text-start">
                                 <div class="btn-group" role="group" aria-label="Basic example">
+                                    <!-- 
                                     <button type="button" class="btn btn-primary" title="Editar producto">
                                         <i class="fa-solid fa-pen"></i>
-                                    </button>                 
+                                    </button>                  
+                                    -->
                                     <button type="button" class="btn btn-primary" title="Quitar producto de categoría" (click)="onElementClicked($event, product, 'remove')">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>                    
