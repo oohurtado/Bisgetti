@@ -63,7 +63,7 @@ namespace Server.Source.Data.Interfaces
         Task<bool> ElementExistsAsync(Expression<Func<MenuStuffEntity, bool>> exp);
 
         /// <summary>
-        /// Obteniendo cosas del menú
+        /// Obteniendo Diseñar menú
         /// </summary>
         IQueryable<MenuStuffEntity> GetMenuStuff(Expression<Func<MenuStuffEntity, bool>> exp);
     }

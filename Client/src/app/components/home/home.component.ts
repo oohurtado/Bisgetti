@@ -111,6 +111,5 @@ export class HomeComponent implements OnInit {
 
     onAddToCartClicked(event: Event, product: MenuElement) {
         alertify.message('Agregando al carrito...')
-        console.log(product);
     }
 }
