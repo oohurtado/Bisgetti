@@ -24,7 +24,7 @@ namespace Server.Controllers
         /// Listado de categorias - todas
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [AllowAnonymous]
         [HttpGet(template: "categories")]
         public async Task<ActionResult> GetCategories()
         {

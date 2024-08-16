@@ -28,7 +28,7 @@ namespace Server.Controllers
         /// Obtiene menu
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [AllowAnonymous]
         [HttpGet(template: "menus/{id}")]
         public async Task<ActionResult> GetMenu(int id)
         {

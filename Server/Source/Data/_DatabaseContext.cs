@@ -88,6 +88,7 @@ namespace Server.Source.Data
                 e.Property(p => p.Description).IsRequired(required: false).HasMaxLength(100);
                 e.Property(p => p.Ingredients).IsRequired(required: false).HasMaxLength(100);
                 e.Property(e => e.Price).HasColumnType("decimal(15,2)");
+                e.Property(p => p.Guid).IsRequired(required: true).HasMaxLength(36);
 
                 e.HasIndex(p => new { p.Name }).IsUnique();
 

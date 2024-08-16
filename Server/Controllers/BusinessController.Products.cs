@@ -24,7 +24,7 @@ namespace Server.Controllers
         /// Listado de productos - todos
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [AllowAnonymous]
         [HttpGet(template: "products")]
         public async Task<ActionResult> GetProducts()
         {

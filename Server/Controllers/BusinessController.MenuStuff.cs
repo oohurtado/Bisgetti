@@ -13,7 +13,7 @@ namespace Server.Controllers
         /// Devuelve menu activo
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [AllowAnonymous]
         [HttpGet(template: "menu-stuff/active")]
         public async Task<ActionResult> GetActiveMenu()
         {
@@ -25,7 +25,7 @@ namespace Server.Controllers
         /// Cosas del menu
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [AllowAnonymous]
         [HttpGet(template: "menu-stuff/{menuId}")]
         public async Task<ActionResult> GetMenuStuff(int menuId)
         {

@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
     _error: string | null = null;
     _isProcessing: boolean = false;
 
+    _askingForData = true;
+    _weHaveAMenu = false;
+
     _menuHelper: MenuHelper | null = null;
     _data: MenuElement[];
 
@@ -33,10 +36,19 @@ export class HomeComponent implements OnInit {
 
     async ngOnInit() {
         alertify.set('notifier','position', 'top-right');
-        await this.initAsync();
+
+        this._askingForData = true;
+
+        let menuId = await this.getActiveMenyAsync();
+        if (menuId !== null) {
+            this._weHaveAMenu = true;
+            await this.getDataAsync(menuId);  
+        }
+
+        this._askingForData = false;
     }
 
-    async initAsync() {
+    async getActiveMenyAsync() : Promise<number | null> {
         let menuId : number | null = 0;
 
         this._isProcessing = true;
@@ -47,8 +59,8 @@ export class HomeComponent implements OnInit {
                 this._error = Utils.getErrorsResponse(e);
             });
         this._isProcessing = false;
-        
-        await this.getDataAsync(menuId);  
+
+        return menuId;
     }
 
     async getDataAsync(menuId: number) {
@@ -97,7 +109,8 @@ export class HomeComponent implements OnInit {
         return elements;
     }
 
-    onAddToCartClicked(event: Event) {
+    onAddToCartClicked(event: Event, product: MenuElement) {
         alertify.message('Agregando al carrito...')
+        console.log(product);
     }
 }
