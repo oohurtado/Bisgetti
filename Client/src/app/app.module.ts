@@ -57,7 +57,7 @@ import { AddElementToElementComponent } from './components/_shared/modals/busine
 import { UpdateElementImageComponent } from './components/_shared/modals/business/menu-stuff/update-element-image/update-element-image.component';
 import { UpdateElementSettingsComponent } from './components/_shared/modals/business/menu-stuff/update-element-settings/update-element-settings.component';
 import { RemoveElementFromElementComponent } from './components/_shared/modals/business/menu-stuff/remove-element-from-element/remove-element-from-element.component';
-import { MenusPreviewComponent } from './components/administration/menu-stuff/menus/menus-preview/menus-preview.component';
+import { MenusDesignComponent } from './components/administration/menu-stuff/menus/menus-design/menus-design.component';
 
 @NgModule({
 	declarations: [
@@ -107,7 +107,7 @@ import { MenusPreviewComponent } from './components/administration/menu-stuff/me
 		UpdateElementImageComponent,
 		UpdateElementSettingsComponent,
 		RemoveElementFromElementComponent,
-  MenusPreviewComponent,
+  MenusDesignComponent,
 	],
 	imports: [
 		BrowserModule,

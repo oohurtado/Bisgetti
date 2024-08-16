@@ -87,7 +87,7 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
 		this.router.navigateByUrl(`/menu-stuff/menus/builder/${menu.id}`);
 	}
 
-	onPreviewClicked(event: Event, menu: MenuResponse) {
-		this.router.navigateByUrl(`/menu-stuff/menus/preview/${menu.id}`);
+	onDesignClicked(event: Event, menu: MenuResponse) {
+		this.router.navigateByUrl(`/menu-stuff/menus/design/${menu.id}`);
 	}
 }

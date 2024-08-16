@@ -14,11 +14,11 @@ import { PositionElementRequest } from '../../../../../source/models/dtos/menus/
 declare let alertify: any;
 
 @Component({
-    selector: 'app-menus-preview',
-    templateUrl: './menus-preview.component.html',
-    styleUrl: './menus-preview.component.css'
+    selector: 'app-menus-design',
+    templateUrl: './menus-design.component.html',
+    styleUrl: './menus-design.component.css'
 })
-export class MenusPreviewComponent implements OnInit {
+export class MenusDesignComponent implements OnInit {
     _error: string | null = null;
     _isProcessing: boolean = false;
 
@@ -136,7 +136,7 @@ export class MenusPreviewComponent implements OnInit {
         
         // TODO: oohg - 5
         // aplica a: menu
-        if (action == "preview") {
+        if (action == "design") {
             this.onPreviewAction(element);
             return;
         }
@@ -218,7 +218,7 @@ export class MenusPreviewComponent implements OnInit {
     }
 
     onPreviewAction(element: MenuElement) {
-        this.router.navigateByUrl(`/menu-stuff/menus/preview/${element.menuId}`);        
+        this.router.navigateByUrl(`/menu-stuff/menus/design/${element.menuId}`);        
     }
 
     onModalClosedClicked() {  

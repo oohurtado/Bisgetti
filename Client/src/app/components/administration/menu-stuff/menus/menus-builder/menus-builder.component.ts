@@ -199,7 +199,7 @@ export class MenusBuilderComponent implements OnInit {
         
         // TODO: oohg - 5
         // aplica a: menu
-        if (action == "preview") {
+        if (action == "design") {
             this.onPreviewAction(element);
             return;
         }
@@ -281,7 +281,7 @@ export class MenusBuilderComponent implements OnInit {
     }
 
     onPreviewAction(element: MenuElement) {
-        this.router.navigateByUrl(`/menu-stuff/menus/preview/${element.menuId}`);        
+        this.router.navigateByUrl(`/menu-stuff/menus/design/${element.menuId}`);        
     }
 
     onModalClosedClicked() {  
