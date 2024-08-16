@@ -18,14 +18,14 @@
 </div>
 
 <ng-container *ngIf="_data != null && _data.length > 0">
+    <div>
+        <div class="form-check form-switch">
+            <input class="form-check-input cursor-pointer" type="checkbox" id="flexSwitchCheckDefault" [checked]="_designMode" (click)="onDesignClicked($event)" >
+            <label class="form-check-label cursor-pointer" for="flexSwitchCheckDefault">Mostrar botones para diseñar el menú</label>
+        </div>
+    </div>
 
-<div>
-    <div class="form-check form-switch">
-        <input class="form-check-input cursor-pointer" type="checkbox" id="flexSwitchCheckDefault" [checked]="_designMode" (click)="onDesignClicked($event)" >
-        <label class="form-check-label cursor-pointer" for="flexSwitchCheckDefault">Mostrar botones para diseñar el menú</label>
-      </div>
-</div>
-
+    <!-- menu -->
     <div class="m-1 text-center">        
             <span class="fs-1 d-block">{{ getMenuElement()?.menu?.name }}</span>
             <ng-container *ngIf="getMenuElement()?.menu?.description !== ''">
@@ -49,107 +49,108 @@
             </div>
         </div>
     </ng-container>
-</ng-container>
 
-<ng-container *ngFor="let category of getCategoryElements()">
-    <div class="m-4">
-        <div class="m-2">
-            <div>
-                <span class="fs-2 d-block">{{ category.category.name }}</span>
-                <span class="text-danger fs-2 d-block">{{ !category.isVisible ? '(no visible)' : '' }}</span>
-                <ng-container *ngIf="category.category.description !== ''">
-                    <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
+    <!-- categorias -->
+    <ng-container *ngFor="let category of getCategoryElements()">
+        <div class="m-4">
+            <div class="m-2">
+                <div>
+                    <span class="fs-2 d-block">{{ category.category.name }}</span>
+                    <span class="text-danger fs-2 d-block">{{ !category.isVisible ? '(no visible)' : '' }}</span>
+                    <ng-container *ngIf="category.category.description !== ''">
+                        <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
+                    </ng-container>
+                </div>
+                <ng-container *ngIf="_designMode">
+                    <div class="text-start">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <!-- 
+                        <button type="button" class="btn btn-primary" title="Editar categoría">
+                            <i class="fa-solid fa-pen"></i>
+                        </button> 
+                        -->
+                        <button type="button" class="btn btn-primary" title="Agregar productos a categoría" (click)="onElementClicked($event, category, 'add')">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary" title="Quitar productos de categoría" (click)="onElementClicked($event, category, 'remove')">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>                    
+                        <button type="button" class="btn btn-primary" title="Más opciones" (click)="onElementClicked($event, category, 'settings')">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary" title="Mover hacia arriba" (click)="onElementClicked($event, category, 'move-up')">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary" title="Mover hacia abajo" (click)="onElementClicked($event, category, 'move-down')">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>            
+            </ng-container>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <ng-container *ngFor="let product of getProductElements(category.category.id)">
+                    <div class="col">
+                        <div class="card h-100">
+                            <img *ngIf="product.image !== null" src="{{ product.image }}" class="card-img-top" alt="...">
+                            <img *ngIf="product.image === null" src="./assets/common/no-image.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <span class="fs-5">
+                                        {{ product.product.name }} <strong>{{ product.product.price | currency:'$' }}</strong>                                    
+                                    </span>
+                                    <span class="text-danger fs-2 d-block">
+                                        {{ !product.isVisible ? '(no visible)' : '' }}
+                                    </span>
+                                    <span *ngIf="product.product.description !== ''" class="d-block">
+                                        {{ product.product.description }}
+                                    </span>
+                                    <span *ngIf="product.product.ingredients !== ''" class="fs-6 fw-light fst-italic d-block">
+                                        Ingredientes: {{ product.product.ingredients }}
+                                    </span>
+                                </p>
+                                <ng-container *ngIf="product.isAvailable">
+                                    <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event)">Agregar al carrito</button>
+                                </ng-container>
+                            </div>  
+                            <ng-container *ngIf="!product.isAvailable">
+                                <div class="card-footer">
+                                    <small class="text-muted">No disponible por el momento</small>
+                                </div>       
+                            </ng-container>
+                            <ng-container *ngIf="_designMode">
+                                <div class="text-start">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <!-- 
+                                        <button type="button" class="btn btn-primary" title="Editar producto">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>                  
+                                        -->
+                                        <button type="button" class="btn btn-primary" title="Quitar producto de categoría" (click)="onElementClicked($event, product, 'remove')">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>                    
+                                        <button type="button" class="btn btn-primary" title="Más opciones" (click)="onElementClicked($event, product, 'settings')">
+                                            <i class="fa-solid fa-gear"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-primary" title="Actualizar imagen" (click)="onElementClicked($event, product, 'image')">
+                                            <i class="fa-solid fa-image"></i>
+                                        </button>                                    
+                                        <button type="button" class="btn btn-primary" title="Mover hacia arriba" (click)="onElementClicked($event, product, 'move-up')">
+                                            <i class="fa-solid fa-arrow-up"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-primary" title="Mover hacia abajo" (click)="onElementClicked($event, product, 'move-down')">
+                                            <i class="fa-solid fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+                                </div>                           
+                            </ng-container>
+                        </div>                
+                    </div> 
                 </ng-container>
             </div>
-            <ng-container *ngIf="_designMode">
-                <div class="text-start">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                    <!-- 
-                    <button type="button" class="btn btn-primary" title="Editar categoría">
-                        <i class="fa-solid fa-pen"></i>
-                    </button> 
-                    -->
-                    <button type="button" class="btn btn-primary" title="Agregar productos a categoría" (click)="onElementClicked($event, category, 'add')">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                    <button type="button" class="btn btn-primary" title="Quitar productos de categoría" (click)="onElementClicked($event, category, 'remove')">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>                    
-                    <button type="button" class="btn btn-primary" title="Más opciones" (click)="onElementClicked($event, category, 'settings')">
-                        <i class="fa-solid fa-gear"></i>
-                    </button>
-                    <button type="button" class="btn btn-primary" title="Mover hacia arriba" (click)="onElementClicked($event, category, 'move-up')">
-                        <i class="fa-solid fa-arrow-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-primary" title="Mover hacia abajo" (click)="onElementClicked($event, category, 'move-down')">
-                        <i class="fa-solid fa-arrow-down"></i>
-                    </button>
-                </div>
-            </div>            
-        </ng-container>
         </div>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            <ng-container *ngFor="let product of getProductElements(category.category.id)">
-                <div class="col">
-                    <div class="card h-100">
-                        <img *ngIf="product.image !== null" src="{{ product.image }}" class="card-img-top" alt="...">
-                        <img *ngIf="product.image === null" src="./assets/common/no-image.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                <span class="fs-5">
-                                    {{ product.product.name }} <strong>{{ product.product.price | currency:'$' }}</strong>                                    
-                                </span>
-                                <span class="text-danger fs-2 d-block">
-                                    {{ !product.isVisible ? '(no visible)' : '' }}
-                                </span>
-                                <span *ngIf="product.product.description !== ''" class="d-block">
-                                    {{ product.product.description }}
-                                </span>
-                                <span *ngIf="product.product.ingredients !== ''" class="fs-6 fw-light fst-italic d-block">
-                                    Ingredientes: {{ product.product.ingredients }}
-                                </span>
-                            </p>
-                            <ng-container *ngIf="product.isAvailable">
-                                <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event)">Agregar al carrito</button>
-                            </ng-container>
-                        </div>  
-                        <ng-container *ngIf="!product.isAvailable">
-                            <div class="card-footer">
-                                <small class="text-muted">No disponible por el momento</small>
-                            </div>       
-                        </ng-container>
-                        <ng-container *ngIf="_designMode">
-                            <div class="text-start">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <!-- 
-                                    <button type="button" class="btn btn-primary" title="Editar producto">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </button>                  
-                                    -->
-                                    <button type="button" class="btn btn-primary" title="Quitar producto de categoría" (click)="onElementClicked($event, product, 'remove')">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>                    
-                                    <button type="button" class="btn btn-primary" title="Más opciones" (click)="onElementClicked($event, product, 'settings')">
-                                        <i class="fa-solid fa-gear"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary" title="Actualizar imagen" (click)="onElementClicked($event, product, 'image')">
-                                        <i class="fa-solid fa-image"></i>
-                                    </button>                                    
-                                    <button type="button" class="btn btn-primary" title="Mover hacia arriba" (click)="onElementClicked($event, product, 'move-up')">
-                                        <i class="fa-solid fa-arrow-up"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary" title="Mover hacia abajo" (click)="onElementClicked($event, product, 'move-down')">
-                                        <i class="fa-solid fa-arrow-down"></i>
-                                    </button>
-                                </div>
-                            </div>                           
-                        </ng-container>
-                    </div>                
-                </div> 
-            </ng-container>
-        </div>
-    </div>
+    </ng-container>    
 </ng-container>
 
 <ng-container *ngIf="_openModal_addElementToElement">

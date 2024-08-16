@@ -77,14 +77,27 @@ export class HomeComponent implements OnInit {
     }  
 
     getMenuElement() : MenuElement | null | undefined {
-        return this._menuHelper?.getMenuElement();
+        let element = this._menuHelper?.getMenuElement();
+        if (element?.isVisible) {
+            return element;
+        } else {
+            return null;
+        }
     }
 
     getCategoryElements() : MenuElement[] | null | undefined {
-        return this._menuHelper?.getCategoryElements();
+        let elements = this._menuHelper?.getCategoryElements();
+        elements = elements?.filter(p => p.isVisible);
+        return elements;
     }
 
     getProductElements(categoryId: number) : MenuElement[] | undefined {
-        return this._menuHelper?.getProductElements(categoryId);
+        let elements = this._menuHelper?.getProductElements(categoryId);
+        elements = elements?.filter(p => p.isVisible);
+        return elements;
+    }
+
+    onAddToCartClicked(event: Event) {
+        alertify.message('Agregando al carrito...')
     }
 }
