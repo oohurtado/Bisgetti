@@ -13,6 +13,8 @@ namespace Server.Source.Data
         public virtual DbSet<CategoryEntity> Categories { get; set; }
         public virtual DbSet<ProductEntity> Products { get; set; }
         public virtual DbSet<MenuStuffEntity> MenuStuff { get; set; }
+        public virtual DbSet<PersonEntity> People { get; set; }
+        public virtual DbSet<CartElementEntity> CartElements { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
@@ -28,10 +30,13 @@ namespace Server.Source.Data
             builder.Entity<CategoryEntity>().ToTable("Categories");
             builder.Entity<ProductEntity>().ToTable("Products");
             builder.Entity<MenuStuffEntity>().ToTable("MenuStuff");
+            builder.Entity<PersonEntity>().ToTable("People");
+            builder.Entity<CartElementEntity>().ToTable("CartElements");
 
             builder.Entity<UserEntity>(e =>
             {
                 e.HasMany(p => p.Addresses).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.People).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<AddressEntity>(e =>
@@ -93,6 +98,7 @@ namespace Server.Source.Data
                 e.HasIndex(p => new { p.Name }).IsUnique();
 
                 e.HasMany(p => p.MenuStuff).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.CartElements).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<MenuStuffEntity>(e =>
@@ -106,6 +112,26 @@ namespace Server.Source.Data
                 e.Property(p => p.MenuId).IsRequired(required: true);
                 e.Property(p => p.CategoryId).IsRequired(required: false);
                 e.Property(p => p.ProductId).IsRequired(required: false);
+            });
+
+            builder.Entity<PersonEntity>(e =>
+            {
+                e.Property(p => p.Id).HasColumnName("PersonId");
+
+                e.Property(p => p.Name).IsRequired(required: true).HasMaxLength(50);
+
+                e.HasOne(p => p.User).WithMany(p => p.People).HasForeignKey(p => p.UserId);
+            });
+
+            builder.Entity<CartElementEntity>(e =>
+            {
+                e.Property(p => p.Id).HasColumnName("CartElementId");
+
+                e.Property(p => p.Quantity).IsRequired(required: true);
+                e.Property(p => p.ProductGuid).IsRequired(required: true).HasMaxLength(50);
+                e.Property(p => p.PersonName).IsRequired(required: true).HasMaxLength(50);
+
+                e.HasOne(p => p.Product).WithMany(p => p.CartElements).HasForeignKey(p => p.ProductId);
             });
         }
     }

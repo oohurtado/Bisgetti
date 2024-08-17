@@ -5,6 +5,7 @@
         public ProductEntity()
         {
             MenuStuff = [];
+            CartElements = [];
         }
 
         /// <summary>
@@ -24,5 +25,6 @@
         public int Id { get; set; }
 
         public ICollection<MenuStuffEntity>? MenuStuff { get; set; }
+        public ICollection<CartElementEntity>? CartElements { get; set; }
     }
 }

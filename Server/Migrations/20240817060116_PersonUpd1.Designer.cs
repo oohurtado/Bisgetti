@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Source.Data;
 
@@ -11,9 +12,11 @@ using Server.Source.Data;
 namespace Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240817060116_PersonUpd1")]
+    partial class PersonUpd1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,44 +234,6 @@ namespace Server.Migrations
                     b.ToTable("Addresses", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Source.Models.Entities.CartElementEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("CartElementId");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("PersonName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("ProductGuid")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CartElements", (string)null);
-                });
-
             modelBuilder.Entity("Server.Source.Models.Entities.CategoryEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -386,7 +351,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("People", (string)null);
+                    b.ToTable("PersonEntity");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.ProductEntity", b =>
@@ -559,25 +524,6 @@ namespace Server.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.Source.Models.Entities.CartElementEntity", b =>
-                {
-                    b.HasOne("Server.Source.Models.Entities.ProductEntity", "Product")
-                        .WithMany("CartElements")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Server.Source.Models.Entities.UserEntity", "User")
-                        .WithMany("CartElements")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Server.Source.Models.Entities.MenuStuffEntity", b =>
                 {
                     b.HasOne("Server.Source.Models.Entities.CategoryEntity", "Category")
@@ -626,16 +572,12 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Source.Models.Entities.ProductEntity", b =>
                 {
-                    b.Navigation("CartElements");
-
                     b.Navigation("MenuStuff");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.UserEntity", b =>
                 {
                     b.Navigation("Addresses");
-
-                    b.Navigation("CartElements");
 
                     b.Navigation("People");
                 });

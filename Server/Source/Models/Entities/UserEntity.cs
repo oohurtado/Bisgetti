@@ -8,6 +8,8 @@ namespace Server.Source.Models.Entities
         public UserEntity()
         {
             Addresses = [];
+            People = [];
+            CartElements = [];
         }
 
         /// <summary>
@@ -22,5 +24,7 @@ namespace Server.Source.Models.Entities
         /// </summary>
 
         public ICollection<AddressEntity> Addresses { get; set; }
+        public ICollection<PersonEntity> People { get; set; }
+        public ICollection<CartElementEntity> CartElements { get; set; }
     }
 }
