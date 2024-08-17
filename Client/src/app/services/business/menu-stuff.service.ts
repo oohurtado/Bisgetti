@@ -216,13 +216,13 @@ export class MenuStuffService {
 	// menu-stuff //
 	////////////////
 
-	getActiveMenu() {
-		return this.requestService.get<number | null>(`/business/menu-stuff/active`);
+	getVisibleMenu() {
+		return this.requestService.get<number | null>(`/business/menu-stuff/visible`);
 	}
 
-	getActiveMenuAsync() : Promise<number | null> {
+	getVisibleMenuAsync() : Promise<number | null> {
 		return new Promise((resolve, reject) => {
-			this.getActiveMenu()
+			this.getVisibleMenu()
 			.subscribe({
 				next: (value) => {
 					resolve(value);

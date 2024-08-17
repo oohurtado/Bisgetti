@@ -18,52 +18,46 @@ declare let alertify: any;
 export class HomeComponent implements OnInit {
     _error: string | null = null;
     _isProcessing: boolean = false;
-
-    _askingForData = true;
+    
+    _isInitialLoading = false;
     _weHaveAMenu = false;
 
-    _menuHelper: MenuHelper | null = null;
-    _data: MenuElement[];
+    _menuHelper: MenuHelper | null = new MenuHelper();
+    _data: MenuElement[] = [];
 
     constructor(
         private menuStuffService: MenuStuffService,
         private activatedRoute: ActivatedRoute,
         private router: Router
     ) {
-        this._data = [];
-        this._menuHelper = new MenuHelper();
     }
 
     async ngOnInit() {
         alertify.set('notifier','position', 'top-right');
 
-        this._askingForData = true;
-
-        let menuId = await this.getActiveMenyAsync();
-        if (menuId !== null) {
-            this._weHaveAMenu = true;
-            await this.getDataAsync(menuId);  
-        }
-
-        this._askingForData = false;
-    }
-
-    async getActiveMenyAsync() : Promise<number | null> {
-        let menuId : number | null = 0;
-
-        this._isProcessing = true;
-        await this.menuStuffService.getActiveMenuAsync()
+        this._isInitialLoading = true;
+        this._isProcessing = true;        
+        
+        let menuId : number | null = null;
+        await this.menuStuffService.getVisibleMenuAsync()
             .then(r => {
                 menuId = r;
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
             });
-        this._isProcessing = false;
 
-        return menuId;
+        if (menuId == null) {
+            this._weHaveAMenu = false;
+        } else {
+            this._weHaveAMenu = true;
+            await this.getAllElementsFromMenuAsync(menuId);
+        }        
+
+        this._isProcessing = false;
+        this._isInitialLoading = false;
     }
 
-    async getDataAsync(menuId: number) {
+    async getAllElementsFromMenuAsync(menuId: number) {
         this._isProcessing = true;
         await Promise.all(
             [
@@ -83,18 +77,12 @@ export class HomeComponent implements OnInit {
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
                 alertify.error(this._error, 1)
-                this.router.navigateByUrl('menu-stuff/menus/list');
             });
         this._isProcessing = false;        
-    }  
+    }
 
     getMenuElement() : MenuElement | null | undefined {
-        let element = this._menuHelper?.getMenuElement();
-        if (element?.isVisible) {
-            return element;
-        } else {
-            return null;
-        }
+        return this._menuHelper?.getMenuElement();
     }
 
     getCategoryElements() : MenuElement[] | null | undefined {
@@ -112,4 +100,20 @@ export class HomeComponent implements OnInit {
     onAddToCartClicked(event: Event, product: MenuElement) {
         alertify.message('Agregando al carrito...')
     }
+
+    // async ngOnInit() {
+    //     alertify.set('notifier','position', 'top-right');
+
+    //     this._askingForData = true;
+
+    //     let menuId = await this.getActiveMenyAsync();
+    //     if (menuId !== null) {
+    //         this._weHaveAMenu = true;
+    //         await this.getDataAsync(menuId);  
+    //     }
+
+    //     this._askingForData = false;
+    // }
+
+
 }

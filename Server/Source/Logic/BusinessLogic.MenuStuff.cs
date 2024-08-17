@@ -37,10 +37,10 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        public async Task<int?> GetActiveMenuAsync()
+        public async Task<int?> GetVisibleMenuAsync()
         {
             var menuId = await _businessRepository
-                .GetMenuStuff(p => p.IsVisible)
+                .GetMenuStuff(p => p.IsVisible && (p.MenuId != null && p.CategoryId == null && p.ProductId == null))
                 .Select(p => p.MenuId)
                 .FirstOrDefaultAsync();
             

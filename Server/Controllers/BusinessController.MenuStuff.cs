@@ -14,10 +14,10 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [AllowAnonymous]
-        [HttpGet(template: "menu-stuff/active")]
-        public async Task<ActionResult> GetActiveMenu()
+        [HttpGet(template: "menu-stuff/visible")]
+        public async Task<ActionResult> GetVisibleMenu()
         {
-            var result = await _businessLogicMenuStuff.GetActiveMenuAsync();
+            var result = await _businessLogicMenuStuff.GetVisibleMenuAsync();
             return Ok(result);
         }
 
