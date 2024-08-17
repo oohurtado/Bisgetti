@@ -100,20 +100,4 @@ export class HomeComponent implements OnInit {
     onAddToCartClicked(event: Event, product: MenuElement) {
         alertify.message('Agregando al carrito...')
     }
-
-    // async ngOnInit() {
-    //     alertify.set('notifier','position', 'top-right');
-
-    //     this._askingForData = true;
-
-    //     let menuId = await this.getActiveMenyAsync();
-    //     if (menuId !== null) {
-    //         this._weHaveAMenu = true;
-    //         await this.getDataAsync(menuId);  
-    //     }
-
-    //     this._askingForData = false;
-    // }
-
-
 }
