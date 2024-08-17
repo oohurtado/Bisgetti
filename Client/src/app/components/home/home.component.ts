@@ -111,6 +111,14 @@ export class HomeComponent implements OnInit {
     }
 
     onAddToCartClicked(event: Event, product: MenuElement) {
-        alertify.message('Agregando al carrito...')
+        if (this.localStorageService.isUserAdmin()) {
+            alertify.message('admin')
+        } else if (this.localStorageService.isUserBoss()) {
+            alertify.message('boss')
+        } else if (this.localStorageService.isUserCustomer()) {
+            alertify.message('customer')
+        } else {
+            this.router.navigateByUrl('/access/login');
+        }
     }
 }

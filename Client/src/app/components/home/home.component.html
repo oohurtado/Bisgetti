@@ -41,13 +41,7 @@
                                 </span>
                                 <span class="text-danger fs-2 d-block">
                                     {{ !product.isVisible ? '(no visible)' : '' }}
-                                </span>
-                                <span *ngIf="product.product.description !== ''" class="d-block">
-                                    {{ product.product.description }}
-                                </span>
-                                <span *ngIf="product.product.ingredients !== ''" class="fs-6 fw-light fst-italic d-block">
-                                    Ingredientes: {{ product.product.ingredients }}
-                                </span>
+                                </span>         
                             </p>
                             <ng-container *ngIf="product.isAvailable">
                                 <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event, product)">Agregar al carrito</button>
