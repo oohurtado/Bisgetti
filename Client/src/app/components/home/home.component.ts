@@ -8,6 +8,7 @@ import { CategoryResponse } from '../../source/models/business/responses/categor
 import { MenuStuffResponse } from '../../source/models/business/responses/menu-stuff-response';
 import { ProductResponse } from '../../source/models/business/responses/product-response';
 import { Utils } from '../../source/utils';
+import { PersonResponse } from '../../source/models/business/responses/person-response';
 declare let alertify: any;
 
 @Component({
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
 
     _menuHelper: MenuHelper | null = new MenuHelper();
     _data: MenuElement[] = [];
+    _people: PersonResponse[] = [];
 
     constructor(
         private menuStuffService: MenuStuffService,
@@ -50,27 +52,30 @@ export class HomeComponent implements OnInit {
             this._weHaveAMenu = false;
         } else {
             this._weHaveAMenu = true;
-            await this.getAllElementsFromMenuAsync(menuId);
-        }        
+            await this.getAllAsync(menuId);
+        }
 
         this._isProcessing = false;
         this._isInitialLoading = false;
     }
 
-    async getAllElementsFromMenuAsync(menuId: number) {
+    async getAllAsync(menuId: number) {
         this._isProcessing = true;
         await Promise.all(
             [
                 this.menuStuffService.getMenuAsync(menuId ?? 0), 
                 this.menuStuffService.getCategoriesAsync(), 
                 this.menuStuffService.getProductsAsync(),
-                this.menuStuffService.getMenuStuffAsync(menuId ?? 0)
+                this.menuStuffService.getMenuStuffAsync(menuId ?? 0),
+                this.menuStuffService.getUserPeopleAsync()
             ])
             .then(r => {
                 let menu = r[0] as MenuResponse;
                 let categories = r[1] as CategoryResponse[];
                 let products = r[2] as ProductResponse[]; 
                 let menuStuff = r[3] as MenuStuffResponse[];
+                
+                this._people = r[4] as PersonResponse[];
 
                 this._menuHelper?.setData(menuId, menu, categories, products, menuStuff);
                 this._data = this._menuHelper?.buildMenu() ?? [];

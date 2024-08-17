@@ -13,6 +13,7 @@ import { PositionElementRequest } from '../../source/models/dtos/menus/position-
 import { SettingsElementRequest } from '../../source/models/dtos/menus/settings-element-request';
 import { ImageElementRequest } from '../../source/models/dtos/menus/image-element-request';
 import { ImageElementResponse } from '../../source/models/dtos/menus/image-element-response';
+import { PersonResponse } from '../../source/models/business/responses/person-response';
 
 @Injectable({
     providedIn: 'root'
@@ -348,6 +349,28 @@ export class MenuStuffService {
 	deleteElementImageAsync(model: ImageElementRequest) {
 		return new Promise((resolve, reject) => {
 			this.deleteElementImage(model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	//////////////////////////
+	// cart - user - people //
+	//////////////////////////
+
+	getUserPeople() {
+		return this.requestService.get<PersonResponse[]>(`/business/user/people`);
+	}
+
+    getUserPeopleAsync() : Promise<PersonResponse[]> {
+		return new Promise((resolve, reject) => {
+			this.getUserPeople()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
