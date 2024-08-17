@@ -58,6 +58,8 @@ import { UpdateElementImageComponent } from './components/_shared/modals/busines
 import { UpdateElementSettingsComponent } from './components/_shared/modals/business/menu-stuff/update-element-settings/update-element-settings.component';
 import { RemoveElementFromElementComponent } from './components/_shared/modals/business/menu-stuff/remove-element-from-element/remove-element-from-element.component';
 import { MenusDesignComponent } from './components/administration/menu-stuff/menus/menus-design/menus-design.component';
+import { AnonComponent } from './components/_shared/modals/business/cart/anon/anon.component';
+import { AddToCartComponent } from './components/_shared/modals/business/cart/add-to-cart/add-to-cart.component';
 
 @NgModule({
 	declarations: [
@@ -107,7 +109,9 @@ import { MenusDesignComponent } from './components/administration/menu-stuff/men
 		UpdateElementImageComponent,
 		UpdateElementSettingsComponent,
 		RemoveElementFromElementComponent,
-  MenusDesignComponent,
+  		MenusDesignComponent,
+  		AnonComponent,
+  		AddToCartComponent,
 	],
 	imports: [
 		BrowserModule,
