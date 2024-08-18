@@ -1,1 +1,78 @@
-<p>add-to-cart works!</p>
+<!-- Button trigger modal -->
+<button #openModal type="button" class="btn btn-primary collapse" data-bs-toggle="modal"
+    data-bs-target="#mymodal">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="mymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">                    
+                    {{ productElement.product.name }} {{ productElement.product.price | currency:'$' }}                      
+                </h5>
+                <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseClicked()"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="productElement.image != null">
+                    <img src="{{ productElement.image }}" class="img-thumbnail" alt="...">
+                </ng-container>
+                <div class="mt-3">
+                    <span *ngIf="productElement.product.description !== ''" class="d-block">
+                        {{ productElement.product.description }}
+                    </span>
+                    <span *ngIf="productElement.product.ingredients !== ''" class="fs-6 fw-light fst-italic d-block">
+                        Ingredientes: {{ productElement.product.ingredients }}
+                    </span>
+                </div>
+                <div class="mt-3">
+                    <datalist id="people">
+                        <option *ngFor="let person of people" value="{{person.name}}">
+                      </datalist>     
+                    <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onOkClicked()" autocomplete="off">
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input formControlName="name" type="text" class="form-control" id="name" list="people">
+                                <label for="name">Comensal</label>
+                            </div>
+                            <span *ngIf="hasError('name', 'required')" class="text-danger">Este campo es requerido</span>
+                            <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 2 y 25 caracteres</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input formControlName="quantity" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity">
+                                <label for="quantity">Cantidad</label>
+                            </div>
+                            <span *ngIf="hasError('quantity', 'required')" class="text-danger">Este campo es requerido</span>
+                            <span *ngIf="hasError('quantity', 'min') || hasError('quantity', 'max')" class="text-danger">Mínimo 1, máximo 50</span>
+                        </div>
+                        <div class="mb-3">    
+                            <span class="fs-5">Subtotal: <strong>{{ getTotal() | currency:'$' }}</strong></span>
+                            
+                        </div>
+                    </form>
+                    <ng-container *ngIf="_error !== null">                                        
+                        <div class="alert alert-danger ml-4 mr-4 mt-4" role="alert">
+                            {{ _error }}
+                        </div>                    
+                    </ng-container>
+                </div>
+
+                <!-- 
+                {{ lastPersonSelected }}
+                <br><br>
+                <pre>{{ productElement | json }}</pre> 
+                -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="onOkClicked()" [disabled]="_isProcessing">
+                    <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
+                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Aceptar</span>                                        
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -27,10 +27,10 @@ export class MenusDesignComponent implements OnInit {
     _menuId!: number | null;
     _data: MenuElement[];
 
-    _openModal_addElementToElement: boolean = false;
-    _openModal_removeElementFromElement: boolean = false;
-    _openModal_updateElementSettings: boolean = false;
-    _openModal_updateElementImage: boolean = false;
+    _modal_addElementToElement: boolean = false;
+    _modal_removeElementFromElement: boolean = false;
+    _modal_updateElementSettings: boolean = false;
+    _modal_updateElementImage: boolean = false;
 
     _elementsAvaialable!: Tuple2<number,string>[];
     _elementClicked!: MenuElement;
@@ -151,7 +151,7 @@ export class MenusDesignComponent implements OnInit {
     }
 
     onAddAction(element: MenuElement) {
-        this._openModal_addElementToElement = true;
+        this._modal_addElementToElement = true;
 
         // usuario seleccionó agregar categoria a menú'           
         if (element.categoryId == null && element.productId == null) {
@@ -187,15 +187,15 @@ export class MenusDesignComponent implements OnInit {
     }
 
     onRemoveAction(element: MenuElement) {
-        this._openModal_removeElementFromElement = true;        
+        this._modal_removeElementFromElement = true;        
     }
 
     onSettingsAction(element: MenuElement) {
-        this._openModal_updateElementSettings = true;
+        this._modal_updateElementSettings = true;
     }    
 
     onImageAction(element: MenuElement) {
-        this._openModal_updateElementImage = true;
+        this._modal_updateElementImage = true;
     }
     
     onMoveUpOrMoveDown(element: MenuElement, action: string) {
@@ -222,10 +222,10 @@ export class MenusDesignComponent implements OnInit {
     }
 
     onModalClosedClicked() {  
-        this._openModal_addElementToElement = false;      
-        this._openModal_removeElementFromElement = false;
-        this._openModal_updateElementSettings = false;
-        this._openModal_updateElementImage = false;
+        this._modal_addElementToElement = false;      
+        this._modal_removeElementFromElement = false;
+        this._modal_updateElementSettings = false;
+        this._modal_updateElementImage = false;
     }
 
     async onModalOkClicked() {

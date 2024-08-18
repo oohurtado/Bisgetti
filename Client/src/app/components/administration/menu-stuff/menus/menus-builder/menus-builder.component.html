@@ -101,15 +101,15 @@
     </div>
 </div>
 
-<ng-container *ngIf="_openModal_addElementToElement">
-    <app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked" [open]="_openModal_addElementToElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-add-element-to-element>
+<ng-container *ngIf="_modal_addElementToElement">
+    <app-add-element-to-element [elements]="_elementsAvaialable" [element]="_elementClicked" [open]="_modal_addElementToElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-add-element-to-element>
 </ng-container>
-<ng-container *ngIf="_openModal_removeElementFromElement">
-    <app-remove-element-from-element [element]="_elementClicked" [open]="_openModal_removeElementFromElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-remove-element-from-element>
+<ng-container *ngIf="_modal_removeElementFromElement">
+    <app-remove-element-from-element [element]="_elementClicked" [open]="_modal_removeElementFromElement" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-remove-element-from-element>
 </ng-container>
-<ng-container *ngIf="_openModal_updateElementSettings">
-    <app-update-element-settings [element]="_elementClicked" [open]="_openModal_updateElementSettings" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-settings>
+<ng-container *ngIf="_modal_updateElementSettings">
+    <app-update-element-settings [element]="_elementClicked" [open]="_modal_updateElementSettings" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-settings>
 </ng-container>
-<ng-container *ngIf="_openModal_updateElementImage">
-    <app-update-element-image [element]="_elementClicked" [open]="_openModal_updateElementImage" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-image>
+<ng-container *ngIf="_modal_updateElementImage">
+    <app-update-element-image [element]="_elementClicked" [open]="_modal_updateElementImage" (evtOk)="onModalOkClicked()" (evtClose)="onModalClosedClicked()"></app-update-element-image>
 </ng-container>

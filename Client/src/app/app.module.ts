@@ -41,7 +41,6 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { CategoriesCreateOrUpdateComponent } from './components/administration/menu-stuff/categories/categories-create-or-update/categories-create-or-update.component';
 import { CategoriesListComponent } from './components/administration/menu-stuff/categories/categories-list/categories-list.component';
 import { CategoriesComponent } from './components/administration/menu-stuff/categories/categories.component';
-import { MenuStuffListComponent } from './components/administration/menu-stuff/menu-stuff-list/menu-stuff-list.component';
 import { MenuStuffComponent } from './components/administration/menu-stuff/menu-stuff.component';
 import { MenusCreateOrUpdateComponent } from './components/administration/menu-stuff/menus/menus-create-or-update/menus-create-or-update.component';
 import { MenusListComponent } from './components/administration/menu-stuff/menus/menus-list/menus-list.component';
@@ -59,6 +58,7 @@ import { UpdateElementSettingsComponent } from './components/_shared/modals/busi
 import { RemoveElementFromElementComponent } from './components/_shared/modals/business/menu-stuff/remove-element-from-element/remove-element-from-element.component';
 import { MenusDesignComponent } from './components/administration/menu-stuff/menus/menus-design/menus-design.component';
 import { AddToCartComponent } from './components/_shared/modals/business/cart/add-to-cart/add-to-cart.component';
+import { MenuStuffListComponent } from './components/administration/menu-stuff/menu-stuff-list/menu-stuff-list.component';
 
 @NgModule({
 	declarations: [
@@ -108,7 +108,7 @@ import { AddToCartComponent } from './components/_shared/modals/business/cart/ad
 		UpdateElementImageComponent,
 		UpdateElementSettingsComponent,
 		RemoveElementFromElementComponent,
-  		MenusDesignComponent,
+  		MenusDesignComponent,  		
   		AddToCartComponent,
 	],
 	imports: [

@@ -28,6 +28,10 @@ export class HomeComponent implements OnInit {
     _data: MenuElement[] = [];
     _people: PersonResponse[] = [];
 
+    _modal_addProductToCart: boolean = false;
+    _productElement!: MenuElement;
+    _lastPersonSelected: string = 'Yo';
+
     constructor(
         private menuStuffService: MenuStuffService,
         private activatedRoute: ActivatedRoute,
@@ -59,7 +63,7 @@ export class HomeComponent implements OnInit {
             if (this.localStorageService.isUserAuthenticated()) {
                 await this.menuStuffService.getUserPeopleAsync()
                     .then(r => {
-                        this._people = r;
+                        this._people = r;                
                     }, e => {
                         this._error = Utils.getErrorsResponse(e);
                     });            
@@ -110,15 +114,25 @@ export class HomeComponent implements OnInit {
         return elements;
     }
 
-    onAddToCartClicked(event: Event, product: MenuElement) {
+    onAddToCartClicked(event: Event, element: MenuElement) {
         if (this.localStorageService.isUserAdmin()) {
             alertify.message('admin')
         } else if (this.localStorageService.isUserBoss()) {
             alertify.message('boss')
         } else if (this.localStorageService.isUserCustomer()) {
-            alertify.message('customer')
+            this._productElement = element;
+            this._modal_addProductToCart = true;
         } else {
             this.router.navigateByUrl('/access/login');
         }
+    }
+
+    onAddProductToCartOk(personName: string) {
+        this._lastPersonSelected = personName;
+        this.onAddProductToCartClose();        
+    }
+
+    onAddProductToCartClose() {        
+        this._modal_addProductToCart = false;
     }
 }

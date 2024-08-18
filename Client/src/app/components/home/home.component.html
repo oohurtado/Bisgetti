@@ -29,25 +29,25 @@
         </div>
 
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
-            <ng-container *ngFor="let product of getProductElements(category.category.id)">
+            <ng-container *ngFor="let productElement of getProductElements(category.category.id)">
                 <div class="col">
                     <div class="card h-100">
-                        <img *ngIf="product.image !== null" src="{{ product.image }}" class="card-img-top" alt="...">
-                        <img *ngIf="product.image === null" src="./assets/common/no-image.jpg" class="card-img-top" alt="...">
+                        <img *ngIf="productElement.image !== null" src="{{ productElement.image }}" class="card-img-top" alt="...">
+                        <img *ngIf="productElement.image === null" src="./assets/common/no-image.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-text">
-                                <span class="fs-5">
-                                    {{ product.product.name }} <strong>{{ product.product.price | currency:'$' }}</strong>                                    
+                                <span class="fs-6">
+                                    {{ productElement.product.name }} <strong>{{ productElement.product.price | currency:'$' }}</strong>                                    
                                 </span>
                                 <span class="text-danger fs-2 d-block">
-                                    {{ !product.isVisible ? '(no visible)' : '' }}
+                                    {{ !productElement.isVisible ? '(no visible)' : '' }}
                                 </span>         
                             </p>
-                            <ng-container *ngIf="product.isAvailable">
-                                <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event, product)">Agregar al carrito</button>
+                            <ng-container *ngIf="productElement.isAvailable">
+                                <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event, productElement)">Agregar al carrito</button>
                             </ng-container>
                         </div>  
-                        <ng-container *ngIf="!product.isAvailable">
+                        <ng-container *ngIf="!productElement.isAvailable">
                             <div class="card-footer">
                                 <small class="text-muted">No disponible por el momento</small>
                             </div>       
@@ -57,4 +57,8 @@
             </ng-container>
         </div>
     </div>    
+</ng-container>
+
+<ng-container *ngIf="_modal_addProductToCart">
+    <app-add-to-cart [open]="_modal_addProductToCart" [productElement]="_productElement" [lastPersonSelected]="_lastPersonSelected" [people]="_people" (evtOk)="onAddProductToCartOk($event)" (evtClose)="onAddProductToCartClose()"></app-add-to-cart>    
 </ng-container>
