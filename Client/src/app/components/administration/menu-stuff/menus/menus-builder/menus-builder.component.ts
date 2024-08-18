@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../services/business/business.service';
 import { Utils } from '../../../../../source/utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
@@ -38,7 +38,7 @@ export class MenusBuilderComponent implements OnInit {
     _modal_updateElementImage: boolean = false;
 
     constructor(
-        private menuStuffService: MenuStuffService,
+        private businessService: BusinessService,
         private activatedRoute: ActivatedRoute,
         private router: Router
     ) {
@@ -66,7 +66,7 @@ export class MenusBuilderComponent implements OnInit {
 
     async getDataAsync() {
         this._isProcessing = true;
-        await Promise.all([this.menuStuffService.getMenuAsync(this._menuId ?? 0), this.menuStuffService.getMenuStuffAsync(this._menuId ?? 0), this.menuStuffService.getCategoriesAsync(), this.menuStuffService.getProductsAsync()])
+        await Promise.all([this.businessService.getMenuAsync(this._menuId ?? 0), this.businessService.getMenuStuffAsync(this._menuId ?? 0), this.businessService.getCategoriesAsync(), this.businessService.getProductsAsync()])
             .then(r => {
                 this._menu = r[0] as MenuResponse;
                 this._menuStuff = r[1] as MenuStuffResponse[];
@@ -263,7 +263,7 @@ export class MenusBuilderComponent implements OnInit {
     
     onMoveUpOrMoveDown(element: MenuElement, action: string) {
         let model = new PositionElementRequest(element.menuId, element.categoryId, element.productId, action);
-        this.menuStuffService.updateElementPosition(model)
+        this.businessService.updateElementPosition(model)
             .subscribe({
                 complete: () => {
                     this._isProcessing = false;

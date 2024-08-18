@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { Tuple2, Tuple3 } from '../../../../../../source/models/common/tuple';
 import { MenuElement } from '../../../../../../source/models/business/menu-element';
 import * as lodash from 'lodash';
-import { MenuStuffService } from '../../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../../services/business/business.service';
 import { AddOrRemoveElementRequest } from '../../../../../../source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from '../../../../../../source/utils';
 
@@ -29,7 +29,7 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
     _error!: string|null;
 
 	constructor(
-        private menuStuffService: MenuStuffService
+        private businessService: BusinessService
     ) {
 		this.evtOk = new EventEmitter<void>();
 		this.evtClose = new EventEmitter<void>();
@@ -76,7 +76,7 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
             } else if (this.element.categoryId != null) {
                 model = new AddOrRemoveElementRequest(this.element.menuId, this.element.categoryId, id, "add");
             }            
-            await this.menuStuffService.addOrRemoveElementAsync(model!)
+            await this.businessService.addOrRemoveElementAsync(model!)
                 .then(r => {       
                 }, e => {
                     this._error = Utils.getErrorsResponse(e);

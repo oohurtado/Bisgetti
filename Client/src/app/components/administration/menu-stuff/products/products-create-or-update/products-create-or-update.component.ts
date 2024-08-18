@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../services/business/business.service';
 import { FormBase } from '../../../../../source/form-base';
 import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
 import { Utils } from '../../../../../source/utils';
@@ -22,7 +22,7 @@ export class ProductsCreateOrUpdateComponent extends FormBase implements OnInit 
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
 		private router: Router,
-        private menuStuffService: MenuStuffService
+        private businessService: BusinessService
     ) {
         super();
     }
@@ -44,7 +44,7 @@ export class ProductsCreateOrUpdateComponent extends FormBase implements OnInit 
     async getDataAsync(id: number) {
 		this._error = null;
         this._isLoading = true;
-        await this.menuStuffService
+        await this.businessService
             .getProductAsync(id)
             .then(p => {
 				this._product = p;
@@ -92,7 +92,7 @@ export class ProductsCreateOrUpdateComponent extends FormBase implements OnInit 
             );
 
         if (this._productId === null || this._productId === undefined) {
-            this.menuStuffService.createProduct(model)
+            this.businessService.createProduct(model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;
@@ -108,7 +108,7 @@ export class ProductsCreateOrUpdateComponent extends FormBase implements OnInit 
                 });
         }   
         else {
-            this.menuStuffService.updateProduct(this._productId, model)
+            this.businessService.updateProduct(this._productId, model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;

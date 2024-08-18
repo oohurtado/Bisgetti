@@ -5,7 +5,7 @@ import { CategoryResponse } from '../../../../../source/models/business/response
 import { MenuElement } from '../../../../../source/models/business/menu-element';
 import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../services/business/business.service';
 import { Tuple2 } from '../../../../../source/models/common/tuple';
 import * as lodash from 'lodash';
 import { Utils } from '../../../../../source/utils';
@@ -36,7 +36,7 @@ export class MenusDesignComponent implements OnInit {
     _elementClicked!: MenuElement;
 
     constructor(
-        private menuStuffService: MenuStuffService,
+        private businessService: BusinessService,
         private activatedRoute: ActivatedRoute,
         private router: Router
     ) {
@@ -63,10 +63,10 @@ export class MenusDesignComponent implements OnInit {
         this._isProcessing = true;
         await Promise.all(
             [
-                this.menuStuffService.getMenuAsync(this._menuId ?? 0), 
-                this.menuStuffService.getCategoriesAsync(), 
-                this.menuStuffService.getProductsAsync(),
-                this.menuStuffService.getMenuStuffAsync(this._menuId ?? 0)
+                this.businessService.getMenuAsync(this._menuId ?? 0), 
+                this.businessService.getCategoriesAsync(), 
+                this.businessService.getProductsAsync(),
+                this.businessService.getMenuStuffAsync(this._menuId ?? 0)
             ])
             .then(r => {
                 let menu = r[0] as MenuResponse;
@@ -200,7 +200,7 @@ export class MenusDesignComponent implements OnInit {
     
     onMoveUpOrMoveDown(element: MenuElement, action: string) {
         let model = new PositionElementRequest(element.menuId, element.categoryId, element.productId, action);
-        this.menuStuffService.updateElementPosition(model)
+        this.businessService.updateElementPosition(model)
             .subscribe({
                 complete: () => {
                     this._isProcessing = false;

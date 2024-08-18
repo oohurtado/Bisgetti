@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuHelper } from '../../source/menu-helper';
 import { MenuElement } from '../../source/models/business/menu-element';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuStuffService } from '../../services/business/menu-stuff.service';
+import { BusinessService } from '../../services/business/business.service';
 import { MenuResponse } from '../../source/models/business/responses/menu-response';
 import { CategoryResponse } from '../../source/models/business/responses/category-response';
 import { MenuStuffResponse } from '../../source/models/business/responses/menu-stuff-response';
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     _lastPersonSelected: string = 'Yo';
 
     constructor(
-        private menuStuffService: MenuStuffService,
+        private businessService: BusinessService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private localStorageService: LocalStorageService
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
         this._isProcessing = true;        
         
         let menuId : number | null = null;
-        await this.menuStuffService.getVisibleMenuAsync()
+        await this.businessService.getVisibleMenuAsync()
             .then(r => {
                 menuId = r;
             }, e => {
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
             await this.getAllAsync(menuId);
 
             if (this.localStorageService.isUserAuthenticated()) {
-                await this.menuStuffService.getUserPeopleAsync()
+                await this.businessService.getUserPeopleAsync()
                     .then(r => {
                         this._people = r;                
                     }, e => {
@@ -78,10 +78,10 @@ export class HomeComponent implements OnInit {
         this._isProcessing = true;
         await Promise.all(
             [
-                this.menuStuffService.getMenuAsync(menuId ?? 0), 
-                this.menuStuffService.getCategoriesAsync(), 
-                this.menuStuffService.getProductsAsync(),
-                this.menuStuffService.getMenuStuffAsync(menuId ?? 0),
+                this.businessService.getMenuAsync(menuId ?? 0), 
+                this.businessService.getCategoriesAsync(), 
+                this.businessService.getProductsAsync(),
+                this.businessService.getMenuStuffAsync(menuId ?? 0),
             ])
             .then(r => {
                 let menu = r[0] as MenuResponse;

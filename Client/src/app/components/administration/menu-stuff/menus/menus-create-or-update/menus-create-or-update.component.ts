@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBase } from '../../../../../source/form-base';
-import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../services/business/business.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
@@ -22,7 +22,7 @@ export class MenusCreateOrUpdateComponent extends FormBase implements OnInit {
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
 		private router: Router,
-        private menuStuffService: MenuStuffService
+        private businessService: BusinessService
     ) {
         super();
     }
@@ -44,7 +44,7 @@ export class MenusCreateOrUpdateComponent extends FormBase implements OnInit {
     async getDataAsync(id: number) {
 		this._error = null;
         this._isLoading = true;
-        await this.menuStuffService
+        await this.businessService
             .getMenuAsync(id)
             .then(p => {
 				this._menu = p;
@@ -86,7 +86,7 @@ export class MenusCreateOrUpdateComponent extends FormBase implements OnInit {
             );
 
         if (this._menuId === null || this._menuId === undefined) {
-            this.menuStuffService.createMenu(model)
+            this.businessService.createMenu(model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;
@@ -102,7 +102,7 @@ export class MenusCreateOrUpdateComponent extends FormBase implements OnInit {
                 });
         }   
         else {
-            this.menuStuffService.updateMenu(this._menuId, model)
+            this.businessService.updateMenu(this._menuId, model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;

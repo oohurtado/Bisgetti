@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
 import { PageBase } from '../../../../../source/page-base';
-import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../services/business/business.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../../../services/common/local-storage.service';
 import { Utils } from '../../../../../source/utils';
@@ -15,7 +15,7 @@ declare let alertify: any;
 export class MenusListComponent extends PageBase<MenuResponse> implements OnInit {
     
     constructor(
-        private menuStuffService: MenuStuffService,
+        private businessService: BusinessService,
 		private router: Router,
 		localStorageService: LocalStorageService
     ) {
@@ -29,7 +29,7 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
     override async getDataAsync() {
 		this._error = null;
 		this._isProcessing = true;		
-		await this.menuStuffService
+		await this.businessService
 			.getMenusByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
 			.then(p => {
 				this._pageData = p;
@@ -63,7 +63,7 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
 		alertify.confirm("Confirmar eliminación", message,
 			function () {
 				component._isProcessing = true;
-				component.menuStuffService.deleteMenu(menu.id)
+				component.businessService.deleteMenu(menu.id)
 					.subscribe({
 						complete: () => {
 							component._isProcessing = false;

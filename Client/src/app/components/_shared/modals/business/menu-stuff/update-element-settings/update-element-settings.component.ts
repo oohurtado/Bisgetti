@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MenuElement } from '../../../../../../source/models/business/menu-element';
-import { MenuStuffService } from '../../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../../services/business/business.service';
 import { AddOrRemoveElementRequest } from '../../../../../../source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from '../../../../../../source/utils';
 import { SettingsElementRequest } from '../../../../../../source/models/dtos/menus/settings-element-request';
@@ -28,7 +28,7 @@ export class UpdateElementSettingsComponent implements OnChanges, OnInit {
     _isAvailable: boolean = false;
 
     constructor(
-        private menuStuffService: MenuStuffService
+        private businessService: BusinessService
     ) {
 		this.evtOk = new EventEmitter<void>();
 		this.evtClose = new EventEmitter<void>();
@@ -62,7 +62,7 @@ export class UpdateElementSettingsComponent implements OnChanges, OnInit {
         this._isProcessing = true;
         
         let model = new SettingsElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, this._isVisible, this._isAvailable);
-        await this.menuStuffService.updateElementSettingsAsync(model!)
+        await this.businessService.updateElementSettingsAsync(model!)
             .then(r => {       
             }, e => {
                 this._error = Utils.getErrorsResponse(e);

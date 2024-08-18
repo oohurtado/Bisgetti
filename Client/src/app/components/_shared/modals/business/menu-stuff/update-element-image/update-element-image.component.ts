@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MenuElement } from '../../../../../../source/models/business/menu-element';
-import { MenuStuffService } from '../../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../../services/business/business.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utils } from '../../../../../../source/utils';
 import { ImageElementResponse } from '../../../../../../source/models/dtos/menus/image-element-response';
@@ -30,7 +30,7 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
     _myForm!: FormGroup;
 
     constructor(
-        private menuStuffService: MenuStuffService,
+        private businessService: BusinessService,
         private formBuilder: FormBuilder,
     ) {
         this.evtOk = new EventEmitter<void>();
@@ -52,7 +52,7 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
             this.openModal.nativeElement.click();
 
             if (this.element.image !== null) {
-                this.menuStuffService.getElementImage(this.element.menuId, this.element.categoryId, this.element.productId)
+                this.businessService.getElementImage(this.element.menuId, this.element.categoryId, this.element.productId)
                     .subscribe({
                         complete: () => {
                         },
@@ -92,7 +92,7 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
         let formData = new FormData();
         formData.append('file', this.file);        
         
-        await this.menuStuffService.updateElementImageAsync(formData, this.element.menuId, this.element.categoryId, this.element.productId)
+        await this.businessService.updateElementImageAsync(formData, this.element.menuId, this.element.categoryId, this.element.productId)
             .then(r => {
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
@@ -110,7 +110,7 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
         this._isProcessingExtra = true;
 
         let model = new ImageElementRequest(this.element.menuId, this.element.categoryId, this.element.productId);
-        await this.menuStuffService.deleteElementImageAsync(model)
+        await this.businessService.deleteElementImageAsync(model)
             .then(r => {
             }, e => {
                 this._error = Utils.getErrorsResponse(e);

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { EnumRole } from './source/models/enums/role.enum';
 import { SystemService } from './services/business/system.service';
 import { DateService } from './services/common/date.service';
-import { MenuStuffService } from './services/business/menu-stuff.service';
+import { BusinessService } from './services/business/business.service';
 import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from './source/utils';
 import { PositionElementRequest } from './source/models/dtos/menus/position-element-request';
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
         private sharedService: SharedService,
         private systemService: SystemService,
         private dateService: DateService,
-        private menuStuffService: MenuStuffService
+        private businessService: BusinessService
     ) {
     }
 

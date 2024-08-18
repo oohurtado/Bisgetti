@@ -18,7 +18,7 @@ import { PersonResponse } from '../../source/models/business/responses/person-re
 @Injectable({
     providedIn: 'root'
 })
-export class MenuStuffService {
+export class BusinessService {
 
     constructor(private requestService: RequestService) { }
 

@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MenuElement } from '../../../../../../source/models/business/menu-element';
-import { MenuStuffService } from '../../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../../services/business/business.service';
 import { AddOrRemoveElementRequest } from '../../../../../../source/models/dtos/menus/add-or-remove-element-request';
 import { Utils } from '../../../../../../source/utils';
 
@@ -24,7 +24,7 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
     _error!: string|null;
 
 	constructor(
-        private menuStuffService: MenuStuffService
+        private businessService: BusinessService
     ) {
 		this.evtOk = new EventEmitter<void>();
 		this.evtClose = new EventEmitter<void>();
@@ -56,7 +56,7 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
             
         let model: AddOrRemoveElementRequest;
         model = new AddOrRemoveElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, "remove");
-        await this.menuStuffService.addOrRemoveElementAsync(model!)
+        await this.businessService.addOrRemoveElementAsync(model!)
             .then(r => {       
             }, e => {
                 this._error = Utils.getErrorsResponse(e);

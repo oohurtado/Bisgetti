@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
 import { PageBase } from '../../../../../source/page-base';
 import { Router } from '@angular/router';
-import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../services/business/business.service';
 import { LocalStorageService } from '../../../../../services/common/local-storage.service';
 import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
 import { Utils } from '../../../../../source/utils';
@@ -16,7 +16,7 @@ declare let alertify: any;
 export class ProductsListComponent extends PageBase<ProductResponse> implements OnInit {
     
     constructor(
-        private menuStuffService: MenuStuffService,
+        private businessService: BusinessService,
         private router: Router,
         localStorageService: LocalStorageService
     ) {
@@ -30,7 +30,7 @@ export class ProductsListComponent extends PageBase<ProductResponse> implements 
     override async getDataAsync() {
         this._error = null;
         this._isProcessing = true;
-        await this.menuStuffService
+        await this.businessService
             .getProductsByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
             .then(p => {
                 this._pageData = p;
@@ -62,7 +62,7 @@ export class ProductsListComponent extends PageBase<ProductResponse> implements 
 		alertify.confirm("Confirmar eliminación", message,
 			function () {
 				component._isProcessing = true;
-				component.menuStuffService.deleteProduct(product.id)
+				component.businessService.deleteProduct(product.id)
 					.subscribe({
 						complete: () => {
 							component._isProcessing = false;

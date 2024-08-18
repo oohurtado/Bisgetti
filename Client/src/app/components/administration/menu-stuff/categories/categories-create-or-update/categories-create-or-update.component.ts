@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryResponse } from '../../../../../source/models/business/responses/category-response';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuStuffService } from '../../../../../services/business/menu-stuff.service';
+import { BusinessService } from '../../../../../services/business/business.service';
 import { FormBase } from '../../../../../source/form-base';
 import { Utils } from '../../../../../source/utils';
 import { CreateOrUpdateCategoryRequest } from '../../../../../source/models/dtos/menus/create-or-update-category-request';
@@ -22,7 +22,7 @@ export class CategoriesCreateOrUpdateComponent extends FormBase implements OnIni
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
 		private router: Router,
-        private menuStuffService: MenuStuffService
+        private businessService: BusinessService
     ) {
         super();
     }
@@ -44,7 +44,7 @@ export class CategoriesCreateOrUpdateComponent extends FormBase implements OnIni
     async getDataAsync(id: number) {
 		this._error = null;
         this._isLoading = true;
-        await this.menuStuffService
+        await this.businessService
             .getCategoryAsync(id)
             .then(p => {
 				this._category = p;
@@ -86,7 +86,7 @@ export class CategoriesCreateOrUpdateComponent extends FormBase implements OnIni
             );
 
         if (this._categoryId === null || this._categoryId === undefined) {
-            this.menuStuffService.createCategory(model)
+            this.businessService.createCategory(model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;
@@ -102,7 +102,7 @@ export class CategoriesCreateOrUpdateComponent extends FormBase implements OnIni
                 });
         }   
         else {
-            this.menuStuffService.updateCategory(this._categoryId, model)
+            this.businessService.updateCategory(this._categoryId, model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;
