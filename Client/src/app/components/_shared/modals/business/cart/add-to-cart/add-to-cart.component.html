@@ -64,7 +64,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCloseClicked()">Cancelar</button>
                 <button type="button" class="btn btn-primary" (click)="onOkClicked()" [disabled]="_isProcessing">
                     <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
-                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Aceptar</span>                                        
+                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;Agregar al carrito</span>                                        
                 </button>
             </div>
         </div>

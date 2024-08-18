@@ -44,7 +44,9 @@
                                 </span>         
                             </p>
                             <ng-container *ngIf="productElement.isAvailable">
-                                <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event, productElement)">Agregar al carrito</button>
+                                <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event, productElement)">                                    
+                                    Ver detalles
+                                </button>
                             </ng-container>
                         </div>  
                         <ng-container *ngIf="!productElement.isAvailable">
