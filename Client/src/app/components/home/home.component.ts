@@ -127,9 +127,16 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    onAddProductToCartOk(personName: string) {
-        this._lastPersonSelected = personName;
-        this.onAddProductToCartClose();        
+    async onAddProductToCartOk(personName: string) {
+        await this.businessService.getUserPeopleAsync()
+        .then(r => {
+            this._people = r;                
+        }, e => {
+            this._error = Utils.getErrorsResponse(e);
+        });     
+
+        this._lastPersonSelected = personName;        
+        this.onAddProductToCartClose();
     }
 
     onAddProductToCartClose() {        
