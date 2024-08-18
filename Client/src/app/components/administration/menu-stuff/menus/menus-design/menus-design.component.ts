@@ -127,14 +127,12 @@ export class MenusDesignComponent implements OnInit {
             return;
         }
 
-        // TODO: oohg - 4
         // aplica a: menu, categoria, producto
         if (action == "image") {
             this.onImageAction(element);
             return;
         }
         
-        // TODO: oohg - 5
         // aplica a: menu
         if (action == "design") {
             this.onPreviewAction(element);
@@ -172,7 +170,7 @@ export class MenusDesignComponent implements OnInit {
         // agregar seleccionó agregar producto a categoría
         if (element.categoryId != null && element.productId == null) {
 
-            // productos actuales de todo el menú a una tupla
+            // productos actuales del menú a una tupla
             let currentProducts = this._data?.filter(p => p.categoryId != null && p.productId != null).map(p => new Tuple2<number, string>(p.productId, p.product.name));
             
             // productos de base de datos a una tupla

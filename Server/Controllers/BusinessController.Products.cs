@@ -21,7 +21,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Listado de productos - todos
+        /// Listado de productos - tod*s
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [AllowAnonymous]

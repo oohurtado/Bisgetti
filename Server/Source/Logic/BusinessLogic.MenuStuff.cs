@@ -195,7 +195,7 @@ namespace Server.Source.Logic
                 throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
             }
             
-            // obtenemos o todas las categorias del menú o todos los productos de la categoria del menú, EN ORDEN
+            // obtenemos o todas las categorias del menú o tod*s los productos de la categoria del menú, EN ORDEN
             var elements = await _businessRepository
                 .GetMenuStuff(exp)
                 .OrderBy(p => p.Position)

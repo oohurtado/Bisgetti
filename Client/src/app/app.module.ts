@@ -51,7 +51,6 @@ import { ProductsComponent } from './components/administration/menu-stuff/produc
 import { AddressesComponent } from './components/my-account/addresses/addresses.component';
 import { PageCreateComponent } from './components/_shared/page/page-create/page-create.component';
 import { NavbarUserNameComponent } from './components/_shared/navbar/navbar-user-name/navbar-user-name.component';
-import { MenusBuilderComponent } from './components/administration/menu-stuff/menus/menus-builder/menus-builder.component';
 import { AddElementToElementComponent } from './components/_shared/modals/business/menu-stuff/add-element-to-element/add-element-to-element.component';
 import { UpdateElementImageComponent } from './components/_shared/modals/business/menu-stuff/update-element-image/update-element-image.component';
 import { UpdateElementSettingsComponent } from './components/_shared/modals/business/menu-stuff/update-element-settings/update-element-settings.component';
@@ -103,7 +102,6 @@ import { MenuStuffListComponent } from './components/administration/menu-stuff/m
 		AddressesComponent,
 		PageCreateComponent,
 		NavbarUserNameComponent,
-		MenusBuilderComponent,
 		AddElementToElementComponent,
 		UpdateElementImageComponent,
 		UpdateElementSettingsComponent,

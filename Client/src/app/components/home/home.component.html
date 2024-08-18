@@ -36,12 +36,8 @@
                         <img *ngIf="productElement.image === null" src="./assets/common/no-image.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-text">
-                                <span class="fs-6">
-                                    {{ productElement.product.name }} <strong>{{ productElement.product.price | currency:'$' }}</strong>                                    
-                                </span>
-                                <span class="text-danger fs-2 d-block">
-                                    {{ !productElement.isVisible ? '(no visible)' : '' }}
-                                </span>         
+                                <span class="fs-6 d-block">{{ productElement.product.name }}</span>
+                                <span class="fs-3 d-block"><strong>{{ productElement.product.price | currency:'$' }}</strong></span>  
                             </p>
                             <ng-container *ngIf="productElement.isAvailable">
                                 <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event, productElement)">                                    

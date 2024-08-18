@@ -10,6 +10,7 @@ import { ProductResponse } from '../../source/models/business/responses/product-
 import { Utils } from '../../source/utils';
 import { PersonResponse } from '../../source/models/business/responses/person-response';
 import { LocalStorageService } from '../../services/common/local-storage.service';
+import { SharedService } from '../../services/common/shared.service';
 declare let alertify: any;
 
 @Component({
@@ -36,7 +37,8 @@ export class HomeComponent implements OnInit {
         private businessService: BusinessService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private localStorageService: LocalStorageService
+        private localStorageService: LocalStorageService,
+        private sharedService: SharedService
     ) {
     }
 
@@ -67,6 +69,9 @@ export class HomeComponent implements OnInit {
                     }, e => {
                         this._error = Utils.getErrorsResponse(e);
                     });            
+
+                // TODO: obtener numero de productos en el carrito
+                this.sharedService.onProductAddedToCart(5);
             }
         }
 
@@ -133,7 +138,10 @@ export class HomeComponent implements OnInit {
             this._people = r;                
         }, e => {
             this._error = Utils.getErrorsResponse(e);
-        });     
+        });
+
+        // TODO: obtener numero de productos en el carrito
+        this.sharedService.onProductAddedToCart(10);
 
         this._lastPersonSelected = personName;        
         this.onAddProductToCartClose();

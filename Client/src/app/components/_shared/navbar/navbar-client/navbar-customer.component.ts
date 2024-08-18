@@ -11,11 +11,17 @@ import { EnumRole } from '../../../../source/models/enums/role.enum';
 })
 export class NavbarCustomerComponent {
 
+    _numberOfProducts : number = 0;
+
     constructor(
         private localStorageService: LocalStorageService,
         private router: Router,
         private sharedService: SharedService
-    ) { }
+    ) { 
+        this.sharedService.productAddedToCart.subscribe(p => {
+			this._numberOfProducts = p;
+		});
+    }
 
     onLogoutClicked() {
         this.sharedService.onLogout(EnumRole.UserCustomer);

@@ -7,11 +7,22 @@ import { EnumRole } from '../../source/models/enums/role.enum';
 })
 export class SharedService {
     
-    public logout: Subject<EnumRole> = new Subject<EnumRole>();
     
     constructor() { }
     
+    // rol
+
+    public logout: Subject<EnumRole> = new Subject<EnumRole>();
+
     public onLogout(role: EnumRole) {
 		this.logout.next(role);		
 	}
+
+    // agregar productos al carrito
+
+    public productAddedToCart: Subject<number> = new Subject<number>();
+
+    public onProductAddedToCart(numberOfProducts: number) {
+        this.productAddedToCart.next(numberOfProducts);
+    }
 }
