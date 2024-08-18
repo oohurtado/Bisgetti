@@ -2,6 +2,9 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { MenuElement } from '../../../../../../source/models/business/menu-element';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonResponse } from '../../../../../../source/models/business/responses/person-response';
+import { AddProductToCartRequest } from '../../../../../../source/models/dtos/business/add-product-to-cart-request';
+import { BusinessService } from '../../../../../../services/business/business.service';
+import { Utils } from '../../../../../../source/utils';
 
 @Component({
     selector: 'app-add-to-cart',
@@ -27,6 +30,7 @@ export class AddToCartComponent implements OnChanges, OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
+        private businessService: BusinessService
     ) {
 		this.evtOk = new EventEmitter<string>();
 		this.evtClose = new EventEmitter<void>();
@@ -64,18 +68,25 @@ export class AddToCartComponent implements OnChanges, OnInit {
 
         this._isProcessing = true;
 
-        let name = this._myForm?.controls['name'].value;
-        let quantity = this._myForm?.controls['quantity'].value;
-        let productId = this.productElement.product.id;
-        let productGuid = this.productElement.product.guid;
+        let model = new AddProductToCartRequest(
+            this._myForm?.controls['name'].value,
+            this.productElement.product.id,
+            this.productElement.product.guid,
+            this.productElement.product.price,
+            this._myForm?.controls['quantity'].value
+        )
 
-        console.log(name, quantity, productId, productGuid);
+        await this.businessService.addProductToCartAsync(model!)
+            .then(r => {       
+            }, e => {
+                this._error = Utils.getErrorsResponse(e);
+            });
         
         this._isProcessing = false;
 
         if (this._error == null) {
             this.closeModal.nativeElement.click();
-            this.evtOk.emit(name);
+            this.evtOk.emit(this._myForm?.controls['name'].value);
         }
 	}
 

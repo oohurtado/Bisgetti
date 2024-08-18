@@ -38,5 +38,30 @@ namespace Server.Source.Logic
 
             return people;
         }
+
+        public async Task AddProductToCartAsync(string userId, AddProductToCartRequest request)
+        {
+            var cartElement = new CartElementEntity()
+            {
+                UserId = userId,
+                PersonName = request.PersonName,
+                ProductId = request.ProductId,
+                ProductGuid = request.ProductGuid,
+                ProductQuantity = request.ProductQuantity,
+                ProductPrice = request.ProductPrice,
+            };
+            await _businessRepository.AddCartElementAsync(cartElement);
+
+            var exists = await _businessRepository.GetPeople(userId, p => p.Name == request.PersonName).AnyAsync();
+            if (!exists)
+            {
+                var person = new PersonEntity()
+                {
+                    UserId = userId,
+                    Name = request.PersonName,
+                };
+                await _businessRepository.AddPersonToUser(person);
+            }
+        }
     }
 }

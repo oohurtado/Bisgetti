@@ -127,10 +127,10 @@ namespace Server.Source.Data
             {
                 e.Property(p => p.Id).HasColumnName("CartElementId");
 
-                e.Property(p => p.Quantity).IsRequired(required: true);
+                e.Property(p => p.ProductQuantity).IsRequired(required: true);
                 e.Property(p => p.ProductGuid).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.PersonName).IsRequired(required: true).HasMaxLength(50);
-                e.Property(p => p.Price).HasColumnType("decimal(15,2)");
+                e.Property(p => p.ProductPrice).HasColumnType("decimal(15,2)");
 
                 e.HasOne(p => p.Product).WithMany(p => p.CartElements).HasForeignKey(p => p.ProductId);
             });

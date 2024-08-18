@@ -14,6 +14,23 @@ namespace Server.Source.Data
         public IQueryable<PersonEntity> GetPeople(string userId)
         {
             return _context.People.Where(p => p.UserId == userId);
-        }        
+        }
+
+        public IQueryable<PersonEntity> GetPeople(string userId, Expression<Func<PersonEntity, bool>> exp)
+        {
+            return _context.People.Where(p => p.UserId == userId).Where(exp);
+        }
+
+        public async Task AddPersonToUser(PersonEntity person)
+        {
+            _context.People.Add(person);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddCartElementAsync(CartElementEntity cartElement)
+        {
+            _context.CartElements.Add(cartElement);
+            await _context.SaveChangesAsync();            
+        }
     }
 }

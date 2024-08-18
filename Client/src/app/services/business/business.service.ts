@@ -14,6 +14,7 @@ import { SettingsElementRequest } from '../../source/models/dtos/menus/settings-
 import { ImageElementRequest } from '../../source/models/dtos/menus/image-element-request';
 import { ImageElementResponse } from '../../source/models/dtos/menus/image-element-response';
 import { PersonResponse } from '../../source/models/business/responses/person-response';
+import { AddProductToCartRequest } from '../../source/models/dtos/business/add-product-to-cart-request';
 
 @Injectable({
     providedIn: 'root'
@@ -371,6 +372,24 @@ export class BusinessService {
     getUserPeopleAsync() : Promise<PersonResponse[]> {
 		return new Promise((resolve, reject) => {
 			this.getUserPeople()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	addProductToCart(model: AddProductToCartRequest) {
+		return this.requestService.post(`/business/cart`, model);
+	}
+
+	addProductToCartAsync(model: AddProductToCartRequest) {
+		return new Promise((resolve, reject) => {
+			this.addProductToCart(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);

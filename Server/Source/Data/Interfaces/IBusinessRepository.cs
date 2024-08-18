@@ -132,5 +132,8 @@ namespace Server.Source.Data.Interfaces
         /* ***************************** carro de compras ***************************** */
 
         IQueryable<PersonEntity> GetPeople(string userId);
+        IQueryable<PersonEntity> GetPeople(string userId, Expression<Func<PersonEntity, bool>> exp);
+        Task AddPersonToUser(PersonEntity person);
+        Task AddCartElementAsync(CartElementEntity cartElement);
     }
 }
