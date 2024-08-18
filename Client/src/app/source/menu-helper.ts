@@ -1,4 +1,4 @@
-import { MenuElement } from "./models/business/menu-element";
+import { MenuElement } from "./models/business/common/menu-element";
 import { CategoryResponse } from "./models/business/responses/category-response";
 import { MenuResponse } from "./models/business/responses/menu-response";
 import { MenuStuffResponse } from "./models/business/responses/menu-stuff-response";

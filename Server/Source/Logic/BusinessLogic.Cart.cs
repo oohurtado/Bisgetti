@@ -63,5 +63,14 @@ namespace Server.Source.Logic
                 await _businessRepository.AddPersonToUser(person);
             }
         }
+
+        public async Task<NumberOfProductsInCartResponse> GetNumberOfProductsInCartAsync(string userId)
+        {
+            var total = await _businessRepository.GetNumberOfProductsInCartAsync(userId, p => true);
+            return new NumberOfProductsInCartResponse()
+            {
+                Total = total
+            };
+        }
     }
 }

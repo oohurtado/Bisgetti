@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
 import { MenuStuffResponse } from '../../../../../source/models/business/responses/menu-stuff-response';
 import { CategoryResponse } from '../../../../../source/models/business/responses/category-response';
-import { MenuElement } from '../../../../../source/models/business/menu-element';
+import { MenuElement } from '../../../../../source/models/business/common/menu-element';
 import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../../../services/business/business.service';

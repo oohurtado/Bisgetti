@@ -15,6 +15,7 @@ import { ImageElementRequest } from '../../source/models/dtos/menus/image-elemen
 import { ImageElementResponse } from '../../source/models/dtos/menus/image-element-response';
 import { PersonResponse } from '../../source/models/business/responses/person-response';
 import { AddProductToCartRequest } from '../../source/models/dtos/business/add-product-to-cart-request';
+import { NumberOfProductsInCartResponse } from '../../source/models/business/common/number-of-products-in-cart-response';
 
 @Injectable({
     providedIn: 'root'
@@ -390,6 +391,28 @@ export class BusinessService {
 	addProductToCartAsync(model: AddProductToCartRequest) {
 		return new Promise((resolve, reject) => {
 			this.addProductToCart(model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	// TODO: obtener numero de productos en el carrito
+	//NumberOfProductsInCartResponse
+	//cart/number-of-products-in-cart
+
+	getNumberOfProductsInCart() {
+		return this.requestService.get<NumberOfProductsInCartResponse>(`/business/cart/number-of-products-in-cart`);
+	}
+
+    getNumberOfProductsInCartAsync() : Promise<NumberOfProductsInCartResponse> {
+		return new Promise((resolve, reject) => {
+			this.getNumberOfProductsInCart()
 			.subscribe({
 				next: (value) => {
 					resolve(value);

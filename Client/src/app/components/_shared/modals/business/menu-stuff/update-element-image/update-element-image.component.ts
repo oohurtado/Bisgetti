@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MenuElement } from '../../../../../../source/models/business/menu-element';
+import { MenuElement } from '../../../../../../source/models/business/common/menu-element';
 import { BusinessService } from '../../../../../../services/business/business.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utils } from '../../../../../../source/utils';

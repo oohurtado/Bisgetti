@@ -36,5 +36,18 @@ namespace Server.Controllers
             await _businessLogicCart.AddProductToCartAsync(userId, request);
             return Ok();
         }
+
+        /// <summary>
+        /// Listado de personas
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpGet(template: "cart/number-of-products-in-cart")]
+        public async Task<ActionResult> GetNumberOfProductsInCart()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _businessLogicCart.GetNumberOfProductsInCartAsync(userId);
+            return Ok(result);
+        }
     }
 }

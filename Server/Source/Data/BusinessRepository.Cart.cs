@@ -32,5 +32,14 @@ namespace Server.Source.Data
             _context.CartElements.Add(cartElement);
             await _context.SaveChangesAsync();            
         }
+
+        public async Task<int> GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)
+        {
+            var total = await _context.CartElements
+                .Where(p => p.UserId == userId)
+                .Where(exp)
+                .SumAsync(p => p.ProductQuantity);
+            return total;
+        }
     }
 }

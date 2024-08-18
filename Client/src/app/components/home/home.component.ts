@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuHelper } from '../../source/menu-helper';
-import { MenuElement } from '../../source/models/business/menu-element';
+import { MenuElement } from '../../source/models/business/common/menu-element';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../services/business/business.service';
 import { MenuResponse } from '../../source/models/business/responses/menu-response';
@@ -70,8 +70,12 @@ export class HomeComponent implements OnInit {
                         this._error = Utils.getErrorsResponse(e);
                     });            
 
-                // TODO: obtener numero de productos en el carrito
-                this.sharedService.onProductAddedToCart(5);
+                    await this.businessService.getNumberOfProductsInCartAsync()
+                        .then(r => {
+                            this.sharedService.onProductAddedToCart(r.total);             
+                        }, e => {
+                            this._error = Utils.getErrorsResponse(e);
+                        });
             }
         }
 
@@ -134,14 +138,18 @@ export class HomeComponent implements OnInit {
 
     async onAddProductToCartOk(personName: string) {
         await this.businessService.getUserPeopleAsync()
-        .then(r => {
-            this._people = r;                
-        }, e => {
-            this._error = Utils.getErrorsResponse(e);
-        });
+            .then(r => {
+                this._people = r;                
+            }, e => {
+                this._error = Utils.getErrorsResponse(e);
+            });
 
-        // TODO: obtener numero de productos en el carrito
-        this.sharedService.onProductAddedToCart(10);
+        await this.businessService.getNumberOfProductsInCartAsync()
+            .then(r => {
+                this.sharedService.onProductAddedToCart(r.total);             
+            }, e => {
+                this._error = Utils.getErrorsResponse(e);
+            });
 
         this._lastPersonSelected = personName;        
         this.onAddProductToCartClose();

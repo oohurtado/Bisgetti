@@ -135,5 +135,6 @@ namespace Server.Source.Data.Interfaces
         IQueryable<PersonEntity> GetPeople(string userId, Expression<Func<PersonEntity, bool>> exp);
         Task AddPersonToUser(PersonEntity person);
         Task AddCartElementAsync(CartElementEntity cartElement);
+        Task<int> GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
     }
 }
