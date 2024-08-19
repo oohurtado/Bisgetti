@@ -99,6 +99,7 @@ namespace Server.Source.Data
 
                 e.HasMany(p => p.MenuStuff).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
                 e.HasMany(p => p.CartElements).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.CartElements).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<MenuStuffEntity>(e =>

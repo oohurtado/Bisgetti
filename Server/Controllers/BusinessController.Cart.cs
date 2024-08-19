@@ -49,5 +49,9 @@ namespace Server.Controllers
             var result = await _businessLogicCart.GetNumberOfProductsInCartAsync(userId);
             return Ok(result);
         }
+
+        // TODO: /cart
+        // - CartElement left join Product
+        // - obtener carrito agrupado por IsForLater y PersonName
     }
 }
