@@ -66,7 +66,7 @@ namespace Server.Source.Logic
 
         public async Task<NumberOfProductsInCartResponse> GetNumberOfProductsInCartAsync(string userId)
         {
-            var total = await _businessRepository.GetNumberOfProductsInCartAsync(userId, p => true);
+            var total = await _businessRepository.GetNumberOfProductsInCartAsync(userId, p => p.IsForLater == false);
             return new NumberOfProductsInCartResponse()
             {
                 Total = total

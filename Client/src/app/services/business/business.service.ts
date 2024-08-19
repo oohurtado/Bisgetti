@@ -402,10 +402,6 @@ export class BusinessService {
 		});
 	}
 
-	// TODO: obtener numero de productos en el carrito
-	//NumberOfProductsInCartResponse
-	//cart/number-of-products-in-cart
-
 	getNumberOfProductsInCart() {
 		return this.requestService.get<NumberOfProductsInCartResponse>(`/business/cart/number-of-products-in-cart`);
 	}
