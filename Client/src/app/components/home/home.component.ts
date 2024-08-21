@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
                             this.sharedService.onProductAddedToCart(r.total);             
                         }, e => {
                             this._error = Utils.getErrorsResponse(e);
-                        });
+                        });                          
             }
         }
 
@@ -137,6 +137,8 @@ export class HomeComponent implements OnInit {
     }
 
     async onAddProductToCartOk(personName: string) {
+
+        // obtenemos las personas del usuario, ya que pudo haber agregado una nueva persona
         await this.businessService.getUserPeopleAsync()
             .then(r => {
                 this._people = r;                
@@ -144,6 +146,7 @@ export class HomeComponent implements OnInit {
                 this._error = Utils.getErrorsResponse(e);
             });
 
+        // obtenemos el total de productos, ya que agrego mas productos
         await this.businessService.getNumberOfProductsInCartAsync()
             .then(r => {
                 this.sharedService.onProductAddedToCart(r.total);             

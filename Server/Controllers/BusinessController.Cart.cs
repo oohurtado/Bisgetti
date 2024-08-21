@@ -46,7 +46,7 @@ namespace Server.Controllers
         public async Task<ActionResult> GetProductsFromCart()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            var result = await _businessLogicCart.GetGroductsFromCartAsync(userId);
+            var result = await _businessLogicCart.GetProductsFromCartAsync(userId);
             return Ok(result);
         }
 

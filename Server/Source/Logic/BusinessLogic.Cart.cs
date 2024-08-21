@@ -63,7 +63,7 @@ namespace Server.Source.Logic
             }
         }
 
-        public async Task<int> GetGroductsFromCartAsync(string userId)
+        public async Task<List<CartElementResponse>> GetProductsFromCartAsync(string userId)
         {
             var cartElements = await _businessRepository
                 .GetProductsFromCart(userId)
@@ -73,12 +73,13 @@ namespace Server.Source.Logic
                     IsForLater = p.IsForLater,
                     PersonName = p.PersonName,
                     ProductId = p.ProductId,
-                    ProductPrice = p.ProductPrice,
                     ProductQuantity = p.ProductQuantity,
-                    UserId = p.UserId,                    
+                    OldProductPrice = p.ProductPrice,
+                    NewProductPrice = p.Product.Price,
                 })
                 .ToListAsync();
-            throw new NotImplementedException();
+            
+            return cartElements;
         }
 
         public async Task<NumberOfProductsInCartResponse> GetNumberOfProductsInCartAsync(string userId)
