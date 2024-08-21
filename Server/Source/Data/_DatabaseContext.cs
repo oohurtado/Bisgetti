@@ -93,7 +93,6 @@ namespace Server.Source.Data
                 e.Property(p => p.Description).IsRequired(required: false).HasMaxLength(100);
                 e.Property(p => p.Ingredients).IsRequired(required: false).HasMaxLength(100);
                 e.Property(e => e.Price).HasColumnType("decimal(15,2)");
-                e.Property(p => p.Guid).IsRequired(required: true).HasMaxLength(36);
 
                 e.HasIndex(p => new { p.Name }).IsUnique();
 
@@ -128,8 +127,7 @@ namespace Server.Source.Data
             {
                 e.Property(p => p.Id).HasColumnName("CartElementId");
 
-                e.Property(p => p.ProductQuantity).IsRequired(required: true);
-                e.Property(p => p.ProductGuid).IsRequired(required: true).HasMaxLength(50);
+                e.Property(p => p.ProductQuantity).IsRequired(required: true);                
                 e.Property(p => p.PersonName).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.ProductPrice).HasColumnType("decimal(15,2)");
 

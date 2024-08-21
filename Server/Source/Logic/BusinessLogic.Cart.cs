@@ -45,12 +45,11 @@ namespace Server.Source.Logic
             {
                 UserId = userId,
                 PersonName = request.PersonName,
-                ProductId = request.ProductId,
-                ProductGuid = request.ProductGuid,
+                ProductId = request.ProductId,               
                 ProductQuantity = request.ProductQuantity,
                 ProductPrice = request.ProductPrice,
             };
-            await _businessRepository.AddCartElementAsync(cartElement);
+            await _businessRepository.AddProductCartAsync(cartElement);
 
             var exists = await _businessRepository.GetPeople(userId, p => p.Name == request.PersonName).AnyAsync();
             if (!exists)
@@ -62,6 +61,24 @@ namespace Server.Source.Logic
                 };
                 await _businessRepository.AddPersonToUser(person);
             }
+        }
+
+        public async Task<int> GetGroductsFromCartAsync(string userId)
+        {
+            var cartElements = await _businessRepository
+                .GetProductsFromCart(userId)
+                .Select(p => new CartElementResponse()
+                {
+                    Id = p.Id,
+                    IsForLater = p.IsForLater,
+                    PersonName = p.PersonName,
+                    ProductId = p.ProductId,
+                    ProductPrice = p.ProductPrice,
+                    ProductQuantity = p.ProductQuantity,
+                    UserId = p.UserId,                    
+                })
+                .ToListAsync();
+            throw new NotImplementedException();
         }
 
         public async Task<NumberOfProductsInCartResponse> GetNumberOfProductsInCartAsync(string userId)

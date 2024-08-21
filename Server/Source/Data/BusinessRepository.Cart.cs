@@ -27,10 +27,17 @@ namespace Server.Source.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddCartElementAsync(CartElementEntity cartElement)
+        public async Task AddProductCartAsync(CartElementEntity cartElement)
         {
             _context.CartElements.Add(cartElement);
             await _context.SaveChangesAsync();            
+        }
+
+        public IQueryable<CartElementEntity> GetProductsFromCart(string userId)
+        {
+            return _context.CartElements
+                .Include(p => p.Product)
+                .Where(p => p.UserId == userId);
         }
 
         public async Task<int> GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)

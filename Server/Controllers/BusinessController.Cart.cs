@@ -37,9 +37,18 @@ namespace Server.Controllers
             return Ok();
         }
 
-        // TODO: /cart
-        // - CartElement left join Product
-        // - obtener carrito agrupado por IsForLater y PersonName
+        /// <summary>
+        /// Listado de personas
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpGet(template: "cart")]
+        public async Task<ActionResult> GetProductsFromCart()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _businessLogicCart.GetGroductsFromCartAsync(userId);
+            return Ok(result);
+        }
 
         /// <summary>
         /// Listado de personas

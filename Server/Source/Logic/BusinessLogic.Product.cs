@@ -65,8 +65,7 @@ namespace Server.Source.Logic
                 throw new EatSomeNotFoundErrorException(EnumResponseError.ProductAlreadyExists);
             }
 
-            var product = _mapper.Map<ProductEntity>(request);
-            product.Guid = Guid.NewGuid().ToString();
+            var product = _mapper.Map<ProductEntity>(request);            
             await _businessRepository.CreateProductAsync(product);
         }
 
@@ -83,16 +82,7 @@ namespace Server.Source.Logic
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
             }
-
-            var priceBeforeChanges = product.Price;
             _mapper.Map(request, product);
-            var priceAfterChanges = product.Price;
-
-            if (priceAfterChanges != priceBeforeChanges)
-            {
-                product.Guid = Guid.NewGuid().ToString();
-            }
-
             await _businessRepository.UpdateAsync();
         }
 

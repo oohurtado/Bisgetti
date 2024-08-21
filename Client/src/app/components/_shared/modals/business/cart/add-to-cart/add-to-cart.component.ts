@@ -71,7 +71,6 @@ export class AddToCartComponent implements OnChanges, OnInit {
         let model = new AddProductToCartRequest(
             this._myForm?.controls['name'].value,
             this.productElement.product.id,
-            this.productElement.product.guid,
             this.productElement.product.price,
             this._myForm?.controls['quantity'].value
         )

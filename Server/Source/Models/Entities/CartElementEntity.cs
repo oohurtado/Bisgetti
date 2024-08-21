@@ -8,14 +8,6 @@
 
         public string? PersonName { get; set; }
 
-        /// <summary>
-        /// Si guid es diferente del original entonces hubo cambios en el precio
-        /// </summary>
-        public string? ProductGuid { get; set; }
-
-        /// <summary>
-        /// Si guid es diferente del original entonces hubo cambios en el precio
-        /// </summary>
         public decimal ProductPrice { get; set; }
 
         public int ProductQuantity { get; set; }

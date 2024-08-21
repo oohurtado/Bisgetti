@@ -3,6 +3,5 @@ export class ProductResponse {
     name!: string;
     description!: string;
     ingredients!: string;
-    price!: number;
-    guid!: string;
+    price!: number;    
 }
