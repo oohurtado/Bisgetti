@@ -70,12 +70,11 @@ namespace Server.Source.Logic
                 .Select(p => new CartElementResponse()
                 {
                     Id = p.Id,
-                    IsForLater = p.IsForLater,
                     PersonName = p.PersonName,
                     ProductId = p.ProductId,
                     ProductQuantity = p.ProductQuantity,
-                    OldProductPrice = p.ProductPrice,
-                    NewProductPrice = p.Product.Price,
+                    ProductPriceOld = p.ProductPrice,
+                    ProductPriceNew = p.Product.Price,
                 })
                 .ToListAsync();
             
@@ -84,7 +83,7 @@ namespace Server.Source.Logic
 
         public async Task<NumberOfProductsInCartResponse> GetNumberOfProductsInCartAsync(string userId)
         {
-            var total = await _businessRepository.GetNumberOfProductsInCartAsync(userId, p => p.IsForLater == false);
+            var total = await _businessRepository.GetNumberOfProductsInCartAsync(userId, p => true);
             return new NumberOfProductsInCartResponse()
             {
                 Total = total

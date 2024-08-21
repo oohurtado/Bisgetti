@@ -1,9 +1,8 @@
 export class CartElementResponse {
-    id!: string;
-    isForLater!: boolean;
+    id!: string;    
     personName!: string;
     productId!: number;
     productQuantity!: number;
-    oldProductPrice!: number;
-    newProductPrice!: number;
+    productPriceOld!: number;
+    productPriceNew!: number;
 }

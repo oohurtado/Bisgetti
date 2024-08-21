@@ -10,9 +10,7 @@
 
         public decimal ProductPrice { get; set; }
 
-        public int ProductQuantity { get; set; }
-
-        public bool IsForLater { get; set; }
+        public int ProductQuantity { get; set; }        
 
         /// <summary>
         /// Relationships

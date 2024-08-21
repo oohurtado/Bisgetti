@@ -6,10 +6,9 @@ namespace Server.Source.Models.DTOs.Business.Cart
     {
         public int Id { get; set; }
         public string? PersonName { get; set; }
-        public decimal OldProductPrice { get; set; }
-        public decimal NewProductPrice { get; set; }
-        public int ProductQuantity { get; set; }
-        public bool IsForLater { get; set; }
+        public decimal ProductPriceOld { get; set; }
+        public decimal ProductPriceNew { get; set; }
+        public int ProductQuantity { get; set; }        
         public int ProductId { get; set; }
     }
 }
