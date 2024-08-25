@@ -24,7 +24,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Obtiene listado de direcciones
+        /// Listado de direcciones
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
@@ -50,7 +50,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Listado de personas
+        /// Listado de productos en el carrito
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
@@ -63,7 +63,7 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Listado de personas
+        /// Numero de productos en el carrito
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]

@@ -58,6 +58,7 @@ import { RemoveElementFromElementComponent } from './components/_shared/modals/b
 import { MenusDesignComponent } from './components/administration/menu-stuff/menus/menus-design/menus-design.component';
 import { AddToCartComponent } from './components/_shared/modals/business/cart/add-to-cart/add-to-cart.component';
 import { MenuStuffListComponent } from './components/administration/menu-stuff/menu-stuff-list/menu-stuff-list.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
 	declarations: [
@@ -107,7 +108,7 @@ import { MenuStuffListComponent } from './components/administration/menu-stuff/m
 		UpdateElementSettingsComponent,
 		RemoveElementFromElementComponent,
   		MenusDesignComponent,  		
-  		AddToCartComponent,
+  		AddToCartComponent, CartComponent,
 	],
 	imports: [
 		BrowserModule,

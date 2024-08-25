@@ -22,7 +22,7 @@ export class SharedService {
 
     public productAddedToCart: Subject<number> = new Subject<number>();
 
-    public onProductAddedToCart(numberOfProducts: number) {
+    public refreshCart(numberOfProducts: number) {
         this.productAddedToCart.next(numberOfProducts);
     }
 }

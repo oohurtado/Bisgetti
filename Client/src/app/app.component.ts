@@ -36,15 +36,13 @@ export class AppComponent implements OnInit, OnDestroy {
 		});
 
         this.systemService.datetime()
-        .subscribe({
-            complete: () => {},
-            error: e => {},
-            next: (value) => {
-                this._serverTime = Object.assign(new Date, value);
-            },
-        });
-
-        await this.testStuff();
+            .subscribe({
+                complete: () => {},
+                error: e => {},
+                next: (value) => {
+                    this._serverTime = Object.assign(new Date, value);
+                },
+            });
 	}
 
 	ngOnDestroy(): void {
@@ -68,9 +66,6 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         
         return "..."
-    }
-
-    async testStuff() {              
     }
 }
 

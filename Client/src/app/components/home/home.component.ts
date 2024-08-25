@@ -70,18 +70,22 @@ export class HomeComponent implements OnInit {
                         this._error = Utils.getErrorsResponse(e);
                     });            
 
-                    await this.businessService.getNumberOfProductsInCartAsync()
-                        .then(r => {
-                            this.sharedService.onProductAddedToCart(r.total);             
-                        }, e => {
-                            this._error = Utils.getErrorsResponse(e);
-                        });                          
+                    await this.refreshCartAsync();                       
             }
         }
 
         this._isProcessing = false;
         this._isInitialLoading = false;
     }
+
+    async refreshCartAsync() {		
+		await this.businessService.getNumberOfProductsInCartAsync()
+			.then(r => {
+				this.sharedService.refreshCart(r.total);             
+			}, e => {
+				this._error = Utils.getErrorsResponse(e);
+			});
+	}
 
     async getAllAsync(menuId: number) {
         this._isProcessing = true;
@@ -145,14 +149,8 @@ export class HomeComponent implements OnInit {
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
             });
-
-        // obtenemos el total de productos, ya que agrego mas productos
-        await this.businessService.getNumberOfProductsInCartAsync()
-            .then(r => {
-                this.sharedService.onProductAddedToCart(r.total);             
-            }, e => {
-                this._error = Utils.getErrorsResponse(e);
-            });
+        
+        await this.refreshCartAsync();
 
         this._lastPersonSelected = personName;        
         this.onAddProductToCartClose();
