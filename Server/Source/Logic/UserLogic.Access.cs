@@ -6,7 +6,7 @@ using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
 using Server.Source.Extensions;
 using Server.Source.Models.DTOs;
-using Server.Source.Models.DTOs.User.Access;
+using Server.Source.Models.DTOs.Access;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using Server.Source.Services.Interfaces;

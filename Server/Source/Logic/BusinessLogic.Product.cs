@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using Server.Source.Data.Interfaces;
-using Server.Source.Exceptions;
-using Server.Source.Models.DTOs.Business.Product;
-using Server.Source.Models.DTOs.Business;
-using Server.Source.Models.DTOs.Common;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using Server.Source.Models.DTOs.Product;
+using Server.Source.Models.DTOs.Common;
+using Server.Source.Exceptions;
 
 namespace Server.Source.Logic
 {

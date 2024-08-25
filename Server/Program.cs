@@ -16,16 +16,14 @@ using Server.Source.Utilities;
 using System.Diagnostics;
 using System;
 using System.Text;
-using Server.Source.Models.DTOs.User.Address;
 using Server.Source.Services.Interfaces;
 using Server.Source.Services;
 using Server.Source.Models.Entities;
-using Server.Source.Models.DTOs.Business;
-using Server.Source.Models.DTOs.Business.Menu;
-using Server.Source.Models.DTOs.Business.Category;
-using Server.Source.Models.DTOs.Business.Product;
-using Server.Source.Models.DTOs.Business.MenuStuff;
-using Server.Source.Models.DTOs.Business.Cart;
+using Server.Source.Models.DTOs.Category;
+using Server.Source.Models.DTOs.Menu;
+using Server.Source.Models.DTOs.MenuStuff;
+using Server.Source.Models.DTOs.Product;
+using Server.Source.Models.DTOs.MyAccount;
 
 namespace Server
 {
@@ -129,8 +127,8 @@ namespace Server
 
             builder.Services.AddAutoMapper(p =>
             {
-                p.CreateMap<AddressEntity, Source.Models.DTOs.Business.Cart.AddressResponse>();
-                p.CreateMap<AddressEntity, Source.Models.DTOs.User.Address.AddressResponse>();
+                p.CreateMap<AddressEntity, Source.Models.DTOs.Cart.AddressResponse>();
+                p.CreateMap<AddressEntity, AddressResponse>();
                 p.CreateMap<CreateOrUpdateAddressRequest, AddressEntity>();
 
                 p.CreateMap<MenuEntity, MenuResponse>();

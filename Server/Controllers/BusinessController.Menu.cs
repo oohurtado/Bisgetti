@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Logic;
-using Server.Source.Models.DTOs.Business.Menu;
-using Server.Source.Models.DTOs.User.Access;
-using Server.Source.Models.DTOs.User.Address;
+using Server.Source.Models.DTOs.Menu;
 using System.Security.Claims;
 
 namespace Server.Controllers

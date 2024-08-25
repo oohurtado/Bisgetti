@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Server.Source.Models.DTOs.Business.Product;
+using Server.Source.Models.DTOs.Product;
 
 namespace Server.Controllers
 {

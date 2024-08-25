@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Extensions;
-using Server.Source.Models.DTOs.User.Address;
-using Server.Source.Models.DTOs.User.Common;
+using Server.Source.Models.DTOs.MyAccount;
 using Server.Source.Models.Enums;
 using System.Security.Claims;
 

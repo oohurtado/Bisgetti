@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Server.Source.Models.DTOs.Business.Category;
-using Server.Source.Models.DTOs.Business.MenuStuff;
+using Server.Source.Models.DTOs.MenuStuff;
 
 namespace Server.Controllers
 {
