@@ -15,8 +15,9 @@ import { ImageElementRequest } from '../../source/models/dtos/menus/image-elemen
 import { ImageElementResponse } from '../../source/models/dtos/menus/image-element-response';
 import { PersonResponse } from '../../source/models/business/responses/person-response';
 import { AddProductToCartRequest } from '../../source/models/dtos/business/add-product-to-cart-request';
-import { NumberOfProductsInCartResponse } from '../../source/models/business/common/number-of-products-in-cart-response';
 import { CartElementResponse } from '../../source/models/business/responses/cart-element-response';
+import { NumberOfProductsInCartResponse } from '../../source/models/business/responses/number-of-products-in-cart-response';
+import { AddressResponse } from '../../source/models/business/responses/address-response';
 
 @Injectable({
     providedIn: 'root'
@@ -374,6 +375,24 @@ export class BusinessService {
     getUserPeopleAsync() : Promise<PersonResponse[]> {
 		return new Promise((resolve, reject) => {
 			this.getUserPeople()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	getUserAddresses() {
+		return this.requestService.get<AddressResponse[]>(`/business/user/addresses`);
+	}
+
+    getUserAddressesAsync() : Promise<AddressResponse[]> {
+		return new Promise((resolve, reject) => {
+			this.getUserAddresses()
 			.subscribe({
 				next: (value) => {
 					resolve(value);

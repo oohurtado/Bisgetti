@@ -129,7 +129,8 @@ namespace Server
 
             builder.Services.AddAutoMapper(p =>
             {
-                p.CreateMap<AddressEntity, AddressResponse>();
+                p.CreateMap<AddressEntity, Source.Models.DTOs.Business.Cart.AddressResponse>();
+                p.CreateMap<AddressEntity, Source.Models.DTOs.User.Address.AddressResponse>();
                 p.CreateMap<CreateOrUpdateAddressRequest, AddressEntity>();
 
                 p.CreateMap<MenuEntity, MenuResponse>();

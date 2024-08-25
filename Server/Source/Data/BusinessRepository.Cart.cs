@@ -21,6 +21,17 @@ namespace Server.Source.Data
             return _context.People.Where(p => p.UserId == userId).Where(exp);
         }
 
+        public IQueryable<AddressEntity> GetAddresses(string userId)
+        {
+            IQueryable<AddressEntity> iq;
+            IOrderedQueryable<AddressEntity> ioq = null!;
+
+            iq = _context.Addresses.Where(p => p.UserId == userId);
+            ioq = iq.OrderBy(p => p.IsDefault).ThenBy(p => p.Name);
+
+            return ioq.AsNoTracking();
+        }
+
         public async Task AddPersonToUser(PersonEntity person)
         {
             _context.People.Add(person);

@@ -9,6 +9,7 @@ using Server.Source.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Server.Source.Models.DTOs.Business.Cart;
+using Server.Source.Data;
 
 namespace Server.Source.Logic
 {
@@ -37,6 +38,13 @@ namespace Server.Source.Logic
             
 
             return people;
+        }
+
+        public async Task<List<AddressResponse>> GetAddressesAsync(string userId)
+        {
+            var data = await _businessRepository.GetAddresses(userId).ToListAsync();
+            var result = _mapper.Map<List<AddressResponse>>(data);
+            return result;
         }
 
         public async Task AddProductToCartAsync(string userId, AddProductToCartRequest request)

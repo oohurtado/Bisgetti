@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Source.Logic;
 using Server.Source.Models.DTOs.Business.Cart;
 using Server.Source.Models.DTOs.Business.Category;
 using Server.Source.Models.DTOs.Business.Product;
@@ -21,6 +22,19 @@ namespace Server.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var result = await _businessLogicCart.GetPeopleAsync(userId);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Obtiene listado de direcciones
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpGet(template: "user/addresses")]
+        public async Task<ActionResult> GetAddresses()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _businessLogicCart.GetAddressesAsync(userId);
             return Ok(result);
         }
 

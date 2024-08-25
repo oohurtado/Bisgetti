@@ -133,6 +133,7 @@ namespace Server.Source.Data.Interfaces
 
         IQueryable<PersonEntity> GetPeople(string userId);
         IQueryable<PersonEntity> GetPeople(string userId, Expression<Func<PersonEntity, bool>> exp);
+        IQueryable<AddressEntity> GetAddresses(string userId);
         Task AddPersonToUser(PersonEntity person);
         Task AddProductCartAsync(CartElementEntity cartElement);
         IQueryable<CartElementEntity> GetProductsFromCart(string userId);
