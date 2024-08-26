@@ -48,6 +48,21 @@
                         <div class="col-7 col-sm-6 col-md-9 col-lg-9">
                             <span class="fs-6 d-block">{{ product.productName }}</span>                        
                             <strong class="fs-5 d-block">{{ product.productPrice | currency:'$' }}</strong>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-8 col-md-6 col-lg-4">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <span class="input-group-text" id="basic-addon3">Cantidad</span>
+                                        <input (focus)="onFocus($event)" (keyup)="onQuantity($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" autocomplete="off">                                        
+                                    </div> 
+                                    <div class="btn-group border" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-light border btn-sm" [disabled]="true">Actualizar</button>
+                                        <button type="button" class="btn btn-light border btn-sm">Eliminar</button>
+                                    </div>                                            
+                                </div>
+                            </div>
+                            <div>
+                   
+                            </div>
                         </div>
                         <div class="col-3 col-sm-3 col-md-1 col-lg-1">
                             <div class="text-end">

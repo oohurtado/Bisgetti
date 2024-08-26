@@ -101,21 +101,18 @@ export class CartComponent implements OnInit {
 	// TODO: actualizar con boton
 	// TODO: boton para borrar
 	async onQuantity(event: Event, product: CartElementResponse) {
-		let value = Number((event.target as HTMLInputElement).value);		
-			
-		await Utils.delay(500);
+		let value = Number((event.target as HTMLInputElement).value);						
 
-		this._isProcessing = true;	
-		let model = new UpdateProductFromCartRequest(product.personName, product.productId, value);
-		await this.businessService.updateProductFromCartAsync(model)
-			.then(r => {						
-			}, e => {
-				this._error = Utils.getErrorsResponse(e);
-				alertify.error(this._error, 1)
-			});		
-		this._isProcessing = false;	
-
-		await this.refreshCartAsync();
+		// this._isProcessing = true;	
+		// let model = new UpdateProductFromCartRequest(product.personName, product.productId, value);
+		// await this.businessService.updateProductFromCartAsync(model)
+		// 	.then(r => {						
+		// 	}, e => {
+		// 		this._error = Utils.getErrorsResponse(e);
+		// 		alertify.error(this._error, 1)
+		// 	});		
+		// this._isProcessing = false;	
+		// await this.refreshCartAsync();
 	}
 
 	getTotalByPerson(products: CartElementResponse[]) {

@@ -28,6 +28,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
+
         [HttpGet(template: "user/addresses")]
         public async Task<ActionResult> GetAddresses()
         {
