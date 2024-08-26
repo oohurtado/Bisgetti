@@ -53,11 +53,7 @@ namespace Server.Source.Logic
 
             foreach (var item in result )
             {
-                if (!string.IsNullOrEmpty(item.Image))
-                {
-                    item.Image = GetUrl(item.Image);
-                }
-                
+                item.Image = GetUrl(item.Image!);
             }
 
             return result;
@@ -385,6 +381,11 @@ namespace Server.Source.Logic
 
         private string GetUrl(string image)
         {
+            if (string.IsNullOrEmpty(image))
+            {
+                return null!;
+            }
+
             var url = FileUtility.GetUrlFile(_storageFile, image, CONTAINER_FILE);
             return url;
         }

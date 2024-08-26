@@ -97,6 +97,9 @@ export class CartComponent implements OnInit {
 		this._isProcessing = false;  
 	}
 	
+
+	// TODO: actualizar con boton
+	// TODO: boton para borrar
 	async onQuantity(event: Event, product: CartElementResponse) {
 		let value = Number((event.target as HTMLInputElement).value);		
 			

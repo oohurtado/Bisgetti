@@ -1,17 +1,24 @@
-<div class="text-end">   
+<div class="text-end">
     &nbsp;<app-processing *ngIf="_isProcessing"></app-processing>
 </div>
 <ul class="nav nav-tabs">
     <li *ngFor="let tabLabel of _tabLabels, let _i_ = index" class="nav-item">
-        <a class="nav-link" [ngClass]="{ 'link-dark cursor-pointer': _i_ < _tabCurrent, 'active link-info': _i_ == _tabCurrent, 'disabled': _i_ > _tabCurrent }" aria-current="page" (click)="onTabClicked($event, _i_)">
-            <span class="badge" [ngClass]="{ 'bg-dark': _i_ < _tabCurrent, 'bg-info': _i_ == _tabCurrent, 'bg-secondary': _i_ > _tabCurrent }">{{ _i_ + 1 }}</span> 
+        <a class="nav-link"
+            [ngClass]="{ 'link-dark cursor-pointer': _i_ < _tabCurrent, 'active link-info': _i_ == _tabCurrent, 'disabled': _i_ > _tabCurrent }"
+            aria-current="page" (click)="onTabClicked($event, _i_)">
+            <span class="badge"
+                [ngClass]="{ 'bg-dark': _i_ < _tabCurrent, 'bg-info': _i_ == _tabCurrent, 'bg-secondary': _i_ > _tabCurrent }">{{
+                _i_ + 1 }}</span>
             &nbsp;
-            <span [ngClass]="{ 'text-dark': _i_ < _tabCurrent, 'text-info': _i_ == _tabCurrent, 'text-secondary': _i_ > _tabCurrent }">
+            <span
+                [ngClass]="{ 'text-dark': _i_ < _tabCurrent, 'text-info': _i_ == _tabCurrent, 'text-secondary': _i_ > _tabCurrent }">
                 <i class="fa-solid" [class]="_tabIcons[_i_]"></i>
-            </span>            
-            <span class="md-lg-only" [ngClass]="{ 'text-dark': _i_ < _tabCurrent, 'text-info': _i_ == _tabCurrent, 'text-secondary': _i_ > _tabCurrent }">&nbsp;{{ tabLabel }}</span>
+            </span>
+            <span class="md-lg-only"
+                [ngClass]="{ 'text-dark': _i_ < _tabCurrent, 'text-info': _i_ == _tabCurrent, 'text-secondary': _i_ > _tabCurrent }">&nbsp;{{
+                tabLabel }}</span>
         </a>
-    </li>   
+    </li>
 </ul>
 
 <div class="bg-light mt-4 p-2">
@@ -22,22 +29,47 @@
         Subtotal
     </div>
     <hr>
-    <ng-container *ngFor="let person of _cartGrouped, let _i_ = index">      
+    <ng-container *ngFor="let person of _cartGrouped, let _i_ = index">
         <div class="row">
             <div class="col-12">
                 <span class="fs-4 ms-1">
                     <i class="fa-solid fa-user"></i> {{ person.key }}
                 </span>
             </div>
+
             <ng-container *ngFor="let product of person.items"> 
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2 col-sm-3 col-md-2 col-lg-2">
+                            <ng-container *ngIf="product.productImage != null">
+                                <img src="{{ product.productImage }}" class="img-thumbnail" alt="...">
+                            </ng-container>
+                        </div>
+                        <div class="col-7 col-sm-6 col-md-9 col-lg-9">
+                            <span class="fs-6 d-block">{{ product.productName }}</span>                        
+                            <strong class="fs-5 d-block">{{ product.productPrice | currency:'$' }}</strong>
+                        </div>
+                        <div class="col-3 col-sm-3 col-md-1 col-lg-1">
+                            <div class="text-end">
+                                {{ product.productQuantity * product.productPrice | currency:'$' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- <ng-container *ngFor="let product of person.items"> 
                 <div class="col-6">
                     <div class="ms-4">
+                        <ng-container *ngIf="product.productImage != null">
+                            <img src="{{ product.productImage }}" class="img-thumbnail" alt="...">
+                        </ng-container>
                         <span class="fs-6 d-block">{{ product.productName }}</span>                        
                         <strong class="fs-5 d-block">{{ product.productPrice | currency:'$' }}</strong>
                         <div class="row">
                             <div class="col-xs-4 col-sm-8 col-md-6 col-lg-4">
                                 <div class="form-floating mb-3">
-                                    <input (focus)="onFocus($event)" (keyup)="onQuantity($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput">
+                                    <input (focus)="onFocus($event)" (keyup)="onQuantity($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" autocomplete="off">
                                     <label for="floatingInput">Cantidad</label>
                                   </div>                   
                             </div>
@@ -47,11 +79,13 @@
                 <div class="col-6 text-end pe-4">
                     {{ product.productQuantity * product.productPrice | currency:'$' }}
                 </div>
-            </ng-container>
+            </ng-container> -->
+
+
             <div class="col-12 text-end pe-4">
-                Total por persona: <strong class="fs-5 text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>                
+                Total por persona: <strong class="fs-5 text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>
             </div>
-        </div>                 
+        </div>
         <hr *ngIf="_i_ + 1 != _cartGrouped.length && _cartGrouped.length > 0">
     </ng-container>
 </div>

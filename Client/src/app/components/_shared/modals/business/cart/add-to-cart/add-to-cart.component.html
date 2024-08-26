@@ -43,7 +43,7 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-floating">
-                                <input formControlName="quantity" type="number" (focus)="onFocus($event)" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity">
+                                <input formControlName="quantity" type="number" (focus)="onFocus($event)" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity" autocomplete="off">
                                 <label for="quantity">Cantidad</label>
                             </div>
                             <span *ngIf="hasError('quantity', 'required')" class="text-danger">Este campo es requerido</span>

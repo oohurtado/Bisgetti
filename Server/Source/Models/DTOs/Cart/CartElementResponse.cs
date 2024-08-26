@@ -10,5 +10,6 @@ namespace Server.Source.Models.DTOs.Cart
         public decimal ProductPrice { get; set; }
         public int ProductQuantity { get; set; }
         public int ProductId { get; set; }
+        public string? ProductImage { get; set; }
     }
 }

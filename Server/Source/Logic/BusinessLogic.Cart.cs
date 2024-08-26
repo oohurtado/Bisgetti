@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Server.Source.Data;
 using Server.Source.Models.DTOs.Cart;
+using Server.Source.Services.Interfaces;
+using Server.Source.Utilities;
 
 namespace Server.Source.Logic
 {
@@ -15,14 +17,19 @@ namespace Server.Source.Logic
     {
         private readonly IBusinessRepository _businessRepository;
         private readonly IMapper _mapper;
+        private readonly IStorageFile _storageFile;
+
+        private const string CONTAINER_FILE = "menu-images";
 
         public BusinessLogicCart(
             IBusinessRepository businessRepository,
-            IMapper mapper
+            IMapper mapper,
+            IStorageFile storageFile
             )
         {
             _businessRepository = businessRepository;
             _mapper = mapper;
+            _storageFile = storageFile;
         }
 
         public async Task<List<PersonResponse>> GetPeopleAsync(string userId)
@@ -112,6 +119,19 @@ namespace Server.Source.Logic
                     ProductPrice = p.Product.Price,
                 })
                 .ToListAsync();
+
+            var menu = await _businessRepository.GetMenuStuff(p => p.MenuId != null && p.CategoryId == null && p.ProductId == null).FirstOrDefaultAsync();
+            if (menu != null)
+            {
+                var productIds = cartElements.Select(p => p.ProductId).ToList();
+                var productImages = await _businessRepository.GetMenuStuff(p => productIds.Contains(p.ProductId ?? 0)).Select(p => new { p.ProductId, p.Image }).ToListAsync();
+
+                cartElements.ForEach(p => 
+                {
+                    var img = productImages.Where(q => q.ProductId == p.ProductId).Select(q => q.Image).FirstOrDefault();                    
+                    p.ProductImage = GetUrl(img!);
+                });
+            }            
             
             return cartElements;
         }
@@ -123,6 +143,17 @@ namespace Server.Source.Logic
             {
                 Total = total
             };
-        } 
+        }
+
+        private string GetUrl(string image)
+        {
+            if (string.IsNullOrEmpty(image))
+            {
+                return null!;
+            }
+
+            var url = FileUtility.GetUrlFile(_storageFile, image, CONTAINER_FILE);
+            return url;
+        }
     }
 }

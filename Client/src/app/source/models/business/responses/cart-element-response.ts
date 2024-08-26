@@ -5,4 +5,5 @@ export class CartElementResponse {
     productName!: number;
     productQuantity!: number;
     productPrice!: number;
+    productImage!: string;
 }
