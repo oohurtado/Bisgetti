@@ -7,6 +7,7 @@ import { AddressResponse } from '../../source/models/business/responses/address-
 declare let alertify: any;
 import * as lodash from 'lodash';
 import { Grouping } from '../../source/models/common/grouping';
+import { LocalStorageService } from '../../services/common/local-storage.service';
 
 @Component({
 	selector: 'app-cart',
@@ -29,7 +30,7 @@ export class CartComponent implements OnInit {
 	_addresses : AddressResponse[] = [];
 
 	constructor(
-		private businessService: BusinessService,
+		private businessService: BusinessService,		
 		private sharedService: SharedService
 	) {		
 	}
@@ -100,9 +101,14 @@ export class CartComponent implements OnInit {
 		console.log(value)	
 		console.log(product)	
 						 
-		// enviar dato a actualizar
+		// TODO: enviar dato a actualizar
 		
-		// refrescar datos
 		await this.refreshCartAsync();
+	}
+
+	getTotalByPerson(products: CartElementResponse[]) {
+		let sum = 0;
+		products.forEach(p => sum += p.productPrice * p.productQuantity);
+		return sum;
 	}
 }

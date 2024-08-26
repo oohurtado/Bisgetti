@@ -47,25 +47,39 @@ namespace Server.Source.Logic
 
         public async Task AddProductToCartAsync(string userId, AddProductToCartRequest request)
         {
-            var cartElement = new CartElementEntity()
-            {
-                UserId = userId,
-                PersonName = request.PersonName,
-                ProductId = request.ProductId,               
-                ProductQuantity = request.ProductQuantity,
-            };
-            await _businessRepository.AddProductCartAsync(cartElement);
+            var cartElement = await _businessRepository
+                .GetProductsFromCart(userId)
+                .Where(p => p.ProductId == request.ProductId && p.PersonName == request.PersonName)
+                .FirstOrDefaultAsync();
 
-            var exists = await _businessRepository.GetPeople(userId, p => p.Name == request.PersonName).AnyAsync();
-            if (!exists)
+            if (cartElement != null)
             {
-                var person = new PersonEntity()
+                cartElement.ProductQuantity += request.ProductQuantity;
+                await _businessRepository.UpdateAsync();
+            }
+            else
+            {
+                var newCartElement = new CartElementEntity()
                 {
                     UserId = userId,
-                    Name = request.PersonName,
+                    PersonName = request.PersonName,
+                    ProductId = request.ProductId,               
+                    ProductQuantity = request.ProductQuantity,
                 };
-                await _businessRepository.AddPersonToUser(person);
+                await _businessRepository.AddProductCartAsync(newCartElement);
+
+                var exists = await _businessRepository.GetPeople(userId, p => p.Name == request.PersonName).AnyAsync();
+                if (!exists)
+                {
+                    var person = new PersonEntity()
+                    {
+                        UserId = userId,
+                        Name = request.PersonName,
+                    };
+                    await _businessRepository.AddPersonToUser(person);
+                }
             }
+
         }
 
         public async Task<List<CartElementResponse>> GetProductsFromCartAsync(string userId)

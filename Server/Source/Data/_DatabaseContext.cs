@@ -35,6 +35,9 @@ namespace Server.Source.Data
 
             builder.Entity<UserEntity>(e =>
             {
+                e.Property(p => p.FirstName).IsRequired(required: true).HasMaxLength(50);
+                e.Property(p => p.LastName).IsRequired(required: true).HasMaxLength(50);
+
                 e.HasMany(p => p.Addresses).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
                 e.HasMany(p => p.People).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
             });

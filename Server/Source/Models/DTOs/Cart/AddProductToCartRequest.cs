@@ -6,7 +6,7 @@ namespace Server.Source.Models.DTOs.Cart
     {
         [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Campo requerido")]
-        [StringLength(25, MinimumLength = 2, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]
         public string? PersonName { get; set; }
 
         [Required(ErrorMessage = "Campo requerido")]

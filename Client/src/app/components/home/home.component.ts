@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
 
     _modal_addProductToCart: boolean = false;
     _productElement!: MenuElement;
-    _lastPersonSelected: string = 'Yo';
+    _lastPersonSelected: string = '';
 
     constructor(
         private businessService: BusinessService,
@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit {
 
     async ngOnInit() {
         alertify.set('notifier','position', 'top-right');
+
+        this._lastPersonSelected = this.localStorageService.getUserFirstName();
 
         this._isInitialLoading = true;
         this._isProcessing = true;        

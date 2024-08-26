@@ -39,7 +39,7 @@ export class AddToCartComponent implements OnChanges, OnInit {
 
     ngOnInit(): void {    
         this._myForm = this.formBuilder.group({
-            name: [this.lastPersonSelected, [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+            name: [ '', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
             quantity: [1, [Validators.required,Validators.min(1), Validators.max(50)]],
         });
 	}
@@ -111,4 +111,8 @@ export class AddToCartComponent implements OnChanges, OnInit {
         let total = Number(quantity) * Number(price);
         return total;
     }
+
+    // onSetLastPersonSelected(person: string) {
+    //     this._myForm?.controls['name'].setValue(person);
+    // }
 }
