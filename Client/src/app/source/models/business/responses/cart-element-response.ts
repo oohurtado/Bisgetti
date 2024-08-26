@@ -2,7 +2,7 @@ export class CartElementResponse {
     id!: string;    
     personName!: string;
     productId!: number;
+    productName!: number;
     productQuantity!: number;
-    productPriceOld!: number;
-    productPriceNew!: number;
+    productPrice!: number;
 }

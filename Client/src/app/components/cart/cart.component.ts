@@ -5,6 +5,8 @@ import { Utils } from '../../source/utils';
 import { CartElementResponse } from '../../source/models/business/responses/cart-element-response';
 import { AddressResponse } from '../../source/models/business/responses/address-response';
 declare let alertify: any;
+import * as lodash from 'lodash';
+import { Grouping } from '../../source/models/common/grouping';
 
 @Component({
 	selector: 'app-cart',
@@ -16,40 +18,91 @@ export class CartComponent implements OnInit {
 	_isProcessing: boolean = false;
     _error!: string|null;
 
+	// tabs
+	_tabCurrent: number = 0;
+	_tabLabels: string[] = [];
+	_tabIcons: string[] = [];
+
+	_quantities: number[] = Array(50).fill(0).map((_, index)=> index);
+
+	_cartGrouped: Grouping<string, CartElementResponse>[] = [];
+	_addresses : AddressResponse[] = [];
+
 	constructor(
 		private businessService: BusinessService,
 		private sharedService: SharedService
-	) {
-
+	) {		
 	}
 
 	async ngOnInit() {
+		this.initTabs();
 		await this.refreshCartAsync();
+		await this.refreshAddressesAsync();
 	}
 
-	async refreshCartAsync() {		
+	initTabs() {
+		this._tabLabels.push("Carrito");
+		this._tabLabels.push("Últimos detalles");
+		this._tabLabels.push("Confirmación y Envío");
+
+		this._tabIcons.push("fa-cart-shopping");
+		this._tabIcons.push("fa-list-check");
+		this._tabIcons.push("fa-truck-fast");
+	}
+	
+	onTabClicked(event: Event, tabNew: number) {
+		if (tabNew < this._tabCurrent) {
+			this._tabCurrent = tabNew;
+		}
+}
+
+	async refreshCartAsync() {	
+		this._isProcessing = true;	
 		await this.businessService.getNumberOfProductsInCartAsync()
 			.then(r => {
 				this.sharedService.refreshCart(r.total);             
 			}, e => {
 				this._error = Utils.getErrorsResponse(e);
+				alertify.error(this._error, 1)
 			});
+		
+		await this.businessService.getProductsFromCartAsync()
+			.then(r => {
+				let cartElements = r;   
+				
+				this._cartGrouped = lodash.map(lodash.groupBy(cartElements, p => p.personName), (data, key) => {
+					let info: Grouping<string, CartElementResponse> = new Grouping<string, CartElementResponse>();
+					info.key = key;
+					info.items = data;
+					return info;
+				});
+			}, e => {
+				this._error = Utils.getErrorsResponse(e);
+				alertify.error(this._error, 1)
+			});			
+		this._isProcessing = false;  
 	}
 
-	async getAllAsync(menuId: number) {
-        this._isProcessing = true;
-        await Promise.all(
-            [
-                this.businessService.getProductsFromCartAsync(), 
-                this.businessService.getUserAddressesAsync(), 
-            ])
-            .then(r => {
-                let cart = r[0] as CartElementResponse;
-                let addresses = r[1] as AddressResponse[];
-            }, e => {
-                this._error = Utils.getErrorsResponse(e);
-                alertify.error(this._error, 1)
-            });
-        this._isProcessing = false;        
-    }
+	async refreshAddressesAsync() {
+		this._isProcessing = true;	
+		await this.businessService.getUserAddressesAsync()
+			.then(r => {
+				this._addresses = r;            
+			}, e => {
+				this._error = Utils.getErrorsResponse(e);
+				alertify.error(this._error, 1)
+			});
+		this._isProcessing = false;  
+	}
+	
+	async onQuantity(event: KeyboardEvent, product: CartElementResponse) {
+		let value = Number((event.target as HTMLInputElement).value);
+		console.log(value)	
+		console.log(product)	
+						 
+		// enviar dato a actualizar
+		
+		// refrescar datos
+		await this.refreshCartAsync();
+	}
 }

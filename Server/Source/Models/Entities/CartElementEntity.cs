@@ -6,9 +6,7 @@
         /// Fields
         /// </summary>
 
-        public string? PersonName { get; set; }
-
-        public decimal ProductPrice { get; set; }
+        public string? PersonName { get; set; }        
 
         public int ProductQuantity { get; set; }        
 

@@ -6,8 +6,8 @@ namespace Server.Source.Models.DTOs.Cart
     {
         public int Id { get; set; }
         public string? PersonName { get; set; }
-        public decimal ProductPriceOld { get; set; }
-        public decimal ProductPriceNew { get; set; }
+        public string? ProductName { get; set; }        
+        public decimal ProductPrice { get; set; }
         public int ProductQuantity { get; set; }
         public int ProductId { get; set; }
     }

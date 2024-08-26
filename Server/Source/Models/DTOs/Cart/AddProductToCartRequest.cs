@@ -14,8 +14,5 @@ namespace Server.Source.Models.DTOs.Cart
 
         [Required(ErrorMessage = "Campo requerido")]
         public int ProductId { get; set; }
-
-        [Required(ErrorMessage = "Campo requerido")]
-        public decimal ProductPrice { get; set; }
     }
 }

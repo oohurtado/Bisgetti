@@ -1,44 +1,62 @@
+<div class="text-end">   
+    &nbsp;<app-processing *ngIf="_isProcessing"></app-processing>
+</div>
 <ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link link-dark" aria-current="page" href="#">
-            <span class="badge bg-dark">1</span> 
+    <li *ngFor="let tabLabel of _tabLabels, let _i_ = index" class="nav-item">
+        <a class="nav-link" [ngClass]="{ 'link-dark cursor-pointer': _i_ < _tabCurrent, 'active link-info': _i_ == _tabCurrent, 'disabled': _i_ > _tabCurrent }" aria-current="page" (click)="onTabClicked($event, _i_)">
+            <span class="badge" [ngClass]="{ 'bg-dark': _i_ < _tabCurrent, 'bg-info': _i_ == _tabCurrent, 'bg-secondary': _i_ > _tabCurrent }">{{ _i_ + 1 }}</span> 
             &nbsp;
-            <span class="text-dark">
-                <i class="fa-solid fa-cart-shopping"></i>
+            <span [ngClass]="{ 'text-dark': _i_ < _tabCurrent, 'text-info': _i_ == _tabCurrent, 'text-secondary': _i_ > _tabCurrent }">
+                <i class="fa-solid" [class]="_tabIcons[_i_]"></i>
             </span>            
-            <span class="md-lg-only">&nbsp;Carrito</span>
+            <span class="md-lg-only" [ngClass]="{ 'text-dark': _i_ < _tabCurrent, 'text-info': _i_ == _tabCurrent, 'text-secondary': _i_ > _tabCurrent }">&nbsp;{{ tabLabel }}</span>
         </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active link-info" href="#">
-            <span class="badge bg-info">2</span>
-            &nbsp;
-            <span class="text-info">
-                <i class="fa-solid fa-location-dot"></i>
-            </span>
-            <span class="md-lg-only text-info">&nbsp;Dirección</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#">
-            <span class="badge bg-secondary">3</span> 
-            &nbsp;
-            <span class="text-secondary">
-                <i class="fa-solid fa-list-check"></i>
-            </span>
-            <span class="md-lg-only">&nbsp;Últimos detalles</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-            <span class="badge bg-secondary">4</span> 
-            &nbsp;
-            <span class="text-secondary">
-                <i class="fa-solid fa-truck-fast"></i>
-            </span>
-            <span class="md-lg-only">&nbsp;Confirmación y Envío</span>
-        </a>
-    </li>
+    </li>   
 </ul>
 
-<!-- Carrito / Dirección / Últimos detalles / Confirmación y Envío -->
+<div class="bg-light mt-4 p-2">
+    <div class="mb-2">
+        <span class="fs-2">Productos en el carrito</span>
+    </div>
+    <div class="text-end pe-2">
+        Subtotal
+    </div>
+    <hr>
+    <ng-container *ngFor="let person of _cartGrouped, let _i_ = index">      
+        <div class="row">
+            <div class="col-12">
+                <span class="fs-4 ms-1">
+                    <i class="fa-solid fa-user"></i> {{ person.key }}
+                </span>
+            </div>
+            <ng-container *ngFor="let product of person.items"> 
+                <div class="col-6">
+                    <div class="ms-4 mb-2">
+                        <span class="fs-6 d-block">{{ product.productName }}</span>                        
+                        <strong class="fs-5 d-block">{{ product.productPrice | currency:'$' }}</strong>
+                        
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-8 col-md-6 col-lg-4">
+                                <div class="form-floating mb-3">
+                                    <input (keyup)="onQuantity($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" [disabled]="_isProcessing">
+                                    <label for="floatingInput">Cantidad</label>
+                                  </div>                   
+                            </div>
+                        </div>
+
+                    </div>                  
+                </div>       
+                <div class="col-6 text-end pe-4">
+                    {{ product.productQuantity * product.productPrice | currency:'$' }}
+                </div>
+            </ng-container>
+
+        </div>                 
+        <hr *ngIf="_i_ + 1 != _cartGrouped.length && _cartGrouped.length > 0">
+    </ng-container>
+</div>
+
+<!-- 
+<pre>{{ _cartGrouped | json }}</pre>
+<pre>{{ _addresses | json }}</pre> 
+-->

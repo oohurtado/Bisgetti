@@ -53,7 +53,6 @@ namespace Server.Source.Logic
                 PersonName = request.PersonName,
                 ProductId = request.ProductId,               
                 ProductQuantity = request.ProductQuantity,
-                ProductPrice = request.ProductPrice,
             };
             await _businessRepository.AddProductCartAsync(cartElement);
 
@@ -78,9 +77,9 @@ namespace Server.Source.Logic
                     Id = p.Id,
                     PersonName = p.PersonName,
                     ProductId = p.ProductId,
-                    ProductQuantity = p.ProductQuantity,
-                    ProductPriceOld = p.ProductPrice,
-                    ProductPriceNew = p.Product.Price,
+                    ProductName = p.Product.Name,
+                    ProductQuantity = p.ProductQuantity,                    
+                    ProductPrice = p.Product.Price,
                 })
                 .ToListAsync();
             

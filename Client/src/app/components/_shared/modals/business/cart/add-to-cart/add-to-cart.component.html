@@ -42,15 +42,14 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-floating">
-                                <input formControlName="quantity" type="number" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity">
+                                <input formControlName="quantity" type="number" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity">
                                 <label for="quantity">Cantidad</label>
                             </div>
                             <span *ngIf="hasError('quantity', 'required')" class="text-danger">Este campo es requerido</span>
                             <span *ngIf="hasError('quantity', 'min') || hasError('quantity', 'max')" class="text-danger">Mínimo 1, máximo 50</span>
                         </div>
                         <div class="mb-3">    
-                            <span class="fs-5">Subtotal: <strong>{{ getTotal() | currency:'$' }}</strong></span>
-                            
+                            <span class="fs-5">Subtotal: <strong>{{ getTotal() | currency:'$' }}</strong></span>                            
                         </div>
                     </form>
                     <ng-container *ngIf="_error !== null">                                        

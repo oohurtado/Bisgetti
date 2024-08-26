@@ -423,10 +423,10 @@ export class BusinessService {
 	}
 
 	getProductsFromCart() {
-		return this.requestService.get<CartElementResponse>(`/business/cart`);
+		return this.requestService.get<CartElementResponse[]>(`/business/cart`);
 	}
 
-	getProductsFromCartAsync() : Promise<CartElementResponse> {
+	getProductsFromCartAsync() : Promise<CartElementResponse[]> {
 		return new Promise((resolve, reject) => {
 			this.getProductsFromCart()
 			.subscribe({
