@@ -82,6 +82,22 @@ namespace Server.Source.Logic
 
         }
 
+        public async Task UpdateProductFromCartAsync(string userId, UpdateProductFromCartRequest request)
+        {
+            var cartElement = await _businessRepository
+                .GetProductsFromCart(userId)
+                .Where(p => p.ProductId == request.ProductId && p.PersonName == request.PersonName)
+                .FirstOrDefaultAsync();
+
+            if (cartElement == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
+            }
+
+            cartElement.ProductQuantity = request.ProductQuantity;
+            await _businessRepository.UpdateAsync();
+        }
+
         public async Task<List<CartElementResponse>> GetProductsFromCartAsync(string userId)
         {
             var cartElements = await _businessRepository
@@ -107,6 +123,6 @@ namespace Server.Source.Logic
             {
                 Total = total
             };
-        }
+        } 
     }
 }

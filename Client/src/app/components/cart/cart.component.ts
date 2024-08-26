@@ -8,6 +8,7 @@ declare let alertify: any;
 import * as lodash from 'lodash';
 import { Grouping } from '../../source/models/common/grouping';
 import { LocalStorageService } from '../../services/common/local-storage.service';
+import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
 
 @Component({
 	selector: 'app-cart',
@@ -96,13 +97,21 @@ export class CartComponent implements OnInit {
 		this._isProcessing = false;  
 	}
 	
-	async onQuantity(event: KeyboardEvent, product: CartElementResponse) {
-		let value = Number((event.target as HTMLInputElement).value);
-		console.log(value)	
-		console.log(product)	
-						 
-		// TODO: enviar dato a actualizar
-		
+	async onQuantity(event: Event, product: CartElementResponse) {
+		let value = Number((event.target as HTMLInputElement).value);		
+			
+		await Utils.delay(500);
+
+		this._isProcessing = true;	
+		let model = new UpdateProductFromCartRequest(product.personName, product.productId, value);
+		await this.businessService.updateProductFromCartAsync(model)
+			.then(r => {						
+			}, e => {
+				this._error = Utils.getErrorsResponse(e);
+				alertify.error(this._error, 1)
+			});		
+		this._isProcessing = false;	
+
 		await this.refreshCartAsync();
 	}
 
@@ -110,5 +119,10 @@ export class CartComponent implements OnInit {
 		let sum = 0;
 		products.forEach(p => sum += p.productPrice * p.productQuantity);
 		return sum;
+	}
+
+	onFocus(event: Event) {
+		let input = (event.target as HTMLInputElement);
+		input.select();
 	}
 }

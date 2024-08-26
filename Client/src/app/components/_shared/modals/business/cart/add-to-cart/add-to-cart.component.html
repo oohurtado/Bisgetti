@@ -34,7 +34,7 @@
                     <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onOkClicked()" autocomplete="off">
                         <div class="mb-3">
                             <div class="form-floating">
-                                <input formControlName="name" type="text" class="form-control" id="name" list="people">
+                                <input formControlName="name" type="text" (focus)="onFocus($event)" class="form-control" id="name" list="people">
                                 <label for="name">Comensal</label>
                             </div>
                             <!-- <a class="cursor-pointer d-block" (click)="onSetLastPersonSelected(lastPersonSelected)">{{ lastPersonSelected }}</a> -->
@@ -43,7 +43,7 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-floating">
-                                <input formControlName="quantity" type="number" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity">
+                                <input formControlName="quantity" type="number" (focus)="onFocus($event)" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity">
                                 <label for="quantity">Cantidad</label>
                             </div>
                             <span *ngIf="hasError('quantity', 'required')" class="text-danger">Este campo es requerido</span>

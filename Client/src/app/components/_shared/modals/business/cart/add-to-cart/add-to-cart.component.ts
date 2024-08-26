@@ -115,4 +115,9 @@ export class AddToCartComponent implements OnChanges, OnInit {
     // onSetLastPersonSelected(person: string) {
     //     this._myForm?.controls['name'].setValue(person);
     // }
+
+    onFocus(event: Event) {
+		let input = (event.target as HTMLInputElement);
+		input.select();
+	}
 }

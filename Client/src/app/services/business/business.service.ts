@@ -18,6 +18,7 @@ import { AddProductToCartRequest } from '../../source/models/dtos/business/add-p
 import { CartElementResponse } from '../../source/models/business/responses/cart-element-response';
 import { NumberOfProductsInCartResponse } from '../../source/models/business/responses/number-of-products-in-cart-response';
 import { AddressResponse } from '../../source/models/business/responses/address-response';
+import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
 
 @Injectable({
     providedIn: 'root'
@@ -411,6 +412,24 @@ export class BusinessService {
 	addProductToCartAsync(model: AddProductToCartRequest) {
 		return new Promise((resolve, reject) => {
 			this.addProductToCart(model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	updateProductFromCart(model: UpdateProductFromCartRequest) {
+		return this.requestService.put(`/business/cart`, model);
+	}
+
+	updateProductFromCartAsync(model: UpdateProductFromCartRequest) {
+		return new Promise((resolve, reject) => {
+			this.updateProductFromCart(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);

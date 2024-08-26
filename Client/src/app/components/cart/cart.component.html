@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-xs-4 col-sm-8 col-md-6 col-lg-4">
                                 <div class="form-floating mb-3">
-                                    <input (keyup)="onQuantity($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" [disabled]="_isProcessing">
+                                    <input (focus)="onFocus($event)" (keyup)="onQuantity($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput">
                                     <label for="floatingInput">Cantidad</label>
                                   </div>                   
                             </div>

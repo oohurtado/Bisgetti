@@ -50,6 +50,19 @@ namespace Server.Controllers
         }
 
         /// <summary>
+        /// Actuualizar producto del carrito
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpPut(template: "cart")]
+        public async Task<ActionResult> UpdateProductFromCart([FromBody] UpdateProductFromCartRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            await _businessLogicCart.UpdateProductFromCartAsync(userId, request);
+            return Ok();
+        }
+
+        /// <summary>
         /// Listado de productos en el carrito
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
