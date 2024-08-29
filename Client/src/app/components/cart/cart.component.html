@@ -55,7 +55,7 @@
                                         <input (focus)="onFocus($event)" (keyup)="onQuantityChanged($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" autocomplete="off">                                        
                                     </div> 
                                     <div class="btn-group border" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-light border btn-sm" [disabled]="true">Actualizar</button>
+                                        <button type="button" class="btn btn-light border btn-sm btn-{{product.id}}" (click)="onUpdateProductFromCartClicked($event, product)" [disabled]="true">Actualizar</button>
                                         <button type="button" class="btn btn-light border btn-sm" (click)="onDeleteProductFromCartClicked($event, product)">Eliminar</button>
                                     </div>                                            
                                 </div>

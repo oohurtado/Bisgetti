@@ -6,4 +6,6 @@ export class CartElementResponse {
     productQuantity!: number;
     productPrice!: number;
     productImage!: string;
+
+    productNewQuantity!: number;
 }

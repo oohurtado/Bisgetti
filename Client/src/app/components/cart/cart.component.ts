@@ -75,7 +75,10 @@ export class CartComponent implements OnInit {
 				this._cartGrouped = lodash.map(lodash.groupBy(cartElements, p => p.personName), (data, key) => {
 					let info: Grouping<string, CartElementResponse> = new Grouping<string, CartElementResponse>();
 					info.key = key;
-					info.items = data;
+					info.items = data
+
+					data.forEach(x => x.productNewQuantity = x.productQuantity)
+
 					return info;
 				});
 			}, e => {
@@ -97,22 +100,25 @@ export class CartComponent implements OnInit {
 		this._isProcessing = false;  
 	}
 	
+	async onQuantityChanged(event: Event, cartElement: CartElementResponse) {
+		let element = (event.target as HTMLInputElement);
+		let value = Number(element.value);	
+		
+		let tmp = document.querySelector(`.btn-${cartElement.id}`);
+		let button = tmp as HTMLButtonElement;
+		if (value != cartElement.productQuantity) {
+			button.disabled = false;
+		}			
+		else {
+			button.disabled = true;
+		}
+		
+		cartElement.productNewQuantity = value;
+	}
 
-	// TODO: actualizar con boton
-	// TODO: boton para borrar
-	async onQuantityChanged(event: Event, product: CartElementResponse) {
-		let value = Number((event.target as HTMLInputElement).value);						
-
-		// this._isProcessing = true;	
-		// let model = new UpdateProductFromCartRequest(product.personName, product.productId, value);
-		// await this.businessService.updateProductFromCartAsync(model)
-		// 	.then(r => {						
-		// 	}, e => {
-		// 		this._error = Utils.getErrorsResponse(e);
-		// 		alertify.error(this._error, 1)
-		// 	});		
-		// this._isProcessing = false;	
-		// await this.refreshCartAsync();
+	// TODO: actualizar con boton	
+	onUpdateProductFromCartClicked(event: Event, cartElement: CartElementResponse) {
+		console.log(cartElement.productQuantity, cartElement.productNewQuantity);
 	}
 
 	async onDeleteProductFromCartClicked(event: Event, cartElement: CartElementResponse) {
