@@ -136,6 +136,19 @@ namespace Server.Source.Logic
             return cartElements;
         }
 
+        public async Task DeleteProductFromCartAsync(string userId, int id)
+        {
+            var cartElement = await _businessRepository
+                .GetProductsFromCart(userId)
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (cartElement != null)
+            {
+                await _businessRepository.DeleteProductFromCartAsync(cartElement);
+            }
+        }
+
         public async Task<NumberOfProductsInCartResponse> GetNumberOfProductsInCartAsync(string userId)
         {
             var total = await _businessRepository.GetNumberOfProductsInCartAsync(userId, p => true);

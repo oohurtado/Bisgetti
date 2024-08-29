@@ -100,7 +100,7 @@ export class CartComponent implements OnInit {
 
 	// TODO: actualizar con boton
 	// TODO: boton para borrar
-	async onQuantity(event: Event, product: CartElementResponse) {
+	async onQuantityChanged(event: Event, product: CartElementResponse) {
 		let value = Number((event.target as HTMLInputElement).value);						
 
 		// this._isProcessing = true;	
@@ -113,6 +113,37 @@ export class CartComponent implements OnInit {
 		// 	});		
 		// this._isProcessing = false;	
 		// await this.refreshCartAsync();
+	}
+
+	async onDeleteProductFromCartClicked(event: Event, cartElement: CartElementResponse) {
+		let button = event.target as HTMLButtonElement;
+        button.blur();
+
+		let message: string = `
+			¿Estás seguro de querer borrar el prroducto: <b>${cartElement.productName}</b>?`;
+
+		let component = this;
+		alertify.confirm("Confirmar eliminación", message,
+			function () {
+				component._isProcessing = true;
+				component.businessService.deleteProductFromCart(cartElement.id)
+					.subscribe({
+						complete: () => {
+							component._isProcessing = false;
+						},
+						error: (e : string) => {
+							component._isProcessing = false;
+							component._error = Utils.getErrorsResponse(e);					
+						},
+						next: async (val) => {							
+							alertify.message("Producto eliminado del carrito", 1)
+							await component.refreshCartAsync();
+						}
+					});				
+			},
+			function () {
+				// ...
+			});		
 	}
 
 	getTotalByPerson(products: CartElementResponse[]) {

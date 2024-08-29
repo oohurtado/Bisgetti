@@ -51,6 +51,13 @@ namespace Server.Source.Data
                 .Where(p => p.UserId == userId);
         }
 
+        public async Task DeleteProductFromCartAsync(CartElementEntity cartElement)
+        {
+            _context.CartElements.Remove(cartElement);
+            await _context.SaveChangesAsync();
+        }
+
+
         public async Task<int> GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)
         {
             var total = await _context.CartElements

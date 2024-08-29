@@ -77,6 +77,19 @@ namespace Server.Controllers
         }
 
         /// <summary>
+        /// Borra producto del carrito
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpDelete(template: "cart/{id}")]
+        public async Task<ActionResult> DeleteProductFromCart(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            await _businessLogicCart.DeleteProductFromCartAsync(userId, id);
+            return Ok();
+        }
+
+        /// <summary>
         /// Numero de productos en el carrito
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

@@ -138,5 +138,6 @@ namespace Server.Source.Data.Interfaces
         Task AddProductCartAsync(CartElementEntity cartElement);
         IQueryable<CartElementEntity> GetProductsFromCart(string userId);
         Task<int> GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
+        Task DeleteProductFromCartAsync(CartElementEntity cartElement);
     }
 }

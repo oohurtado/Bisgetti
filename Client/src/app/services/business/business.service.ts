@@ -476,4 +476,8 @@ export class BusinessService {
 			});
 		});
 	}
+
+	deleteProductFromCart(id: number) {
+		return this.requestService.delete(`/business/cart/${id}`);
+	}
 }

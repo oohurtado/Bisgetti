@@ -119,8 +119,8 @@ namespace Server.Source.Logic
                 .ToList()
                 .ForEach(async p =>
                 {
-                        await FileUtility.DeleteAsync(_storageFile, p!, CONTAINER_FILE);
-                    });
+                    await FileUtility.DeleteAsync(_storageFile, p!, CONTAINER_FILE);
+                });
 
             await _businessRepository.DeleteMenuAsync(menu!);
         }

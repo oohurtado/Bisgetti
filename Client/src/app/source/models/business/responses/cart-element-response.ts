@@ -1,5 +1,5 @@
 export class CartElementResponse {
-    id!: string;    
+    id!: number;    
     personName!: string;
     productId!: number;
     productName!: number;
