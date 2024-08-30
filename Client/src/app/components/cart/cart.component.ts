@@ -21,11 +21,9 @@ export class CartComponent implements OnInit {
     _error!: string|null;
 
 	// tabs
-	_tabCurrent: number = 0;
+	_tabCurrent: number = 2;
 	_tabLabels: string[] = [];
 	_tabIcons: string[] = [];
-
-	_quantities: number[] = Array(50).fill(0).map((_, index)=> index);
 
 	_cartGrouped: Grouping<string, CartElementResponse>[] = [];
 	_addresses : AddressResponse[] = [];
@@ -116,9 +114,22 @@ export class CartComponent implements OnInit {
 		cartElement.productNewQuantity = value;
 	}
 
-	// TODO: actualizar con boton	
-	onUpdateProductFromCartClicked(event: Event, cartElement: CartElementResponse) {
-		console.log(cartElement.productQuantity, cartElement.productNewQuantity);
+	async onUpdateProductFromCartClicked(event: Event, cartElement: CartElementResponse) {
+		this._isProcessing = true;	
+
+		let element = (event.target as HTMLInputElement);
+		element.disabled = true;
+
+		let model = new UpdateProductFromCartRequest(cartElement.personName, cartElement.productId, cartElement.productNewQuantity);
+		await this.businessService.updateProductFromCartAsync(model)
+			.then(r => {       				
+			}, e => {
+				this._error = Utils.getErrorsResponse(e);
+			});
+
+		await this.refreshCartAsync();
+
+		this._isProcessing = false;	
 	}
 
 	async onDeleteProductFromCartClicked(event: Event, cartElement: CartElementResponse) {
@@ -155,6 +166,14 @@ export class CartComponent implements OnInit {
 	getTotalByPerson(products: CartElementResponse[]) {
 		let sum = 0;
 		products.forEach(p => sum += p.productPrice * p.productQuantity);
+		return sum;
+	}
+
+	getTotal() {
+		let sum = 0;
+		this._cartGrouped.forEach(p => {
+			p.items.forEach(q => sum += q.productPrice * q.productQuantity)
+		});
 		return sum;
 	}
 

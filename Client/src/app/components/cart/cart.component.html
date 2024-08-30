@@ -73,39 +73,19 @@
                 </div>
             </ng-container>
 
-            <!-- <ng-container *ngFor="let product of person.items"> 
-                <div class="col-6">
-                    <div class="ms-4">
-                        <ng-container *ngIf="product.productImage != null">
-                            <img src="{{ product.productImage }}" class="img-thumbnail" alt="...">
-                        </ng-container>
-                        <span class="fs-6 d-block">{{ product.productName }}</span>                        
-                        <strong class="fs-5 d-block">{{ product.productPrice | currency:'$' }}</strong>
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-8 col-md-6 col-lg-4">
-                                <div class="form-floating mb-3">
-                                    <input (focus)="onFocus($event)" (keyup)="onQuantity($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" autocomplete="off">
-                                    <label for="floatingInput">Cantidad</label>
-                                  </div>                   
-                            </div>
-                        </div>
-                    </div>                  
-                </div>       
-                <div class="col-6 text-end pe-4">
-                    {{ product.productQuantity * product.productPrice | currency:'$' }}
-                </div>
-            </ng-container> -->
-
-
             <div class="col-12 text-end pe-4">
                 Total por persona: <strong class="fs-5 text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>
             </div>
         </div>
-        <hr *ngIf="_i_ + 1 != _cartGrouped.length && _cartGrouped.length > 0">
+        <!-- <hr *ngIf="_i_ + 1 != _cartGrouped.length && _cartGrouped.length > 0"> -->
+        <hr>
     </ng-container>
+    <div class="text-end">
+        <span class="fs-5">Total:</span>&nbsp;<strong class="fs-5 text-danger">{{ getTotal() | currency:'$' }}</strong>
+    </div>
 </div>
 
-<pre>{{ _cartGrouped | json }}</pre>
 <!-- 
+<pre>{{ _cartGrouped | json }}</pre>
 <pre>{{ _addresses | json }}</pre> 
 -->
