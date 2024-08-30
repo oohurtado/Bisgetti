@@ -10,22 +10,24 @@
     </p>
 </ng-container>
 <ng-container *ngIf="!_isInitialLoading && _weHaveAMenu">
-    <div class="m-1 text-center">        
+    <div class="m-1 text-center d-none d-sm-block">        
         <span class="fs-1 d-block">{{ getMenuElement()?.menu?.name }}</span>
-        <ng-container *ngIf="getMenuElement()?.menu?.description !== ''">
-            <span class="fs-5 fw-light fst-italic d-block">{{ getMenuElement()?.menu?.description }}</span>
+        <ng-container *ngIf="getMenuElement()?.menu?.description !== ''" >
+            <div class="d-none d-md-block">
+                <span class="fs-5 fw-light fst-italic d-block">{{ getMenuElement()?.menu?.description }}</span>
+            </div>
         </ng-container>        
     </div>
 
     <div *ngFor="let category of getCategoryElements()" class="m-4">
-        <div class="m-2">
-            <div>
-                <span class="fs-2 d-block">{{ category.category.name }}</span>
-                <span class="text-danger fs-2 d-block">{{ !category.isVisible ? '(no visible)' : '' }}</span>
-                <ng-container *ngIf="category.category.description !== ''">
+        <div class="m-2">            
+            <span class="fs-2 d-block">{{ category.category.name }}</span>
+            <span class="text-danger fs-2 d-block">{{ !category.isVisible ? '(no visible)' : '' }}</span>
+            <ng-container *ngIf="category.category.description !== ''">
+                <div class="d-none d-md-block">
                     <span class="fs-6 fw-light fst-italic d-block">{{ category.category.description }}</span>
-                </ng-container>
-            </div>                                    
+                </div>
+            </ng-container>                                         
         </div>
 
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
