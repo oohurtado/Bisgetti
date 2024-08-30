@@ -21,16 +21,13 @@
     </li>
 </ul>
 
-<div class="bg-light mt-4 p-2">
-    <div class="mb-2">
-        <span class="fs-2">Productos en el carrito</span>
-    </div>
+<div class="mt-4">
+    <span class="fs-2">Productos en el carrito</span>
     <div class="text-end pe-2">
         Subtotal
     </div>
-    <hr>
     <ng-container *ngFor="let person of _cartGrouped, let _i_ = index">
-        <div class="row">
+        <div class="row bg-light mb-4">
             <div class="col-12">
                 <span class="fs-4 ms-1">
                     <i class="fa-solid fa-user"></i> {{ person.key }}
@@ -73,14 +70,14 @@
                 </div>
             </ng-container>
 
-            <div class="col-12 text-end pe-4">
+            <div class="col-12 text-end pe-2 mb-2">
                 Total por persona: <strong class="fs-5 text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>
             </div>
         </div>
         <!-- <hr *ngIf="_i_ + 1 != _cartGrouped.length && _cartGrouped.length > 0"> -->
-        <hr>
+        <!-- <hr> -->
     </ng-container>
-    <div class="text-center">
+    <div class="text-center m-4">
         <span class="fs-5">Total ({{ getTotal().param2 }} productos):</span>&nbsp;<strong class="fs-5 text-danger">{{ getTotal().param1 | currency:'$' }}</strong>
     </div>
 </div>

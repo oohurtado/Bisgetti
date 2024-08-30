@@ -22,7 +22,7 @@ export class CartComponent implements OnInit {
     _error!: string|null;
 
 	// tabs
-	_tabCurrent: number = 2;
+	_tabCurrent: number = 0;
 	_tabLabels: string[] = [];
 	_tabIcons: string[] = [];
 
