@@ -9,6 +9,7 @@ import * as lodash from 'lodash';
 import { Grouping } from '../../source/models/common/grouping';
 import { LocalStorageService } from '../../services/common/local-storage.service';
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
+import { Tuple2 } from '../../source/models/common/tuple';
 
 @Component({
 	selector: 'app-cart',
@@ -171,10 +172,15 @@ export class CartComponent implements OnInit {
 
 	getTotal() {
 		let sum = 0;
+		let count = 0;
+
 		this._cartGrouped.forEach(p => {
-			p.items.forEach(q => sum += q.productPrice * q.productQuantity)
+			p.items.forEach(q => { 
+				sum += q.productPrice * q.productQuantity 
+				count += q.productQuantity;
+			})
 		});
-		return sum;
+		return new Tuple2<number,number>(sum,count);
 	}
 
 	onFocus(event: Event) {

@@ -80,8 +80,8 @@
         <!-- <hr *ngIf="_i_ + 1 != _cartGrouped.length && _cartGrouped.length > 0"> -->
         <hr>
     </ng-container>
-    <div class="text-end">
-        <span class="fs-5">Total:</span>&nbsp;<strong class="fs-5 text-danger">{{ getTotal() | currency:'$' }}</strong>
+    <div class="text-center">
+        <span class="fs-5">Total ({{ getTotal().param2 }} productos):</span>&nbsp;<strong class="fs-5 text-danger">{{ getTotal().param1 | currency:'$' }}</strong>
     </div>
 </div>
 
