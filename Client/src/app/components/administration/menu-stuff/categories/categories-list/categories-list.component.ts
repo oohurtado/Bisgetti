@@ -31,7 +31,7 @@ export class CategoriesListComponent extends PageBase<CategoryResponse> implemen
         this._error = null;
         this._isProcessing = true;
         await this.businessService
-            .getCategoriesByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
+            .category_getCategoriesByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
             .then(p => {
                 this._pageData = p;
                 this.updatePage(p);
@@ -64,7 +64,7 @@ export class CategoriesListComponent extends PageBase<CategoryResponse> implemen
 		alertify.confirm("Confirmar eliminación", message,
 			function () {
 				component._isProcessing = true;
-				component.businessService.deleteCategory(category.id)
+				component.businessService.category_deleteCategory(category.id)
 					.subscribe({
 						complete: () => {
 							component._isProcessing = false;

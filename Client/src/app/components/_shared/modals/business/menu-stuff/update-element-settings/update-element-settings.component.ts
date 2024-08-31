@@ -62,7 +62,7 @@ export class UpdateElementSettingsComponent implements OnChanges, OnInit {
         this._isProcessing = true;
         
         let model = new SettingsElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, this._isVisible, this._isAvailable);
-        await this.businessService.updateElementSettingsAsync(model!)
+        await this.businessService.menuStuff_updateElementSettingsAsync(model!)
             .then(r => {       
             }, e => {
                 this._error = Utils.getErrorsResponse(e);

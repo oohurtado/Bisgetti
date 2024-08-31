@@ -45,7 +45,7 @@ export class CategoriesCreateOrUpdateComponent extends FormBase implements OnIni
 		this._error = null;
         this._isLoading = true;
         await this.businessService
-            .getCategoryAsync(id)
+            .category_getCategoryAsync(id)
             .then(p => {
 				this._category = p;
 			})
@@ -86,7 +86,7 @@ export class CategoriesCreateOrUpdateComponent extends FormBase implements OnIni
             );
 
         if (this._categoryId === null || this._categoryId === undefined) {
-            this.businessService.createCategory(model)
+            this.businessService.category_createCategory(model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;
@@ -102,7 +102,7 @@ export class CategoriesCreateOrUpdateComponent extends FormBase implements OnIni
                 });
         }   
         else {
-            this.businessService.updateCategory(this._categoryId, model)
+            this.businessService.category_updateCategory(this._categoryId, model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;

@@ -52,7 +52,7 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
             this.openModal.nativeElement.click();
 
             if (this.element.image !== null) {
-                this.businessService.getElementImage(this.element.menuId, this.element.categoryId, this.element.productId)
+                this.businessService.menuStuff_getElementImage(this.element.menuId, this.element.categoryId, this.element.productId)
                     .subscribe({
                         complete: () => {
                         },
@@ -92,7 +92,7 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
         let formData = new FormData();
         formData.append('file', this.file);        
         
-        await this.businessService.updateElementImageAsync(formData, this.element.menuId, this.element.categoryId, this.element.productId)
+        await this.businessService.menuStuff_updateElementImageAsync(formData, this.element.menuId, this.element.categoryId, this.element.productId)
             .then(r => {
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
@@ -110,7 +110,7 @@ export class UpdateElementImageComponent implements OnChanges, OnInit {
         this._isProcessingExtra = true;
 
         let model = new ImageElementRequest(this.element.menuId, this.element.categoryId, this.element.productId);
-        await this.businessService.deleteElementImageAsync(model)
+        await this.businessService.menuStuff_deleteElementImageAsync(model)
             .then(r => {
             }, e => {
                 this._error = Utils.getErrorsResponse(e);

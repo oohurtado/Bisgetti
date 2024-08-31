@@ -63,10 +63,10 @@ export class MenusDesignComponent implements OnInit {
         this._isProcessing = true;
         await Promise.all(
             [
-                this.businessService.getMenuAsync(this._menuId ?? 0), 
-                this.businessService.getCategoriesAsync(), 
-                this.businessService.getProductsAsync(),
-                this.businessService.getMenuStuffAsync(this._menuId ?? 0)
+                this.businessService.menu_getMenuAsync(this._menuId ?? 0), 
+                this.businessService.category_getCategoriesAsync(), 
+                this.businessService.product_getProductsAsync(),
+                this.businessService.menuStuff_getMenuStuffAsync(this._menuId ?? 0)
             ])
             .then(r => {
                 let menu = r[0] as MenuResponse;
@@ -198,7 +198,7 @@ export class MenusDesignComponent implements OnInit {
     
     onMoveUpOrMoveDown(element: MenuElement, action: string) {
         let model = new PositionElementRequest(element.menuId, element.categoryId, element.productId, action);
-        this.businessService.updateElementPosition(model)
+        this.businessService.menuStuff_updateElementPosition(model)
             .subscribe({
                 complete: () => {
                     this._isProcessing = false;

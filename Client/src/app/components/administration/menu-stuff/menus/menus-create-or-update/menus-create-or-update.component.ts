@@ -45,7 +45,7 @@ export class MenusCreateOrUpdateComponent extends FormBase implements OnInit {
 		this._error = null;
         this._isLoading = true;
         await this.businessService
-            .getMenuAsync(id)
+            .menu_getMenuAsync(id)
             .then(p => {
 				this._menu = p;
 			})
@@ -86,7 +86,7 @@ export class MenusCreateOrUpdateComponent extends FormBase implements OnInit {
             );
 
         if (this._menuId === null || this._menuId === undefined) {
-            this.businessService.createMenu(model)
+            this.businessService.menu_createMenu(model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;
@@ -102,7 +102,7 @@ export class MenusCreateOrUpdateComponent extends FormBase implements OnInit {
                 });
         }   
         else {
-            this.businessService.updateMenu(this._menuId, model)
+            this.businessService.menu_updateMenu(this._menuId, model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;

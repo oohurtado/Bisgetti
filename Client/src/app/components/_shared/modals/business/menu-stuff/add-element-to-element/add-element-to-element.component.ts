@@ -76,7 +76,7 @@ export class AddElementToElementComponent implements OnChanges, OnInit {
             } else if (this.element.categoryId != null) {
                 model = new AddOrRemoveElementRequest(this.element.menuId, this.element.categoryId, id, "add");
             }            
-            await this.businessService.addOrRemoveElementAsync(model!)
+            await this.businessService.menuStuff_addOrRemoveElementAsync(model!)
                 .then(r => {       
                 }, e => {
                     this._error = Utils.getErrorsResponse(e);

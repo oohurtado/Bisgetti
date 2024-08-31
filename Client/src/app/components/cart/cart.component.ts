@@ -59,7 +59,7 @@ export class CartComponent implements OnInit {
 
 	async refreshCartAsync() {	
 		this._isProcessing = true;	
-		await this.businessService.getNumberOfProductsInCartAsync()
+		await this.businessService.cart_getNumberOfProductsInCartAsync()
 			.then(r => {
 				this.sharedService.refreshCart(r.total);             
 			}, e => {
@@ -67,7 +67,7 @@ export class CartComponent implements OnInit {
 				alertify.error(this._error, 1)
 			});
 		
-		await this.businessService.getProductsFromCartAsync()
+		await this.businessService.cart_getProductsFromCartAsync()
 			.then(r => {
 				let cartElements = r;   
 				
@@ -89,7 +89,7 @@ export class CartComponent implements OnInit {
 
 	async refreshAddressesAsync() {
 		this._isProcessing = true;	
-		await this.businessService.getUserAddressesAsync()
+		await this.businessService.cart_getUserAddressesAsync()
 			.then(r => {
 				this._addresses = r;            
 			}, e => {
@@ -122,7 +122,7 @@ export class CartComponent implements OnInit {
 		element.disabled = true;
 
 		let model = new UpdateProductFromCartRequest(cartElement.personName, cartElement.productId, cartElement.productNewQuantity);
-		await this.businessService.updateProductFromCartAsync(model)
+		await this.businessService.cart_updateProductFromCartAsync(model)
 			.then(r => {       				
 			}, e => {
 				this._error = Utils.getErrorsResponse(e);
@@ -144,7 +144,7 @@ export class CartComponent implements OnInit {
 		alertify.confirm("Confirmar eliminación", message,
 			function () {
 				component._isProcessing = true;
-				component.businessService.deleteProductFromCart(cartElement.id)
+				component.businessService.cart_deleteProductFromCart(cartElement.id)
 					.subscribe({
 						complete: () => {
 							component._isProcessing = false;

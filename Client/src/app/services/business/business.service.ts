@@ -31,13 +31,13 @@ export class BusinessService {
 	// menus //
 	///////////
 
-	getMenu(id: number) {
+	menu_getMenu(id: number) {
 		return this.requestService.get<MenuResponse>(`/business/menus/${id}`);
 	}
 
-    getMenuAsync(id: number) : Promise<MenuResponse> {
+    menu_getMenuAsync(id: number) : Promise<MenuResponse> {
 		return new Promise((resolve, reject) => {
-			this.getMenu(id)
+			this.menu_getMenu(id)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -49,13 +49,13 @@ export class BusinessService {
 		});
 	}
 
-    getMenusByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
+    menu_getMenusByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
 		return this.requestService.get<PageData<MenuResponse>>(`/business/menus/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
 	}
 
-	getMenusByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<MenuResponse>> {
+	menu_getMenusByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<MenuResponse>> {
 		return new Promise((resolve, reject) => {
-			this.getMenusByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			this.menu_getMenusByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -67,15 +67,15 @@ export class BusinessService {
 		});
 	}
 
-	createMenu(model: CreateOrUpdateMenuRequest) {
+	menu_createMenu(model: CreateOrUpdateMenuRequest) {
 		return this.requestService.post(`/business/menus`, model);
 	}
 
-	updateMenu(id: number, model: CreateOrUpdateMenuRequest) {
+	menu_updateMenu(id: number, model: CreateOrUpdateMenuRequest) {
 		return this.requestService.put(`/business/menus/${id}`, model);
 	}
 
-	deleteMenu(id: number) {
+	menu_deleteMenu(id: number) {
 		return this.requestService.delete(`/business/menus/${id}`);
 	}
 
@@ -83,13 +83,13 @@ export class BusinessService {
 	// categorias //
 	////////////////
 
-	getCategory(id: number) {
+	category_getCategory(id: number) {
 		return this.requestService.get<CategoryResponse>(`/business/categories/${id}`);
 	}
 
-    getCategoryAsync(id: number) : Promise<CategoryResponse> {
+    category_getCategoryAsync(id: number) : Promise<CategoryResponse> {
 		return new Promise((resolve, reject) => {
-			this.getCategory(id)
+			this.category_getCategory(id)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -101,13 +101,13 @@ export class BusinessService {
 		});
 	}
 
-    getCategoriesByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
+    category_getCategoriesByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
 		return this.requestService.get<PageData<CategoryResponse>>(`/business/categories/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
 	}
 
-	getCategoriesByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<CategoryResponse>> {
+	category_getCategoriesByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<CategoryResponse>> {
 		return new Promise((resolve, reject) => {
-			this.getCategoriesByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			this.category_getCategoriesByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -119,13 +119,13 @@ export class BusinessService {
 		});
 	}
 
-	getCategories() {	
+	category_getCategories() {	
 		return this.requestService.get<CategoryResponse[]>(`/business/categories`);
 	}
 
-	getCategoriesAsync() : Promise<CategoryResponse[]> {
+	category_getCategoriesAsync() : Promise<CategoryResponse[]> {
 		return new Promise((resolve, reject) => {
-			this.getCategories()
+			this.category_getCategories()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -137,28 +137,28 @@ export class BusinessService {
 		});
 	}
 
-	createCategory(model: CreateOrUpdateCategoryRequest) {
+	category_createCategory(model: CreateOrUpdateCategoryRequest) {
 		return this.requestService.post(`/business/categories`, model);
 	}
 
-	updateCategory(id: number, model: CreateOrUpdateCategoryRequest) {
+	category_updateCategory(id: number, model: CreateOrUpdateCategoryRequest) {
 		return this.requestService.put(`/business/categories/${id}`, model);
 	}
 
-	deleteCategory(id: number) {
+	category_deleteCategory(id: number) {
 		return this.requestService.delete(`/business/categories/${id}`);
 	}
 	///////////////
 	// productos //
 	///////////////
 
-	getProduct(id: number) {
+	product_getProduct(id: number) {
 		return this.requestService.get<ProductResponse>(`/business/products/${id}`);
 	}
 
-    getProductAsync(id: number) : Promise<ProductResponse> {
+    product_getProductAsync(id: number) : Promise<ProductResponse> {
 		return new Promise((resolve, reject) => {
-			this.getProduct(id)
+			this.product_getProduct(id)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -170,13 +170,13 @@ export class BusinessService {
 		});
 	}
 
-    getProductsByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
+    product_getProductsByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
 		return this.requestService.get<PageData<ProductResponse>>(`/business/products/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}?term=${term}`);
 	}
 
-	getProductsByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<ProductResponse>> {
+	product_getProductsByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<ProductResponse>> {
 		return new Promise((resolve, reject) => {
-			this.getProductsByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			this.product_getProductsByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -188,13 +188,13 @@ export class BusinessService {
 		});
 	}
 
-	getProducts() {	
+	product_getProducts() {	
 		return this.requestService.get<ProductResponse[]>(`/business/products`);
 	}
 
-	getProductsAsync() : Promise<ProductResponse[]> {
+	product_getProductsAsync() : Promise<ProductResponse[]> {
 		return new Promise((resolve, reject) => {
-			this.getProducts()
+			this.product_getProducts()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -206,15 +206,15 @@ export class BusinessService {
 		});
 	}
 
-	createProduct(model: CreateOrUpdateProductRequest) {
+	product_createProduct(model: CreateOrUpdateProductRequest) {
 		return this.requestService.post(`/business/products`, model);
 	}
 
-	updateProduct(id: number, model: CreateOrUpdateProductRequest) {
+	product_updateProduct(id: number, model: CreateOrUpdateProductRequest) {
 		return this.requestService.put(`/business/products/${id}`, model);
 	}
 
-	deleteProduct(id: number) {
+	product_deleteProduct(id: number) {
 		return this.requestService.delete(`/business/products/${id}`);
 	}
 
@@ -222,13 +222,13 @@ export class BusinessService {
 	// menu-stuff //
 	////////////////
 
-	getVisibleMenu() {
+	menuStuff_getVisibleMenu() {
 		return this.requestService.get<number | null>(`/business/menu-stuff/visible`);
 	}
 
-	getVisibleMenuAsync() : Promise<number | null> {
+	menuStuff_getVisibleMenuAsync() : Promise<number | null> {
 		return new Promise((resolve, reject) => {
-			this.getVisibleMenu()
+			this.menuStuff_getVisibleMenu()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -240,13 +240,13 @@ export class BusinessService {
 		});
 	}
 
-	getMenuStuff(menuId: number) {	
+	menuStuff_getMenuStuff(menuId: number) {	
 		return this.requestService.get<MenuStuffResponse[]>(`/business/menu-stuff/${menuId}`);
 	}
 
-	getMenuStuffAsync(menuId: number) : Promise<MenuStuffResponse[]> {
+	menuStuff_getMenuStuffAsync(menuId: number) : Promise<MenuStuffResponse[]> {
 		return new Promise((resolve, reject) => {
-			this.getMenuStuff(menuId)
+			this.menuStuff_getMenuStuff(menuId)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -258,13 +258,13 @@ export class BusinessService {
 		});
 	}
 
-	addOrRemoveElement(model: AddOrRemoveElementRequest) {
+	menuStuff_addOrRemoveElement(model: AddOrRemoveElementRequest) {
 		return this.requestService.put(`/business/menu-stuff/element`, model);
 	}
 
-	addOrRemoveElementAsync(model: AddOrRemoveElementRequest) {
+	menuStuff_addOrRemoveElementAsync(model: AddOrRemoveElementRequest) {
 		return new Promise((resolve, reject) => {
-			this.addOrRemoveElement(model)
+			this.menuStuff_addOrRemoveElement(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -276,17 +276,17 @@ export class BusinessService {
 		});
 	}
 
-	updateElementPosition(model: PositionElementRequest) {
+	menuStuff_updateElementPosition(model: PositionElementRequest) {
 		return this.requestService.put(`/business/menu-stuff/element/position`, model);
 	}	
 
-	updateElementSettings(model: SettingsElementRequest) {
+	menuStuff_updateElementSettings(model: SettingsElementRequest) {
 		return this.requestService.put(`/business/menu-stuff/element/settings`, model);
 	}
 
-	updateElementSettingsAsync(model: SettingsElementRequest) {
+	menuStuff_updateElementSettingsAsync(model: SettingsElementRequest) {
 		return new Promise((resolve, reject) => {
-			this.updateElementSettings(model)
+			this.menuStuff_updateElementSettings(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -298,7 +298,7 @@ export class BusinessService {
 		});
 	}
 
-	getElementImage(menuId: number, categoryId: number, productId: number) {
+	menuStuff_getElementImage(menuId: number, categoryId: number, productId: number) {
 		if (menuId == null) {
 			menuId = 0;
 		}
@@ -311,7 +311,7 @@ export class BusinessService {
 		return this.requestService.get<ImageElementResponse>(`/business/menu-stuff/element/image/${menuId}/${categoryId}/${productId}`);
 	}
 
-	updateElementImage(model: FormData, menuId: number, categoryId: number, productId: number) {
+	menuStuff_updateElementImage(model: FormData, menuId: number, categoryId: number, productId: number) {
 		if (menuId == null) {
 			menuId = 0;
 		}
@@ -324,9 +324,9 @@ export class BusinessService {
 		return this.requestService.put(`/business/menu-stuff/element/image/${menuId}/${categoryId}/${productId}`, model);
 	}
 
-	updateElementImageAsync(model: FormData, menuId: number, categoryId: number, productId: number) {
+	menuStuff_updateElementImageAsync(model: FormData, menuId: number, categoryId: number, productId: number) {
 		return new Promise((resolve, reject) => {
-			this.updateElementImage(model, menuId, categoryId, productId)
+			this.menuStuff_updateElementImage(model, menuId, categoryId, productId)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -338,7 +338,7 @@ export class BusinessService {
 		});
 	}
 
-	deleteElementImage(model: ImageElementRequest) {
+	menuStuff_deleteElementImage(model: ImageElementRequest) {
 		if (model.menuId == null) {
 			model.menuId = 0;
 		}
@@ -351,9 +351,9 @@ export class BusinessService {
 		return this.requestService.delete(`/business/menu-stuff/element/image/${model.menuId}/${model.categoryId}/${model.productId}`);
 	}
 
-	deleteElementImageAsync(model: ImageElementRequest) {
+	menuStuff_deleteElementImageAsync(model: ImageElementRequest) {
 		return new Promise((resolve, reject) => {
-			this.deleteElementImage(model)
+			this.menuStuff_deleteElementImage(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -369,13 +369,13 @@ export class BusinessService {
 	// cart - user - people //
 	//////////////////////////
 
-	getUserPeople() {
+	cart_getUserPeople() {
 		return this.requestService.get<PersonResponse[]>(`/business/user/people`);
 	}
 
-    getUserPeopleAsync() : Promise<PersonResponse[]> {
+    cart_getUserPeopleAsync() : Promise<PersonResponse[]> {
 		return new Promise((resolve, reject) => {
-			this.getUserPeople()
+			this.cart_getUserPeople()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -387,13 +387,13 @@ export class BusinessService {
 		});
 	}
 
-	getUserAddresses() {
+	cart_getUserAddresses() {
 		return this.requestService.get<AddressResponse[]>(`/business/user/addresses`);
 	}
 
-    getUserAddressesAsync() : Promise<AddressResponse[]> {
+    cart_getUserAddressesAsync() : Promise<AddressResponse[]> {
 		return new Promise((resolve, reject) => {
-			this.getUserAddresses()
+			this.cart_getUserAddresses()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -405,13 +405,13 @@ export class BusinessService {
 		});
 	}
 
-	addProductToCart(model: AddProductToCartRequest) {
+	cart_addProductToCart(model: AddProductToCartRequest) {
 		return this.requestService.post(`/business/cart`, model);
 	}
 
-	addProductToCartAsync(model: AddProductToCartRequest) {
+	cart_addProductToCartAsync(model: AddProductToCartRequest) {
 		return new Promise((resolve, reject) => {
-			this.addProductToCart(model)
+			this.cart_addProductToCart(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -423,13 +423,13 @@ export class BusinessService {
 		});
 	}
 
-	updateProductFromCart(model: UpdateProductFromCartRequest) {
+	cart_updateProductFromCart(model: UpdateProductFromCartRequest) {
 		return this.requestService.put(`/business/cart`, model);
 	}
 
-	updateProductFromCartAsync(model: UpdateProductFromCartRequest) {
+	cart_updateProductFromCartAsync(model: UpdateProductFromCartRequest) {
 		return new Promise((resolve, reject) => {
-			this.updateProductFromCart(model)
+			this.cart_updateProductFromCart(model)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -441,13 +441,13 @@ export class BusinessService {
 		});
 	}
 
-	getProductsFromCart() {
+	cart_getProductsFromCart() {
 		return this.requestService.get<CartElementResponse[]>(`/business/cart`);
 	}
 
-	getProductsFromCartAsync() : Promise<CartElementResponse[]> {
+	cart_getProductsFromCartAsync() : Promise<CartElementResponse[]> {
 		return new Promise((resolve, reject) => {
-			this.getProductsFromCart()
+			this.cart_getProductsFromCart()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -459,13 +459,13 @@ export class BusinessService {
 		});
 	}
 
-	getNumberOfProductsInCart() {
+	cart_getNumberOfProductsInCart() {
 		return this.requestService.get<NumberOfProductsInCartResponse>(`/business/cart/number-of-products-in-cart`);
 	}
 
-    getNumberOfProductsInCartAsync() : Promise<NumberOfProductsInCartResponse> {
+    cart_getNumberOfProductsInCartAsync() : Promise<NumberOfProductsInCartResponse> {
 		return new Promise((resolve, reject) => {
-			this.getNumberOfProductsInCart()
+			this.cart_getNumberOfProductsInCart()
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -477,7 +477,7 @@ export class BusinessService {
 		});
 	}
 
-	deleteProductFromCart(id: number) {
+	cart_deleteProductFromCart(id: number) {
 		return this.requestService.delete(`/business/cart/${id}`);
 	}
 }

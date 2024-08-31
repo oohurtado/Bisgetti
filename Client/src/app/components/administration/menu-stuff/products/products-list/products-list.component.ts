@@ -31,7 +31,7 @@ export class ProductsListComponent extends PageBase<ProductResponse> implements 
         this._error = null;
         this._isProcessing = true;
         await this.businessService
-            .getProductsByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
+            .product_getProductsByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
             .then(p => {
                 this._pageData = p;
                 this.updatePage(p);
@@ -62,7 +62,7 @@ export class ProductsListComponent extends PageBase<ProductResponse> implements 
 		alertify.confirm("Confirmar eliminación", message,
 			function () {
 				component._isProcessing = true;
-				component.businessService.deleteProduct(product.id)
+				component.businessService.product_deleteProduct(product.id)
 					.subscribe({
 						complete: () => {
 							component._isProcessing = false;

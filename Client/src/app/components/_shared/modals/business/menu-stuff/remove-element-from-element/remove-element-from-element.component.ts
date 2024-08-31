@@ -56,7 +56,7 @@ export class RemoveElementFromElementComponent implements OnChanges, OnInit {
             
         let model: AddOrRemoveElementRequest;
         model = new AddOrRemoveElementRequest(this.element.menuId, this.element.categoryId, this.element.productId, "remove");
-        await this.businessService.addOrRemoveElementAsync(model!)
+        await this.businessService.menuStuff_addOrRemoveElementAsync(model!)
             .then(r => {       
             }, e => {
                 this._error = Utils.getErrorsResponse(e);

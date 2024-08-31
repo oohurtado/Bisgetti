@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
         private router: Router,
         private localStorageService: LocalStorageService,
         private sharedService: SharedService
-    ) {
+    ) {        
     }
 
     async ngOnInit() {
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
         this._isProcessing = true;        
         
         let menuId : number | null = null;
-        await this.businessService.getVisibleMenuAsync()
+        await this.businessService.menuStuff_getVisibleMenuAsync()
             .then(r => {
                 menuId = r;
             }, e => {
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
             await this.getAllAsync(menuId);
 
             if (this.localStorageService.isUserAuthenticated()) {
-                await this.businessService.getUserPeopleAsync()
+                await this.businessService.cart_getUserPeopleAsync()
                     .then(r => {
                         this._people = r;                
                     }, e => {
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
     }
 
     async refreshCartAsync() {		
-		await this.businessService.getNumberOfProductsInCartAsync()
+		await this.businessService.cart_getNumberOfProductsInCartAsync()
 			.then(r => {
 				this.sharedService.refreshCart(r.total);             
 			}, e => {
@@ -93,10 +93,10 @@ export class HomeComponent implements OnInit {
         this._isProcessing = true;
         await Promise.all(
             [
-                this.businessService.getMenuAsync(menuId ?? 0), 
-                this.businessService.getCategoriesAsync(), 
-                this.businessService.getProductsAsync(),
-                this.businessService.getMenuStuffAsync(menuId ?? 0),
+                this.businessService.menu_getMenuAsync(menuId ?? 0), 
+                this.businessService.category_getCategoriesAsync(), 
+                this.businessService.product_getProductsAsync(),
+                this.businessService.menuStuff_getMenuStuffAsync(menuId ?? 0),
             ])
             .then(r => {
                 let menu = r[0] as MenuResponse;
@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit {
     async onAddProductToCartOk(personName: string) {
 
         // obtenemos las personas del usuario, ya que pudo haber agregado una nueva persona
-        await this.businessService.getUserPeopleAsync()
+        await this.businessService.cart_getUserPeopleAsync()
             .then(r => {
                 this._people = r;                
             }, e => {

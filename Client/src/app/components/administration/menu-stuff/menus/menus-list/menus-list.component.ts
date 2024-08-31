@@ -30,7 +30,7 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
 		this._error = null;
 		this._isProcessing = true;		
 		await this.businessService
-			.getMenusByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
+			.menu_getMenusByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, '')
 			.then(p => {
 				this._pageData = p;
 				this.updatePage(p);
@@ -63,7 +63,7 @@ export class MenusListComponent extends PageBase<MenuResponse> implements OnInit
 		alertify.confirm("Confirmar eliminación", message,
 			function () {
 				component._isProcessing = true;
-				component.businessService.deleteMenu(menu.id)
+				component.businessService.menu_deleteMenu(menu.id)
 					.subscribe({
 						complete: () => {
 							component._isProcessing = false;

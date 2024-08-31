@@ -45,7 +45,7 @@ export class ProductsCreateOrUpdateComponent extends FormBase implements OnInit 
 		this._error = null;
         this._isLoading = true;
         await this.businessService
-            .getProductAsync(id)
+            .product_getProductAsync(id)
             .then(p => {
 				this._product = p;
 			})
@@ -92,7 +92,7 @@ export class ProductsCreateOrUpdateComponent extends FormBase implements OnInit 
             );
 
         if (this._productId === null || this._productId === undefined) {
-            this.businessService.createProduct(model)
+            this.businessService.product_createProduct(model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;
@@ -108,7 +108,7 @@ export class ProductsCreateOrUpdateComponent extends FormBase implements OnInit 
                 });
         }   
         else {
-            this.businessService.updateProduct(this._productId, model)
+            this.businessService.product_updateProduct(this._productId, model)
                 .subscribe({
                     complete: () => {
                         this._isProcessing = false;

@@ -74,7 +74,7 @@ export class AddToCartComponent implements OnChanges, OnInit {
             this._myForm?.controls['quantity'].value
         )
 
-        await this.businessService.addProductToCartAsync(model!)
+        await this.businessService.cart_addProductToCartAsync(model!)
             .then(r => {       
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
