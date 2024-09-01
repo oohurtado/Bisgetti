@@ -1,0 +1,61 @@
+<div class="mt-4">
+    <span class="fs-2">Productos en el carrito</span>
+    <div class="text-end pe-2">
+        Subtotal
+    </div>
+    <ng-container *ngFor="let person of _cartGrouped, let _i_ = index">
+        <div class="row bg-light mb-4">
+            <div class="col-12">
+                <span class="fs-4 ms-1">
+                    <i class="fa-solid fa-user"></i> {{ person.key }}
+                </span>
+            </div>
+
+            <ng-container *ngFor="let product of person.items"> 
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2 col-sm-3 col-md-2 col-lg-2">
+                            <ng-container *ngIf="product.productImage != null">
+                                <img src="{{ product.productImage }}" class="img-thumbnail" alt="...">
+                            </ng-container>
+                        </div>
+                        <div class="col-7 col-sm-6 col-md-9 col-lg-9">
+                            <span class="fs-6 d-block">{{ product.productName }}</span>                        
+                            <strong class="fs-5 d-block">{{ product.productPrice | currency:'$' }}</strong>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-8 col-md-6 col-lg-4">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <span class="input-group-text" id="basic-addon3">Cantidad</span>
+                                        <input (focus)="onQuantityFocus($event)" (keyup)="onQuantityChanged($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" autocomplete="off">                                        
+                                    </div> 
+                                    <div class="btn-group border" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-light border btn-sm btn-{{product.id}}" (click)="onUpdateProductFromCartClicked($event, product)" [disabled]="true">Actualizar</button>
+                                        <button type="button" class="btn btn-light border btn-sm" (click)="onDeleteProductFromCartClicked($event, product)">Eliminar</button>
+                                    </div>                                            
+                                </div>
+                            </div>
+                            <div>
+                   
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-3 col-md-1 col-lg-1">
+                            <div class="text-end">
+                                {{ product.productQuantity * product.productPrice | currency:'$' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="col-12 text-end pe-2 mb-2">
+                Total por persona: <strong class="fs-5 text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>
+            </div>
+        </div>
+    </ng-container>
+    <div class="text-end mb-1">
+        <span class="fs-5">Total ({{ getTotal().param2 }} productos):</span>&nbsp;<strong class="fs-5 text-danger">{{ getTotal().param1 | currency:'$' }}</strong>
+    </div>
+    <div class="text-end mt-1">
+        <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Siguiente paso</button>
+    </div>    
+</div>
