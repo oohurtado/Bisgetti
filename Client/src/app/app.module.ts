@@ -59,7 +59,7 @@ import { MenusDesignComponent } from './components/administration/menu-stuff/men
 import { AddToCartComponent } from './components/_shared/modals/business/cart/add-to-cart/add-to-cart.component';
 import { MenuStuffListComponent } from './components/administration/menu-stuff/menu-stuff-list/menu-stuff-list.component';
 import { CartComponent } from './components/cart/cart.component';
-import { TabProductsComponent } from './components/cart/tab-products/tab-products.component';
+import { CartTabProductsComponent } from './components/cart/cart-tab-products/cart-tab-products.component';
 
 @NgModule({
 	declarations: [
@@ -109,7 +109,9 @@ import { TabProductsComponent } from './components/cart/tab-products/tab-product
 		UpdateElementSettingsComponent,
 		RemoveElementFromElementComponent,
   		MenusDesignComponent,  		
-  		AddToCartComponent, CartComponent, TabProductsComponent,
+  		AddToCartComponent, 
+		CartComponent, 
+		CartTabProductsComponent,
 	],
 	imports: [
 		BrowserModule,

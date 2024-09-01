@@ -10,11 +10,11 @@ import { SharedService } from '../../../services/common/shared.service';
 import { Tuple2 } from '../../../source/models/common/tuple';
 
 @Component({
-  selector: 'app-tab-products',
-  templateUrl: './tab-products.component.html',
-  styleUrl: './tab-products.component.css'
+  selector: 'app-cart-tab-products',
+  templateUrl: './cart-tab-products.component.html',
+  styleUrl: './cart-tab-products.component.css'
 })
-export class TabProductsComponent implements OnInit {        
+export class CartTabProductsComponent implements OnInit {        
     _cartGrouped: Grouping<string, CartElementResponse>[] = [];
 
     @Output() evtProcessing!: EventEmitter<boolean>;
