@@ -60,6 +60,7 @@ import { AddToCartComponent } from './components/_shared/modals/business/cart/ad
 import { MenuStuffListComponent } from './components/administration/menu-stuff/menu-stuff-list/menu-stuff-list.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartTabProductsComponent } from './components/cart/cart-tab-products/cart-tab-products.component';
+import { CartTabDetailsComponent } from './components/cart/cart-tab-details/cart-tab-details.component';
 
 @NgModule({
 	declarations: [
@@ -111,7 +112,7 @@ import { CartTabProductsComponent } from './components/cart/cart-tab-products/ca
   		MenusDesignComponent,  		
   		AddToCartComponent, 
 		CartComponent, 
-		CartTabProductsComponent,
+		CartTabProductsComponent, CartTabDetailsComponent,
 	],
 	imports: [
 		BrowserModule,

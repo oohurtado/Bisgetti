@@ -18,7 +18,7 @@ import { Tuple2 } from '../../source/models/common/tuple';
 })
 export class CartComponent implements OnInit {
 	
-	_isProcessing: boolean = false;
+	_isProcessing: boolean = true;
     _error!: string|null;
 
 	// tabs
@@ -37,8 +37,6 @@ export class CartComponent implements OnInit {
 
 	async ngOnInit() {
 		this.initTabs();
-		// await this.refreshCartAsync();
-		// await this.refreshAddressesAsync();
 	}
 
 	initTabs() {

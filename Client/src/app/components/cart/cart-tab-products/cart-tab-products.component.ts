@@ -32,7 +32,7 @@ export class CartTabProductsComponent implements OnInit {
         this.evtCart = new EventEmitter<Grouping<string, CartElementResponse>[]>();
     }
 
-    async ngOnInit() {
+    async ngOnInit() {		
 		await this.refreshCartAsync();		
     }
 
@@ -105,7 +105,7 @@ export class CartTabProductsComponent implements OnInit {
 				this.evtError.emit(Utils.getErrorsResponse(e));
 			});			
 		
-            this.evtProcessing.emit(false); 
+		this.evtProcessing.emit(false); 
 	}
 
     async onDeleteProductFromCartClicked(event: Event, cartElement: CartElementResponse) {
