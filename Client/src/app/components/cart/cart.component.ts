@@ -183,8 +183,12 @@ export class CartComponent implements OnInit {
 		return new Tuple2<number,number>(sum,count);
 	}
 
-	onFocus(event: Event) {
+	onQuantityFocus(event: Event) {
 		let input = (event.target as HTMLInputElement);
 		input.select();
+	}
+
+	onNextStepClicked(event: Event) {
+		this._tabCurrent++;
 	}
 }
