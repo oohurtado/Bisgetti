@@ -1,1 +1,59 @@
-<p>cart-tab-details works!</p>
+<div class="row">
+    <div class="col-lg-8 mt-4">
+        <div class="bg-light p-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="fs-2">Últimos detalles</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-end  pe-2">Subtotal</div>
+                </div>
+            </div>
+            <hr>
+            <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="form-control-label d-block">Entrega del producto</label>
+                        <ng-container *ngFor="let deliveryMethod of _deliveryMethods; let i = index">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="deliveryMethod" id="deliveryMethod{{ i }}" value="{{ deliveryMethod.param1 }}" (click)="onDeliveryMethodClicked($event, deliveryMethod)"/>
+                                <label class="form-check-label" for="deliveryMethod{{ i }}">
+                                    {{ deliveryMethod.param2 }}
+                                </label>
+                            </div>
+                        </ng-container>
+                        <span *ngIf="hasError('deliveryMethod', 'required')" class="text-danger d-block">Este campo es requerido</span>
+                    </div>
+                    <div class="col-md-12" *ngIf="showAddress()">
+                        <div class="ps-4">
+                            <ng-container *ngFor="let address of _addresses; let i = index">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" formControlName="address" id="address{{ i }}" value="{{ address.id }}"/>
+                                    <label class="form-check-label" for="address{{ i }}">
+                                        {{ address.name }} 
+                                        <span class="text-muted">({{ address.street }}, {{ address.exteriorNumber }} {{ address.interiorNumber }}, {{ address.suburb }}, {{ address.postalCode }})</span>
+                                    </label>
+                                </div>
+                            </ng-container>
+                            <span *ngIf="hasError('address', 'required')" class="text-danger d-block">Este campo es requerido</span>
+                            <a class="link-secondary" [routerLink]="['/my-account/addresses/create']">Crear dirección</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>       
+    </div>
+    <div class="col-lg-4 mt-4">
+        <div class="bg-light p-4">
+            <div class="text-end mb-1">
+                ...
+                <!-- <span class="fs-4">Total </span> 
+                <span class="fs-6">({{ getTotal().param2 }} productos)</span>: 
+                <strong class="fs-4 text-danger">{{ getTotal().param1 | currency:'$' }}</strong> -->
+            </div>
+            <div class="text-end mt-1">
+                <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Siguiente paso</button>
+            </div>  
+        </div> 
+    </div>
+</div>        

@@ -41,8 +41,8 @@ export class CartComponent implements OnInit {
 
 	initTabs() {
 		this._tabLabels.push("Carrito");
-		this._tabLabels.push("Últimos detalles");
-		this._tabLabels.push("Confirmación y Envío");
+		this._tabLabels.push("Detalles");
+		this._tabLabels.push("Envío");
 
 		this._tabIcons.push("fa-cart-shopping");
 		this._tabIcons.push("fa-list-check");

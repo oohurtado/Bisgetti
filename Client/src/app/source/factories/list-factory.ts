@@ -6,6 +6,12 @@ export class ListFactory {
 
     public static get(section: string): Tuple2<string,string>[] {
         switch (section) {
+            case 'cart-delivery-methods':
+                return  [
+                    new Tuple2("on-site", "Comer en el restaurante"),
+                    new Tuple2("to-take", "Ir al restaurante a recoger la comida"),
+                    new Tuple2("to-send", "Enviar a una dirección"),
+                ];
             case 'user-change-role':
                 let pipe = new RoleStrPipe();
                 return  [
@@ -15,8 +21,7 @@ export class ListFactory {
                 ];
             case 'my-account-address-countries':
                 return  [
-                    new Tuple2("México", "México"),
-             
+                    new Tuple2("México", "México"),             
                 ];
             case 'my-account-address-states':
                 return  [

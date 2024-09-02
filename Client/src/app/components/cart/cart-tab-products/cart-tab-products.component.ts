@@ -30,7 +30,8 @@ export class CartTabProductsComponent implements OnInit {
         this.evtNextStep = new EventEmitter<void>();
     }
 
-    async ngOnInit() {		
+    async ngOnInit() {	
+		await Utils.delay(100);
 		await this.refreshCartAsync();		
     }
 
