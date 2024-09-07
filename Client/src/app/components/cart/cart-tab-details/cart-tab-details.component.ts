@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBase } from '../../../source/form-base';
 import { Tuple2 } from '../../../source/models/common/tuple';
 import { ListFactory } from '../../../source/factories/list-factory';
@@ -13,13 +13,16 @@ import { AddressResponse } from '../../../source/models/business/responses/addre
     templateUrl: './cart-tab-details.component.html',
     styleUrl: './cart-tab-details.component.css'
 })
-export class CartTabDetailsComponent extends FormBase implements OnInit, AfterViewInit {
+export class CartTabDetailsComponent extends FormBase implements OnInit {
     
     @Output() evtNextStep!: EventEmitter<void>;
     @Output() evtError!: EventEmitter<string|null>;
     
     _deliveryMethods: Tuple2<string,string>[] = [];
     _addresses: AddressResponse[] = [];    
+    
+    _deliveryMethodWasClicked: boolean = false;
+    _displayAddresses: boolean = false
 
     constructor(
         private businessService: BusinessService,
@@ -29,17 +32,7 @@ export class CartTabDetailsComponent extends FormBase implements OnInit, AfterVi
     ) {
         super();
         this.evtNextStep = new EventEmitter<void>();
-    }
-
-    ngAfterViewInit(): void {
-        //
-        // this._myForm.get('deliveryMethod')?.value;
-        // if (deliveryMethod.param1 === 'to-send') {    
-        //     this._myForm.get('address')?.addValidators(Validators.required); 
-        // } else {
-        //     this._myForm.get('address')?.clearValidators();                                 
-        // }     
-    }
+    }    
 
     async ngOnInit() {
         this.setLists();
@@ -65,10 +58,16 @@ export class CartTabDetailsComponent extends FormBase implements OnInit, AfterVi
             deliveryMethod: [null, [Validators.required]],
             address: [null],
 		});
+
+        let addresses = this._addresses.filter(p => p.isDefault);
+        if (addresses.length > 0) {
+            this._myForm.get('address')?.setValue(addresses[0].id);
+        }
     }
 
     onNextStepClicked(event: Event) {
         this._error = null!;
+        
 		if (!this.isFormValid()) {            
             return;
 		}
@@ -79,15 +78,13 @@ export class CartTabDetailsComponent extends FormBase implements OnInit, AfterVi
     onDoneClicked() {
     }
 
-    async onDeliveryMethodClicked(event: Event, deliveryMethod: Tuple2<string,string>) {        
-        // if (deliveryMethod.param1 === 'to-send') {    
-        //     this._myForm.get('address')?.addValidators(Validators.required); 
-        // } else {
-        //     this._myForm.get('address')?.clearValidators();                                 
-        // }        
+    async onDeliveryMethodClicked(event: Event, deliveryMethod: Tuple2<string,string>) {
+        await Utils.delay(100);        
+        this._myForm.get('address')?.addValidators(Validators.required);
+        this._myForm.get('address')?.updateValueAndValidity();
     }
 
-    showAddress(): boolean {
+    isDeliveryMethodToSendSelected(): boolean {
         return this._myForm?.get('deliveryMethod')?.value === 'to-send';
     }
 }

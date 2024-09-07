@@ -24,17 +24,15 @@
                         </ng-container>
                         <span *ngIf="hasError('deliveryMethod', 'required')" class="text-danger d-block">Este campo es requerido</span>
                     </div>
-                    <div class="col-md-12" *ngIf="showAddress()">
-                        <div class="ps-4">
-                            <ng-container *ngFor="let address of _addresses; let i = index">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" formControlName="address" id="address{{ i }}" value="{{ address.id }}"/>
-                                    <label class="form-check-label" for="address{{ i }}">
-                                        {{ address.name }} 
-                                        <span class="text-muted">({{ address.street }}, {{ address.exteriorNumber }} {{ address.interiorNumber }}, {{ address.suburb }}, {{ address.postalCode }})</span>
-                                    </label>
-                                </div>
-                            </ng-container>
+                    <div class="col-md-12" *ngIf="isDeliveryMethodToSendSelected()">
+                        <div class="ps-4">            
+                            <div class="form-floating">
+                                <select class="form-select" formControlName="address" id="address" aria-label="Floating label select example">
+                                    <option [ngValue]="null" disabled selected>Selecciona una opción</option>
+                                    <option *ngFor="let address of _addresses" [value]="address.id">{{ address.name }}</option>
+                                </select>
+                                <label for="floatingSelect">Dirección</label>
+                            </div>
                             <span *ngIf="hasError('address', 'required')" class="text-danger d-block">Este campo es requerido</span>
                             <a class="link-secondary" [routerLink]="['/my-account/addresses/create']">Crear dirección</a>
                         </div>
@@ -57,7 +55,3 @@
         </div> 
     </div>
 </div>        
-
-{{
-    _addresses | json
-}}
