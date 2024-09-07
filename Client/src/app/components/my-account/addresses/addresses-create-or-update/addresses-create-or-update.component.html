@@ -14,119 +14,123 @@
 	</div>
 </div>
 
-<div class="mt-2 mb-2 mx-auto" style="width: 800px;">
-    <div class="card">
-        <div class="card-header">
-            {{ _addressId === null || _addressId === undefined ? 'Crea las direcciones que necesites' : 'Manten tu dirección actualizada' }}            
-        </div>
-        <div class="card-body">
-            <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
-                <div class="row">    
-                    <div class="col-md-12 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre">
-                            <label for="name">Nombre</label>
-                        </div>
-                        <span *ngIf="hasError('name', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
-                    </div>   
-                    <div class="col-md-6 mt-3">
-                        <div class="form-floating">
-                            <select class="form-select" formControlName="country" id="country" aria-label="Floating label select example">
-                              <option [ngValue]="null" disabled>Selecciona una opción</option>
-                              <option *ngFor="let item of _countries" [value]="item.param1">{{ item.param2 }}</option>
-                            </select>
-                            <label for="floatingSelect">País</label>
-                        </div>
-                        <span *ngIf="hasError('country', 'required')" class="text-danger">Este campo es requerido</span>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="form-floating">
-                            <select class="form-select" formControlName="state" id="state" aria-label="Floating label select example">
-                              <option [ngValue]="null" disabled selected>Selecciona una opción</option>
-                              <option *ngFor="let item of _states" [value]="item.param1">{{ item.param2 }}</option>
-                            </select>
-                            <label for="floatingSelect">Estado</label>
-                        </div>
-                        <span *ngIf="hasError('state', 'required')" class="text-danger">Este campo es requerido</span>
-                    </div>
-                    <div class="col-md-4 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="city" type="text" class="form-control" id="city" placeholder="Ciudad">
-                            <label for="city">Ciudad / Municipio</label>
-                        </div>
-                        <span *ngIf="hasError('city', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('city', 'minlength') || hasError('city', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
-                    </div>   
-                    <div class="col-md-4 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="suburb" type="text" class="form-control" id="suburb" placeholder="Colonia/Suburbio">
-                            <label for="suburb">Colonia / Suburbio</label>
-                        </div>
-                        <span *ngIf="hasError('suburb', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('suburb', 'minlength') || hasError('suburb', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
-                    </div>
-                    <div class="col-md-4 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="postalCode" type="text" class="form-control" id="postalCode" placeholder="Código postal">
-                            <label for="postalCode">Código postal</label>
-                        </div>
-                        <span *ngIf="hasError('postalCode', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('postalCode', 'minlength') || hasError('postalCode', 'maxlength')" class="text-danger">Este campo debe contener entre 1 y 10 caracteres</span>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="street" type="text" class="form-control" id="street" placeholder="Calle">
-                            <label for="street">Calle</label>
-                        </div>
-                        <span *ngIf="hasError('street', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('street', 'minlength') || hasError('street', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
-                    </div>  
-                    <div class="col-md-3 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="exteriorNumber" type="text" class="form-control" id="exteriorNumber" placeholder="Número exterior">
-                            <label for="exteriorNumber">Exterior</label>
-                        </div>
-                        <span *ngIf="hasError('exteriorNumber', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('exteriorNumber', 'minlength') || hasError('exteriorNumber', 'maxlength')" class="text-danger">Este campo debe contener entre 1 y 10 caracteres</span>
-                    </div>     
-                    <div class="col-md-3 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="interiorNumber" type="text" class="form-control" id="interiorNumber" placeholder="Número interior">
-                            <label for="interiorNumber">Interior</label>
-                        </div>                        
-                        <span *ngIf="hasError('interiorNumber', 'maxlength')" class="text-danger">Este campo debe un máximo de 10 caracteres</span>
-                    </div>    
-                    <div class="col-md-12 mt-3">
-                        <div class="form-floating">
-                            <textarea formControlName="moreInstructions" class="form-control" placeholder="Las instrucciones van aquí" id="moreInstructions" style="height: 100px"></textarea>
-                            <label for="moreInstructions">Más instrucciones</label>
-                          </div>                 
-                        <span *ngIf="hasError('moreInstructions', 'maxlength')" class="text-danger">Este campo debe un máximo de 250 caracteres</span>
-                    </div>
-                    <div class="col-md-3 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Número telefónico" maxlength="10">
-                            <label for="phoneNumber">Número telefónico</label>
-                        </div>
-                        <span *ngIf="hasError('phoneNumber', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('phoneNumber', 'minlength') || hasError('phoneNumber', 'maxlength')" class="text-danger">Este campo debe contener entre 1 y 10 caracteres</span>
-                    </div>           
-                    <div class="col-12 mt-3 mb-3">
-                        <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
-                            <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
-                            <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
-                        </button>
-                    </div>                    
+<div class="mt-2 mb-2 mx-auto">
+    <div class="row">
+        <div class="offset-md-3 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    {{ _addressId === null || _addressId === undefined ? 'Crea las direcciones que necesites' : 'Manten tu dirección actualizada' }}            
                 </div>
-            </form>
-            <ng-container *ngIf="_error !== null">
-                <div class="col-12">
-                    <div  class="alert alert-danger ml-4 mr-4" role="alert">
-                        {{ _error }}
-                    </div>
+                <div class="card-body">
+                    <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
+                        <div class="row">    
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre">
+                                    <label for="name">Nombre</label>
+                                </div>
+                                <span *ngIf="hasError('name', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
+                            </div>   
+                            <div class="col-md-6 mt-3">
+                                <div class="form-floating">
+                                    <select class="form-select" formControlName="country" id="country" aria-label="Floating label select example">
+                                      <option [ngValue]="null" disabled>Selecciona una opción</option>
+                                      <option *ngFor="let item of _countries" [value]="item.param1">{{ item.param2 }}</option>
+                                    </select>
+                                    <label for="floatingSelect">País</label>
+                                </div>
+                                <span *ngIf="hasError('country', 'required')" class="text-danger">Este campo es requerido</span>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="form-floating">
+                                    <select class="form-select" formControlName="state" id="state" aria-label="Floating label select example">
+                                      <option [ngValue]="null" disabled selected>Selecciona una opción</option>
+                                      <option *ngFor="let item of _states" [value]="item.param1">{{ item.param2 }}</option>
+                                    </select>
+                                    <label for="floatingSelect">Estado</label>
+                                </div>
+                                <span *ngIf="hasError('state', 'required')" class="text-danger">Este campo es requerido</span>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="city" type="text" class="form-control" id="city" placeholder="Ciudad">
+                                    <label for="city">Ciudad / Municipio</label>
+                                </div>
+                                <span *ngIf="hasError('city', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('city', 'minlength') || hasError('city', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
+                            </div>   
+                            <div class="col-md-4 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="suburb" type="text" class="form-control" id="suburb" placeholder="Colonia/Suburbio">
+                                    <label for="suburb">Colonia / Suburbio</label>
+                                </div>
+                                <span *ngIf="hasError('suburb', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('suburb', 'minlength') || hasError('suburb', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="postalCode" type="text" class="form-control" id="postalCode" placeholder="Código postal">
+                                    <label for="postalCode">Código postal</label>
+                                </div>
+                                <span *ngIf="hasError('postalCode', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('postalCode', 'minlength') || hasError('postalCode', 'maxlength')" class="text-danger">Este campo debe contener entre 1 y 10 caracteres</span>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="street" type="text" class="form-control" id="street" placeholder="Calle">
+                                    <label for="street">Calle</label>
+                                </div>
+                                <span *ngIf="hasError('street', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('street', 'minlength') || hasError('street', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
+                            </div>  
+                            <div class="col-md-3 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="exteriorNumber" type="text" class="form-control" id="exteriorNumber" placeholder="Número exterior">
+                                    <label for="exteriorNumber">Exterior</label>
+                                </div>
+                                <span *ngIf="hasError('exteriorNumber', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('exteriorNumber', 'minlength') || hasError('exteriorNumber', 'maxlength')" class="text-danger">Este campo debe contener entre 1 y 10 caracteres</span>
+                            </div>     
+                            <div class="col-md-3 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="interiorNumber" type="text" class="form-control" id="interiorNumber" placeholder="Número interior">
+                                    <label for="interiorNumber">Interior</label>
+                                </div>                        
+                                <span *ngIf="hasError('interiorNumber', 'maxlength')" class="text-danger">Este campo debe un máximo de 10 caracteres</span>
+                            </div>    
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <textarea formControlName="moreInstructions" class="form-control" placeholder="Las instrucciones van aquí" id="moreInstructions" style="height: 100px"></textarea>
+                                    <label for="moreInstructions">Más instrucciones</label>
+                                  </div>                 
+                                <span *ngIf="hasError('moreInstructions', 'maxlength')" class="text-danger">Este campo debe un máximo de 250 caracteres</span>
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Número telefónico" maxlength="10">
+                                    <label for="phoneNumber">Número telefónico</label>
+                                </div>
+                                <span *ngIf="hasError('phoneNumber', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('phoneNumber', 'minlength') || hasError('phoneNumber', 'maxlength')" class="text-danger">Este campo debe contener entre 1 y 10 caracteres</span>
+                            </div>           
+                            <div class="col-12 mt-3 mb-3">
+                                <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
+                                    <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
+                                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
+                                </button>
+                            </div>                    
+                        </div>
+                    </form>
+                    <ng-container *ngIf="_error !== null">
+                        <div class="col-12">
+                            <div  class="alert alert-danger ml-4 mr-4" role="alert">
+                                {{ _error }}
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
-            </ng-container>
+            </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBase } from '../../../source/form-base';
 import { Tuple2 } from '../../../source/models/common/tuple';
 import { ListFactory } from '../../../source/factories/list-factory';
@@ -13,14 +13,13 @@ import { AddressResponse } from '../../../source/models/business/responses/addre
     templateUrl: './cart-tab-details.component.html',
     styleUrl: './cart-tab-details.component.css'
 })
-export class CartTabDetailsComponent extends FormBase implements OnInit {
+export class CartTabDetailsComponent extends FormBase implements OnInit, AfterViewInit {
     
     @Output() evtNextStep!: EventEmitter<void>;
     @Output() evtError!: EventEmitter<string|null>;
     
     _deliveryMethods: Tuple2<string,string>[] = [];
-    _addresses: AddressResponse[] = [];
-    _showAddresses: boolean = false;
+    _addresses: AddressResponse[] = [];    
 
     constructor(
         private businessService: BusinessService,
@@ -32,12 +31,20 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
         this.evtNextStep = new EventEmitter<void>();
     }
 
+    ngAfterViewInit(): void {
+        //
+        // this._myForm.get('deliveryMethod')?.value;
+        // if (deliveryMethod.param1 === 'to-send') {    
+        //     this._myForm.get('address')?.addValidators(Validators.required); 
+        // } else {
+        //     this._myForm.get('address')?.clearValidators();                                 
+        // }     
+    }
+
     async ngOnInit() {
         this.setLists();
         await this.getAddressesAsyn();
         await this.setupFormAsync();
-
-        this._addresses = [];
     }
 
     async getAddressesAsyn() {
@@ -62,22 +69,22 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
 
     onNextStepClicked(event: Event) {
         this._error = null!;
-		if (!this.isFormValid()) {
+		if (!this.isFormValid()) {            
             return;
 		}
 
-        this.evtNextStep.emit();		
+        this.evtNextStep.emit();	        	
 	}
 
     onDoneClicked() {
     }
 
-    async onDeliveryMethodClicked(event: Event, deliveryMethod: Tuple2<string,string>) {
-        if (deliveryMethod.param1 === 'to-send') {    
-            this._myForm.get('address')?.addValidators(Validators.required); 
-        } else {
-            this._myForm.get('address')?.clearValidators();                                 
-        }        
+    async onDeliveryMethodClicked(event: Event, deliveryMethod: Tuple2<string,string>) {        
+        // if (deliveryMethod.param1 === 'to-send') {    
+        //     this._myForm.get('address')?.addValidators(Validators.required); 
+        // } else {
+        //     this._myForm.get('address')?.clearValidators();                                 
+        // }        
     }
 
     showAddress(): boolean {

@@ -14,44 +14,48 @@
 	</div>
 </div>
 
-<div class="mt-2 mb-2 mx-auto" style="width: 800px;">
-    <div class="card">
-        <div class="card-header">
-            {{ _menuId === null || _menuId === undefined ? 'Crea los menús que necesites' : 'Manten tus menús actualizados' }}            
-        </div>
-        <div class="card-body">
-            <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
-                <div class="row">    
-                    <div class="col-md-12 mt-3">
-                        <div class="form-floating">
-                            <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre">
-                            <label for="name">Nombre</label>
+<div class="mt-2 mb-2 mx-auto">
+    <div class="row">
+        <div class="offset-md-3 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    {{ _menuId === null || _menuId === undefined ? 'Crea los menús que necesites' : 'Manten tus menús actualizados' }}            
+                </div>
+                <div class="card-body">
+                    <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
+                        <div class="row">    
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre">
+                                    <label for="name">Nombre</label>
+                                </div>
+                                <span *ngIf="hasError('name', 'required')" class="text-danger">Este campo es requerido</span>
+                                <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
+                            </div>                 
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <textarea formControlName="description" class="form-control" placeholder="La descripción va aquí" id="description" style="height: 100px"></textarea>
+                                    <label for="description">Descripción</label>
+                                  </div>                 
+                                <span *ngIf="hasError('description', 'maxlength')" class="text-danger">Este campo debe un máximo de 100 caracteres</span>
+                            </div>      
+                            <div class="col-12 mt-3 mb-3">
+                                <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
+                                    <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
+                                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
+                                </button>
+                            </div>                    
                         </div>
-                        <span *ngIf="hasError('name', 'required')" class="text-danger">Este campo es requerido</span>
-                        <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 3 y 50 caracteres</span>
-                    </div>                 
-                    <div class="col-md-12 mt-3">
-                        <div class="form-floating">
-                            <textarea formControlName="description" class="form-control" placeholder="La descripción va aquí" id="description" style="height: 100px"></textarea>
-                            <label for="description">Descripción</label>
-                          </div>                 
-                        <span *ngIf="hasError('description', 'maxlength')" class="text-danger">Este campo debe un máximo de 100 caracteres</span>
-                    </div>      
-                    <div class="col-12 mt-3 mb-3">
-                        <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
-                            <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
-                            <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
-                        </button>
-                    </div>                    
+                    </form>
+                    <ng-container *ngIf="_error !== null">
+                        <div class="col-12">
+                            <div  class="alert alert-danger ml-4 mr-4" role="alert">
+                                {{ _error }}
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
-            </form>
-            <ng-container *ngIf="_error !== null">
-                <div class="col-12">
-                    <div  class="alert alert-danger ml-4 mr-4" role="alert">
-                        {{ _error }}
-                    </div>
-                </div>
-            </ng-container>
+            </div>
         </div>
     </div>
 </div>
