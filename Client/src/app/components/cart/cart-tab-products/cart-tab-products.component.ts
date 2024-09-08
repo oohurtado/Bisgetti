@@ -8,6 +8,7 @@ declare let alertify: any;
 import * as lodash from 'lodash';
 import { SharedService } from '../../../services/common/shared.service';
 import { Tuple2 } from '../../../source/models/common/tuple';
+import { CartHelper } from '../../../source/cart-helper';
 
 @Component({
   selector: 'app-cart-tab-products',
@@ -20,6 +21,8 @@ export class CartTabProductsComponent implements OnInit {
     @Output() evtProcessing!: EventEmitter<boolean>;
     @Output() evtError!: EventEmitter<string|null>;
     @Output() evtNextStep!: EventEmitter<void>;
+
+	_cartHelper = new CartHelper();
 
     constructor(
         private businessService: BusinessService,
@@ -134,25 +137,6 @@ export class CartTabProductsComponent implements OnInit {
 			function () {
 				// ...
 			});		
-	}
-
-    getTotalByPerson(products: CartElementResponse[]) {
-		let sum = 0;
-		products.forEach(p => sum += p.productPrice * p.productQuantity);
-		return sum;
-	}
-
-	getTotal() {
-		let sum = 0;
-		let count = 0;
-
-		this._cartGrouped.forEach(p => {
-			p.items.forEach(q => { 
-				sum += q.productPrice * q.productQuantity 
-				count += q.productQuantity;
-			})
-		});
-		return new Tuple2<number,number>(sum,count);
 	}
 
     onNextStepClicked(event: Event) {

@@ -54,7 +54,7 @@
                     </ng-container>
         
                     <div class="col-12 text-end pe-2 mb-2">
-                        Total por persona: <strong class="fs-5 text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>
+                        Total por persona: <strong class="fs-5 text-danger">{{ _cartHelper.getTotalByPerson(person.items) | currency:'$' }}</strong>
                     </div>
                 </div>
                 <hr>
@@ -65,8 +65,8 @@
         <div class="bg-light p-4">
             <div class="text-end mb-1">
                 <span class="fs-4">Total </span> 
-                <span class="fs-6">({{ getTotal().param2 }} productos)</span>: 
-                <strong class="fs-4 text-danger">{{ getTotal().param1 | currency:'$' }}</strong>
+                <span class="fs-6">({{ _cartHelper.getTotal(_cartGrouped).param2 }} productos)</span>: 
+                <strong class="fs-4 text-danger">{{ _cartHelper.getTotal(_cartGrouped).param1 | currency:'$' }}</strong>
             </div>
             <div class="text-end mt-1">
                 <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Siguiente paso</button>

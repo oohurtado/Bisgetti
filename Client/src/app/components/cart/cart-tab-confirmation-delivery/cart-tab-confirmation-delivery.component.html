@@ -23,13 +23,13 @@
                                 {{ product.productName }} ({{ product.productQuantity }}) <strong>{{ product.productPrice * product.productQuantity | currency:'$' }}</strong>
                             </div>
                             <div class="ps-4 mb-2">                            
-                                Total por persona: <strong  class="text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>
+                                Total por persona: <strong  class="text-danger">{{ _cartHelper.getTotalByPerson(person.items) | currency:'$' }}</strong>
                             </div>
                         </div>
                         <div class="text-end">
                             <span>Sub total</span>&nbsp; 
-                            <span>({{ getTotal().param2 }} productos)</span>: 
-                            <strong class="text-danger">{{ getTotal().param1 | currency:'$' }}</strong>
+                            <span>({{ _cartHelper.getTotal(_cartGrouped).param2 }} productos)</span>: 
+                            <strong class="text-danger">{{ _cartHelper.getTotal(_cartGrouped).param1 | currency:'$' }}</strong>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -56,11 +56,11 @@
                     <div class="col-md-12">
                         <span class="fs-5">Propina</span>
                         <div class="ps-4">
-                            <span>{{ _cartDetails?.tipPercent }}% de {{ getTotal().param1 | currency:'$' }}</span>                             
+                            <span>{{ _cartDetails?.tipPercent }}% de {{ _cartHelper.getTotal(_cartGrouped).param1 | currency:'$' }}</span>                             
                         </div>
                         <div class="text-end">
                             <span>Sub total</span>&nbsp;                           
-                            <strong class="text-danger">{{ ( getTotal().param1 * (_cartDetails?.tipPercent ?? 0)) / 100 | currency:'$' }}</strong>
+                            <strong class="text-danger">{{ ( _cartHelper.getTotal(_cartGrouped).param1 * (_cartDetails?.tipPercent ?? 0)) / 100 | currency:'$' }}</strong>
                         </div>
                     </div> 
                     <div class="col-md-12">
@@ -69,7 +69,7 @@
                     <div class="col-md-12">
                         <div class="text-end mb-1">
                             <span class="fs-4">Total</span>: &nbsp;
-                            <strong class="fs-4 text-danger">{{ getTotal().param1 + (_cartDetails?.shippingCost ?? 0) + ((getTotal().param1 * (_cartDetails?.tipPercent ?? 0)) / 100) | currency:'$' }}</strong>
+                            <strong class="fs-4 text-danger">{{ _cartHelper.getTotal(_cartGrouped).param1 + (_cartDetails?.shippingCost ?? 0) + ((_cartHelper.getTotal(_cartGrouped).param1 * (_cartDetails?.tipPercent ?? 0)) / 100) | currency:'$' }}</strong>
                         </div>
                         <div class="text-end mt-1">
                             <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Realizar pedido</button>

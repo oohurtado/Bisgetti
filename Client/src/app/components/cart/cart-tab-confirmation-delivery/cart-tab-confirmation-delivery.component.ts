@@ -10,6 +10,7 @@ import { CartElementResponse } from '../../../source/models/business/responses/c
 import { Grouping } from '../../../source/models/common/grouping';
 import * as lodash from 'lodash';
 import { Tuple2 } from '../../../source/models/common/tuple';
+import { CartHelper } from '../../../source/cart-helper';
 
 @Component({
     selector: 'app-cart-tab-confirmation-delivery',
@@ -26,6 +27,8 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
 
     _cartGrouped: Grouping<string, CartElementResponse>[] = [];
     _address: AddressResponse|null = null;
+
+    _cartHelper = new CartHelper();
     
     constructor(
         private businessService: BusinessService,
@@ -85,25 +88,6 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
     override setupFormAsync(): void {
         throw new Error('Method not implemented.');
     } 
-
-    getTotalByPerson(products: CartElementResponse[]) {
-		let sum = 0;
-		products.forEach(p => sum += p.productPrice * p.productQuantity);
-		return sum;
-	}
-
-    getTotal() {
-		let sum = 0;
-		let count = 0;
-
-		this._cartGrouped.forEach(p => {
-			p.items.forEach(q => { 
-				sum += q.productPrice * q.productQuantity 
-				count += q.productQuantity;
-			})
-		});
-		return new Tuple2<number,number>(sum,count);
-	}
 
     onNextStepClicked(event: Event) {
         this.evtNextStep.emit();		

@@ -8,6 +8,7 @@ import { BusinessService } from '../../../services/business/business.service';
 import { Utils } from '../../../source/utils';
 import { AddressResponse } from '../../../source/models/business/responses/address-response';
 import { CartDetails } from '../../../source/models/business/common/cart-details';
+import { CartHelper } from '../../../source/cart-helper';
 
 @Component({
     selector: 'app-cart-tab-details',
@@ -29,6 +30,8 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     _shippingCost: number = 0;     
     
     _cartDetail!: CartDetails;
+    
+    _cartHelper = new CartHelper();
 
     constructor(
         private businessService: BusinessService,
