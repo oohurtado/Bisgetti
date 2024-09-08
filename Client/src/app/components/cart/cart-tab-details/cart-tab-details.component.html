@@ -37,6 +37,18 @@
                             <a class="link-secondary" [routerLink]="['/my-account/addresses/create']">Crear dirección</a>
                         </div>
                     </div>
+                    <div class="col-md-12 mt-3">
+                        <label class="form-control-label d-block">¿Desea dejar alguna propina al personal?</label>
+                        <ng-container *ngFor="let tip of _tips; let i = index">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tip" id="tip{{ i }}" value="{{ tip }}" (click)="onTipClicked($event, tip)"/>
+                                <label class="form-check-label" for="tip{{ i }}">
+                                    {{ tip }}% ({{ (_totalProducts * tip) / 100 | currency:'$'  }})
+                                </label>
+                            </div>
+                        </ng-container>
+                        <span *ngIf="hasError('tip', 'required')" class="text-danger d-block">Este campo es requerido</span>
+                    </div>
                 </div>
             </form>
         </div>       
@@ -44,17 +56,21 @@
     <div class="col-lg-4 mt-4">
         <div class="bg-light p-4">
             <div class="text-end mb-1">
+                <span class="fs-6">Total en productos: </span>
+                <strong class="fs-6">{{ _totalProducts | currency:'$'  }}</strong>
+                <br>
                 <span class="fs-6">Entrega del producto: </span>
-                <strong class="fs-6 text-danger">{{ _summary_shippingCost | currency:'$'  }}</strong>
+                <strong class="fs-6">{{ _cartDetail.shippingCost | currency:'$'  }}</strong>
+                <br>
+                <span class="fs-6">Propina: </span>
+                <strong class="fs-6">{{ _cartDetail.tipPercent | currency:'$'  }}</strong>
+                <br>
+                <span class="fs-4">Total: </span>
+                <strong class="fs-4 text-danger">{{ _totalProducts + _cartDetail.shippingCost + ((_totalProducts * _cartDetail.tipPercent) / 100) | currency:'$'  }}</strong>
             </div>
             <div class="text-end mt-1">
                 <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Siguiente paso</button>
-            </div>  
+            </div>
         </div> 
     </div>
 </div>        
-
-<pre>{{ _addresses | json }}</pre>
-<pre>{{ _tips | json }}</pre>
-<pre>{{ _total }}</pre>
-<pre>{{ _shippingCost }}</pre>

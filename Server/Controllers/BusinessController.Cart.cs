@@ -37,6 +37,7 @@ namespace Server.Controllers
             return Ok(result);
         }
 
+        // TODO: duro
         /// <summary>
         /// Listado de propinas
         /// </summary>
@@ -46,17 +47,17 @@ namespace Server.Controllers
         [HttpGet(template: "cart/tips")]
         public async Task<ActionResult> GetTips()
         {
-            var tips = new List<int>() { 5, 10, 15, 20 };
+            var tips = new List<int>() { 0, 10, 15, 20 };
             var result = await Task.FromResult(tips);
             return Ok(result);
         }
 
+        // TODO: duro
         /// <summary>
         /// Costo de envio
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-
         [HttpGet(template: "cart/shipping-cost")]
         public async Task<ActionResult> GetShippingCost()
         {            

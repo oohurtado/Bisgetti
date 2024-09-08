@@ -10,6 +10,7 @@ import { Grouping } from '../../source/models/common/grouping';
 import { LocalStorageService } from '../../services/common/local-storage.service';
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
 import { Tuple2 } from '../../source/models/common/tuple';
+import { CartDetails } from '../../source/models/business/common/cart-details';
 
 @Component({
 	selector: 'app-cart',
@@ -26,8 +27,7 @@ export class CartComponent implements OnInit {
 	_tabLabels: string[] = [];
 	_tabIcons: string[] = [];
 
-	_cartGrouped: Grouping<string, CartElementResponse>[] = [];
-	_addresses : AddressResponse[] = [];
+	_cartDetails!: CartDetails|null;
 
 	constructor(
 		private businessService: BusinessService,		
@@ -67,7 +67,7 @@ export class CartComponent implements OnInit {
 		this._tabCurrent++;
 	}
 
-	evtCart(cartGrouped: Grouping<string, CartElementResponse>[]) {
-		this._cartGrouped = cartGrouped;
-	}	
+	evtCartDetails(cartDetails: CartDetails|null) {
+		this._cartDetails = cartDetails;
+	}
 }

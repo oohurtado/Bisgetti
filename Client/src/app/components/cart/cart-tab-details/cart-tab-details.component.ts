@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../services/business/business.service';
 import { Utils } from '../../../source/utils';
 import { AddressResponse } from '../../../source/models/business/responses/address-response';
+import { CartDetails } from '../../../source/models/business/common/cart-details';
 
 @Component({
     selector: 'app-cart-tab-details',
@@ -15,20 +16,22 @@ import { AddressResponse } from '../../../source/models/business/responses/addre
 })
 export class CartTabDetailsComponent extends FormBase implements OnInit {
     
-    @Output() evtNextStep!: EventEmitter<void>;
+    @Output() evtProcessing!: EventEmitter<boolean>;
     @Output() evtError!: EventEmitter<string|null>;
+    @Output() evtNextStep!: EventEmitter<void>;
+    @Output() evtCartDetails!: EventEmitter<CartDetails|null>;
     
     _deliveryMethods: Tuple2<string,string>[] = [];
     
     _addresses: AddressResponse[] = [];    
     _tips: number[] = [];
-    _total: number = 0;
-    _shippingCost: number = 0;
-
-    _summary_shippingCost: number = 0;
+    _totalProducts: number = 0;
+    _shippingCost: number = 0;     
     
     _deliveryMethodWasClicked: boolean = false;
-    _displayAddresses: boolean = false
+    _displayAddresses: boolean = false;
+
+    _cartDetail!: CartDetails;
 
     constructor(
         private businessService: BusinessService,
@@ -37,10 +40,15 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
 		private router: Router,
     ) {
         super();
+        this.evtProcessing = new EventEmitter<boolean>();
+        this.evtError = new EventEmitter<string|null>();
         this.evtNextStep = new EventEmitter<void>();
+        this.evtCartDetails = new EventEmitter<CartDetails|null>();
+        this._cartDetail = new CartDetails();
     }    
 
     async ngOnInit() {
+        await Utils.delay(100);
         this.setLists();
         await this.getAllAsync();
         await this.setupFormAsync();
@@ -51,7 +59,7 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     }
 
     async getAllAsync() {
-        this._isProcessing = true;
+        this.evtProcessing.emit(true);
         await Promise.all(
             [
                 this.businessService.cart_getUserAddressesAsync(),
@@ -62,18 +70,19 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
             .then(r => {
                 this._addresses = r[0];
                 this._tips = r[1];
-                this._total = r[2].total;
+                this._totalProducts = r[2].total;
                 this._shippingCost = r[3].total;
             }, e => {
                 this.evtError.emit(Utils.getErrorsResponse(e));
             });
-        this._isProcessing = false;        
+        this.evtProcessing.emit(false);     
     }
 
     override setupFormAsync(): void {
 		this._myForm = this.formBuilder.group({
             deliveryMethod: [null, [Validators.required]],
             address: [null],
+            tip: [null, [Validators.required]],
 		});
 
         let addresses = this._addresses.filter(p => p.isDefault);
@@ -89,6 +98,9 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
             return;
 		}
 
+        this._cartDetail.deliveryMethod = this._myForm?.get('deliveryMethod')?.value;
+        this._cartDetail.addressId = this._myForm?.get('address')?.value;
+        this.evtCartDetails.emit(this._cartDetail);
         this.evtNextStep.emit();	        	
 	}
 
@@ -99,19 +111,19 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
         await Utils.delay(100);        
         this._myForm.get('address')?.addValidators(Validators.required);
         this._myForm.get('address')?.updateValueAndValidity();
-
-        // new Tuple2("on-site", "Comer en el restaurante"),
-        // new Tuple2("take-away", "Ir al restaurante a recoger la comida"),
-        // new Tuple2("for-delivery", "Enviar a una dirección"),
-
+        
         if (deliveryMethod.param1 === 'on-site' || deliveryMethod.param1 === 'take-away') {
-            this._summary_shippingCost = 0;
+            this._cartDetail.shippingCost = 0;
         } else if (deliveryMethod.param1 === 'for-delivery') {
-            this._summary_shippingCost = this._shippingCost;
+            this._cartDetail.shippingCost = this._shippingCost;            
         }
     }
 
     isDeliveryMethodToSendSelected(): boolean {
         return this._myForm?.get('deliveryMethod')?.value === 'for-delivery';
+    }
+
+    onTipClicked(event: Event, tipPercent: number) {
+        this._cartDetail.tipPercent = tipPercent;
     }
 }
