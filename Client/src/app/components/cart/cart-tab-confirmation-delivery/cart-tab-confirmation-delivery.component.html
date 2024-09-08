@@ -62,44 +62,21 @@
                             <span>Sub total</span>&nbsp;                           
                             <strong class="text-danger">{{ ( getTotal().param1 * (_cartDetails?.tipPercent ?? 0)) / 100 | currency:'$' }}</strong>
                         </div>
-                    </div>                    
+                    </div> 
+                    <div class="col-md-12">
+                        <hr>
+                    </div>   
+                    <div class="col-md-12">
+                        <div class="text-end mb-1">
+                            <span class="fs-4">Total</span>: &nbsp;
+                            <strong class="fs-4 text-danger">{{ getTotal().param1 + (_cartDetails?.shippingCost ?? 0) + ((getTotal().param1 * (_cartDetails?.tipPercent ?? 0)) / 100) | currency:'$' }}</strong>
+                        </div>
+                        <div class="text-end mt-1">
+                            <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Realizar pedido</button>
+                        </div>  
+                    </div>                 
                 </div>
-
-
-
-
-
-
-
-
-                ...
-                <!-- <span class="fs-6">Total en productos: </span>
-                <strong class="fs-6">{{ _totalProducts | currency:'$'  }}</strong>
-                <br>
-                <span class="fs-6">Entrega del producto: </span>
-                <strong class="fs-6">{{ _cartDetail.shippingCost | currency:'$'  }}</strong>
-                <br>
-                <span class="fs-6">Propina: </span>
-                <strong class="fs-6">{{ _cartDetail.tipPercent | currency:'$'  }}</strong>
-                <br>
-                <span class="fs-4">Total: </span>
-                <strong class="fs-4 text-danger">{{ _totalProducts + _cartDetail.shippingCost + ((_totalProducts * _cartDetail.tipPercent) / 100) | currency:'$'  }}</strong> -->
-            </div>
-            <div class="text-end mt-1">
-                ...
-                <!-- <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Siguiente paso</button> -->
             </div>
         </div> 
     </div>
 </div>
-
-<pre>{{ _cartGrouped | json }}</pre>
-<pre>{{ _cartDetails | json }}</pre>
-<pre>{{ _address | json }}</pre>
-
-<br><br><br><br><br><br><br>
-/*
-new Tuple2("on-site", "Comer en el restaurante"),
-new Tuple2("take-away", "Ir al restaurante a recoger la comida"),
-new Tuple2("for-delivery", "Enviar a una dirección"),        
-*/

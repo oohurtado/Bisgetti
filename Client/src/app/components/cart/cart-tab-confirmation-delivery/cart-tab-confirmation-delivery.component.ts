@@ -105,4 +105,7 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
 		return new Tuple2<number,number>(sum,count);
 	}
 
+    onNextStepClicked(event: Event) {
+        this.evtNextStep.emit();		
+	}
 }
