@@ -4,7 +4,11 @@ import { Tuple2 } from "./models/common/tuple";
 
 export class CartHelper {
       
-	getTotal(cartGrouped: Grouping<string, CartElementResponse>[]) {
+	getSuperTotal(tipPercent: number, total: number, shppingCost: number, ) {
+		return this.getTip(tipPercent, total) + total + shppingCost;
+	}
+
+	getTotalInCart(cartGrouped: Grouping<string, CartElementResponse>[]) {
 		let sum = 0;
 		let count = 0;
 
@@ -21,5 +25,10 @@ export class CartHelper {
 		let sum = 0;
 		products.forEach(p => sum += p.productPrice * p.productQuantity);
 		return sum;
+	}
+
+	getTip(tipPercent: number, total: number) {
+		let tip = (total * tipPercent) / 100;
+		return tip;		
 	}
 }
