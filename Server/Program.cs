@@ -126,8 +126,7 @@ namespace Server
             builder.Services.AddTransient<IStorageFile, StorageFileLocal>();
 
             builder.Services.AddAutoMapper(p =>
-            {
-                p.CreateMap<AddressEntity, Source.Models.DTOs.Cart.AddressResponse>();
+            {                
                 p.CreateMap<AddressEntity, AddressResponse>();
                 p.CreateMap<CreateOrUpdateAddressRequest, AddressEntity>();
 

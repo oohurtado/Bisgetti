@@ -28,9 +28,6 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     _totalProducts: number = 0;
     _shippingCost: number = 0;     
     
-    _deliveryMethodWasClicked: boolean = false;
-    _displayAddresses: boolean = false;
-
     _cartDetail!: CartDetails;
 
     constructor(

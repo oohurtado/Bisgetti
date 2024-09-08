@@ -28,7 +28,6 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-
         [HttpGet(template: "cart/user/addresses")]
         public async Task<ActionResult> GetAddresses()
         {
@@ -37,13 +36,25 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        // TODO: duro
+        /// <summary>
+        /// Ovtiene direcciones
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpGet(template: "cart/user/addresses/{id}")]
+        public async Task<ActionResult> GetAddress(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _businessLogicCart.GetAddressAsync(userId, id);
+            return Ok(result);
+        }
+
+        // TODO: datos en duro
         /// <summary>
         /// Listado de propinas
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-
         [HttpGet(template: "cart/tips")]
         public async Task<ActionResult> GetTips()
         {
@@ -52,7 +63,7 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        // TODO: duro
+        // TODO: duro en duro
         /// <summary>
         /// Costo de envio
         /// </summary>

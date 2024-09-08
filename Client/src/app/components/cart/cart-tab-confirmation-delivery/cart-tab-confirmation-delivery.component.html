@@ -1,0 +1,105 @@
+<div class="row">
+    <div class="col-lg-8 mt-4">
+        <div class="p-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="fs-3">Confirmación y envío</span>                    
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>            
+            <hr>
+        </div>
+    </div>
+    <div class="col-lg-4 mt-4">
+        <div class="bg-light p-4">
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="fs-5">Productos</span>
+                        <div class="ps-4" *ngFor="let person of _cartGrouped, let _i_ = index">
+                            {{ person.key }}
+                            <div class="ps-4" *ngFor="let product of person.items, let _j_ = index">
+                                {{ product.productName }} ({{ product.productQuantity }}) <strong>{{ product.productPrice * product.productQuantity | currency:'$' }}</strong>
+                            </div>
+                            <div class="ps-4 mb-2">                            
+                                Total por persona: <strong  class="text-danger">{{ getTotalByPerson(person.items) | currency:'$' }}</strong>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <span>Sub total</span>&nbsp; 
+                            <span>({{ getTotal().param2 }} productos)</span>: 
+                            <strong class="text-danger">{{ getTotal().param1 | currency:'$' }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <span class="fs-5">Entrega del producto</span>
+                        <div class="ps-4">
+                            {{ _cartDetails?.deliveryMethod ?? '' | deliveryMethod }}
+                            <ng-container *ngIf="_address !== null">
+                                <span class="d-block">
+                                    {{ _address.name }}, {{ _address.street }}, #{{ _address.exteriorNumber }} {{ _address.interiorNumber }}, CP {{ _address.postalCode }}
+                                </span>
+                            </ng-container>
+                        </div>
+                        <div class="text-end">
+                            <span>Sub total</span>&nbsp;                           
+                            <strong class="text-danger">{{ _cartDetails?.shippingCost | currency:'$' }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <span class="fs-5">Propina</span>
+                        <div class="ps-4">
+                            <span>{{ _cartDetails?.tipPercent }}% de {{ getTotal().param1 | currency:'$' }}</span>                             
+                        </div>
+                        <div class="text-end">
+                            <span>Sub total</span>&nbsp;                           
+                            <strong class="text-danger">{{ ( getTotal().param1 * (_cartDetails?.tipPercent ?? 0)) / 100 | currency:'$' }}</strong>
+                        </div>
+                    </div>                    
+                </div>
+
+
+
+
+
+
+
+
+                ...
+                <!-- <span class="fs-6">Total en productos: </span>
+                <strong class="fs-6">{{ _totalProducts | currency:'$'  }}</strong>
+                <br>
+                <span class="fs-6">Entrega del producto: </span>
+                <strong class="fs-6">{{ _cartDetail.shippingCost | currency:'$'  }}</strong>
+                <br>
+                <span class="fs-6">Propina: </span>
+                <strong class="fs-6">{{ _cartDetail.tipPercent | currency:'$'  }}</strong>
+                <br>
+                <span class="fs-4">Total: </span>
+                <strong class="fs-4 text-danger">{{ _totalProducts + _cartDetail.shippingCost + ((_totalProducts * _cartDetail.tipPercent) / 100) | currency:'$'  }}</strong> -->
+            </div>
+            <div class="text-end mt-1">
+                ...
+                <!-- <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Siguiente paso</button> -->
+            </div>
+        </div> 
+    </div>
+</div>
+
+<pre>{{ _cartGrouped | json }}</pre>
+<pre>{{ _cartDetails | json }}</pre>
+<pre>{{ _address | json }}</pre>
+
+<br><br><br><br><br><br><br>
+/*
+new Tuple2("on-site", "Comer en el restaurante"),
+new Tuple2("take-away", "Ir al restaurante a recoger la comida"),
+new Tuple2("for-delivery", "Enviar a una dirección"),        
+*/

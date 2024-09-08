@@ -27,5 +27,6 @@
 <ng-container *ngIf="_tabCurrent == 1">
     <app-cart-tab-details (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep()" (evtCartDetails)="evtCartDetails($event)"></app-cart-tab-details>
 </ng-container>
-
-<pre>{{ _cartDetails | json }}</pre>
+<ng-container *ngIf="_tabCurrent == 2">
+    <app-cart-tab-confirmation-delivery (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep()" [_cartDetails]="_cartDetails"></app-cart-tab-confirmation-delivery>
+</ng-container>

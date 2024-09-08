@@ -3,10 +3,9 @@
         <div class="p-4">
             <div class="row">
                 <div class="col-md-6">
-                    <span class="fs-2">Últimos detalles</span>
+                    <span class="fs-3">Últimos detalles</span>
                 </div>
                 <div class="col-md-6">
-                    <div class="text-end  pe-2">Subtotal</div>
                 </div>
             </div>
             <hr>
@@ -63,7 +62,7 @@
                 <strong class="fs-6">{{ _cartDetail.shippingCost | currency:'$'  }}</strong>
                 <br>
                 <span class="fs-6">Propina: </span>
-                <strong class="fs-6">{{ _cartDetail.tipPercent | currency:'$'  }}</strong>
+                <strong class="fs-6">{{ (_totalProducts * _cartDetail.tipPercent) / 100 | currency:'$' }}</strong>
                 <br>
                 <span class="fs-4">Total: </span>
                 <strong class="fs-4 text-danger">{{ _totalProducts + _cartDetail.shippingCost + ((_totalProducts * _cartDetail.tipPercent) / 100) | currency:'$'  }}</strong>

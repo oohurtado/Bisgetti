@@ -10,6 +10,7 @@ using Server.Source.Data;
 using Server.Source.Models.DTOs.Cart;
 using Server.Source.Services.Interfaces;
 using Server.Source.Utilities;
+using Server.Source.Models.DTOs.MyAccount;
 
 namespace Server.Source.Logic
 {
@@ -49,6 +50,15 @@ namespace Server.Source.Logic
         {
             var data = await _businessRepository.GetAddresses(userId).ToListAsync();
             var result = _mapper.Map<List<AddressResponse>>(data);
+            return result;
+        }
+
+        public async Task<AddressResponse> GetAddressAsync(string userId, int addressId)
+        {
+            var data = await _businessRepository.GetAddresses(userId)
+                .Where(p => p.UserId == userId && p.Id == addressId)
+                .FirstOrDefaultAsync();
+            var result = _mapper.Map<AddressResponse>(data);
             return result;
         }
 

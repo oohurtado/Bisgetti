@@ -443,6 +443,24 @@ export class BusinessService {
 		});
 	}
 
+	cart_getUserAddress(addressId: number) {
+		return this.requestService.get<AddressResponse>(`/business/cart/user/addresses/${addressId}`);
+	}
+
+	cart_getUserAddressAsync(addressId: number) : Promise<AddressResponse> {
+		return new Promise((resolve, reject) => {
+			this.cart_getUserAddress(addressId)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
 	cart_addProductToCart(model: AddProductToCartRequest) {
 		return this.requestService.post(`/business/cart/product`, model);
 	}
