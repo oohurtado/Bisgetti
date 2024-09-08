@@ -9,6 +9,24 @@
                 </div>
             </div>            
             <hr>
+            <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
+                <div class="row">                    
+                    <div class="col-md-6 mt-2">
+                        <div class="form-floating">
+                            <input formControlName="paying" type="number" class="form-control" id="paying" placeholder="pago" (focus)="onQuantityFocus($event)">
+                            <label for="paying">¿Con cuanto pagarás?</label>
+                        </div>
+                        <span *ngIf="hasError('paying', 'required')" class="text-danger">Este campo es requerido</span>
+                    </div>    
+                    <div class="col-md-6 mt-2">
+                        <div class="form-floating">
+                            <textarea formControlName="comments" class="form-control" placeholder="La descripción van los comentarios" id="comments" style="height: 100px"></textarea>
+                            <label for="comments">Comentarios</label>
+                        </div>                 
+                        <span *ngIf="hasError('comments', 'maxlength')" class="text-danger">Este campo debe un máximo de 100 caracteres</span>
+                    </div>      
+                </div>
+            </form>
         </div>
     </div>
     <div class="col-lg-4 mt-4">

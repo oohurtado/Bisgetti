@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Utils } from '../../../source/utils';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../services/business/business.service';
 import { FormBase } from '../../../source/form-base';
@@ -43,9 +43,9 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
     }   
 
     async ngOnInit() {
-        console.log(this._cartDetails)
         await Utils.delay(100);
         await this.getAllAsync();
+        await this.setupFormAsync();
     }
 
     async getAllAsync() {
@@ -64,8 +64,6 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
 
 					return info;
 				});
-
-                console.log(this._cartGrouped)
 			}, e => {
 				this.evtError.emit(Utils.getErrorsResponse(e));
 			});		
@@ -74,7 +72,6 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
             await this.businessService.cart_getUserAddressAsync(this._cartDetails?.addressId)
                 .then(r => {
                     this._address = r;
-                    console.log(this._address)
                 }, e => {
                     this.evtError.emit(Utils.getErrorsResponse(e));
                 });
@@ -86,10 +83,39 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
     }
 
     override setupFormAsync(): void {
-        throw new Error('Method not implemented.');
+        this._myForm = this.formBuilder.group({
+            paying: ['0.0', [Validators.required]],
+            comments: ['', [Validators.maxLength(100)]],
+		});
+
     } 
 
     onNextStepClicked(event: Event) {
-        this.evtNextStep.emit();		
+        this._error = null!;
+        
+		if (!this.isFormValid()) {            
+            return;
+		}
+        
+        // ids del carrito
+        let cartElementIds: number[] = [];
+        this._cartGrouped.forEach(p => {
+            p.items.forEach(c => cartElementIds.push(c.id));
+        });
+        
+        console.log('cartElementIds', cartElementIds);
+        console.log('_cartDetails = ', this._cartDetails);
+        console.log('_address = ', this._address);
+        console.log('paying', this._myForm.get('paying')?.value)
+        console.log('comments', this._myForm.get('comments')?.value)
+        //this.evtNextStep.emit();		
 	}
+
+    onQuantityFocus(event: Event) {
+		let input = (event.target as HTMLInputElement);
+		input.select();
+	}
+
+    onDoneClicked() {
+    }
 }
