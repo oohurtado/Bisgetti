@@ -158,6 +158,15 @@ namespace Server.Source.Logic
             };
         }
 
+        public async Task<TotalOfProductsInCartResponse> GetTotalOfProductsInCartAsync(string userId)
+        {
+            var total = await _businessRepository.GetTotalOfProductsInCartAsync(userId, p => true);
+            return new TotalOfProductsInCartResponse()
+            {
+                Total = total
+            };
+        }
+
         private string GetUrl(string image)
         {
             if (string.IsNullOrEmpty(image))

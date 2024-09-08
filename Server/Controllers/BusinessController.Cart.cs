@@ -15,7 +15,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-        [HttpGet(template: "user/people")]
+        [HttpGet(template: "cart/user/people")]
         public async Task<ActionResult> GetPeople()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -29,7 +29,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
 
-        [HttpGet(template: "user/addresses")]
+        [HttpGet(template: "cart/user/addresses")]
         public async Task<ActionResult> GetAddresses()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -38,11 +38,38 @@ namespace Server.Controllers
         }
 
         /// <summary>
+        /// Listado de propinas
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+
+        [HttpGet(template: "cart/tips")]
+        public async Task<ActionResult> GetTips()
+        {
+            var tips = new List<int>() { 5, 10, 15, 20 };
+            var result = await Task.FromResult(tips);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Costo de envio
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+
+        [HttpGet(template: "cart/shipping-cost")]
+        public async Task<ActionResult> GetShippingCost()
+        {            
+            var result = await Task.FromResult(new ShippingCostResponse() { Total = 30 });
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Agregar producto a carrito
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-        [HttpPost(template: "cart")]
+        [HttpPost(template: "cart/product")]
         public async Task<ActionResult> AddProductToCart([FromBody] AddProductToCartRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -51,11 +78,11 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Actuualizar producto del carrito
+        /// Actualizar producto del carrito
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-        [HttpPut(template: "cart")]
+        [HttpPut(template: "cart/product")]
         public async Task<ActionResult> UpdateProductFromCart([FromBody] UpdateProductFromCartRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -68,7 +95,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-        [HttpGet(template: "cart")]
+        [HttpGet(template: "cart/product")]
         public async Task<ActionResult> GetProductsFromCart()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -81,7 +108,7 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-        [HttpDelete(template: "cart/{id}")]
+        [HttpDelete(template: "cart/product/{id}")]
         public async Task<ActionResult> DeleteProductFromCart(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
@@ -94,11 +121,24 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-        [HttpGet(template: "cart/number-of-products-in-cart")]
+        [HttpGet(template: "cart/product/number-of-products-in-cart")]
         public async Task<ActionResult> GetNumberOfProductsInCart()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var result = await _businessLogicCart.GetNumberOfProductsInCartAsync(userId);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Numero de productos en el carrito
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpGet(template: "cart/product/total-of-products-in-cart")]
+        public async Task<ActionResult> GetTotalOfProductsInCart()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _businessLogicCart.GetTotalOfProductsInCartAsync(userId);
             return Ok(result);
         }
     }

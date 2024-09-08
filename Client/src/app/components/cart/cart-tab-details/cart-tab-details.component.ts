@@ -19,7 +19,13 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     @Output() evtError!: EventEmitter<string|null>;
     
     _deliveryMethods: Tuple2<string,string>[] = [];
+    
     _addresses: AddressResponse[] = [];    
+    _tips: number[] = [];
+    _total: number = 0;
+    _shippingCost: number = 0;
+
+    _summary_shippingCost: number = 0;
     
     _deliveryMethodWasClicked: boolean = false;
     _displayAddresses: boolean = false
@@ -36,21 +42,32 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
 
     async ngOnInit() {
         this.setLists();
-        await this.getAddressesAsyn();
+        await this.getAllAsync();
         await this.setupFormAsync();
-    }
-
-    async getAddressesAsyn() {
-        await this.businessService.cart_getUserAddressesAsync()
-            .then(r => {    
-                this._addresses = r;   				
-            }, e => {
-                this.evtError.emit(Utils.getErrorsResponse(e));
-            });
     }
 
     setLists() {
         this._deliveryMethods = ListFactory.get("cart-delivery-methods");
+    }
+
+    async getAllAsync() {
+        this._isProcessing = true;
+        await Promise.all(
+            [
+                this.businessService.cart_getUserAddressesAsync(),
+                this.businessService.cart_getTipsAsync(),
+                this.businessService.cart_getTotalOfProductsInCartAsync(),
+                this.businessService.cart_getShippingCostAsync(),
+            ])
+            .then(r => {
+                this._addresses = r[0];
+                this._tips = r[1];
+                this._total = r[2].total;
+                this._shippingCost = r[3].total;
+            }, e => {
+                this.evtError.emit(Utils.getErrorsResponse(e));
+            });
+        this._isProcessing = false;        
     }
 
     override setupFormAsync(): void {
@@ -82,9 +99,19 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
         await Utils.delay(100);        
         this._myForm.get('address')?.addValidators(Validators.required);
         this._myForm.get('address')?.updateValueAndValidity();
+
+        // new Tuple2("on-site", "Comer en el restaurante"),
+        // new Tuple2("take-away", "Ir al restaurante a recoger la comida"),
+        // new Tuple2("for-delivery", "Enviar a una dirección"),
+
+        if (deliveryMethod.param1 === 'on-site' || deliveryMethod.param1 === 'take-away') {
+            this._summary_shippingCost = 0;
+        } else if (deliveryMethod.param1 === 'for-delivery') {
+            this._summary_shippingCost = this._shippingCost;
+        }
     }
 
     isDeliveryMethodToSendSelected(): boolean {
-        return this._myForm?.get('deliveryMethod')?.value === 'to-send';
+        return this._myForm?.get('deliveryMethod')?.value === 'for-delivery';
     }
 }

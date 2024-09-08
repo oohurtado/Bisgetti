@@ -19,6 +19,8 @@ import { CartElementResponse } from '../../source/models/business/responses/cart
 import { NumberOfProductsInCartResponse } from '../../source/models/business/responses/number-of-products-in-cart-response';
 import { AddressResponse } from '../../source/models/business/responses/address-response';
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
+import { TotalOfProductsInCartResponse } from '../../source/models/business/responses/total-of-products-in-cart-response';
+import { ShippingCostResponse } from '../../source/models/business/responses/shipping-cost-response';
 
 @Injectable({
     providedIn: 'root'
@@ -370,7 +372,7 @@ export class BusinessService {
 	//////////////////////////
 
 	cart_getUserPeople() {
-		return this.requestService.get<PersonResponse[]>(`/business/user/people`);
+		return this.requestService.get<PersonResponse[]>(`/business/cart/user/people`);
 	}
 
     cart_getUserPeopleAsync() : Promise<PersonResponse[]> {
@@ -387,8 +389,44 @@ export class BusinessService {
 		});
 	}
 
+	cart_getTips() {
+		return this.requestService.get<number[]>(`/business/cart/tips`);
+	}
+
+    cart_getTipsAsync() : Promise<number[]> {
+		return new Promise((resolve, reject) => {
+			this.cart_getTips()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	cart_getShippingCost() {
+		return this.requestService.get<ShippingCostResponse>(`/business/cart/shipping-cost`);
+	}
+
+	cart_getShippingCostAsync() : Promise<ShippingCostResponse> {
+		return new Promise((resolve, reject) => {
+			this.cart_getShippingCost()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
 	cart_getUserAddresses() {
-		return this.requestService.get<AddressResponse[]>(`/business/user/addresses`);
+		return this.requestService.get<AddressResponse[]>(`/business/cart/user/addresses`);
 	}
 
     cart_getUserAddressesAsync() : Promise<AddressResponse[]> {
@@ -406,7 +444,7 @@ export class BusinessService {
 	}
 
 	cart_addProductToCart(model: AddProductToCartRequest) {
-		return this.requestService.post(`/business/cart`, model);
+		return this.requestService.post(`/business/cart/product`, model);
 	}
 
 	cart_addProductToCartAsync(model: AddProductToCartRequest) {
@@ -424,7 +462,7 @@ export class BusinessService {
 	}
 
 	cart_updateProductFromCart(model: UpdateProductFromCartRequest) {
-		return this.requestService.put(`/business/cart`, model);
+		return this.requestService.put(`/business/cart/product`, model);
 	}
 
 	cart_updateProductFromCartAsync(model: UpdateProductFromCartRequest) {
@@ -442,7 +480,7 @@ export class BusinessService {
 	}
 
 	cart_getProductsFromCart() {
-		return this.requestService.get<CartElementResponse[]>(`/business/cart`);
+		return this.requestService.get<CartElementResponse[]>(`/business/cart/product`);
 	}
 
 	cart_getProductsFromCartAsync() : Promise<CartElementResponse[]> {
@@ -459,8 +497,12 @@ export class BusinessService {
 		});
 	}
 
+	cart_deleteProductFromCart(id: number) {
+		return this.requestService.delete(`/business/cart/product/${id}`);
+	}
+
 	cart_getNumberOfProductsInCart() {
-		return this.requestService.get<NumberOfProductsInCartResponse>(`/business/cart/number-of-products-in-cart`);
+		return this.requestService.get<NumberOfProductsInCartResponse>(`/business/cart/product/number-of-products-in-cart`);
 	}
 
     cart_getNumberOfProductsInCartAsync() : Promise<NumberOfProductsInCartResponse> {
@@ -477,7 +519,21 @@ export class BusinessService {
 		});
 	}
 
-	cart_deleteProductFromCart(id: number) {
-		return this.requestService.delete(`/business/cart/${id}`);
+	cart_getTotalOfProductsInCart() {
+		return this.requestService.get<TotalOfProductsInCartResponse>(`/business/cart/product/total-of-products-in-cart`);
+	}
+
+	cart_getTotalOfProductsInCartAsync() : Promise<TotalOfProductsInCartResponse> {
+		return new Promise((resolve, reject) => {
+			this.cart_getTotalOfProductsInCart()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
 	}
 }

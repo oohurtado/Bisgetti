@@ -66,5 +66,15 @@ namespace Server.Source.Data
                 .SumAsync(p => p.ProductQuantity);
             return total;
         }
+
+        public async Task<decimal> GetTotalOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)
+        {
+            var total = await _context.CartElements
+                .Include(p => p.Product)
+                .Where(p => p.UserId == userId)
+                .Where(exp)
+                .SumAsync(p => p.ProductQuantity * p.Product.Price);
+            return total;
+        }
     }
 }
