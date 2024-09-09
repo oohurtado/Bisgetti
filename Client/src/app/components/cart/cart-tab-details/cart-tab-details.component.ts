@@ -109,12 +109,14 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
 
     async onDeliveryMethodClicked(event: Event, deliveryMethod: Tuple2<string,string>) {
         await Utils.delay(100);        
-        this._myForm.get('address')?.addValidators(Validators.required);
-        this._myForm.get('address')?.updateValueAndValidity();
         
         if (deliveryMethod.param1 === 'on-site' || deliveryMethod.param1 === 'take-away') {
+            this._myForm.get('address')?.removeValidators(Validators.required)
+            this._myForm.get('address')?.updateValueAndValidity();
             this._cartDetail.shippingCost = 0;
         } else if (deliveryMethod.param1 === 'for-delivery') {
+            this._myForm.get('address')?.addValidators(Validators.required);
+            this._myForm.get('address')?.updateValueAndValidity();
             this._cartDetail.shippingCost = this._shippingCost;            
         }
     }
