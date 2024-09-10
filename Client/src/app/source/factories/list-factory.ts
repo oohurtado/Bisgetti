@@ -8,8 +8,8 @@ export class ListFactory {
         switch (section) {
             case 'cart-delivery-methods':
                 return  [
-                    new Tuple2("on-site", "Comer en el restaurante"),
-                    new Tuple2("take-away", "Ir al restaurante a recoger la comida"),
+                    // new Tuple2("on-site", "Comer en el restaurante"),
+                    new Tuple2("take-away", "Recoger en restaurante"),
                     new Tuple2("for-delivery", "Enviar a una dirección"),
                 ];
             case 'user-change-role':
