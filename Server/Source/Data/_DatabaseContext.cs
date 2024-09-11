@@ -148,7 +148,7 @@ namespace Server.Source.Data
                 e.Property(p => p.Id).HasColumnName("RequestId");
 
                 e.Property(p => p.DeliveryMethod).IsRequired(required: true).HasMaxLength(25);
-                e.Property(p => p.Tip).IsRequired(required: true).HasColumnType("decimal(15,2)");
+                e.Property(p => p.TipPercent).IsRequired(required: true).HasColumnType("decimal(15,2)");
                 e.Property(p => p.ShippingCost).IsRequired(required: true).HasColumnType("decimal(15,2)");
                 e.Property(p => p.StatusTrackingJson).IsRequired(required: true).HasMaxLength(500);
                 e.Property(p => p.AddressJson).IsRequired(required: false);

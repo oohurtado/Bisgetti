@@ -12,7 +12,7 @@
         /// </summary>
 
         public string? DeliveryMethod { get; set; }
-        public decimal? Tip { get; set; }
+        public decimal? TipPercent { get; set; }
         public decimal? ShippingCost { get; set; }
         public string? StatusTrackingJson { get; set; } // StatusTrackingJson
         public string? AddressJson { get; set; } // AddressJson
