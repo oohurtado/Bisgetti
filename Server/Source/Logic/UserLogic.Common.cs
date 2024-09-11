@@ -3,8 +3,8 @@ using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
-using Server.Source.Models.DTOs.MyAccount;
-using Server.Source.Models.DTOs.User;
+using Server.Source.Models.DTOs.Entities;
+using Server.Source.Models.DTOs.UseCases.MyAccount;
 using Server.Source.Models.Enums;
 
 namespace Server.Source.Logic

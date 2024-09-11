@@ -19,11 +19,11 @@ using System.Text;
 using Server.Source.Services.Interfaces;
 using Server.Source.Services;
 using Server.Source.Models.Entities;
-using Server.Source.Models.DTOs.Category;
-using Server.Source.Models.DTOs.Menu;
-using Server.Source.Models.DTOs.MenuStuff;
-using Server.Source.Models.DTOs.Product;
-using Server.Source.Models.DTOs.MyAccount;
+using Server.Source.Models.DTOs.Entities;
+using Server.Source.Models.DTOs.UseCases.Product;
+using Server.Source.Models.DTOs.UseCases.MyAccount;
+using Server.Source.Models.DTOs.UseCases.Menu;
+using Server.Source.Models.DTOs.UseCases.Category;
 
 namespace Server
 {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Server.Source.Models.DTOs.MenuStuff;
+using Server.Source.Models.DTOs.UseCases.MenuStuff;
 
 namespace Server.Controllers
 {

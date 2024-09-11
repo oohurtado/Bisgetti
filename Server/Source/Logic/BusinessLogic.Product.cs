@@ -4,9 +4,10 @@ using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
-using Server.Source.Models.DTOs.Product;
 using Server.Source.Models.DTOs.Common;
 using Server.Source.Exceptions;
+using Server.Source.Models.DTOs.Entities;
+using Server.Source.Models.DTOs.UseCases.Product;
 
 namespace Server.Source.Logic
 {

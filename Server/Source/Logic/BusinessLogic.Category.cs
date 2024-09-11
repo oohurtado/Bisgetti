@@ -4,8 +4,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
-using Server.Source.Models.DTOs.Category;
 using Server.Source.Models.DTOs.Common;
+using Server.Source.Models.DTOs.Entities;
+using Server.Source.Models.DTOs.UseCases.Category;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 

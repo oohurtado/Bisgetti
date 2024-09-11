@@ -7,10 +7,10 @@ using Server.Source.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Server.Source.Data;
-using Server.Source.Models.DTOs.Cart;
 using Server.Source.Services.Interfaces;
 using Server.Source.Utilities;
-using Server.Source.Models.DTOs.MyAccount;
+using Server.Source.Models.DTOs.Entities;
+using Server.Source.Models.DTOs.UseCases.Cart;
 
 namespace Server.Source.Logic
 {
@@ -38,6 +38,7 @@ namespace Server.Source.Logic
             var people = await _businessRepository.GetPeople(userId)
                 .Select(p => new PersonResponse()
                 {
+                    PersonId = p.Id,
                     Name = p.Name,
                 })
                 .ToListAsync();

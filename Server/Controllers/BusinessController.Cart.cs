@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Logic;
-using Server.Source.Models.DTOs.Cart;
+using Server.Source.Models.DTOs.UseCases.Cart;
 using System.Security.Claims;
 
 namespace Server.Controllers
