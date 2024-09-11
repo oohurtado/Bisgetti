@@ -12,7 +12,7 @@ export class DeliveryMethodPipe implements PipeTransform {
 			case 'take-away':
 				return 'Recoger en restaurante';
 			case 'for-delivery':
-				return 'Enviar a una dirección';
+				return 'Enviar a dirección';
 		}
 
 		return `No se pudo resolver el valor '${value}' para el pipe 'RoleStr' no encontrado`

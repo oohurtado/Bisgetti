@@ -10,7 +10,7 @@ export class ListFactory {
                 return  [
                     // new Tuple2("on-site", "Comer en el restaurante"),
                     new Tuple2("take-away", "Recoger en restaurante"),
-                    new Tuple2("for-delivery", "Enviar a una dirección"),
+                    new Tuple2("for-delivery", "Enviar a dirección"),
                 ];
             case 'user-change-role':
                 let pipe = new RoleStrPipe();

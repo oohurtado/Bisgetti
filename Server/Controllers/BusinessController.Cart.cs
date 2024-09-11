@@ -153,5 +153,9 @@ namespace Server.Controllers
             var result = await _businessLogicCart.GetTotalOfProductsInCartAsync(userId);
             return Ok(result);
         }
+
+        // TODO: crear request para el carrito
+        // CartRequestRequest
+        // cart/request
     }
 }
