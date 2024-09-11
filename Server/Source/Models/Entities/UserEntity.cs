@@ -10,6 +10,7 @@ namespace Server.Source.Models.Entities
             Addresses = [];
             People = [];
             CartElements = [];
+            Requests = [];
         }
 
         /// <summary>
@@ -26,5 +27,6 @@ namespace Server.Source.Models.Entities
         public ICollection<AddressEntity> Addresses { get; set; }
         public ICollection<PersonEntity> People { get; set; }
         public ICollection<CartElementEntity> CartElements { get; set; }
+        public ICollection<RequestEntity> Requests { get; set; }
     }
 }
