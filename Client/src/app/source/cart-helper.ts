@@ -1,4 +1,4 @@
-import { CartElementResponse } from "./models/business/responses/cart-element-response";
+import { CartElementResponse } from "./models/dtos/entities/cart-element-response";
 import { Grouping } from "./models/common/grouping";
 import { Tuple2 } from "./models/common/tuple";
 

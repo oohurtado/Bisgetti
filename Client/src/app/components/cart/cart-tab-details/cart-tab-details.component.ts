@@ -6,7 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../services/business/business.service';
 import { Utils } from '../../../source/utils';
-import { AddressResponse } from '../../../source/models/business/responses/address-response';
+import { AddressResponse } from '../../../source/models/dtos/entities/address-response';
 import { CartDetails } from '../../../source/models/business/common/cart-details';
 import { CartHelper } from '../../../source/cart-helper';
 

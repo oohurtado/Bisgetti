@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../common/request.service';
-import { UserResponse } from '../../source/models/business/responses/user-response';
+import { UserResponse } from '../../source/models/dtos/entities/user-response';
 import { PageData } from '../../source/models/common/page-data';
 import { CreateUserRequest } from '../../source/models/dtos/users/role/create-user-request';
 import { ChangeRoleRequest } from '../../source/models/dtos/users/role/change-role-request';

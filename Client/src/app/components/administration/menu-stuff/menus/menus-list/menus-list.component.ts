@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
+import { MenuResponse } from '../../../../../source/models/dtos/entities/menu-response';
 import { PageBase } from '../../../../../source/page-base';
 import { BusinessService } from '../../../../../services/business/business.service';
 import { Router } from '@angular/router';

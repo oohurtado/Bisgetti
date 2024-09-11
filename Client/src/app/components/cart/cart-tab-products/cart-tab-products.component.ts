@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CartElementResponse } from '../../../source/models/business/responses/cart-element-response';
+import { CartElementResponse } from '../../../source/models/dtos/entities/cart-element-response';
 import { Grouping } from '../../../source/models/common/grouping';
 import { UpdateProductFromCartRequest } from '../../../source/models/dtos/business/update-product-from-cart-request';
 import { Utils } from '../../../source/utils';

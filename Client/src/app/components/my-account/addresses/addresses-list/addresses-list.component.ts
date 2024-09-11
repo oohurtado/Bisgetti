@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageBase } from '../../../../source/page-base';
-import { AddressResponse } from '../../../../source/models/business/responses/address-response';
+import { AddressResponse } from '../../../../source/models/dtos/entities/address-response';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';

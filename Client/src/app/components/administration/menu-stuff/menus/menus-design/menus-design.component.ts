@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuResponse } from '../../../../../source/models/business/responses/menu-response';
-import { MenuStuffResponse } from '../../../../../source/models/business/responses/menu-stuff-response';
-import { CategoryResponse } from '../../../../../source/models/business/responses/category-response';
+import { MenuResponse } from '../../../../../source/models/dtos/entities/menu-response';
+import { MenuStuffResponse } from '../../../../../source/models/dtos/entities/menu-stuff-response';
+import { CategoryResponse } from '../../../../../source/models/dtos/entities/category-response';
 import { MenuElement } from '../../../../../source/models/business/common/menu-element';
-import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
+import { ProductResponse } from '../../../../../source/models/dtos/entities/product-response';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../../../services/business/business.service';
 import { Tuple2 } from '../../../../../source/models/common/tuple';

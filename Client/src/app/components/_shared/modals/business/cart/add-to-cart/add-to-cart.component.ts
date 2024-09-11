@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MenuElement } from '../../../../../../source/models/business/common/menu-element';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PersonResponse } from '../../../../../../source/models/business/responses/person-response';
+import { PersonResponse } from '../../../../../../source/models/dtos/entities/person-response';
 import { AddProductToCartRequest } from '../../../../../../source/models/dtos/business/add-product-to-cart-request';
 import { BusinessService } from '../../../../../../services/business/business.service';
 import { Utils } from '../../../../../../source/utils';

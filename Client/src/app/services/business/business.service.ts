@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../common/request.service';
-import { MenuResponse } from '../../source/models/business/responses/menu-response';
+import { MenuResponse } from '../../source/models/dtos/entities/menu-response';
 import { PageData } from '../../source/models/common/page-data';
 import { CreateOrUpdateMenuRequest } from '../../source/models/dtos/menus/create-or-update-menu-request';
-import { CategoryResponse } from '../../source/models/business/responses/category-response';
+import { CategoryResponse } from '../../source/models/dtos/entities/category-response';
 import { CreateOrUpdateCategoryRequest } from '../../source/models/dtos/menus/create-or-update-category-request';
-import { ProductResponse } from '../../source/models/business/responses/product-response';
+import { ProductResponse } from '../../source/models/dtos/entities/product-response';
 import { CreateOrUpdateProductRequest } from '../../source/models/dtos/menus/create-or-update-product-request';
-import { MenuStuffResponse } from '../../source/models/business/responses/menu-stuff-response';
+import { MenuStuffResponse } from '../../source/models/dtos/entities/menu-stuff-response';
 import { AddOrRemoveElementRequest } from '../../source/models/dtos/menus/add-or-remove-element-request';
 import { PositionElementRequest } from '../../source/models/dtos/menus/position-element-request';
 import { SettingsElementRequest } from '../../source/models/dtos/menus/settings-element-request';
 import { ImageElementRequest } from '../../source/models/dtos/menus/image-element-request';
 import { ImageElementResponse } from '../../source/models/dtos/menus/image-element-response';
-import { PersonResponse } from '../../source/models/business/responses/person-response';
+import { PersonResponse } from '../../source/models/dtos/entities/person-response';
 import { AddProductToCartRequest } from '../../source/models/dtos/business/add-product-to-cart-request';
-import { CartElementResponse } from '../../source/models/business/responses/cart-element-response';
-import { NumberOfProductsInCartResponse } from '../../source/models/business/responses/number-of-products-in-cart-response';
-import { AddressResponse } from '../../source/models/business/responses/address-response';
+import { CartElementResponse } from '../../source/models/dtos/entities/cart-element-response';
+import { NumberOfProductsInCartResponse } from '../../source/models/dtos/business/number-of-products-in-cart-response';
+import { AddressResponse } from '../../source/models/dtos/entities/address-response';
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
-import { TotalOfProductsInCartResponse } from '../../source/models/business/responses/total-of-products-in-cart-response';
-import { ShippingCostResponse } from '../../source/models/business/responses/shipping-cost-response';
+import { TotalOfProductsInCartResponse } from '../../source/models/dtos/business/total-of-products-in-cart-response';
+import { ShippingCostResponse } from '../../source/models/dtos/business/shipping-cost-response';
 
 @Injectable({
     providedIn: 'root'

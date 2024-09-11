@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../../../services/business/business.service';
 import { FormBase } from '../../../../../source/form-base';
-import { ProductResponse } from '../../../../../source/models/business/responses/product-response';
+import { ProductResponse } from '../../../../../source/models/dtos/entities/product-response';
 import { Utils } from '../../../../../source/utils';
 import { CreateOrUpdateProductRequest } from '../../../../../source/models/dtos/menus/create-or-update-product-request';
 declare let alertify: any;

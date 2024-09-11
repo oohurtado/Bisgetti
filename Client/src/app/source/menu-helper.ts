@@ -1,8 +1,8 @@
 import { MenuElement } from "./models/business/common/menu-element";
-import { CategoryResponse } from "./models/business/responses/category-response";
-import { MenuResponse } from "./models/business/responses/menu-response";
-import { MenuStuffResponse } from "./models/business/responses/menu-stuff-response";
-import { ProductResponse } from "./models/business/responses/product-response";
+import { CategoryResponse } from "./models/dtos/entities/category-response";
+import { MenuResponse } from "./models/dtos/entities/menu-response";
+import { MenuStuffResponse } from "./models/dtos/entities/menu-stuff-response";
+import { ProductResponse } from "./models/dtos/entities/product-response";
 import * as lodash from 'lodash';
 
 export class MenuHelper {

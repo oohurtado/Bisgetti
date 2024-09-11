@@ -1,7 +1,7 @@
-import { CategoryResponse } from "../responses/category-response";
-import { MenuResponse } from "../responses/menu-response";
-import { MenuStuffResponse } from "../responses/menu-stuff-response";
-import { ProductResponse } from "../responses/product-response";
+import { CategoryResponse } from "../../dtos/entities/category-response";
+import { MenuResponse } from "../../dtos/entities/menu-response";
+import { MenuStuffResponse } from "../../dtos/entities/menu-stuff-response";
+import { ProductResponse } from "../../dtos/entities/product-response";
 
 export class MenuElement extends MenuStuffResponse {
     text!: string;
