@@ -32,7 +32,7 @@
                                         <div class="col-xs-4 col-sm-8 col-md-6 col-lg-4">
                                             <div class="input-group input-group-sm mb-1">
                                                 <span class="input-group-text" id="basic-addon3">Cantidad</span>
-                                                <input (focus)="onQuantityFocus($event)" (keyup)="onQuantityChanged($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" autocomplete="off">                                        
+                                                <input (focus)="onQuantityFocus($event)" (keyup)="onQuantityChanged($event, product)" [value]="product.productQuantity" type="number" min="0" oninput="this.value = Math.abs(this.value)" onkeypress="return !(event.charCode == 46)" class="form-control" id="floatingInput" autocomplete="off">                                        
                                             </div> 
                                             <div class="btn-group border" role="group" aria-label="Basic example">
                                                 <button type="button" class="btn btn-light border btn-sm btn-{{product.id}}" (click)="onUpdateProductFromCartClicked($event, product)" [disabled]="true">Actualizar</button>

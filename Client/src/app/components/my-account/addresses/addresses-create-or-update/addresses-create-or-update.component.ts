@@ -64,13 +64,13 @@ export class AddressesCreateOrUpdateComponent extends FormBase implements OnInit
     override setupFormAsync() {
         if (this._address === null || this._address === undefined) {
             this._myForm = this.formBuilder.group({
-                name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
+                name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
                 country: [null, [Validators.required]],
                 state: [null, [Validators.required]],
                 city: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],   
                 suburb: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],            
-                postalCode: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
                 street: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+                postalCode: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
                 exteriorNumber: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
                 interiorNumber: ['', [Validators.maxLength(10)]],
                 moreInstructions: ['', [Validators.maxLength(250)]],

@@ -38,15 +38,15 @@
                                 <input formControlName="name" type="text" (focus)="onFocus($event)" class="form-control" id="name" list="people" placeholder="¿Para quién es este producto?">
                               </div>                                                        
                             <span *ngIf="hasError('name', 'required')" class="text-danger">Este campo es requerido</span>
-                            <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 2 y 25 caracteres</span>
+                            <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger">Este campo debe contener entre 2 y 50 caracteres</span>
                         </div>
                         <div class="mb-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon3">Cantidad</span>                                
-                                <input formControlName="quantity" type="number" (focus)="onFocus($event)" oninput="this.value = Math.abs(this.value)" pattern="[0-9]" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity" autocomplete="off">
+                                <input formControlName="quantity" type="number" (focus)="onFocus($event)" oninput="this.value = Math.abs(this.value)" onkeypress="return !(event.charCode == 46)" class="form-control" id="quantity" autocomplete="off">
                             </div>
                             <span *ngIf="hasError('quantity', 'required')" class="text-danger">Este campo es requerido</span>
-                            <span *ngIf="hasError('quantity', 'min') || hasError('quantity', 'max')" class="text-danger">Mínimo 1, máximo 50</span>
+                            <span *ngIf="hasError('quantity', 'min') || hasError('quantity', 'max')" class="text-danger">Mínimo 1, máximo 1000</span>
                         </div>
                         <div class="mb-3">    
                             <span class="fs-5">Subtotal: <strong>{{ getTotal() | currency:'$' }}</strong></span>                            

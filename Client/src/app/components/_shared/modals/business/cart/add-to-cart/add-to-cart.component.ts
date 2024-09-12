@@ -39,8 +39,8 @@ export class AddToCartComponent implements OnChanges, OnInit {
 
     ngOnInit(): void {    
         this._myForm = this.formBuilder.group({
-            name: [ '', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-            quantity: [1, [Validators.required,Validators.min(1), Validators.max(50)]],
+            name: [ '', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+            quantity: [1, [Validators.required,Validators.min(1), Validators.max(1000)]],
         });
 	}
 

@@ -5,6 +5,7 @@
         public RequestEntity()
         {
             RequestElements = [];
+            RequestStatuses = [];
         }
 
         /// <summary>
@@ -13,8 +14,7 @@
 
         public string? DeliveryMethod { get; set; }
         public decimal? TipPercent { get; set; }
-        public decimal? ShippingCost { get; set; }
-        public string? StatusTrackingJson { get; set; } // StatusTrackingJson
+        public decimal? ShippingCost { get; set; }                
         public string? AddressJson { get; set; } // AddressJson
 
         /// <summary>
@@ -27,12 +27,7 @@
         public UserEntity User { get; set; } = null!;
 
         public ICollection<RequestElementEntity> RequestElements { get; set; }
-    }
-
-    public class StatusTrackingJson
-    {
-        public string? Status { get; set; }
-        public DateTime? EventAt { get; set; }
+        public ICollection<RequestStatusEntity> RequestStatuses { get; set; }
     }
 
     public class AddressJson

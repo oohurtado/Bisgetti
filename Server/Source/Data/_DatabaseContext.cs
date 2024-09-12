@@ -17,6 +17,7 @@ namespace Server.Source.Data
         public virtual DbSet<CartElementEntity> CartElements { get; set; }
         public virtual DbSet<RequestEntity> Requests { get; set; }
         public virtual DbSet<RequestElementEntity> RequestElements { get; set; }
+        public virtual DbSet<RequestStatusEntity> RequestStatuses { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
@@ -106,8 +107,7 @@ namespace Server.Source.Data
                 e.HasIndex(p => new { p.Name }).IsUnique();
 
                 e.HasMany(p => p.MenuStuff).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
-                e.HasMany(p => p.CartElements).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
-                e.HasMany(p => p.CartElements).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.CartElements).WithOne(p => p.Product).OnDelete(DeleteBehavior.Cascade);                
             });
 
             builder.Entity<MenuStuffEntity>(e =>
@@ -149,12 +149,12 @@ namespace Server.Source.Data
 
                 e.Property(p => p.DeliveryMethod).IsRequired(required: true).HasMaxLength(25);
                 e.Property(p => p.TipPercent).IsRequired(required: true).HasColumnType("decimal(15,2)");
-                e.Property(p => p.ShippingCost).IsRequired(required: true).HasColumnType("decimal(15,2)");
-                e.Property(p => p.StatusTrackingJson).IsRequired(required: true).HasMaxLength(500);
+                e.Property(p => p.ShippingCost).IsRequired(required: true).HasColumnType("decimal(15,2)");                
                 e.Property(p => p.AddressJson).IsRequired(required: false);
 
                 e.HasOne(p => p.User).WithMany(p => p.Requests).HasForeignKey(p => p.UserId);
                 e.HasMany(p => p.RequestElements).WithOne(p => p.Request).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.RequestStatuses).WithOne(p => p.Request).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<RequestElementEntity>(e =>
@@ -169,6 +169,16 @@ namespace Server.Source.Data
                 e.Property(p => p.PersonName).IsRequired(required: true).HasMaxLength(50);
 
                 e.HasOne(p => p.Request).WithMany(p => p.RequestElements).HasForeignKey(p => p.RequestId);
+            });
+
+            builder.Entity<RequestStatusEntity>(e =>
+            {
+                e.Property(p => p.Id).HasColumnName("RequestStatusId");
+
+                e.Property(p => p.Status).IsRequired(required: true).HasMaxLength(50);
+                e.Property(p => p.EventAt).IsRequired(required: true).HasColumnType("datetime");
+
+                e.HasOne(p => p.Request).WithMany(p => p.RequestStatuses).HasForeignKey(p => p.RequestId);
             });
         }
     }
