@@ -69,7 +69,7 @@
                 <strong class="fs-4 text-danger">{{ _cartHelper.getTotalInCart(_cartGrouped).param1 | currency:'$' }}</strong>
             </div>
             <div class="text-end mt-1">
-                <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)">Siguiente paso</button>
+                <button class="btn btn-primary" type="button" (click)="onNextStepClicked($event)" [disabled]="_cartGrouped.length == 0">Siguiente paso</button>
             </div>  
         </div> 
     </div>

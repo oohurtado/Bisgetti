@@ -85,8 +85,9 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
     }
 
     override setupFormAsync(): void {
+        let total = this._cartHelper.getTotalInCart(this._cartGrouped).param1 + (this._cartDetails?.shippingCost ?? 0) + ((this._cartHelper.getTotalInCart(this._cartGrouped).param1 * (this._cartDetails?.tipPercent ?? 0)) / 100);
         this._myForm = this.formBuilder.group({
-            payingWith: ['0.0', [Validators.required]],
+            payingWith: [total, [Validators.required, Validators.min(total)]],
             comments: ['', [Validators.maxLength(100)]],
 		});
 

@@ -17,6 +17,7 @@
                             <label for="payingWith">¿Con cuanto pagarás?</label>
                         </div>
                         <span *ngIf="hasError('payingWith', 'required')" class="text-danger">Este campo es requerido</span>
+                        <span *ngIf="hasError('payingWith', 'min')" class="text-danger">Valor no permitido</span>
                     </div>    
                     <div class="col-md-6 mt-2">
                         <div class="form-floating">
