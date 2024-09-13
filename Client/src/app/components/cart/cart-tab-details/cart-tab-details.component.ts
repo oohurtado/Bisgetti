@@ -9,6 +9,7 @@ import { Utils } from '../../../source/utils';
 import { AddressResponse } from '../../../source/models/dtos/entities/address-response';
 import { CartDetails } from '../../../source/models/business/common/cart-details';
 import { CartHelper } from '../../../source/cart-helper';
+import { general } from '../../../source/general';
 
 @Component({
     selector: 'app-cart-tab-details',
@@ -110,19 +111,19 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     async onDeliveryMethodClicked(event: Event, deliveryMethod: Tuple2<string,string>) {
         await Utils.delay(100);        
         
-        if (deliveryMethod.param1 === 'on-site' || deliveryMethod.param1 === 'take-away') {
+        if (deliveryMethod.param1 === general.DELIVERY_METHOD_TAKE_AWAY) {
             this._myForm.get('address')?.removeValidators(Validators.required)
             this._myForm.get('address')?.updateValueAndValidity();
             this._cartDetail.shippingCost = 0;
-        } else if (deliveryMethod.param1 === 'for-delivery') {
+        } else if (deliveryMethod.param1 === general.DELIVERY_METHOD_FOR_DELIVER) {
             this._myForm.get('address')?.addValidators(Validators.required);
             this._myForm.get('address')?.updateValueAndValidity();
             this._cartDetail.shippingCost = this._shippingCost;            
         }
     }
 
-    isDeliveryMethodToSendSelected(): boolean {
-        return this._myForm?.get('deliveryMethod')?.value === 'for-delivery';
+    isDeliveryMethodForDeliverySelected(): boolean {
+        return this._myForm?.get('deliveryMethod')?.value === general.DELIVERY_METHOD_FOR_DELIVER;
     }
 
     onTipClicked(event: Event, tipPercent: number) {

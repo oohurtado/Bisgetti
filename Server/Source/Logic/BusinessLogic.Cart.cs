@@ -180,35 +180,63 @@ namespace Server.Source.Logic
 
         public async Task CreateRequestAsync(string userId, CartRequestRequest request)
         {
-            // https://learn.microsoft.com/en-us/ef/core/saving/transactions
+            // for-delivery/take-away
+            // https://learn.microsoft.com/en-us/ef/core/saving/transactions    
+            
+            var cartElements_db = await _businessRepository.Cart_GetProductsFromCart(userId).ToListAsync();
 
-            // 1
-            // obtener todos los elementos del carrito y productos
-            var cartElements = await _businessRepository.Cart_GetProductsFromCart(userId).ToListAsync();            
-
-            // 2
-            // checar que sean exactamente los mismos los enviados a los de bd, si no lo son o sobran -> error
-            if(cartElements.Count != request.CartElements!.Count)
+            var requestElements_toCreate = new List<RequestElementEntity>();
+            if (cartElements_db.Count != request.CartElements!.Count)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.BusinessErrorInYourCart);
+                throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
             }
-            foreach (var cartElement_db in cartElements)
+            foreach (var cartElement_db in cartElements_db)
             {
-                var cartElement_requst = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
-                if (cartElement_requst == null)
+                var cartElement_request = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
+                if (cartElement_request == null)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessErrorInYourCart);
+                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
                 }
 
-                if (cartElement_requst.ProductQuantity != cartElement_db.ProductQuantity)
+                if (cartElement_request.ProductQuantity != cartElement_db.ProductQuantity)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessErrorInYourCart);
+                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
                 }
+
+                if (cartElement_request.ProductPrice != cartElement_db.Product.Price)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
+                }
+
+                requestElements_toCreate.Add(new RequestElementEntity()
+                {
+                    PersonName = cartElement_db.PersonName,
+                    ProductName = cartElement_db.Product.Name,
+                    ProductDescription = cartElement_db.Product.Description,
+                    ProductIngredients = cartElement_db.Product.Ingredients,
+                    ProductPrice = cartElement_db.Product.Price,
+
+                    ProductQuantity = cartElement_request.ProductQuantity,
+                });
             }
 
-            // 3
-            // crear request elements por cada cartelement
-            // crear request
+            var request_toCreate = new RequestEntity()
+            {
+                DeliveryMethod = request.DeliveryMethod,
+                //AddressJson = request.AddressId
+                ShippingCost = request.ShippingCost,
+                TipPercent = request.TipPercent,
+                UserId = userId,
+                RequestStatuses = new List<RequestStatusEntity>() 
+                { 
+                    new RequestStatusEntity() 
+                    { 
+                        EventAt = DateTime.Now,
+                        Status = "",
+                    } 
+                },
+                RequestElements = requestElements_toCreate,
+            };
 
             // 4
             // transaccion
@@ -221,6 +249,22 @@ namespace Server.Source.Logic
 
             throw new NotImplementedException();
         }
+
+        //private List<CartElementEntity> CreateRequestElements(List<CartElementEntity> cartElements_db, List<CartRequestElementRequest> cartElements_req)
+        //{
+        //    var cartElements_toCreate = new List<CartElementEntity>();
+
+        //    foreach (var ce in cartElements_req)
+        //    {
+        //        cartElements_db
+        //        cartElements_toCreate.Add(new CartElementEntity()
+        //        {
+        //            PersonName = item.p
+        //        });
+        //    }
+
+        //    throw new NotImplementedException();
+        //}
 
         private string GetUrl(string image)
         {

@@ -11,6 +11,7 @@ import { Grouping } from '../../../source/models/common/grouping';
 import * as lodash from 'lodash';
 import { Tuple2 } from '../../../source/models/common/tuple';
 import { CartHelper } from '../../../source/cart-helper';
+import { general } from '../../../source/general';
 
 @Component({
     selector: 'app-cart-tab-confirmation-delivery',
@@ -68,7 +69,7 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
 				this.evtError.emit(Utils.getErrorsResponse(e));
 			});		
 
-        if (this._cartDetails?.deliveryMethod === 'for-delivery') {
+        if (this._cartDetails?.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
             await this.businessService.cart_getUserAddressAsync(this._cartDetails?.addressId)
                 .then(r => {
                     this._address = r;

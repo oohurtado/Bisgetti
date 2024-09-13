@@ -23,7 +23,7 @@
                         </ng-container>
                         <span *ngIf="hasError('deliveryMethod', 'required')" class="text-danger d-block">Este campo es requerido</span>
                     </div>
-                    <div class="col-md-12" *ngIf="isDeliveryMethodToSendSelected()">
+                    <div class="col-md-12" *ngIf="isDeliveryMethodForDeliverySelected()">
                         <div class="ps-4">            
                             <div class="form-floating">
                                 <select class="form-select" formControlName="address" id="address" aria-label="Floating label select example">

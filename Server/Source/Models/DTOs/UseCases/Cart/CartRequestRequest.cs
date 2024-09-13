@@ -29,5 +29,6 @@ namespace Server.Source.Models.DTOs.UseCases.Cart
     {
         public int CartElementId { get; set; }
         public int ProductQuantity { get; set; }
+        public decimal ProductPrice { get; set; }
     }
 }

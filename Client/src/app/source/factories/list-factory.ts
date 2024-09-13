@@ -1,4 +1,5 @@
 import { RoleStrPipe } from "../../pipes/role-str.pipe";
+import { general } from "../general";
 import { Tuple2 } from "../models/common/tuple";
 import { EnumRole } from "../models/enums/role.enum";
 
@@ -9,8 +10,8 @@ export class ListFactory {
             case 'cart-delivery-methods':
                 return  [
                     // new Tuple2("on-site", "Comer en el restaurante"),
-                    new Tuple2("take-away", "Recoger en restaurante"),
-                    new Tuple2("for-delivery", "Enviar a dirección"),
+                    new Tuple2(general.DELIVERY_METHOD_TAKE_AWAY, "Recoger en restaurante"),
+                    new Tuple2(general.DELIVERY_METHOD_FOR_DELIVER, "Enviar a dirección"),
                 ];
             case 'user-change-role':
                 let pipe = new RoleStrPipe();

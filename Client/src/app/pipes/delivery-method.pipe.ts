@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { general } from '../source/general';
 
 @Pipe({
 	name: 'deliveryMethod'
@@ -9,9 +10,9 @@ export class DeliveryMethodPipe implements PipeTransform {
 		switch (value) {
 			// case 'on-site':
 			// 	return 'Comer en el restaurante';
-			case 'take-away':
+			case general.DELIVERY_METHOD_TAKE_AWAY:
 				return 'Recoger en restaurante';
-			case 'for-delivery':
+			case general.DELIVERY_METHOD_FOR_DELIVER:
 				return 'Enviar a dirección';
 		}
 

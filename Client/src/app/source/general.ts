@@ -20,4 +20,7 @@ export const general = {
 	LS_FIRST_NAME: "user_first_name",
 	LS_LAST_NAME: "user_last_name",
 	LS_EMAIL_ADDRESS: "user_email",
+
+	DELIVERY_METHOD_FOR_DELIVER: "for-delivery",
+	DELIVERY_METHOD_TAKE_AWAY: "take-away",
 }

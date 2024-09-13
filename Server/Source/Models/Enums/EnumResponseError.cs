@@ -103,12 +103,10 @@ namespace Server.Source.Models.Enums
         BusinessElementImageMissing,
 
         /// <summary>
-        /// Business - Cart
+        /// Cart
         /// </summary>
         /// 
-        [Description("Actualice nuevamente su carrito de compras, puede que se hayan agregado/eliminado elementos en su carrito")]
-        BusinessErrorInYourCart
-
-
+        [Description("Actualice su carrito de compras, algunos productos se han actualizado")]
+        CartUpdateYourCart
     }
 }
