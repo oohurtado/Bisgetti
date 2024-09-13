@@ -21,6 +21,7 @@ import { AddressResponse } from '../../source/models/dtos/entities/address-respo
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
 import { TotalOfProductsInCartResponse } from '../../source/models/dtos/business/total-of-products-in-cart-response';
 import { ShippingCostResponse } from '../../source/models/dtos/business/shipping-cost-response';
+import { CreateRequestForClientRequest } from '../../source/models/dtos/business/cart-request-for-client-request';
 
 @Injectable({
     providedIn: 'root'
@@ -553,5 +554,9 @@ export class BusinessService {
 				}
 			});
 		});
+	}
+
+	cart_createRequestForClient(model: CreateRequestForClientRequest) {
+		return this.requestService.post(`/business/cart/client/request`, model);
 	}
 }

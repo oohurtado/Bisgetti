@@ -180,10 +180,8 @@ namespace Server.Source.Logic
             };
         }
 
-        public async Task CreateRequestAsync(string userId, CartRequestRequest request)
-        {            
-            // https://learn.microsoft.com/en-us/ef/core/saving/transactions    
-
+        public async Task CreateRequestForClientAsync(string userId, CreateRequestForClientRequest request)
+        {                        
             List<RequestStatusEntity> GetFirstStatus()
             {
                 if (EnumDeliveryMethod.ForDelivery.GetDescription() == request.DeliveryMethod)

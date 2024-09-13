@@ -2,7 +2,7 @@
 
 namespace Server.Source.Models.DTOs.UseCases.Cart
 {
-    public class CartRequestRequest
+    public class CreateRequestForClientRequest
     {
         [Display(Name = "Método de entrega")]
         [Required(ErrorMessage = "Campo requerido")]
@@ -30,10 +30,10 @@ namespace Server.Source.Models.DTOs.UseCases.Cart
 
         [Display(Name = "Productos")]
         [Required(ErrorMessage = "Campo requerido")]
-        public List<CartRequestElementRequest>? CartElements { get; set; }
+        public List<CartElementRequest>? CartElements { get; set; }
     }
 
-    public class CartRequestElementRequest
+    public class CartElementRequest
     {
         public int CartElementId { get; set; }
         public int ProductQuantity { get; set; }

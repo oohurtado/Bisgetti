@@ -60,7 +60,7 @@ export class CartComponent implements OnInit {
 	}
 
 	evtError(error: string|null) {
-		alertify.error(error, 1)
+		alertify.error(error, 3)
 	}
 
 	evtNextStep() {

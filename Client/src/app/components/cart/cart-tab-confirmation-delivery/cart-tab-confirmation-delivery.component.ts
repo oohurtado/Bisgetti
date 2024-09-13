@@ -12,6 +12,7 @@ import * as lodash from 'lodash';
 import { Tuple2 } from '../../../source/models/common/tuple';
 import { CartHelper } from '../../../source/cart-helper';
 import { general } from '../../../source/general';
+import { CreateRequestElementForClientRequest, CreateRequestForClientRequest } from '../../../source/models/dtos/business/cart-request-for-client-request';
 
 @Component({
     selector: 'app-cart-tab-confirmation-delivery',
@@ -98,18 +99,36 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
             return;
 		}
         
-        // ids del carrito
-        let cartElementIds: number[] = [];
+        let cartElementRequests: CreateRequestElementForClientRequest[] = [];
         this._cartGrouped.forEach(p => {
-            p.items.forEach(c => cartElementIds.push(c.id));
+            p.items.forEach(c => cartElementRequests.push(new CreateRequestElementForClientRequest(c.id, c.productQuantity, c.productPrice)));
         });
         
-        console.log('cartElementIds', cartElementIds);
-        console.log('_cartDetails = ', this._cartDetails);
-        console.log('_address = ', this._address);
-        console.log('payingWith', this._myForm.get('payingWith')?.value)
-        console.log('comments', this._myForm.get('comments')?.value)
-        //this.evtNextStep.emit();		
+        let model = new CreateRequestForClientRequest(
+            this._myForm.get('payingWith')?.value, 
+            this._myForm.get('comments')?.value,
+            this._cartDetails?.deliveryMethod ?? '', 
+            this._cartDetails?.tipPercent ?? 0, 
+            this._cartDetails?.shippingCost ?? 0, 
+            this._cartDetails?.addressId ?? null,
+            cartElementRequests          
+        )
+        
+        this.businessService.cart_createRequestForClient(model)
+            .subscribe({
+                complete: () => {
+                    this._isProcessing = false;
+                },
+                error: (e : string) => {
+                    this._isProcessing = false;                    
+                    this.evtError.emit(Utils.getErrorsResponse(e));
+                },
+                next: (val) => {
+                    this.router.navigateByUrl('todo'); // TODO: ruta para felicidades ya hiciste tu compra
+                }
+            });           
+
+        //this.evtNextStep.emit();	
 	}
 
     onQuantityFocus(event: Event) {
