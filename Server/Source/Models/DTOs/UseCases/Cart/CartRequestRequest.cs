@@ -22,12 +22,12 @@ namespace Server.Source.Models.DTOs.UseCases.Cart
 
         [Display(Name = "Productos")]
         [Required(ErrorMessage = "Campo requerido")]
-        public List<CartRequestElementRequest>? Products { get; set; }
+        public List<CartRequestElementRequest>? CartElements { get; set; }
     }
 
     public class CartRequestElementRequest
     {
-        public int ProductId { get; set; }
+        public int CartElementId { get; set; }
         public int ProductQuantity { get; set; }
     }
 }

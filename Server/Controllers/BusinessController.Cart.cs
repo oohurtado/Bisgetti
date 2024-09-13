@@ -154,11 +154,8 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        // TODO: crear request para el carrito
-        // CartRequestRequest
-        // cart/request
         /// <summary>
-        /// Agregar producto a carrito
+        /// crea request para el cliente
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]

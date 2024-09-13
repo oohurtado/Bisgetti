@@ -180,10 +180,44 @@ namespace Server.Source.Logic
 
         public async Task CreateRequestAsync(string userId, CartRequestRequest request)
         {
-            var productIds = request.Products!.Select(p => p.ProductId).ToList();            
+            // https://learn.microsoft.com/en-us/ef/core/saving/transactions
 
+            // 1
+            // obtener todos los elementos del carrito y productos
+            var cartElements = await _businessRepository.Cart_GetProductsFromCart(userId).ToListAsync();            
 
+            // 2
+            // checar que sean exactamente los mismos los enviados a los de bd, si no lo son o sobran -> error
+            if(cartElements.Count != request.CartElements!.Count)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.BusinessErrorInYourCart);
+            }
+            foreach (var cartElement_db in cartElements)
+            {
+                var cartElement_requst = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
+                if (cartElement_requst == null)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessErrorInYourCart);
+                }
 
+                if (cartElement_requst.ProductQuantity != cartElement_db.ProductQuantity)
+                {
+                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessErrorInYourCart);
+                }
+            }
+
+            // 3
+            // crear request elements por cada cartelement
+            // crear request
+
+            // 4
+            // transaccion
+            // enviar cartelementids a borrar
+            // enviar request y requestelements a crear
+
+            // 5
+            // enviar correo a usuario
+            // enviar correo a restaurante
 
             throw new NotImplementedException();
         }
