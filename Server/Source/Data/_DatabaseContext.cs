@@ -151,6 +151,8 @@ namespace Server.Source.Data
                 e.Property(p => p.TipPercent).IsRequired(required: true).HasColumnType("decimal(15,2)");
                 e.Property(p => p.ShippingCost).IsRequired(required: true).HasColumnType("decimal(15,2)");                
                 e.Property(p => p.AddressJson).IsRequired(required: false);
+                e.Property(p => p.PayingWith).IsRequired(required: true).HasColumnType("decimal(15,2)");
+                e.Property(p => p.Comments).IsRequired(required: false).HasMaxLength(100);
 
                 e.HasOne(p => p.User).WithMany(p => p.Requests).HasForeignKey(p => p.UserId);
                 e.HasMany(p => p.RequestElements).WithOne(p => p.Request).OnDelete(DeleteBehavior.Cascade);

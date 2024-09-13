@@ -76,5 +76,12 @@ namespace Server.Source.Data
                 .SumAsync(p => p.ProductQuantity * p.Product.Price);
             return total;
         }
+
+        public async Task Cart_CreateRequestAsync(string userId, RequestEntity request_toCreate, List<int> cartElementIds)
+        {
+            _context.Requests.Add(request_toCreate!);            
+            await _context.CartElements.Where(p => p.UserId == userId && cartElementIds.Contains(p.Id)).ExecuteDeleteAsync();            
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -142,5 +142,6 @@ namespace Server.Source.Data.Interfaces
         Task<int> Cart_GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
         Task<decimal> Cart_GetTotalOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
         Task Cart_DeleteProductFromCartAsync(CartElementEntity cartElement);
+        Task Cart_CreateRequestAsync(string userId, RequestEntity request_toCreate, List<int> cartElementIds);
     }
 }

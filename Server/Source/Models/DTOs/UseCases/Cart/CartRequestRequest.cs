@@ -17,8 +17,16 @@ namespace Server.Source.Models.DTOs.UseCases.Cart
         [Required(ErrorMessage = "Campo requerido")]
         public decimal? ShippingCost { get; set; }
 
+        [Display(Name = "Pagando con")]
+        [Required(ErrorMessage = "Campo requerido")]
+        public decimal? PayingWith { get; set; }
+
+        [Display(Name = "Comentarios")]
+        [StringLength(100, MinimumLength = 0, ErrorMessage = "Este campo debe tener entre {2} y {1} caracteres")]
+        public string? Comments { get; set; }
+
         [Display(Name = "Dirección")]
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
 
         [Display(Name = "Productos")]
         [Required(ErrorMessage = "Campo requerido")]

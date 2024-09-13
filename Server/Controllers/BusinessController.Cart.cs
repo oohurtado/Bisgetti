@@ -63,7 +63,7 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        // TODO: duro en duro
+        // TODO: datos en duro
         /// <summary>
         /// Costo de envio
         /// </summary>

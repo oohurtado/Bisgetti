@@ -85,7 +85,7 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
 
     override setupFormAsync(): void {
         this._myForm = this.formBuilder.group({
-            paying: ['0.0', [Validators.required]],
+            payingWith: ['0.0', [Validators.required]],
             comments: ['', [Validators.maxLength(100)]],
 		});
 
@@ -107,7 +107,7 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
         console.log('cartElementIds', cartElementIds);
         console.log('_cartDetails = ', this._cartDetails);
         console.log('_address = ', this._address);
-        console.log('paying', this._myForm.get('paying')?.value)
+        console.log('payingWith', this._myForm.get('payingWith')?.value)
         console.log('comments', this._myForm.get('comments')?.value)
         //this.evtNextStep.emit();		
 	}

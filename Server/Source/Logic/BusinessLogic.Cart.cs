@@ -11,6 +11,8 @@ using Server.Source.Services.Interfaces;
 using Server.Source.Utilities;
 using Server.Source.Models.DTOs.Entities;
 using Server.Source.Models.DTOs.UseCases.Cart;
+using Server.Source.Extensions;
+using System.Text.Json;
 
 namespace Server.Source.Logic
 {
@@ -179,10 +181,36 @@ namespace Server.Source.Logic
         }
 
         public async Task CreateRequestAsync(string userId, CartRequestRequest request)
-        {
-            // for-delivery/take-away
+        {            
             // https://learn.microsoft.com/en-us/ef/core/saving/transactions    
-            
+
+            List<RequestStatusEntity> GetFirstStatus()
+            {
+                if (EnumDeliveryMethod.ForDelivery.GetDescription() == request.DeliveryMethod)
+                {
+                    return
+                    [
+                        new()
+                        {
+                            EventAt = DateTime.Now,
+                            Status = EnumDeliveryMethodSteps.Started.GetDescription(),
+                        }
+                    ];
+                }
+                else if (EnumDeliveryMethod.TakeAway.GetDescription() == request.DeliveryMethod)
+                {
+                    return
+                    [
+                        new RequestStatusEntity()
+                        {
+                            EventAt = DateTime.Now,
+                            Status = EnumDeliveryMethodSteps.Started.GetDescription(),
+                        }
+                    ];
+                }
+                throw new NotImplementedException();
+            }
+
             var cartElements_db = await _businessRepository.Cart_GetProductsFromCart(userId).ToListAsync();
 
             var requestElements_toCreate = new List<RequestElementEntity>();
@@ -220,51 +248,27 @@ namespace Server.Source.Logic
                 });
             }
 
+            var address = await _businessRepository.Cart_GetAddresses(userId).Where(p => p.Id == request.AddressId).FirstOrDefaultAsync();
+            var addressJson = address == null ? null : JsonSerializer.Serialize(address);
+
             var request_toCreate = new RequestEntity()
             {
+                UserId = userId,
+                PayingWith = request.PayingWith,
+                Comments = request.Comments,
                 DeliveryMethod = request.DeliveryMethod,
-                //AddressJson = request.AddressId
                 ShippingCost = request.ShippingCost,
                 TipPercent = request.TipPercent,
-                UserId = userId,
-                RequestStatuses = new List<RequestStatusEntity>() 
-                { 
-                    new RequestStatusEntity() 
-                    { 
-                        EventAt = DateTime.Now,
-                        Status = "",
-                    } 
-                },
                 RequestElements = requestElements_toCreate,
+                RequestStatuses = GetFirstStatus(),
+                AddressJson = addressJson,
             };
 
-            // 4
-            // transaccion
-            // enviar cartelementids a borrar
-            // enviar request y requestelements a crear
+            var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();
+            await _businessRepository.Cart_CreateRequestAsync(userId, request_toCreate, cartElementIds);
 
-            // 5
-            // enviar correo a usuario
-            // enviar correo a restaurante
-
-            throw new NotImplementedException();
+            // TODO: enviar correo a cliente y restaurante
         }
-
-        //private List<CartElementEntity> CreateRequestElements(List<CartElementEntity> cartElements_db, List<CartRequestElementRequest> cartElements_req)
-        //{
-        //    var cartElements_toCreate = new List<CartElementEntity>();
-
-        //    foreach (var ce in cartElements_req)
-        //    {
-        //        cartElements_db
-        //        cartElements_toCreate.Add(new CartElementEntity()
-        //        {
-        //            PersonName = item.p
-        //        });
-        //    }
-
-        //    throw new NotImplementedException();
-        //}
 
         private string GetUrl(string image)
         {
