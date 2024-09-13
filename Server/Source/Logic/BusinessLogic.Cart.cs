@@ -216,24 +216,24 @@ namespace Server.Source.Logic
             var requestElements_toCreate = new List<RequestElementEntity>();
             if (cartElements_db.Count != request.CartElements!.Count)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
+                throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
             }
             foreach (var cartElement_db in cartElements_db)
             {
                 var cartElement_request = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
                 if (cartElement_request == null)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
+                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
                 }
 
                 if (cartElement_request.ProductQuantity != cartElement_db.ProductQuantity)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
+                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
                 }
 
                 if (cartElement_request.ProductPrice != cartElement_db.Product.Price)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateYourCart);
+                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
                 }
 
                 requestElements_toCreate.Add(new RequestElementEntity()

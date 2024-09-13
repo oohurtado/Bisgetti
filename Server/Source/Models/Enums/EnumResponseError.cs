@@ -107,6 +107,6 @@ namespace Server.Source.Models.Enums
         /// </summary>
         /// 
         [Description("Actualice su carrito de compras, algunos productos se han actualizado")]
-        CartUpdateYourCart
+        CartUpdateIsRequired
     }
 }
