@@ -65,6 +65,10 @@ export class CartComponent implements OnInit {
 
 	evtNextStep() {
 		this._tabCurrent++;
+		
+		if (this._tabCurrent == 3) {
+			// TODO: pantalla de pedido realizado
+		}
 	}
 
 	evtCartDetails(cartDetails: CartDetails|null) {

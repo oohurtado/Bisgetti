@@ -123,12 +123,11 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
                     this._isProcessing = false;                    
                     this.evtError.emit(Utils.getErrorsResponse(e));
                 },
-                next: (val) => {
-                    this.router.navigateByUrl('todo'); // TODO: ruta para felicidades ya hiciste tu compra
+                next: (val) => {                    
+                    this.evtNextStep.emit();	
                 }
             });           
 
-        //this.evtNextStep.emit();	
 	}
 
     onQuantityFocus(event: Event) {
