@@ -27,7 +27,7 @@ namespace Server.Source.Logic
 
         public async Task<PageResponse<ProductResponse>> GetProductsByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
-            var data = await _businessRepository.GetProductsByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
+            var data = await _businessRepository.Product_GetProductsByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
             var result = _mapper.Map<List<ProductResponse>>(data);
 
             return new PageResponse<ProductResponse>
@@ -39,14 +39,14 @@ namespace Server.Source.Logic
 
         public async Task<List<ProductResponse>> GetProductsAsync()
         {
-            var data = await _businessRepository.GetProducts().ToListAsync();
+            var data = await _businessRepository.Product_GetProducts().ToListAsync();
             var result = _mapper.Map<List<ProductResponse>>(data);
             return result;
         }
 
         public async Task<ProductResponse> GetProductAsync(int id)
         {
-            var data = await _businessRepository.GetProduct(id).FirstOrDefaultAsync();
+            var data = await _businessRepository.Product_GetProduct(id).FirstOrDefaultAsync();
 
             if (data == null)
             {
@@ -59,25 +59,25 @@ namespace Server.Source.Logic
 
         public async Task CreateProductAsync(CreateOrUpdateProductRequest request)
         {
-            var exists = await _businessRepository.ExistsProductAsync(id: null, request.Name!);
+            var exists = await _businessRepository.Product_ExistsProductAsync(id: null, request.Name!);
             if (exists)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.ProductAlreadyExists);
             }
 
             var product = _mapper.Map<ProductEntity>(request);            
-            await _businessRepository.CreateProductAsync(product);
+            await _businessRepository.Product_CreateProductAsync(product);
         }
 
         public async Task UpdateProductAsync(CreateOrUpdateProductRequest request, int id)
         {
-            var exists = await _businessRepository.ExistsProductAsync(id: id, request.Name!);
+            var exists = await _businessRepository.Product_ExistsProductAsync(id: id, request.Name!);
             if (exists)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.ProductAlreadyExists);
             }
 
-            var product = await _businessRepository.GetProduct(id).FirstOrDefaultAsync();
+            var product = await _businessRepository.Product_GetProduct(id).FirstOrDefaultAsync();
             if (product == null)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
@@ -88,14 +88,14 @@ namespace Server.Source.Logic
 
         public async Task DeleteProductAsync(int id)
         {
-            var product = await _businessRepository.GetProduct(id).FirstOrDefaultAsync();
+            var product = await _businessRepository.Product_GetProduct(id).FirstOrDefaultAsync();
 
             if (product == null)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
             }
 
-            await _businessRepository.DeleteProductAsync(product!);
+            await _businessRepository.Product_DeleteProductAsync(product!);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Server.Source.Logic
         public async Task<PageResponse<MenuResponse>> GetMenusByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
             var data = await _businessRepository
-                .GetMenusByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal)
+                .Menu_GetMenusByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal)
                 .Select(p => new MenuResponse()
                 {
                     Id = p.Id,
@@ -59,7 +59,7 @@ namespace Server.Source.Logic
 
         public async Task<MenuResponse> GetMenuAsync(int id)
         {
-            var data = await _businessRepository.GetMenu(id).FirstOrDefaultAsync();
+            var data = await _businessRepository.Menu_GetMenu(id).FirstOrDefaultAsync();
 
             if (data == null)
             {
@@ -72,25 +72,25 @@ namespace Server.Source.Logic
 
         public async Task CreateMenuAsync(CreateOrUpdateMenuRequest request)
         {
-            var exists = await _businessRepository.ExistsMenuAsync(id: null, request.Name!);
+            var exists = await _businessRepository.Menu_ExistsMenuAsync(id: null, request.Name!);
             if (exists)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.MenuAlreadyExists);
             }
      
             var menu = _mapper.Map<MenuEntity>(request);
-            await _businessRepository.CreateMenuAsync(menu);
+            await _businessRepository.Menu_CreateMenuAsync(menu);
         }
 
         public async Task UpdateMenuAsync(CreateOrUpdateMenuRequest request, int id)
         {
-            var exists = await _businessRepository.ExistsMenuAsync(id: id, request.Name!);
+            var exists = await _businessRepository.Menu_ExistsMenuAsync(id: id, request.Name!);
             if (exists)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.MenuAlreadyExists);
             }
 
-            var menu = await _businessRepository.GetMenu(id).FirstOrDefaultAsync();
+            var menu = await _businessRepository.Menu_GetMenu(id).FirstOrDefaultAsync();
             if (menu == null)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
@@ -101,7 +101,7 @@ namespace Server.Source.Logic
 
         public async Task DeleteMenuAsync(int id)
         {
-            var menu = await _businessRepository.GetMenu(id).FirstOrDefaultAsync();
+            var menu = await _businessRepository.Menu_GetMenu(id).FirstOrDefaultAsync();
 
             if (menu == null)
             {
@@ -110,7 +110,7 @@ namespace Server.Source.Logic
 
             Expression<Func<MenuStuffEntity, bool>> exp = p => p.MenuId == id;
             var elementsToDelete = await _businessRepository
-                .GetMenuStuff(exp)
+                .MenuStuff_GetMenuStuff(exp)
                 .ToListAsync();
 
             // borramos imagenes
@@ -123,7 +123,7 @@ namespace Server.Source.Logic
                     await FileUtility.DeleteAsync(_storageFile, p!, CONTAINER_FILE);
                 });
 
-            await _businessRepository.DeleteMenuAsync(menu!);
+            await _businessRepository.Menu_DeleteMenuAsync(menu!);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Server.Source.Logic
 
         public async Task<PageResponse<CategoryResponse>> GetCategoriesByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
         {
-            var data = await _businessRepository.GetCategoriesByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
+            var data = await _businessRepository.Category_GetCategoriesByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
             var result = _mapper.Map<List<CategoryResponse>>(data);
 
             return new PageResponse<CategoryResponse>
@@ -40,14 +40,14 @@ namespace Server.Source.Logic
 
         public async Task<List<CategoryResponse>> GetCategoriesAsync()
         {
-            var data = await _businessRepository.GetCategories().ToListAsync();
+            var data = await _businessRepository.Category_GetCategories().ToListAsync();
             var result = _mapper.Map<List<CategoryResponse>>(data);
             return result;
         }
 
         public async Task<CategoryResponse> GetCategoryAsync(int id)
         {
-            var data = await _businessRepository.GetCategory(id).FirstOrDefaultAsync();
+            var data = await _businessRepository.Category_GetCategory(id).FirstOrDefaultAsync();
 
             if (data == null)
             {
@@ -60,25 +60,25 @@ namespace Server.Source.Logic
 
         public async Task CreateCategoryAsync(CreateOrUpdateCategoryRequest request)
         {
-            var exists = await _businessRepository.ExistsCategoryAsync(id: null, request.Name!);
+            var exists = await _businessRepository.Category_ExistsCategoryAsync(id: null, request.Name!);
             if (exists)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryAlreadyExists);
             }
 
             var category = _mapper.Map<CategoryEntity>(request);
-            await _businessRepository.CreateCategoryAsync(category);
+            await _businessRepository.Category_CreateCategoryAsync(category);
         }
 
         public async Task UpdateCategoryAsync(CreateOrUpdateCategoryRequest request, int id)
         {
-            var exists = await _businessRepository.ExistsCategoryAsync(id: id, request.Name!);
+            var exists = await _businessRepository.Category_ExistsCategoryAsync(id: id, request.Name!);
             if (exists)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryAlreadyExists);
             }
 
-            var category = await _businessRepository.GetCategory(id).FirstOrDefaultAsync();
+            var category = await _businessRepository.Category_GetCategory(id).FirstOrDefaultAsync();
             if (category == null)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryNotFound);
@@ -90,14 +90,14 @@ namespace Server.Source.Logic
 
         public async Task DeleteCategoryAsync(int id)
         {
-            var category = await _businessRepository.GetCategory(id).FirstOrDefaultAsync();
+            var category = await _businessRepository.Category_GetCategory(id).FirstOrDefaultAsync();
 
             if (category == null)
             {
                 throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryNotFound);
             }
 
-            await _businessRepository.DeleteCategoryAsync(category!);
+            await _businessRepository.Category_DeleteCategoryAsync(category!);
         }
     }
 }

@@ -12,19 +12,19 @@ namespace Server.Source.Data
 {
     public partial class BusinessRepository
     {
-        public IQueryable<MenuStuffEntity> GetMenuStuff(int menuId)
+        public IQueryable<MenuStuffEntity> MenuStuff_GetMenuStuff(int menuId)
         {
             var iq = _context.MenuStuff.Where(p => p.MenuId == menuId);
             return iq;
         }
 
-        public async Task AddElementAsync(MenuStuffEntity element)
+        public async Task MenuStuff_AddElementAsync(MenuStuffEntity element)
         {
             _context.MenuStuff.Add(element);
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveElementAsync(Expression<Func<MenuStuffEntity, bool>> exp)
+        public async Task MenuStuff_RemoveElementAsync(Expression<Func<MenuStuffEntity, bool>> exp)
         {
             var iq = _context.MenuStuff.Where(exp);
             var entities = await iq.ToListAsync();
@@ -32,7 +32,7 @@ namespace Server.Source.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int?> GetPositionFromLastElementAsync(Expression<Func<MenuStuffEntity, bool>> exp)
+        public async Task<int?> MenuStuff_GetPositionFromLastElementAsync(Expression<Func<MenuStuffEntity, bool>> exp)
         {
             var position = await _context.MenuStuff
                 .Where(exp)
@@ -43,13 +43,13 @@ namespace Server.Source.Data
             return position ?? 0;
         }
 
-        public async Task<bool> ElementExistsAsync(Expression<Func<MenuStuffEntity, bool>> exp)
+        public async Task<bool> MenuStuff_ElementExistsAsync(Expression<Func<MenuStuffEntity, bool>> exp)
         {
             var any = await _context.MenuStuff.Where(exp).AnyAsync();
             return any;
         }
 
-        public IQueryable<MenuStuffEntity> GetMenuStuff(Expression<Func<MenuStuffEntity, bool>> exp)
+        public IQueryable<MenuStuffEntity> MenuStuff_GetMenuStuff(Expression<Func<MenuStuffEntity, bool>> exp)
         {
             var iq = _context.MenuStuff.Where(exp);
             return iq;

@@ -157,5 +157,17 @@ namespace Server.Controllers
         // TODO: crear request para el carrito
         // CartRequestRequest
         // cart/request
+        /// <summary>
+        /// Agregar producto a carrito
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
+        [HttpPost(template: "cart/request")]
+        public async Task<ActionResult> CreateRequest([FromBody] CartRequestRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            await _businessLogicCart.CreateRequestAsync(userId, request);
+            return Ok();
+        }
     }
 }

@@ -11,12 +11,12 @@ namespace Server.Source.Data
 {
     public partial class BusinessRepository
     {       
-        public IQueryable<MenuEntity> GetMenu(int id)
+        public IQueryable<MenuEntity> Menu_GetMenu(int id)
         {
             return _context.Menus.Where(p => p.Id == id);
         }
 
-        public IQueryable<MenuEntity> GetMenusByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
+        public IQueryable<MenuEntity> Menu_GetMenusByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
         {
             IQueryable<MenuEntity> iq;
             IOrderedQueryable<MenuEntity> ioq = null!;
@@ -59,7 +59,7 @@ namespace Server.Source.Data
             return iq.AsNoTracking();
         }
 
-        public async Task CreateMenuAsync(MenuEntity menu)
+        public async Task Menu_CreateMenuAsync(MenuEntity menu)
         {
             _context.Menus.Add(menu);
             await _context.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace Server.Source.Data
 
         }
 
-        public async Task<bool> ExistsMenuAsync(int? id, string name)
+        public async Task<bool> Menu_ExistsMenuAsync(int? id, string name)
         {
             Expression<Func<MenuEntity, bool>> expId = p => true;
             if (id != null)
@@ -85,7 +85,7 @@ namespace Server.Source.Data
             return exists;
         }
 
-        public async Task DeleteMenuAsync(MenuEntity menu)
+        public async Task Menu_DeleteMenuAsync(MenuEntity menu)
         {
             _context.Menus.Remove(menu!);
             await _context.SaveChangesAsync();

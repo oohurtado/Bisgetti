@@ -11,17 +11,17 @@ namespace Server.Source.Data
 {
     public partial class BusinessRepository
     {       
-        public IQueryable<PersonEntity> GetPeople(string userId)
+        public IQueryable<PersonEntity> Cart_GetPeople(string userId)
         {
             return _context.People.Where(p => p.UserId == userId);
         }
 
-        public IQueryable<PersonEntity> GetPeople(string userId, Expression<Func<PersonEntity, bool>> exp)
+        public IQueryable<PersonEntity> Cart_GetPeople(string userId, Expression<Func<PersonEntity, bool>> exp)
         {
             return _context.People.Where(p => p.UserId == userId).Where(exp);
         }
 
-        public IQueryable<AddressEntity> GetAddresses(string userId)
+        public IQueryable<AddressEntity> Cart_GetAddresses(string userId)
         {
             IQueryable<AddressEntity> iq;
             IOrderedQueryable<AddressEntity> ioq = null!;
@@ -32,33 +32,33 @@ namespace Server.Source.Data
             return ioq.AsNoTracking();
         }
 
-        public async Task AddPersonToUser(PersonEntity person)
+        public async Task Cart_AddPersonToUser(PersonEntity person)
         {
             _context.People.Add(person);
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddProductCartAsync(CartElementEntity cartElement)
+        public async Task Cart_AddProductToCartAsync(CartElementEntity cartElement)
         {
             _context.CartElements.Add(cartElement);
             await _context.SaveChangesAsync();            
         }
 
-        public IQueryable<CartElementEntity> GetProductsFromCart(string userId)
+        public IQueryable<CartElementEntity> Cart_GetProductsFromCart(string userId)
         {
             return _context.CartElements
                 .Include(p => p.Product)
                 .Where(p => p.UserId == userId);
         }
 
-        public async Task DeleteProductFromCartAsync(CartElementEntity cartElement)
+        public async Task Cart_DeleteProductFromCartAsync(CartElementEntity cartElement)
         {
             _context.CartElements.Remove(cartElement);
             await _context.SaveChangesAsync();
         }
 
 
-        public async Task<int> GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)
+        public async Task<int> Cart_GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)
         {
             var total = await _context.CartElements
                 .Where(p => p.UserId == userId)
@@ -67,7 +67,7 @@ namespace Server.Source.Data
             return total;
         }
 
-        public async Task<decimal> GetTotalOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)
+        public async Task<decimal> Cart_GetTotalOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp)
         {
             var total = await _context.CartElements
                 .Include(p => p.Product)

@@ -40,7 +40,7 @@ namespace Server.Source.Logic
         public async Task<int?> GetVisibleMenuAsync()
         {
             var menuId = await _businessRepository
-                .GetMenuStuff(p => p.IsVisible && (p.MenuId != null && p.CategoryId == null && p.ProductId == null))
+                .MenuStuff_GetMenuStuff(p => p.IsVisible && (p.MenuId != null && p.CategoryId == null && p.ProductId == null))
                 .Select(p => p.MenuId)
                 .FirstOrDefaultAsync();
             
@@ -49,7 +49,7 @@ namespace Server.Source.Logic
 
         public async Task<List<MenuStuffResponse>> GetMenuStuffAsync(int menuId)
         {
-            var data = await _businessRepository.GetMenuStuff(menuId).ToListAsync();
+            var data = await _businessRepository.MenuStuff_GetMenuStuff(menuId).ToListAsync();
             var result = _mapper.Map<List<MenuStuffResponse>>(data);
 
             foreach (var item in result )
@@ -81,7 +81,7 @@ namespace Server.Source.Logic
             // agregando categoria a menu
             if (request.MenuId != null && request.CategoryId != null && request.ProductId == null)
             {
-                var position = await _businessRepository.GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId != null && p.ProductId == null);
+                var position = await _businessRepository.MenuStuff_GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId != null && p.ProductId == null);
 
                 var element = new MenuStuffEntity()
                 {
@@ -92,20 +92,20 @@ namespace Server.Source.Logic
                     Position = position + 1,
                 };
 
-                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == null);
+                var any = await _businessRepository.MenuStuff_ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == null);
                 if (any)
                 {
                     throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementAlreadyExists);
                 }
 
-                await _businessRepository.AddElementAsync(element);
+                await _businessRepository.MenuStuff_AddElementAsync(element);
                 return;
             }
 
             // agregando producto a categoria
             if (request.MenuId != null && request.CategoryId != null && request.ProductId != null)
             {
-                var position = await _businessRepository.GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId != null);
+                var position = await _businessRepository.MenuStuff_GetPositionFromLastElementAsync(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId != null);
 
                 var element = new MenuStuffEntity()
                 {
@@ -117,13 +117,13 @@ namespace Server.Source.Logic
                     Position = position + 1,
                 };
 
-                var any = await _businessRepository.ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == element.ProductId);
+                var any = await _businessRepository.MenuStuff_ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == element.ProductId);
                 if (any)
                 {
                     throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementAlreadyExists);
                 }
 
-                await _businessRepository.AddElementAsync(element);
+                await _businessRepository.MenuStuff_AddElementAsync(element);
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace Server.Source.Logic
             }
 
             var elementsToDelete = await _businessRepository
-                .GetMenuStuff(exp)
+                .MenuStuff_GetMenuStuff(exp)
                 .ToListAsync();
 
             if (elementsToDelete.Count == 0)
@@ -168,7 +168,7 @@ namespace Server.Source.Logic
                     await FileUtility.DeleteAsync(_storageFile, p!, CONTAINER_FILE);
                 });
 
-            await _businessRepository.RemoveElementAsync(exp);
+            await _businessRepository.MenuStuff_RemoveElementAsync(exp);
             return;
         }
 
@@ -193,7 +193,7 @@ namespace Server.Source.Logic
             
             // obtenemos o todas las categorias del menú o tod*s los productos de la categoria del menú, EN ORDEN
             var elements = await _businessRepository
-                .GetMenuStuff(exp)
+                .MenuStuff_GetMenuStuff(exp)
                 .OrderBy(p => p.Position)
                 .ToListAsync();
 
@@ -241,7 +241,7 @@ namespace Server.Source.Logic
         public async Task UpdateElementSettingsAsync(SettingsElementRequest request)
         {
             var element = await _businessRepository
-                .GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)
+                .MenuStuff_GetMenuStuff(p => p.MenuId == request.MenuId && p.CategoryId == request.CategoryId && p.ProductId == request.ProductId)
                 .OrderBy(p => p.Position)
                 .FirstOrDefaultAsync();
 
@@ -259,7 +259,7 @@ namespace Server.Source.Logic
 
                 if (element.IsVisible)
                 {
-                    var otherMenus = await _businessRepository.GetMenuStuff(p => p.Id != element.Id && p.IsVisible && (p.CategoryId == null && p.ProductId == null)).ToListAsync();
+                    var otherMenus = await _businessRepository.MenuStuff_GetMenuStuff(p => p.Id != element.Id && p.IsVisible && (p.CategoryId == null && p.ProductId == null)).ToListAsync();
                     foreach (var otherMenu in otherMenus)
                     {
                         otherMenu.IsVisible = false;
@@ -306,7 +306,7 @@ namespace Server.Source.Logic
             }
 
             var element = await _businessRepository
-                .GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)            
+                .MenuStuff_GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)            
                 .FirstOrDefaultAsync();
 
             if (element == null)
@@ -344,7 +344,7 @@ namespace Server.Source.Logic
             }
 
             var element = await _businessRepository
-                .GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)                
+                .MenuStuff_GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)                
                 .FirstOrDefaultAsync();
 
             string currentImage = element?.Image!;
@@ -370,7 +370,7 @@ namespace Server.Source.Logic
             }
 
             var element = await _businessRepository
-                .GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)
+                .MenuStuff_GetMenuStuff(p => p.MenuId == menuId && p.CategoryId == categoryId && p.ProductId == productId)
                 .FirstOrDefaultAsync();
 
             string currentImage = element?.Image!;

@@ -11,12 +11,12 @@ namespace Server.Source.Data
 {
     public partial class BusinessRepository
     {       
-        public IQueryable<ProductEntity> GetProduct(int id)
+        public IQueryable<ProductEntity> Product_GetProduct(int id)
         {
             return _context.Products.Where(p => p.Id == id);
         }
 
-        public IQueryable<ProductEntity> GetProductsByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
+        public IQueryable<ProductEntity> Product_GetProductsByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
         {
             IQueryable<ProductEntity> iq;
             IOrderedQueryable<ProductEntity> ioq = null!;
@@ -71,19 +71,19 @@ namespace Server.Source.Data
             return iq.AsNoTracking();
         }
 
-        public IQueryable<ProductEntity> GetProducts()
+        public IQueryable<ProductEntity> Product_GetProducts()
         {
             var iq = _context.Products;
             return iq;
         }
 
-        public async Task CreateProductAsync(ProductEntity product)
+        public async Task Product_CreateProductAsync(ProductEntity product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsProductAsync(int? id, string name)
+        public async Task<bool> Product_ExistsProductAsync(int? id, string name)
         {
             Expression<Func<ProductEntity, bool>> expId = p => true;
             if (id != null)
@@ -95,7 +95,7 @@ namespace Server.Source.Data
             return exists;
         }
 
-        public async Task DeleteProductAsync(ProductEntity product)
+        public async Task Product_DeleteProductAsync(ProductEntity product)
         {
             _context.Products.Remove(product!);
             await _context.SaveChangesAsync();

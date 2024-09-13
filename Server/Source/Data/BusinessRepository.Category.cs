@@ -11,12 +11,12 @@ namespace Server.Source.Data
 {
     public partial class BusinessRepository
     {       
-        public IQueryable<CategoryEntity> GetCategory(int id)
+        public IQueryable<CategoryEntity> Category_GetCategory(int id)
         {
             return _context.Categories.Where(p => p.Id == id);
         }
 
-        public IQueryable<CategoryEntity> GetCategoriesByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
+        public IQueryable<CategoryEntity> Category_GetCategoriesByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string term, out int grandTotal)
         {
             IQueryable<CategoryEntity> iq;
             IOrderedQueryable<CategoryEntity> ioq = null!;
@@ -59,19 +59,19 @@ namespace Server.Source.Data
             return iq.AsNoTracking();
         }
 
-        public IQueryable<CategoryEntity> GetCategories()
+        public IQueryable<CategoryEntity> Category_GetCategories()
         {
             var iq = _context.Categories;
             return iq;
         }
 
-        public async Task CreateCategoryAsync(CategoryEntity category)
+        public async Task Category_CreateCategoryAsync(CategoryEntity category)
         {
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsCategoryAsync(int? id, string name)
+        public async Task<bool> Category_ExistsCategoryAsync(int? id, string name)
         {
             Expression<Func<CategoryEntity, bool>> expId = p => true;
             if (id != null)
@@ -83,7 +83,7 @@ namespace Server.Source.Data
             return exists;
         }
 
-        public async Task DeleteCategoryAsync(CategoryEntity category)
+        public async Task Category_DeleteCategoryAsync(CategoryEntity category)
         {
             _context.Categories.Remove(category!);
             await _context.SaveChangesAsync();

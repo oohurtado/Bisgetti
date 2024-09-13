@@ -35,7 +35,7 @@ namespace Server.Source.Logic
 
         public async Task<List<PersonResponse>> GetPeopleAsync(string userId)
         {
-            var people = await _businessRepository.GetPeople(userId)
+            var people = await _businessRepository.Cart_GetPeople(userId)
                 .Select(p => new PersonResponse()
                 {
                     PersonId = p.Id,
@@ -49,14 +49,14 @@ namespace Server.Source.Logic
 
         public async Task<List<AddressResponse>> GetAddressesAsync(string userId)
         {
-            var data = await _businessRepository.GetAddresses(userId).ToListAsync();
+            var data = await _businessRepository.Cart_GetAddresses(userId).ToListAsync();
             var result = _mapper.Map<List<AddressResponse>>(data);
             return result;
         }
 
         public async Task<AddressResponse> GetAddressAsync(string userId, int addressId)
         {
-            var data = await _businessRepository.GetAddresses(userId)
+            var data = await _businessRepository.Cart_GetAddresses(userId)
                 .Where(p => p.UserId == userId && p.Id == addressId)
                 .FirstOrDefaultAsync();
             var result = _mapper.Map<AddressResponse>(data);
@@ -66,7 +66,7 @@ namespace Server.Source.Logic
         public async Task AddProductToCartAsync(string userId, AddProductToCartRequest request)
         {
             var cartElement = await _businessRepository
-                .GetProductsFromCart(userId)
+                .Cart_GetProductsFromCart(userId)
                 .Where(p => p.ProductId == request.ProductId && p.PersonName == request.PersonName)
                 .FirstOrDefaultAsync();
 
@@ -84,9 +84,9 @@ namespace Server.Source.Logic
                     ProductId = request.ProductId,               
                     ProductQuantity = request.ProductQuantity,
                 };
-                await _businessRepository.AddProductCartAsync(newCartElement);
+                await _businessRepository.Cart_AddProductToCartAsync(newCartElement);
 
-                var exists = await _businessRepository.GetPeople(userId, p => p.Name == request.PersonName).AnyAsync();
+                var exists = await _businessRepository.Cart_GetPeople(userId, p => p.Name == request.PersonName).AnyAsync();
                 if (!exists)
                 {
                     var person = new PersonEntity()
@@ -94,7 +94,7 @@ namespace Server.Source.Logic
                         UserId = userId,
                         Name = request.PersonName,
                     };
-                    await _businessRepository.AddPersonToUser(person);
+                    await _businessRepository.Cart_AddPersonToUser(person);
                 }
             }
 
@@ -103,7 +103,7 @@ namespace Server.Source.Logic
         public async Task UpdateProductFromCartAsync(string userId, UpdateProductFromCartRequest request)
         {
             var cartElement = await _businessRepository
-                .GetProductsFromCart(userId)
+                .Cart_GetProductsFromCart(userId)
                 .Where(p => p.ProductId == request.ProductId && p.PersonName == request.PersonName)
                 .FirstOrDefaultAsync();
 
@@ -119,7 +119,7 @@ namespace Server.Source.Logic
         public async Task<List<CartElementResponse>> GetProductsFromCartAsync(string userId)
         {
             var cartElements = await _businessRepository
-                .GetProductsFromCart(userId)
+                .Cart_GetProductsFromCart(userId)
                 .Select(p => new CartElementResponse()
                 {
                     Id = p.Id,
@@ -131,11 +131,11 @@ namespace Server.Source.Logic
                 })
                 .ToListAsync();
 
-            var menu = await _businessRepository.GetMenuStuff(p => p.MenuId != null && p.CategoryId == null && p.ProductId == null).FirstOrDefaultAsync();
+            var menu = await _businessRepository.MenuStuff_GetMenuStuff(p => p.MenuId != null && p.CategoryId == null && p.ProductId == null).FirstOrDefaultAsync();
             if (menu != null)
             {
                 var productIds = cartElements.Select(p => p.ProductId).ToList();
-                var productImages = await _businessRepository.GetMenuStuff(p => productIds.Contains(p.ProductId ?? 0)).Select(p => new { p.ProductId, p.Image }).ToListAsync();
+                var productImages = await _businessRepository.MenuStuff_GetMenuStuff(p => productIds.Contains(p.ProductId ?? 0)).Select(p => new { p.ProductId, p.Image }).ToListAsync();
 
                 cartElements.ForEach(p => 
                 {
@@ -150,19 +150,19 @@ namespace Server.Source.Logic
         public async Task DeleteProductFromCartAsync(string userId, int id)
         {
             var cartElement = await _businessRepository
-                .GetProductsFromCart(userId)
+                .Cart_GetProductsFromCart(userId)
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
 
             if (cartElement != null)
             {
-                await _businessRepository.DeleteProductFromCartAsync(cartElement);
+                await _businessRepository.Cart_DeleteProductFromCartAsync(cartElement);
             }
         }
 
         public async Task<NumberOfProductsInCartResponse> GetNumberOfProductsInCartAsync(string userId)
         {
-            var total = await _businessRepository.GetNumberOfProductsInCartAsync(userId, p => true);
+            var total = await _businessRepository.Cart_GetNumberOfProductsInCartAsync(userId, p => true);
             return new NumberOfProductsInCartResponse()
             {
                 Total = total
@@ -171,11 +171,21 @@ namespace Server.Source.Logic
 
         public async Task<TotalOfProductsInCartResponse> GetTotalOfProductsInCartAsync(string userId)
         {
-            var total = await _businessRepository.GetTotalOfProductsInCartAsync(userId, p => true);
+            var total = await _businessRepository.Cart_GetTotalOfProductsInCartAsync(userId, p => true);
             return new TotalOfProductsInCartResponse()
             {
                 Total = total
             };
+        }
+
+        public async Task CreateRequestAsync(string userId, CartRequestRequest request)
+        {
+            var productIds = request.Products!.Select(p => p.ProductId).ToList();            
+
+
+
+
+            throw new NotImplementedException();
         }
 
         private string GetUrl(string image)
@@ -187,6 +197,6 @@ namespace Server.Source.Logic
 
             var url = FileUtility.GetUrlFile(_storageFile, image, CONTAINER_FILE);
             return url;
-        }
+        } 
     }
 }
