@@ -163,10 +163,7 @@ namespace Server.Source.Data
             {
                 e.Property(p => p.Id).HasColumnName("RequestElementId");
 
-                e.Property(p => p.ProductName).IsRequired(required: true).HasMaxLength(50);
-                e.Property(p => p.ProductDescription).IsRequired(required: false).HasMaxLength(100);
-                e.Property(p => p.ProductIngredients).IsRequired(required: false).HasMaxLength(100);
-                e.Property(e => e.ProductPrice).HasColumnType("decimal(15,2)");
+                e.Property(p => p.ProductJson).IsRequired(required: false);
                 e.Property(e => e.ProductQuantity).IsRequired(required: true);
                 e.Property(p => p.PersonName).IsRequired(required: true).HasMaxLength(50);
 

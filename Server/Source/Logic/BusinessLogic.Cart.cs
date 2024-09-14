@@ -13,6 +13,7 @@ using Server.Source.Models.DTOs.Entities;
 using Server.Source.Models.DTOs.UseCases.Cart;
 using Server.Source.Extensions;
 using System.Text.Json;
+using AutoMapper.Execution;
 
 namespace Server.Source.Logic
 {
@@ -234,13 +235,17 @@ namespace Server.Source.Logic
                     throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
                 }
 
+                var product = new ProductEntity()
+                {
+                    Name = cartElement_db.Product.Name,
+                    Description = cartElement_db.Product.Description,
+                    Ingredients = cartElement_db.Product.Ingredients,
+                    Price = cartElement_db.Product.Price,
+                };
                 requestElements_toCreate.Add(new RequestElementEntity()
                 {
                     PersonName = cartElement_db.PersonName,
-                    ProductName = cartElement_db.Product.Name,
-                    ProductDescription = cartElement_db.Product.Description,
-                    ProductIngredients = cartElement_db.Product.Ingredients,
-                    ProductPrice = cartElement_db.Product.Price,
+                    ProductJson = JsonSerializer.Serialize(product),
 
                     ProductQuantity = cartElement_request.ProductQuantity,
                 });

@@ -78,10 +78,20 @@ namespace Server.Source.Data
         }
 
         public async Task Cart_CreateRequestAsync(string userId, RequestEntity request_toCreate, List<int> cartElementIds)
-        {
-            _context.Requests.Add(request_toCreate!);            
-            await _context.CartElements.Where(p => p.UserId == userId && cartElementIds.Contains(p.Id)).ExecuteDeleteAsync();            
-            await _context.SaveChangesAsync();
+        {            
+            using var transaction = _context.Database.BeginTransaction();
+
+            try
+            {
+                _context.Requests.Add(request_toCreate!);
+                await _context.CartElements.Where(p => p.UserId == userId && cartElementIds.Contains(p.Id)).ExecuteDeleteAsync();
+                await _context.SaveChangesAsync();
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
+            }
         }
     }
 }
