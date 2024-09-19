@@ -11,15 +11,15 @@ namespace Server.Controllers
     public partial class BusinessController
     {
         /// <summary>
-        /// Listado de pedidos - por página
+        /// Listado de pedidos - para clientes - por página
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss,user-customer")]
+        [Authorize(Roles = "user-customer")]
         [HttpGet(template: "orders/customer/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
-        public async Task<ActionResult> GetOrdersForCustomerByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
+        public async Task<ActionResult> GetOrdersForCustomerByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            var result = await _businessLogicOrder.GetOrdersForCustomerByPageAsync(userId, sortColumn, sortOrder, pageSize, pageNumber, term);
+            var result = await _businessLogicOrder.GetOrdersForCustomerByPageAsync(userId, sortColumn, sortOrder, pageSize, pageNumber);
             return Ok(result);
         }
     }

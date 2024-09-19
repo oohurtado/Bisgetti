@@ -24,45 +24,22 @@ namespace Server.Source.Data
             // conteo
             grandTotal = iq.Count();
 
+            // ordenamiento
             if (sortColumn == "event")
             {
-                //if (sortOrder == "asc")
-                //{
-                //    ioq = iq.OrderBy(p => p.OrderStatuses.);
-                //}
-                //else if (sortOrder == "desc")
-                //{
-                //    ioq = iq.OrderByDescending(p => p.Name);
-                //}
+                if (sortOrder == "asc")
+                {
+                    ioq = iq.OrderBy(p => p.CreatedAt);
+                }
+                else if (sortOrder == "desc")
+                {
+                    ioq = iq.OrderByDescending(p => p.CreatedAt);
+                }
             }
-
-            //// ordenamiento
-            //if (sortColumn == "name")
-            //{
-            //    if (sortOrder == "asc")
-            //    {
-            //        ioq = iq.OrderBy(p => p.Name);
-            //    }
-            //    else if (sortOrder == "desc")
-            //    {
-            //        ioq = iq.OrderByDescending(p => p.Name);
-            //    }
-            //}
-            //else if (sortColumn == "price")
-            //{
-            //    if (sortOrder == "asc")
-            //    {
-            //        ioq = iq.OrderBy(p => p.Price);
-            //    }
-            //    else if (sortOrder == "desc")
-            //    {
-            //        ioq = iq.OrderByDescending(p => p.Price);
-            //    }
-            //}
-            //else
-            //{
-            //    throw new EatSomeInternalErrorException(EnumResponseError.SortColumnKeyNotFound);
-            //}
+            else
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.SortColumnKeyNotFound);
+            }                        
 
             // paginacion
             iq = ioq!

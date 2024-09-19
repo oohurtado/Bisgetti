@@ -14,6 +14,7 @@ using Server.Source.Models.DTOs.UseCases.Cart;
 using Server.Source.Extensions;
 using System.Text.Json;
 using AutoMapper.Execution;
+using Server.Source.Models.DTOs.UseCases.Order;
 
 namespace Server.Source.Logic
 {
@@ -31,10 +32,37 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        public async Task<int> GetOrdersForCustomerByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
+        public async Task<PageResponse<OrderForCustomerResponse>> GetOrdersForCustomerByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber)
         {
-            var data = await _businessRepository.Order_GetOrdersForCustomerByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal).ToListAsync();
-            return 1;
+            var result = await _businessRepository.Order_GetOrdersForCustomerByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal)
+                .Select(p => new OrderForCustomerResponse(p.AddressJson)
+                {
+                    Id = p.Id,
+                    Comments = p.Comments,
+                    CreatedAt = p.CreatedAt,
+                    DeliveryMethod = p.DeliveryMethod,
+                    ShippingCost = p.ShippingCost,
+                    TipPercent = p.TipPercent,                                       
+                    PersonNames = p.OrderElements.Select(q => q.PersonName).Distinct().ToList()!,
+                    ProductsSum = p.OrderElements.Sum(q => q.ProductPrice * q.ProductQuantity),
+                    ProductsCount = p.OrderElements.Sum(q => q.ProductQuantity),
+                    OrderStatus = p.OrderStatuses
+                        .OrderByDescending(q => q.EventAt)
+                        .Select(q => new OrderStatusResponse() 
+                        { 
+                            Id = q.Id, 
+                            EventAt = q.EventAt, 
+                            Status = q.Status 
+                        })
+                        .FirstOrDefault(),                    
+                })
+                .ToListAsync();
+
+            return new PageResponse<OrderForCustomerResponse>
+            {
+                GrandTotal = grandTotal,
+                Data = result!,
+            };
         }
     }
 }
