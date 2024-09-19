@@ -12,8 +12,8 @@ using Server.Source.Data;
 namespace Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240817142644_CartElementUpd2")]
-    partial class CartElementUpd2
+    [Migration("20240919135802_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -248,18 +248,10 @@ namespace Server.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(15,2)");
-
-                    b.Property<string>("ProductGuid")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("ProductQuantity")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -370,6 +362,108 @@ namespace Server.Migrations
                     b.ToTable("MenuStuff", (string)null);
                 });
 
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderElementEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("RequestElementId");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PersonName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("ProductJson")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderElements", (string)null);
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("OrderId");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AddressJson")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Comments")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("DeliveryMethod")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<decimal?>("PayingWith")
+                        .IsRequired()
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<decimal?>("ShippingCost")
+                        .IsRequired()
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<decimal?>("TipPercent")
+                        .IsRequired()
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders", (string)null);
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderStatusEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("RequestStatusId");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("EventAt")
+                        .IsRequired()
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderStatuses", (string)null);
+                });
+
             modelBuilder.Entity("Server.Source.Models.Entities.PersonEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -407,11 +501,6 @@ namespace Server.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Guid")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)");
 
                     b.Property<string>("Ingredients")
                         .HasMaxLength(100)
@@ -453,10 +542,14 @@ namespace Server.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
@@ -609,6 +702,39 @@ namespace Server.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderElementEntity", b =>
+                {
+                    b.HasOne("Server.Source.Models.Entities.OrderEntity", "Order")
+                        .WithMany("OrderElements")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderEntity", b =>
+                {
+                    b.HasOne("Server.Source.Models.Entities.UserEntity", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderStatusEntity", b =>
+                {
+                    b.HasOne("Server.Source.Models.Entities.OrderEntity", "Order")
+                        .WithMany("OrderStatuses")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Server.Source.Models.Entities.PersonEntity", b =>
                 {
                     b.HasOne("Server.Source.Models.Entities.UserEntity", "User")
@@ -630,6 +756,13 @@ namespace Server.Migrations
                     b.Navigation("MenuStuff");
                 });
 
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderEntity", b =>
+                {
+                    b.Navigation("OrderElements");
+
+                    b.Navigation("OrderStatuses");
+                });
+
             modelBuilder.Entity("Server.Source.Models.Entities.ProductEntity", b =>
                 {
                     b.Navigation("CartElements");
@@ -642,6 +775,8 @@ namespace Server.Migrations
                     b.Navigation("Addresses");
 
                     b.Navigation("CartElements");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("People");
                 });

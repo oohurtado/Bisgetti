@@ -557,6 +557,6 @@ export class BusinessService {
 	}
 
 	cart_createRequestForClient(model: CreateRequestForClientRequest) {
-		return this.requestService.post(`/business/cart/client/request`, model);
+		return this.requestService.post(`/business/cart/client/order`, model);
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace Server.Source.Models.DTOs.UseCases.Cart
 {
-    public class CreateRequestForClientRequest
+    public class CreateOrderForClientRequest
     {
         [Display(Name = "Método de entrega")]
         [Required(ErrorMessage = "Campo requerido")]

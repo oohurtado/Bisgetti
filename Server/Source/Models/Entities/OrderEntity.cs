@@ -1,11 +1,11 @@
 ﻿namespace Server.Source.Models.Entities
 {
-    public class RequestEntity
+    public class OrderEntity
     {
-        public RequestEntity()
+        public OrderEntity()
         {
-            RequestElements = [];
-            RequestStatuses = [];
+            OrderElements = [];
+            OrderStatuses = [];
         }
 
         /// <summary>
@@ -28,7 +28,7 @@
         public string UserId { get; set; } = null!;
         public UserEntity User { get; set; } = null!;
 
-        public ICollection<RequestElementEntity> RequestElements { get; set; }
-        public ICollection<RequestStatusEntity> RequestStatuses { get; set; }
+        public ICollection<OrderElementEntity> OrderElements { get; set; }
+        public ICollection<OrderStatusEntity> OrderStatuses { get; set; }
     }
 }

@@ -181,9 +181,9 @@ namespace Server.Source.Logic
             };
         }
 
-        public async Task CreateRequestForClientAsync(string userId, CreateRequestForClientRequest request)
+        public async Task CreateOrderForClientAsync(string userId, CreateOrderForClientRequest request)
         {                        
-            List<RequestStatusEntity> GetFirstStatus()
+            List<OrderStatusEntity> GetFirstStatus()
             {
                 if (EnumDeliveryMethod.ForDelivery.GetDescription() == request.DeliveryMethod)
                 {
@@ -200,7 +200,7 @@ namespace Server.Source.Logic
                 {
                     return
                     [
-                        new RequestStatusEntity()
+                        new OrderStatusEntity()
                         {
                             EventAt = DateTime.Now,
                             Status = EnumDeliveryMethodSteps.Started.GetDescription(),
@@ -209,14 +209,16 @@ namespace Server.Source.Logic
                 }
                 throw new NotImplementedException();
             }
-
+            
             var cartElements_db = await _businessRepository.Cart_GetProductsFromCart(userId).ToListAsync();
-
-            var requestElements_toCreate = new List<RequestElementEntity>();
+            var orderElements_toCreate = new List<OrderElementEntity>();
+            
             if (cartElements_db.Count != request.CartElements!.Count)
             {
                 throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
             }
+
+            // creamos OrderElements
             foreach (var cartElement_db in cartElements_db)
             {
                 var cartElement_request = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
@@ -242,7 +244,7 @@ namespace Server.Source.Logic
                     Ingredients = cartElement_db.Product.Ingredients,
                     Price = cartElement_db.Product.Price,
                 };
-                requestElements_toCreate.Add(new RequestElementEntity()
+                orderElements_toCreate.Add(new OrderElementEntity()
                 {
                     PersonName = cartElement_db.PersonName,
                     ProductJson = JsonSerializer.Serialize(product),
@@ -254,7 +256,7 @@ namespace Server.Source.Logic
             var address = await _businessRepository.Cart_GetAddresses(userId).Where(p => p.Id == request.AddressId).FirstOrDefaultAsync();
             var addressJson = address == null ? null : JsonSerializer.Serialize(address);
 
-            var request_toCreate = new RequestEntity()
+            var order_toCreate = new OrderEntity()
             {
                 UserId = userId,
                 PayingWith = request.PayingWith,
@@ -262,13 +264,13 @@ namespace Server.Source.Logic
                 DeliveryMethod = request.DeliveryMethod,
                 ShippingCost = request.ShippingCost,
                 TipPercent = request.TipPercent,
-                RequestElements = requestElements_toCreate,
-                RequestStatuses = GetFirstStatus(),
+                OrderElements = orderElements_toCreate,
+                OrderStatuses = GetFirstStatus(),
                 AddressJson = addressJson,
             };
 
             var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();
-            await _businessRepository.Cart_CreateRequestAsync(userId, request_toCreate, cartElementIds);
+            await _businessRepository.Cart_CreateOrderAsync(userId, order_toCreate, cartElementIds);
 
             // TODO: enviar correo a cliente y restaurante
         }

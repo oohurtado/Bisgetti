@@ -159,11 +159,11 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
-        [HttpPost(template: "cart/client/request")]
-        public async Task<ActionResult> CreateRequestForClient([FromBody] CreateRequestForClientRequest request)
+        [HttpPost(template: "cart/client/order")]
+        public async Task<ActionResult> CreateOrderForClient([FromBody] CreateOrderForClientRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _businessLogicCart.CreateRequestForClientAsync(userId, request);
+            await _businessLogicCart.CreateOrderForClientAsync(userId, request);
             return Ok();
         }
     }

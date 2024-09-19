@@ -1,6 +1,6 @@
 ﻿namespace Server.Source.Models.Entities
 {
-    public class RequestStatusEntity
+    public class OrderStatusEntity
     {
         /// <summary>
         /// Fields
@@ -15,7 +15,7 @@
         
         public int Id { get; set; }
 
-        public int RequestId { get; set; }
-        public RequestEntity Request { get; set; } = null!;
+        public int OrderId { get; set; }
+        public OrderEntity Order { get; set; } = null!;
     }
 }

@@ -15,9 +15,9 @@ namespace Server.Source.Data
         public virtual DbSet<MenuStuffEntity> MenuStuff { get; set; }
         public virtual DbSet<PersonEntity> People { get; set; }
         public virtual DbSet<CartElementEntity> CartElements { get; set; }
-        public virtual DbSet<RequestEntity> Requests { get; set; }
-        public virtual DbSet<RequestElementEntity> RequestElements { get; set; }
-        public virtual DbSet<RequestStatusEntity> RequestStatuses { get; set; }
+        public virtual DbSet<OrderEntity> Requests { get; set; }
+        public virtual DbSet<OrderElementEntity> RequestElements { get; set; }
+        public virtual DbSet<OrderStatusEntity> RequestStatuses { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
@@ -35,8 +35,9 @@ namespace Server.Source.Data
             builder.Entity<MenuStuffEntity>().ToTable("MenuStuff");
             builder.Entity<PersonEntity>().ToTable("People");
             builder.Entity<CartElementEntity>().ToTable("CartElements");
-            builder.Entity<RequestEntity>().ToTable("Requests");
-            builder.Entity<RequestElementEntity>().ToTable("RequestElements");
+            builder.Entity<OrderEntity>().ToTable("Orders");
+            builder.Entity<OrderElementEntity>().ToTable("OrderElements");
+            builder.Entity<OrderStatusEntity>().ToTable("OrderStatuses");
 
             builder.Entity<UserEntity>(e =>
             {
@@ -46,7 +47,7 @@ namespace Server.Source.Data
                 e.HasMany(p => p.Addresses).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
                 e.HasMany(p => p.People).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
                 e.HasMany(p => p.CartElements).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
-                e.HasMany(p => p.Requests).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.Orders).WithOne(p => p.User).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<AddressEntity>(e =>
@@ -143,9 +144,9 @@ namespace Server.Source.Data
                 e.HasOne(p => p.User).WithMany(p => p.CartElements).HasForeignKey(p => p.UserId);
             });
 
-            builder.Entity<RequestEntity>(e =>
+            builder.Entity<OrderEntity>(e =>
             {
-                e.Property(p => p.Id).HasColumnName("RequestId");
+                e.Property(p => p.Id).HasColumnName("OrderId");
 
                 e.Property(p => p.DeliveryMethod).IsRequired(required: true).HasMaxLength(25);
                 e.Property(p => p.TipPercent).IsRequired(required: true).HasColumnType("decimal(15,2)");
@@ -154,12 +155,12 @@ namespace Server.Source.Data
                 e.Property(p => p.PayingWith).IsRequired(required: true).HasColumnType("decimal(15,2)");
                 e.Property(p => p.Comments).IsRequired(required: false).HasMaxLength(100);
 
-                e.HasOne(p => p.User).WithMany(p => p.Requests).HasForeignKey(p => p.UserId);
-                e.HasMany(p => p.RequestElements).WithOne(p => p.Request).OnDelete(DeleteBehavior.Cascade);
-                e.HasMany(p => p.RequestStatuses).WithOne(p => p.Request).OnDelete(DeleteBehavior.Cascade);
+                e.HasOne(p => p.User).WithMany(p => p.Orders).HasForeignKey(p => p.UserId);
+                e.HasMany(p => p.OrderElements).WithOne(p => p.Order).OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.OrderStatuses).WithOne(p => p.Order).OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<RequestElementEntity>(e =>
+            builder.Entity<OrderElementEntity>(e =>
             {
                 e.Property(p => p.Id).HasColumnName("RequestElementId");
 
@@ -167,17 +168,17 @@ namespace Server.Source.Data
                 e.Property(e => e.ProductQuantity).IsRequired(required: true);
                 e.Property(p => p.PersonName).IsRequired(required: true).HasMaxLength(50);
 
-                e.HasOne(p => p.Request).WithMany(p => p.RequestElements).HasForeignKey(p => p.RequestId);
+                e.HasOne(p => p.Order).WithMany(p => p.OrderElements).HasForeignKey(p => p.OrderId);
             });
 
-            builder.Entity<RequestStatusEntity>(e =>
+            builder.Entity<OrderStatusEntity>(e =>
             {
                 e.Property(p => p.Id).HasColumnName("RequestStatusId");
 
                 e.Property(p => p.Status).IsRequired(required: true).HasMaxLength(50);
                 e.Property(p => p.EventAt).IsRequired(required: true).HasColumnType("datetime");
 
-                e.HasOne(p => p.Request).WithMany(p => p.RequestStatuses).HasForeignKey(p => p.RequestId);
+                e.HasOne(p => p.Order).WithMany(p => p.OrderStatuses).HasForeignKey(p => p.OrderId);
             });
         }
     }

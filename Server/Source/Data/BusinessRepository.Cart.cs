@@ -77,13 +77,13 @@ namespace Server.Source.Data
             return total;
         }
 
-        public async Task Cart_CreateRequestAsync(string userId, RequestEntity request_toCreate, List<int> cartElementIds)
+        public async Task Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds)
         {            
             using var transaction = _context.Database.BeginTransaction();
 
             try
             {
-                _context.Requests.Add(request_toCreate!);
+                _context.Requests.Add(order_toCreate!);
                 await _context.CartElements.Where(p => p.UserId == userId && cartElementIds.Contains(p.Id)).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
                 transaction.Commit();

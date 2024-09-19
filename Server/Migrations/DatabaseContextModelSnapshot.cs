@@ -359,6 +359,108 @@ namespace Server.Migrations
                     b.ToTable("MenuStuff", (string)null);
                 });
 
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderElementEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("RequestElementId");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PersonName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("ProductJson")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderElements", (string)null);
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("OrderId");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AddressJson")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Comments")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("DeliveryMethod")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<decimal?>("PayingWith")
+                        .IsRequired()
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<decimal?>("ShippingCost")
+                        .IsRequired()
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<decimal?>("TipPercent")
+                        .IsRequired()
+                        .HasColumnType("decimal(15,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders", (string)null);
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderStatusEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("RequestStatusId");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("EventAt")
+                        .IsRequired()
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderStatuses", (string)null);
+                });
+
             modelBuilder.Entity("Server.Source.Models.Entities.PersonEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -415,108 +517,6 @@ namespace Server.Migrations
                         .IsUnique();
 
                     b.ToTable("Products", (string)null);
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.RequestElementEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RequestElementId");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("PersonName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("ProductJson")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RequestId");
-
-                    b.ToTable("RequestElements", (string)null);
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.RequestEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RequestId");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AddressJson")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Comments")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("DeliveryMethod")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)");
-
-                    b.Property<decimal?>("PayingWith")
-                        .IsRequired()
-                        .HasColumnType("decimal(15,2)");
-
-                    b.Property<decimal?>("ShippingCost")
-                        .IsRequired()
-                        .HasColumnType("decimal(15,2)");
-
-                    b.Property<decimal?>("TipPercent")
-                        .IsRequired()
-                        .HasColumnType("decimal(15,2)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Requests", (string)null);
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.RequestStatusEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RequestStatusId");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EventAt")
-                        .IsRequired()
-                        .HasColumnType("datetime");
-
-                    b.Property<int>("RequestId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RequestId");
-
-                    b.ToTable("RequestStatuses");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.UserEntity", b =>
@@ -699,6 +699,39 @@ namespace Server.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderElementEntity", b =>
+                {
+                    b.HasOne("Server.Source.Models.Entities.OrderEntity", "Order")
+                        .WithMany("OrderElements")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderEntity", b =>
+                {
+                    b.HasOne("Server.Source.Models.Entities.UserEntity", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderStatusEntity", b =>
+                {
+                    b.HasOne("Server.Source.Models.Entities.OrderEntity", "Order")
+                        .WithMany("OrderStatuses")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Server.Source.Models.Entities.PersonEntity", b =>
                 {
                     b.HasOne("Server.Source.Models.Entities.UserEntity", "User")
@@ -708,39 +741,6 @@ namespace Server.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.RequestElementEntity", b =>
-                {
-                    b.HasOne("Server.Source.Models.Entities.RequestEntity", "Request")
-                        .WithMany("RequestElements")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Request");
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.RequestEntity", b =>
-                {
-                    b.HasOne("Server.Source.Models.Entities.UserEntity", "User")
-                        .WithMany("Requests")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.RequestStatusEntity", b =>
-                {
-                    b.HasOne("Server.Source.Models.Entities.RequestEntity", "Request")
-                        .WithMany("RequestStatuses")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Request");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.CategoryEntity", b =>
@@ -753,18 +753,18 @@ namespace Server.Migrations
                     b.Navigation("MenuStuff");
                 });
 
+            modelBuilder.Entity("Server.Source.Models.Entities.OrderEntity", b =>
+                {
+                    b.Navigation("OrderElements");
+
+                    b.Navigation("OrderStatuses");
+                });
+
             modelBuilder.Entity("Server.Source.Models.Entities.ProductEntity", b =>
                 {
                     b.Navigation("CartElements");
 
                     b.Navigation("MenuStuff");
-                });
-
-            modelBuilder.Entity("Server.Source.Models.Entities.RequestEntity", b =>
-                {
-                    b.Navigation("RequestElements");
-
-                    b.Navigation("RequestStatuses");
                 });
 
             modelBuilder.Entity("Server.Source.Models.Entities.UserEntity", b =>
@@ -773,9 +773,9 @@ namespace Server.Migrations
 
                     b.Navigation("CartElements");
 
-                    b.Navigation("People");
+                    b.Navigation("Orders");
 
-                    b.Navigation("Requests");
+                    b.Navigation("People");
                 });
 #pragma warning restore 612, 618
         }
