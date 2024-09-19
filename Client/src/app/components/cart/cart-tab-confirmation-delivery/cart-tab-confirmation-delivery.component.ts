@@ -12,7 +12,7 @@ import * as lodash from 'lodash';
 import { Tuple2 } from '../../../source/models/common/tuple';
 import { CartHelper } from '../../../source/cart-helper';
 import { general } from '../../../source/general';
-import { CreateRequestElementForClientRequest, CreateRequestForClientRequest } from '../../../source/models/dtos/business/cart-request-for-client-request';
+import { CreateOrderElementForClientRequest, CreateOrderForClientRequest } from '../../../source/models/dtos/business/cart-order-for-client-request';
 
 @Component({
     selector: 'app-cart-tab-confirmation-delivery',
@@ -100,12 +100,12 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
             return;
 		}
         
-        let cartElementRequests: CreateRequestElementForClientRequest[] = [];
+        let cartElementRequests: CreateOrderElementForClientRequest[] = [];
         this._cartGrouped.forEach(p => {
-            p.items.forEach(c => cartElementRequests.push(new CreateRequestElementForClientRequest(c.id, c.productQuantity, c.productPrice)));
+            p.items.forEach(c => cartElementRequests.push(new CreateOrderElementForClientRequest(c.id, c.productQuantity, c.productPrice)));
         });
         
-        let model = new CreateRequestForClientRequest(
+        let model = new CreateOrderForClientRequest(
             this._myForm.get('payingWith')?.value, 
             this._myForm.get('comments')?.value,
             this._cartDetails?.deliveryMethod ?? '', 
@@ -115,7 +115,7 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
             cartElementRequests          
         )
         
-        this.businessService.cart_createRequestForClient(model)
+        this.businessService.cart_createOrderForClient(model)
             .subscribe({
                 complete: () => {
                     this._isProcessing = false;

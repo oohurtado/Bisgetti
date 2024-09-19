@@ -1,4 +1,4 @@
-export class CreateRequestForClientRequest {
+export class CreateOrderForClientRequest {
     constructor(
         public payingWith: number,
         public comments: string,
@@ -6,12 +6,12 @@ export class CreateRequestForClientRequest {
         public tipPercent: number,        
         public shippingCost: number,
         public addressId: number|null,
-        public cartElements: CreateRequestElementForClientRequest[]
+        public cartElements: CreateOrderElementForClientRequest[]
     
     ) { }
 }
 
-export class CreateRequestElementForClientRequest {
+export class CreateOrderElementForClientRequest {
     constructor(
         public cartElementId: number,
         public productQuantity: number,
