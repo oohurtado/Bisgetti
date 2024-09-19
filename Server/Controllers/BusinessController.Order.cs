@@ -10,16 +10,17 @@ namespace Server.Controllers
 {
     public partial class BusinessController
     {
-        ///// <summary>
-        ///// Listado de pedidos - por página
-        ///// </summary>
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[Authorize(Roles = "user-boss,user-customer")]
-        //[HttpGet(template: "orders/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
-        //public async Task<ActionResult> GetOrdersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
-        //{
-        //    var result = await _businessLogicOrder.GetOrdersByPageAsync(sortColumn, sortOrder, pageSize, pageNumber, term);
-        //    return Ok(result);
-        //}
+        /// <summary>
+        /// Listado de pedidos - por página
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss,user-customer")]
+        [HttpGet(template: "orders/customer/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
+        public async Task<ActionResult> GetOrdersForCustomerByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term = null)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _businessLogicOrder.GetOrdersForCustomerByPageAsync(userId, sortColumn, sortOrder, pageSize, pageNumber, term);
+            return Ok(result);
+        }
     }
 }

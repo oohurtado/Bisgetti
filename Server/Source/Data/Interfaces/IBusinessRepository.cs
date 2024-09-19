@@ -143,5 +143,8 @@ namespace Server.Source.Data.Interfaces
         Task<decimal> Cart_GetTotalOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
         Task Cart_DeleteProductFromCartAsync(CartElementEntity cartElement);
         Task Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds);
+
+        /* ***************************** pedidos ***************************** */
+        IQueryable<OrderEntity> Order_GetOrdersForCustomerByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal);
     }
 }

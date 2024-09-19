@@ -15,9 +15,9 @@ namespace Server.Source.Data
         public virtual DbSet<MenuStuffEntity> MenuStuff { get; set; }
         public virtual DbSet<PersonEntity> People { get; set; }
         public virtual DbSet<CartElementEntity> CartElements { get; set; }
-        public virtual DbSet<OrderEntity> Requests { get; set; }
-        public virtual DbSet<OrderElementEntity> RequestElements { get; set; }
-        public virtual DbSet<OrderStatusEntity> RequestStatuses { get; set; }
+        public virtual DbSet<OrderEntity> Orders { get; set; }
+        public virtual DbSet<OrderElementEntity> OrderElements { get; set; }
+        public virtual DbSet<OrderStatusEntity> OrderStatuses { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)

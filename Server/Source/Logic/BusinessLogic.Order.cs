@@ -31,10 +31,10 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        //public async Task GetOrdersByPageAsync(string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
-        //{
-        //    var data = await _businessRepository.Order_GetOrdersByPage(sortColumn, sortOrder, pageSize, pageNumber, term!, out int grandTotal).ToListAsync();
-        //    throw new NotImplementedException();
-        //}
+        public async Task<int> GetOrdersForCustomerByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, string? term)
+        {
+            var data = await _businessRepository.Order_GetOrdersForCustomerByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal).ToListAsync();
+            return 1;
+        }
     }
 }

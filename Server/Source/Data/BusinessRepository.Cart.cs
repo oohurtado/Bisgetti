@@ -83,7 +83,7 @@ namespace Server.Source.Data
 
             try
             {
-                _context.Requests.Add(order_toCreate!);
+                _context.Orders.Add(order_toCreate!);
                 await _context.CartElements.Where(p => p.UserId == userId && cartElementIds.Contains(p.Id)).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
                 transaction.Commit();
