@@ -154,6 +154,7 @@ namespace Server.Source.Data
                 e.Property(p => p.AddressJson).IsRequired(required: false);
                 e.Property(p => p.PayingWith).IsRequired(required: true).HasColumnType("decimal(15,2)");
                 e.Property(p => p.Comments).IsRequired(required: false).HasMaxLength(100);
+                e.Property(p => p.CreatedAt).IsRequired(required: true).HasColumnType("datetime");
 
                 e.HasOne(p => p.User).WithMany(p => p.Orders).HasForeignKey(p => p.UserId);
                 e.HasMany(p => p.OrderElements).WithOne(p => p.Order).OnDelete(DeleteBehavior.Cascade);

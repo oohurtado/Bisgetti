@@ -263,6 +263,7 @@ namespace Server.Source.Logic
                 OrderElements = orderElements_toCreate,
                 OrderStatuses = GetFirstStatus(),
                 AddressJson = addressJson,
+                CreatedAt = DateTime.Now,
             };
 
             var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();

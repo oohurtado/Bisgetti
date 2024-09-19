@@ -18,6 +18,7 @@
         public string? AddressJson { get; set; }
         public string? Comments { get; set; }
         public decimal? PayingWith { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// Relationships

@@ -16,10 +16,25 @@ namespace Server.Source.Data
             IQueryable<OrderEntity> iq;
             IOrderedQueryable<OrderEntity> ioq = null!;
            
-            iq = _context.Orders.Where(p => p.UserId == userId);
+            iq = _context.Orders
+                .Include(p => p.OrderElements)
+                .Include(p => p.OrderStatuses)
+                .Where(p => p.UserId == userId);
 
             // conteo
             grandTotal = iq.Count();
+
+            if (sortColumn == "event")
+            {
+                //if (sortOrder == "asc")
+                //{
+                //    ioq = iq.OrderBy(p => p.OrderStatuses.);
+                //}
+                //else if (sortOrder == "desc")
+                //{
+                //    ioq = iq.OrderByDescending(p => p.Name);
+                //}
+            }
 
             //// ordenamiento
             //if (sortColumn == "name")
