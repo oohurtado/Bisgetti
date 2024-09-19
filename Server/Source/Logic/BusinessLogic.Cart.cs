@@ -181,7 +181,7 @@ namespace Server.Source.Logic
             };
         }
 
-        public async Task CreateOrderForClientAsync(string userId, CreateOrderForClientRequest request)
+        public async Task CreateOrderForCustomerAsync(string userId, CreateOrderForCustomerRequest request)
         {                        
             List<OrderStatusEntity> GetFirstStatus()
             {
@@ -237,17 +237,13 @@ namespace Server.Source.Logic
                     throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
                 }
 
-                var product = new ProductEntity()
-                {
-                    Name = cartElement_db.Product.Name,
-                    Description = cartElement_db.Product.Description,
-                    Ingredients = cartElement_db.Product.Ingredients,
-                    Price = cartElement_db.Product.Price,
-                };
                 orderElements_toCreate.Add(new OrderElementEntity()
                 {
                     PersonName = cartElement_db.PersonName,
-                    ProductJson = JsonSerializer.Serialize(product),
+                    ProductName = cartElement_db.Product.Name,
+                    ProductDescription = cartElement_db.Product.Description,
+                    ProductIngredients = cartElement_db.Product.Ingredients,
+                    ProductPrice = cartElement_db.Product.Price,
 
                     ProductQuantity = cartElement_request.ProductQuantity,
                 });

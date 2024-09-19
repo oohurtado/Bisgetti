@@ -1,17 +1,21 @@
-export class CreateOrderForClientRequest {
+export class CreateOrderForCustomerRequest {
     constructor(
         public payingWith: number,
-        public comments: string,
+        public comments: string|null,
         public deliveryMethod: string,
         public tipPercent: number,        
         public shippingCost: number,
         public addressId: number|null,
-        public cartElements: CreateOrderElementForClientRequest[]
+        public cartElements: CreateOrderElementForCustomerRequest[]
     
-    ) { }
+    ) { 
+        if (this.comments === '') {
+            this.comments = null;
+        }
+    }
 }
 
-export class CreateOrderElementForClientRequest {
+export class CreateOrderElementForCustomerRequest {
     constructor(
         public cartElementId: number,
         public productQuantity: number,

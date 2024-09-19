@@ -101,6 +101,11 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
 
         this._cartDetail.deliveryMethod = this._myForm?.get('deliveryMethod')?.value;
         this._cartDetail.addressId = this._myForm?.get('address')?.value;
+        if (this._cartDetail.deliveryMethod !== general.DELIVERY_METHOD_FOR_DELIVER) {
+            this._cartDetail.addressId = null;
+        }
+
+
         this.evtCartDetails.emit(this._cartDetail);
         this.evtNextStep.emit();	        	
 	}

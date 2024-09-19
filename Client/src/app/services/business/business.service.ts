@@ -21,7 +21,7 @@ import { AddressResponse } from '../../source/models/dtos/entities/address-respo
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
 import { TotalOfProductsInCartResponse } from '../../source/models/dtos/business/total-of-products-in-cart-response';
 import { ShippingCostResponse } from '../../source/models/dtos/business/shipping-cost-response';
-import { CreateOrderForClientRequest } from '../../source/models/dtos/business/cart-order-for-client-request';
+import { CreateOrderForCustomerRequest } from '../../source/models/dtos/business/cart-order-for-client-request';
 
 @Injectable({
     providedIn: 'root'
@@ -444,11 +444,11 @@ export class BusinessService {
 		});
 	}
 
-	cart_getUserAddress(addressId: number) {
+	cart_getUserAddress(addressId: number|null) {
 		return this.requestService.get<AddressResponse>(`/business/cart/user/addresses/${addressId}`);
 	}
 
-	cart_getUserAddressAsync(addressId: number) : Promise<AddressResponse> {
+	cart_getUserAddressAsync(addressId: number|null) : Promise<AddressResponse> {
 		return new Promise((resolve, reject) => {
 			this.cart_getUserAddress(addressId)
 			.subscribe({
@@ -556,7 +556,7 @@ export class BusinessService {
 		});
 	}
 
-	cart_createOrderForClient(model: CreateOrderForClientRequest) {
-		return this.requestService.post(`/business/cart/client/order`, model);
+	cart_createOrderForCustomer(model: CreateOrderForCustomerRequest) {
+		return this.requestService.post(`/business/cart/customer/order`, model);
 	}
 }
