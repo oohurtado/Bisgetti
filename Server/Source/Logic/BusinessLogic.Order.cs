@@ -58,5 +58,10 @@ namespace Server.Source.Logic
                 Data = result!,
             };
         }
+
+        public async Task<PageResponse<OrderForBossResponse>> GetOrdersForBossByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

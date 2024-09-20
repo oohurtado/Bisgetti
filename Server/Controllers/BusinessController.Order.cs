@@ -22,5 +22,18 @@ namespace Server.Controllers
             var result = await _businessLogicOrder.GetOrdersForCustomerByPageAsync(userId, sortColumn, sortOrder, pageSize, pageNumber);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Listado de pedidos - para jefe - por página
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpGet(template: "orders/boss/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
+        public async Task<ActionResult> GetOrdersForBossByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var result = await _businessLogicOrder.GetOrdersForBossByPageAsync(userId, sortColumn, sortOrder, pageSize, pageNumber);
+            return Ok(result);
+        }
     }
 }
