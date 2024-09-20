@@ -22,6 +22,7 @@ import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/
 import { TotalOfProductsInCartResponse } from '../../source/models/dtos/business/total-of-products-in-cart-response';
 import { ShippingCostResponse } from '../../source/models/dtos/business/shipping-cost-response';
 import { CreateOrderForCustomerRequest } from '../../source/models/dtos/business/cart-order-for-client-request';
+import { OrderResponse } from '../../source/models/dtos/entities/order-response';
 
 @Injectable({
     providedIn: 'root'
@@ -558,5 +559,27 @@ export class BusinessService {
 
 	cart_createOrderForCustomer(model: CreateOrderForCustomerRequest) {
 		return this.requestService.post(`/business/cart/customer/order`, model);
+	}
+
+	///////////
+	// order //
+	///////////
+
+	order_getOrdersByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
+		return this.requestService.get<PageData<OrderResponse>>(`/business/orders/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}`);
+	}
+
+	order_getOrdersByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<OrderResponse>> {
+		return new Promise((resolve, reject) => {
+			this.order_getOrdersByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
 	}
 }

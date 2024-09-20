@@ -5,7 +5,6 @@ namespace Server.Source.Models.DTOs.UseCases.Order
 {
     public class OrderResponse
     {    
-
         public int Id { get; set; }
         public string? DeliveryMethod { get; set; }
         public DateTime CreatedAt { get; set; }
