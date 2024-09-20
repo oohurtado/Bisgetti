@@ -35,37 +35,28 @@ namespace Server.Source.Logic
         public async Task<PageResponse<OrderForCustomerResponse>> GetOrdersForCustomerByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber)
         {
             var result = await _businessRepository.Order_GetOrdersForCustomerByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal)
+                .Select(p => new OrderForCustomerResponse
+                {
+                    Id = p.Id,
+                    Status = p.Status,
+                    CreatedAt = p.CreatedAt,
+                    ShippingCost = p.ShippingCost,
+                    TipPercent = p.TipPercent,
+                    DeliveryMethod = p.DeliveryMethod,
+                    Comments = p.Comments,
+                    PayingWith = p.PayingWith,
+                    AddressName = p.AddressName,
+                    ProductCount = p.ProductCount,
+                    ProductTotal = p.ProductTotal,                    
+                    PersonNames = p.OrderElements.Select(q => q.PersonName).Distinct().ToList()!,                   
+                })
                 .ToListAsync();
 
-            //.Select(p => new OrderForCustomerResponse(p.AddressJson)
-            //{
-            //    Id = p.Id,
-            //    Comments = p.Comments,
-            //    CreatedAt = p.CreatedAt,
-            //    DeliveryMethod = p.DeliveryMethod,
-            //    ShippingCost = p.ShippingCost,
-            //    TipPercent = p.TipPercent,                                       
-            //    PersonNames = p.OrderElements.Select(q => q.PersonName).Distinct().ToList()!,
-            //    ProductsSum = p.OrderElements.Sum(q => q.ProductPrice * q.ProductQuantity),
-            //    ProductsCount = p.OrderElements.Sum(q => q.ProductQuantity),
-            //    OrderStatus = p.OrderStatuses
-            //        .OrderByDescending(q => q.EventAt)
-            //        .Select(q => new OrderStatusResponse() 
-            //        { 
-            //            Id = q.Id, 
-            //            EventAt = q.EventAt, 
-            //            Status = q.Status 
-            //        })
-            //        .FirstOrDefault(),                    
-            //})
-            //.ToListAsync();
-
-            return null!;
-            //return new PageResponse<OrderForCustomerResponse>
-            //{
-            //    GrandTotal = grandTotal,
-            //    Data = result!,
-            //};
+            return new PageResponse<OrderForCustomerResponse>
+            {
+                GrandTotal = grandTotal,
+                Data = result!,
+            };
         }
     }
 }
