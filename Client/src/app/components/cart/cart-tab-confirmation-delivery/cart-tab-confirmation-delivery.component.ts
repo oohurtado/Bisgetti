@@ -12,7 +12,7 @@ import * as lodash from 'lodash';
 import { Tuple2 } from '../../../source/models/common/tuple';
 import { CartHelper } from '../../../source/cart-helper';
 import { general } from '../../../source/general';
-import { CreateOrderElementForCustomerRequest, CreateOrderForCustomerRequest } from '../../../source/models/dtos/business/cart-order-for-client-request';
+import { CreateOrderElementForCustomerRequest, CreateOrderForCustomerRequest } from '../../../source/models/dtos/business/cart-order-for-customer-request';
 
 @Component({
     selector: 'app-cart-tab-confirmation-delivery',

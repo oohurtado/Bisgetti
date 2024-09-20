@@ -21,7 +21,7 @@ import { AddressResponse } from '../../source/models/dtos/entities/address-respo
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
 import { TotalOfProductsInCartResponse } from '../../source/models/dtos/business/total-of-products-in-cart-response';
 import { ShippingCostResponse } from '../../source/models/dtos/business/shipping-cost-response';
-import { CreateOrderForCustomerRequest } from '../../source/models/dtos/business/cart-order-for-client-request';
+import { CreateOrderForCustomerRequest } from '../../source/models/dtos/business/cart-order-for-customer-request';
 import { OrderResponse } from '../../source/models/dtos/entities/order-response';
 
 @Injectable({
