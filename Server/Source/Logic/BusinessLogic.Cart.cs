@@ -251,7 +251,9 @@ namespace Server.Source.Logic
 
             var address = await _businessRepository.Cart_GetAddresses(userId).Where(p => p.Id == request.AddressId).FirstOrDefaultAsync();
             var addressJson = address == null ? null : JsonSerializer.Serialize(address);
+            var addressName = address == null ? null : address.Name;
 
+            var status = GetFirstStatus();
             var order_toCreate = new OrderEntity()
             {
                 UserId = userId,
@@ -261,9 +263,13 @@ namespace Server.Source.Logic
                 ShippingCost = request.ShippingCost,
                 TipPercent = request.TipPercent,
                 OrderElements = orderElements_toCreate,
-                OrderStatuses = GetFirstStatus(),
+                OrderStatuses = status,
                 AddressJson = addressJson,
-                CreatedAt = DateTime.Now,
+                AddressName = addressName,
+                CreatedAt = status.FirstOrDefault()!.EventAt!.Value,
+                Status = status.FirstOrDefault()!.Status,
+                ProductCount = orderElements_toCreate.Sum(p => p.ProductQuantity),
+                ProductTotal = orderElements_toCreate.Sum(p => p.ProductQuantity * p.ProductPrice),                
             };
 
             var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();

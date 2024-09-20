@@ -14,11 +14,15 @@
 
         public string? DeliveryMethod { get; set; }
         public decimal? TipPercent { get; set; }
-        public decimal? ShippingCost { get; set; }                
+        public decimal? ShippingCost { get; set; }
+        public string? AddressName { get; set; }
         public string? AddressJson { get; set; }
         public string? Comments { get; set; }
         public decimal? PayingWith { get; set; }
         public DateTime CreatedAt { get; set; }
+        public decimal? ProductTotal { get; set; }
+        public int? ProductCount { get; set; }
+        public string? Status { get; set; }
 
         /// <summary>
         /// Relationships
