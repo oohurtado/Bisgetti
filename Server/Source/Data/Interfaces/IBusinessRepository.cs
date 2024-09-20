@@ -145,6 +145,6 @@ namespace Server.Source.Data.Interfaces
         Task Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds);
 
         /* ***************************** pedidos ***************************** */
-        IQueryable<OrderEntity> Order_GetOrdersForCustomerByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal);
+        IQueryable<OrderEntity> Order_GetOrdersByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal);
     }
 }

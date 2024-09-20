@@ -32,10 +32,10 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        public async Task<PageResponse<OrderForCustomerResponse>> GetOrdersForCustomerByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber)
+        public async Task<PageResponse<OrderResponse>> GetOrdersByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber)
         {
-            var result = await _businessRepository.Order_GetOrdersForCustomerByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal)
-                .Select(p => new OrderForCustomerResponse
+            var result = await _businessRepository.Order_GetOrdersByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal)
+                .Select(p => new OrderResponse
                 {
                     Id = p.Id,
                     Status = p.Status,
@@ -52,16 +52,11 @@ namespace Server.Source.Logic
                 })
                 .ToListAsync();
 
-            return new PageResponse<OrderForCustomerResponse>
+            return new PageResponse<OrderResponse>
             {
                 GrandTotal = grandTotal,
                 Data = result!,
             };
-        }
-
-        public async Task<PageResponse<OrderForBossResponse>> GetOrdersForBossByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber)
-        {
-            throw new NotImplementedException();
         }
     }
 }

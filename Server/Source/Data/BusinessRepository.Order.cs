@@ -11,7 +11,7 @@ namespace Server.Source.Data
 {
     public partial class BusinessRepository
     {
-        public IQueryable<OrderEntity> Order_GetOrdersForCustomerByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal)
+        public IQueryable<OrderEntity> Order_GetOrdersByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal)
         {
             IQueryable<OrderEntity> iq;
             IOrderedQueryable<OrderEntity> ioq = null!;

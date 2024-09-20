@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Server.Source.Models.DTOs.UseCases.Order
 {
-    public class OrderForCustomerResponse
+    public class OrderResponse
     {    
 
         public int Id { get; set; }
