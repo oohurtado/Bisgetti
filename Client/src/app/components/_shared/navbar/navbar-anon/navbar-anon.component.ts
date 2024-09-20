@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { Router } from '@angular/router';
+import { general } from '../../../../source/general';
 
 @Component({
     selector: 'app-navbar-anon',
@@ -18,4 +19,8 @@ export class NavbarAnonComponent {
         this.localStorageService.clean();
         this.router.navigateByUrl('/home');
     }
+
+    getRestaurantName() {
+        return general.RESTAURANT_NAME;
+    } 
 }

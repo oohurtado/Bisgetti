@@ -8,6 +8,7 @@ import { SignupRequest } from '../../../source/models/dtos/users/access/signup-r
 import { TokenResponse } from '../../../source/models/dtos/users/access/token-response';
 import { Utils } from '../../../source/utils';
 import { UserAccessService } from '../../../services/business/user-access.service';
+import { general } from '../../../source/general';
 declare let alertify: any;
 
 @Component({
@@ -75,7 +76,7 @@ export class SignupComponent extends FormBase implements OnInit {
 					let model = Object.assign(new TokenResponse(), val);
 					this.localStorageService.setValue('token', model.token);
 					this.router.navigateByUrl('/home');
-					alertify.message("Bienvenido a Bisgetti", 1)
+					alertify.message("Bienvenido a " + general.RESTAURANT_NAME, 1)
 				}
 			});
 	}

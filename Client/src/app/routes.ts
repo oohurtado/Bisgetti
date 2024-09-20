@@ -34,6 +34,7 @@ import { ProductsComponent } from "./components/administration/menu-stuff/produc
 import { AddressesComponent } from "./components/my-account/addresses/addresses.component";
 import { MenusDesignComponent } from "./components/administration/menu-stuff/menus/menus-design/menus-design.component";
 import { CartComponent } from "./components/cart/cart.component";
+import { OrdersComponent } from "./components/orders/orders.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -103,6 +104,7 @@ const ROUTES: Routes = [
         ]
     },
     { path: 'cart', component: CartComponent, canActivate: [authGuard] },
+    { path: 'orders', component: OrdersComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS] } },
     { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 

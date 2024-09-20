@@ -23,4 +23,6 @@ export const general = {
 
 	DELIVERY_METHOD_FOR_DELIVER: "for-delivery",
 	DELIVERY_METHOD_TAKE_AWAY: "take-away",
+
+	RESTAURANT_NAME: "Bisgetti"
 }
