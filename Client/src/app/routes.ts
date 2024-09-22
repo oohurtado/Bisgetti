@@ -35,6 +35,7 @@ import { AddressesComponent } from "./components/my-account/addresses/addresses.
 import { MenusDesignComponent } from "./components/administration/menu-stuff/menus/menus-design/menus-design.component";
 import { CartComponent } from "./components/cart/cart.component";
 import { OrdersComponent } from "./components/orders/orders.component";
+import { OrdersListComponent } from "./components/orders/orders-list/orders-list.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -104,7 +105,13 @@ const ROUTES: Routes = [
         ]
     },
     { path: 'cart', component: CartComponent, canActivate: [authGuard] },
-    { path: 'orders', component: OrdersComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS] } },
+    {
+        path: 'orders', component:  OrdersComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS] },
+        children:[
+            { path: 'list', component: OrdersListComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS] } },
+            { path: '**', pathMatch: 'full', redirectTo: 'list' }
+        ]
+    },    
     { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 

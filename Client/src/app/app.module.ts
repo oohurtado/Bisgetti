@@ -64,6 +64,7 @@ import { CartTabDetailsComponent } from './components/cart/cart-tab-details/cart
 import { CartTabConfirmationDeliveryComponent } from './components/cart/cart-tab-confirmation-delivery/cart-tab-confirmation-delivery.component';
 import { DeliveryMethodPipe } from './pipes/delivery-method.pipe';
 import { OrdersComponent } from './components/orders/orders.component';
+import { OrdersListComponent } from './components/orders/orders-list/orders-list.component';
 
 @NgModule({
 	declarations: [
@@ -115,7 +116,7 @@ import { OrdersComponent } from './components/orders/orders.component';
   		MenusDesignComponent,  		
   		AddToCartComponent, 
 		CartComponent, 
-		CartTabProductsComponent, CartTabDetailsComponent, CartTabConfirmationDeliveryComponent, DeliveryMethodPipe, OrdersComponent,
+		CartTabProductsComponent, CartTabDetailsComponent, CartTabConfirmationDeliveryComponent, DeliveryMethodPipe, OrdersComponent, OrdersListComponent,
 	],
 	imports: [
 		BrowserModule,
