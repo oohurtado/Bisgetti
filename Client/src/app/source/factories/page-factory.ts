@@ -38,7 +38,15 @@ export class PageFactory {
                         { data: "name", text: "Nombre", divider: false },
                         { data: "price", text: "Precio", divider: false },
                     ],
-                }                                    
+                }    
+            case 'orders':
+                return {
+                    isAscending: false,
+                    startPosition: 0,
+                    list: [
+                        { data: "event", text: "Fecha", divider: false },
+                    ],
+                }                                                  
         }
 
         throw new Error(`PageFactory: '${section}' not implemented.`);
