@@ -23,6 +23,7 @@
         public decimal? ProductTotal { get; set; }
         public int? ProductCount { get; set; }
         public string? Status { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         /// <summary>
         /// Relationships

@@ -156,6 +156,7 @@ namespace Server.Source.Data
                 e.Property(p => p.PayingWith).IsRequired(required: true).HasColumnType("decimal(15,2)");
                 e.Property(p => p.Comments).IsRequired(required: false).HasMaxLength(100);
                 e.Property(p => p.CreatedAt).IsRequired(required: true).HasColumnType("datetime");
+                e.Property(p => p.UpdatedAt).IsRequired(required: true).HasColumnType("datetime");
                 e.Property(p => p.ProductCount).IsRequired(required: true);
                 e.Property(p => p.ProductTotal).IsRequired(required: true);
                 e.Property(p => p.Status).IsRequired(required: true);

@@ -40,6 +40,7 @@ namespace Server.Source.Logic
                     Id = p.Id,
                     Status = p.Status,
                     CreatedAt = p.CreatedAt,
+                    UpdatedAt = p.UpdatedAt,
                     ShippingCost = p.ShippingCost,
                     TipPercent = p.TipPercent,
                     DeliveryMethod = p.DeliveryMethod,

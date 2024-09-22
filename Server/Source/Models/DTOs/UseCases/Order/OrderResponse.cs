@@ -8,6 +8,7 @@ namespace Server.Source.Models.DTOs.UseCases.Order
         public int Id { get; set; }
         public string? DeliveryMethod { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public string? Comments { get; set; }
         public decimal? TipPercent { get; set; }
         public decimal? PayingWith { get; set; }

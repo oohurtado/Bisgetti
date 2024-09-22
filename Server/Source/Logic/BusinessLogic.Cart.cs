@@ -267,6 +267,7 @@ namespace Server.Source.Logic
                 AddressJson = addressJson,
                 AddressName = addressName,
                 CreatedAt = status.FirstOrDefault()!.EventAt!.Value,
+                UpdatedAt = status.FirstOrDefault()!.EventAt!.Value,
                 Status = status.FirstOrDefault()!.Status,
                 ProductCount = orderElements_toCreate.Sum(p => p.ProductQuantity),
                 ProductTotal = orderElements_toCreate.Sum(p => p.ProductQuantity * p.ProductPrice),                
