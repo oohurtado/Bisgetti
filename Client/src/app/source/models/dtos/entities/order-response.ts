@@ -1,3 +1,7 @@
+import { AddressResponse } from "./address-response";
+import { OrderElementResponse } from "./order-element-response";
+import { OrderStatusResponse } from "./order-status-response";
+
 export class OrderResponse {
     id!: number;
     deliveryMethod!: string;
@@ -9,6 +13,7 @@ export class OrderResponse {
     productCount!: number;
     shippingCost!: number;
     addressName!: string;
-    status!: string;
-    personNames!: string[];
+    address!: AddressResponse;
+    orderStatuses!: OrderStatusResponse[];
+    orderElements!: OrderElementResponse[];
 }

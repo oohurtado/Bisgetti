@@ -16,7 +16,7 @@ namespace Server.Source.Data
         public BusinessRepository(DatabaseContext context)
         {
             _context = context;
-        } 
+        }
 
         public async Task UpdateAsync()
         {

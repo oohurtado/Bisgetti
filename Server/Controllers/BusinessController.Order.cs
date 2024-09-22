@@ -11,7 +11,7 @@ namespace Server.Controllers
     public partial class BusinessController
     {
         /// <summary>
-        /// Listado de pedidos - por página
+        /// Obtiene listado de pedidos - por página
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-customer,user-boss")]
@@ -25,31 +25,18 @@ namespace Server.Controllers
         }
 
         /// <summary>
-        /// Obtiene elementos de un pedido
+        /// Obtiene orden y sus detalles
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-customer,user-boss")]
-        [HttpGet(template: "orders/{orderId}/elements")]
-        public async Task<ActionResult> GetOrderElements(int orderId)
+        [HttpGet(template: "orders/{orderId}")]
+        public async Task<ActionResult> GetOrder(int orderId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);
-            var result = await _businessLogicOrder.GetOrderElementsAsync(userId, userRole!, orderId);
+            var result = await _businessLogicOrder.GetOrderAsync(userId, userRole!, orderId);
             return Ok(result);
         }
 
-        /// <summary>
-        /// Obtiene estatuses de un pedido
-        /// </summary>
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-customer,user-boss")]
-        [HttpGet(template: "orders/{orderId}/statuses")]
-        public async Task<ActionResult> GetOrderStatuses(int orderId)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            var userRole = User.FindFirstValue(ClaimTypes.Role!);
-            var result = await _businessLogicOrder.GetOrderStatusesAsync(userId, userRole!, orderId);
-            return Ok(result);
-        }
     }
 }

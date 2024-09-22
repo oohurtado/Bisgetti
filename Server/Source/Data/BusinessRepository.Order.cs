@@ -16,10 +16,7 @@ namespace Server.Source.Data
             IQueryable<OrderEntity> iq;
             IOrderedQueryable<OrderEntity> ioq = null!;
            
-            iq = _context.Orders
-                .Include(p => p.OrderElements)
-                .Include(p => p.OrderStatuses)
-                .Where(p => p.UserId == userId);
+            iq = _context.Orders.Where(p => p.UserId == userId);
 
             // conteo
             grandTotal = iq.Count();
@@ -47,6 +44,11 @@ namespace Server.Source.Data
                 .Take(pageSize);
 
             return iq.AsNoTracking();
+        }
+
+        public IQueryable<OrderEntity> Order_GetOrder(string userId, int orderId)
+        {
+            return _context.Orders.Where(p => p.UserId == userId && p.Id == orderId);
         }
 
         public IQueryable<OrderElementEntity> Order_GetOrderElements(string userId, int orderId)

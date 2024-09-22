@@ -146,6 +146,7 @@ namespace Server.Source.Data.Interfaces
 
         /* ***************************** pedidos ***************************** */
         IQueryable<OrderEntity> Order_GetOrdersByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal);
+        IQueryable<OrderEntity> Order_GetOrder(string userId, int orderId);
         IQueryable<OrderElementEntity> Order_GetOrderElements(string userId, int orderId);
         IQueryable<OrderStatusEntity> Order_GetOrderStatuses(string userId, int orderId);
     }

@@ -565,13 +565,13 @@ export class BusinessService {
 	// order //
 	///////////
 
-	order_getOrdersByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) {	
+	order_getOrdersByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number) {	
 		return this.requestService.get<PageData<OrderResponse>>(`/business/orders/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}`);
 	}
 
-	order_getOrdersByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, term: string) : Promise<PageData<OrderResponse>> {
+	order_getOrdersByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number) : Promise<PageData<OrderResponse>> {
 		return new Promise((resolve, reject) => {
-			this.order_getOrdersByPage(sortColumn, sortOrder, pageSize, pageNumber, term)
+			this.order_getOrdersByPage(sortColumn, sortOrder, pageSize, pageNumber)
 			.subscribe({
 				next: (value) => {
 					resolve(value);
@@ -582,4 +582,23 @@ export class BusinessService {
 			});
 		});
 	}
+
+	order_getOrder(orderId: number) {	
+		return this.requestService.get<OrderResponse>(`/business/orders/${orderId}`);
+	}
+
+	order_getOrderAsync(orderId: number) : Promise<OrderResponse> {
+		return new Promise((resolve, reject) => {
+			this.order_getOrder(orderId)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
 }

@@ -49,7 +49,6 @@ namespace Server.Source.Logic
                     AddressName = p.AddressName,
                     ProductCount = p.ProductCount,
                     ProductTotal = p.ProductTotal,                    
-                    PersonNames = p.OrderElements.Select(q => q.PersonName).Distinct().ToList()!,                   
                 })
                 .ToListAsync();
 
@@ -60,40 +59,53 @@ namespace Server.Source.Logic
             };
         }
 
-        public async Task<List<OrderElementResponse>> GetOrderElementsAsync(string userId, string userRole, int orderId)
-        {
-            var orderElements = await _businessRepository.Order_GetOrderElements(userId, orderId)
-                .Select(p => new OrderElementResponse()
+        public async Task<OrderResponse> GetOrderAsync(string userId, string userRole, int orderId)
+        {    
+            var result = await _businessRepository.Order_GetOrder(userId, orderId)
+                .Select(p => new OrderResponse
                 {
                     Id = p.Id,
-                    OrderId = p.OrderId,
-
-                    PersonName = p.PersonName,
-                    ProductDescription = p.ProductDescription,
-                    ProductIngredients = p.ProductIngredients,
-                    ProductName = p.ProductName,
-                    ProductPrice = p.ProductPrice,
-                    ProductQuantity = p.ProductQuantity,                    
-                })
-                .ToListAsync();
-
-            return orderElements;
-        }
-
-        internal async Task<List<OrderStatusResponse>> GetOrderStatusesAsync(string userId, string userRole, int orderId)
-        {
-            var orderStatuses = await _businessRepository.Order_GetOrderStatuses(userId, orderId)
-                .Select(p => new OrderStatusResponse()
-                {
-                    Id = p.Id,
-                    OrderId = p.OrderId,
 
                     Status = p.Status,
-                    EventAt = p.EventAt,
+                    CreatedAt = p.CreatedAt,
+                    UpdatedAt = p.UpdatedAt,
+                    ShippingCost = p.ShippingCost,
+                    TipPercent = p.TipPercent,
+                    DeliveryMethod = p.DeliveryMethod,
+                    Comments = p.Comments,
+                    PayingWith = p.PayingWith,
+                    AddressName = p.AddressName,
+                    AddressJson = p.AddressJson,
+                    ProductCount = p.ProductCount,
+                    ProductTotal = p.ProductTotal,
+                    OrderElements = p.OrderElements.Select(q => new OrderElementResponse()
+                    {
+                        Id = q.Id,
+                        OrderId = q.Id,
+                        PersonName = q.PersonName,
+                        ProductDescription = q.ProductDescription,
+                        ProductIngredients = q.ProductIngredients,
+                        ProductName = q.ProductName,
+                        ProductPrice = q.ProductPrice,
+                        ProductQuantity = q.ProductQuantity,                        
+                    })
+                    .ToList(),
+                    OrderStatuses = p.OrderStatuses.Select(q => new OrderStatusResponse()
+                    { 
+                        Id = q.Id,
+                        Status = q.Status,
+                    })
+                    .ToList()                    
                 })
-                .ToListAsync();
+                .FirstOrDefaultAsync();
 
-            return orderStatuses;
+            if (!string.IsNullOrEmpty(result!.AddressJson))
+            {
+                result.Address = JsonSerializer.Deserialize<AddressResponse>(result.AddressJson);
+                result.AddressJson = null;
+            }
+
+            return result!;
         }
     }
 }
