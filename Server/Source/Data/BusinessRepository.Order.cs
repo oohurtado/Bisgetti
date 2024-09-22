@@ -48,5 +48,19 @@ namespace Server.Source.Data
 
             return iq.AsNoTracking();
         }
+
+        public IQueryable<OrderElementEntity> Order_GetOrderElements(string userId, int orderId)
+        {
+            return _context.OrderElements
+                .Include(p => p.Order)                
+                .Where(p => p.Order.UserId == userId && p.OrderId == orderId);
+        }
+
+        public IQueryable<OrderStatusEntity> Order_GetOrderStatuses(string userId, int orderId)
+        {
+            return _context.OrderStatuses
+                .Include(p => p.Order)
+                .Where(p => p.Order.UserId == userId && p.OrderId == orderId);
+        }
     }
 }

@@ -1,10 +1,9 @@
-﻿using Server.Source.Models.DTOs.Entities;
-using System.Text.Json;
+﻿using System.Text.Json;
 
-namespace Server.Source.Models.DTOs.UseCases.Order
+namespace Server.Source.Models.DTOs.Entities
 {
     public class OrderResponse
-    {    
+    {
         public int Id { get; set; }
         public string? DeliveryMethod { get; set; }
         public DateTime CreatedAt { get; set; }

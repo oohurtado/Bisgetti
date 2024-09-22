@@ -14,7 +14,6 @@ using Server.Source.Models.DTOs.UseCases.Cart;
 using Server.Source.Extensions;
 using System.Text.Json;
 using AutoMapper.Execution;
-using Server.Source.Models.DTOs.UseCases.Order;
 
 namespace Server.Source.Logic
 {
@@ -32,12 +31,13 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        public async Task<PageResponse<OrderResponse>> GetOrdersByPageAsync(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber)
+        public async Task<PageResponse<OrderResponse>> GetOrdersByPageAsync(string userId, string userRole, string sortColumn, string sortOrder, int pageSize, int pageNumber)
         {
             var result = await _businessRepository.Order_GetOrdersByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal)
                 .Select(p => new OrderResponse
                 {
                     Id = p.Id,
+
                     Status = p.Status,
                     CreatedAt = p.CreatedAt,
                     UpdatedAt = p.UpdatedAt,
@@ -58,6 +58,42 @@ namespace Server.Source.Logic
                 GrandTotal = grandTotal,
                 Data = result!,
             };
+        }
+
+        public async Task<List<OrderElementResponse>> GetOrderElementsAsync(string userId, string userRole, int orderId)
+        {
+            var orderElements = await _businessRepository.Order_GetOrderElements(userId, orderId)
+                .Select(p => new OrderElementResponse()
+                {
+                    Id = p.Id,
+                    OrderId = p.OrderId,
+
+                    PersonName = p.PersonName,
+                    ProductDescription = p.ProductDescription,
+                    ProductIngredients = p.ProductIngredients,
+                    ProductName = p.ProductName,
+                    ProductPrice = p.ProductPrice,
+                    ProductQuantity = p.ProductQuantity,                    
+                })
+                .ToListAsync();
+
+            return orderElements;
+        }
+
+        internal async Task<List<OrderStatusResponse>> GetOrderStatusesAsync(string userId, string userRole, int orderId)
+        {
+            var orderStatuses = await _businessRepository.Order_GetOrderStatuses(userId, orderId)
+                .Select(p => new OrderStatusResponse()
+                {
+                    Id = p.Id,
+                    OrderId = p.OrderId,
+
+                    Status = p.Status,
+                    EventAt = p.EventAt,
+                })
+                .ToListAsync();
+
+            return orderStatuses;
         }
     }
 }
