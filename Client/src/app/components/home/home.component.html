@@ -10,8 +10,8 @@
     </p>
 </ng-container>
 <ng-container *ngIf="!_isInitialLoading && _weHaveAMenu">
-    <div class="m-1 text-center d-none d-sm-block">        
-        <span class="fs-1 d-block">{{ getMenuElement()?.menu?.name }}</span>
+    <div class="text-center d-none d-sm-block">        
+        <span class="fs-2 d-block">{{ getMenuElement()?.menu?.name }}</span>
         <ng-container *ngIf="getMenuElement()?.menu?.description !== ''" >
             <div class="d-none d-md-block">
                 <span class="fs-5 fw-light fst-italic d-block">{{ getMenuElement()?.menu?.description }}</span>
@@ -19,9 +19,9 @@
         </ng-container>        
     </div>
 
-    <div *ngFor="let category of getCategoryElements()" class="m-4">
-        <div class="m-2">            
-            <span class="fs-2 d-block">{{ category.category.name }}</span>
+    <div *ngFor="let category of getCategoryElements()" class="">
+        <div class="">            
+            <span class="fs-3 d-block">{{ category.category.name }}</span>
             <span class="text-danger fs-2 d-block">{{ !category.isVisible ? '(no visible)' : '' }}</span>
             <ng-container *ngIf="category.category.description !== ''">
                 <div class="d-none d-md-block">
@@ -39,10 +39,10 @@
                         <div class="card-body">
                             <p class="card-text">
                                 <span class="fs-6 d-block">{{ productElement.product.name }}</span>
-                                <span class="fs-3 d-block"><strong>{{ productElement.product.price | currency:'$' }}</strong></span>  
+                                <span class="fs-4 d-block"><strong>{{ productElement.product.price | currency:'$' }}</strong></span>  
                             </p>
                             <ng-container *ngIf="productElement.isAvailable">
-                                <button type="button" class="btn btn-warning" (click)="onAddToCartClicked($event, productElement)">                                    
+                                <button type="button" class="btn btn-primary" (click)="onAddToCartClicked($event, productElement)">                                    
                                     Ver detalles
                                 </button>
                             </ng-container>

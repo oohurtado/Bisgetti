@@ -33,22 +33,65 @@
     <div *ngIf="_pageData?.data?.length == 0" class="text-center mt-2">
         No hay datos para mostrar
     </div>
-
     <ng-container *ngFor="let item of _pageData?.data" class="">
         <div class="card text-start mt-2">
             <div class="card-header">
-                Featured
+                <div class="row">                    
+                    <div class="col-6 text-start">
+                        Total<br>$158.00
+                    </div>
+                    <div class="col-6 text-end">
+                        Pedido<br>#000027
+                    </div>
+                </div>
             </div>
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Ver detalles</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        Productos (7): $298.00<br>
+                        Costo de envío: $30.00<br>
+                        Propina: $22.00<br>
+                        Total: $350.00 
+                        <hr>
+                        Pagando con: $400.00<br>
+                        Comentarios: bla bla<br>
+                        Entrega del producto: (enviar a direccion 'casa'/entregar en restaurante)          
+                        <hr>
+                        Estatus<br>
+                        &nbsp;&nbsp;&nbsp;Entregado 14/02/24 11:21 AM<br>
+                        &nbsp;&nbsp;&nbsp;En proceso 14/02/24 11:21 AM<br>
+                        &nbsp;&nbsp;&nbsp;Empezado 14/02/24 11:09 AM<br>   
+                        <hr>
+                    </div>
+                    <div class="col-md-6">                      
+                        Productos<br>
+                            &nbsp;&nbsp;&nbsp;Oscar<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coca Cola (1) $25.00<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total por persona: $25.00<br>
+                            &nbsp;&nbsp;&nbsp;Franco<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coca Cola (1) $25.00<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Torta de carne asada(1) $50.00<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total por persona: $75.00<br>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="text-end">
+                            <a href="#" class="btn btn-primary">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="card-footer text-muted">
-                2 days ago
+                Entregado 14/02/24 11:21 AM
             </div>
         </div>
     </ng-container>
+	<div class="row mt-2">
+		<div class="col-md-12 text-end">				
+			<app-page-pagination [pageSelected]="pageSelected" [pageSize]="pageSize" (evt_pageOption)="onPageOptionClicked($event)" (evt_pageSize)="onPageSizeClicked($event)"></app-page-pagination>
+		</div>
+	</div>    
 </ng-container>
 
 <pre>{{ _pageData | json }}</pre>
