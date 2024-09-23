@@ -47,10 +47,20 @@ namespace Server.Source.Logic
                     Comments = p.Comments,
                     PayingWith = p.PayingWith,
                     AddressName = p.AddressName,
+                    AddressJson = p.AddressJson,
                     ProductCount = p.ProductCount,
                     ProductTotal = p.ProductTotal,                    
                 })
                 .ToListAsync();
+
+            result.ForEach(p =>
+            {
+                if (!string.IsNullOrEmpty(p!.AddressJson))
+                {
+                    p.Address = JsonSerializer.Deserialize<AddressResponse>(p.AddressJson);
+                    p.AddressJson = null;
+                }
+            });
 
             return new PageResponse<OrderResponse>
             {
@@ -94,6 +104,7 @@ namespace Server.Source.Logic
                     { 
                         Id = q.Id,
                         Status = q.Status,
+                        EventAt = q.EventAt,
                     })
                     .ToList()                    
                 })

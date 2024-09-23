@@ -16,4 +16,9 @@ export class DateService {
 		let strDate = this.pipe.transform(date, 'longDate');
 		return strDate;
 	}
+
+    get_time(date: Date) {
+		let strDate = this.pipe.transform(date, 'mediumTime');
+		return strDate;
+	}
 }

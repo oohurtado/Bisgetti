@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 import { Utils } from '../../../source/utils';
 import { general } from '../../../source/general';
+import { DateService } from '../../../services/common/date.service';
 
 @Component({
   selector: 'app-orders-list',
@@ -17,6 +18,7 @@ export class OrdersListComponent extends PageBase<OrderResponse> implements OnIn
 	constructor(
 		private businessService: BusinessService,
 		private router: Router,
+		public dateService: DateService,
 		localStorageService: LocalStorageService
 	) {
 		super('orders', localStorageService);
@@ -67,12 +69,20 @@ export class OrdersListComponent extends PageBase<OrderResponse> implements OnIn
 		return order.comments;
 	}
 
-	getDeliveryMethodInfo(order: OrderResponse) {
-		if (order.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
-			return "'" + order.addressName + "'";
-		}
-		else {
-			return '';
-		}
+	getAddress(order: OrderResponse) {
+		return `${order.address.name}, ${order.address.street}, #${order.address.exteriorNumber} ${order.address.interiorNumber}, ${order.address.postalCode}`
+	}
+
+	onLoadOrderDetailsClicked(event: Event, order: OrderResponse) {
+		this._isProcessing = true;		
+		this.businessService.order_getOrderAsync(order.id)
+			.then(p => {
+				order.orderElements = p.orderElements;
+				order.orderStatuses = p.orderStatuses;
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+		this._isProcessing = false;
 	}
 }

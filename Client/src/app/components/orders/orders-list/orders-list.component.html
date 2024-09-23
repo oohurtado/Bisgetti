@@ -33,40 +33,55 @@
     <div *ngIf="_pageData?.data?.length == 0" class="text-center mt-2">
         No hay datos para mostrar
     </div>
-    <ng-container *ngFor="let item of _pageData?.data" class="">
+    <ng-container *ngFor="let order of _pageData?.data" class="">
         <div class="card text-start mt-2">
             <div class="card-header">
                 <div class="row">                    
                     <div class="col-6 text-start">
-                        Total<br>{{ getTotal(item) | currency:'$' }}
+                        Total<br>{{ getTotal(order) | currency:'$' }}
                     </div>
                     <div class="col-6 text-end">
-                        Pedido<br>#{{ item.id.toString().padStart(5, '0') }}
+                        Pedido<br>#{{ order.id.toString().padStart(6, '0') }}
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        Productos ({{ item.productCount }}): {{ item.productTotal | currency:'$' }}<br>
-                        Costo de envío: {{ item.shippingCost | currency:'$' }}<br>
-                        Propina: {{ getTip(item) | currency:'$' }}<br>
-                        Total: {{ getTotal(item) | currency:'$' }}
-                        <hr>
-                        Pagando con: {{ item.payingWith | currency:'$' }}<br>
-                        Comentarios: {{ getComments(item) }}<br>
-                        Entrega del producto: {{ item.deliveryMethod | deliveryMethod }} {{ getDeliveryMethodInfo(item) }}
-                        <div class="ps-4">
-                            xxx
+                        <div style="padding-left: 0px;">
+                            <strong>General</strong><br>
+                            <div style="padding-left: 20px;">
+                                Productos ({{ order.productCount }}): {{ order.productTotal | currency:'$' }}<br>
+                                Costo de envío: {{ order.shippingCost | currency:'$' }}<br>
+                                Propina: {{ getTip(order) | currency:'$' }}<br>
+                                Total: {{ getTotal(order) | currency:'$' }}
+                                <hr>
+                                Pagando con: {{ order.payingWith | currency:'$' }}<br>
+                                Comentarios: {{ getComments(order) }}<br>
+                                Entrega del producto: {{ order.deliveryMethod | deliveryMethod }}
+                            </div>
+                            <div style="padding-left: 40px;" *ngIf="order.address !== null">
+                                {{ getAddress(order) }}
+                            </div>
                         </div>
-                        <hr>
-                        Estatus<br>
-                        &nbsp;&nbsp;&nbsp;Entregado 14/02/24 11:21 AM<br>
-                        &nbsp;&nbsp;&nbsp;En proceso 14/02/24 11:21 AM<br>
-                        &nbsp;&nbsp;&nbsp;Empezado 14/02/24 11:09 AM<br>   
-                        <hr>
+                        <div style="padding-left: 0px;" *ngIf="order.orderStatuses !== null && order.orderStatuses.length > 0">
+                            <strong>Estatus</strong><br>
+                            <div style="padding-left: 20px;">
+                                <div *ngFor="let status of order.orderStatuses">
+                                    {{ status.status }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
+                                </div>
+                            </div>                            
+                        </div>       
                     </div>
-                    <div class="col-md-6">                      
+                    <div class="col-md-6" *ngIf="order.orderElements !== null && order.orderElements.length > 0">
+                        <div style="padding-left: 0px;">
+                            <strong>Productos</strong><br>
+                            <div style="padding-left: 20px;">
+                                <pre>{{ order.orderElements | json }}</pre>                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">                      
                         Productos<br>
                             &nbsp;&nbsp;&nbsp;Oscar<br>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coca Cola (1) $25.00<br>
@@ -76,16 +91,16 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Torta de carne asada(1) $50.00<br>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total por persona: $75.00<br>
                         <hr>
-                    </div>
+                    </div> -->
                     <div class="col-12">
-                        <div class="text-end">
-                            <a href="#" class="btn btn-primary">Ver detalles</a>
+                        <div class="text-end mt-2">
+                            <a (click)="onLoadOrderDetailsClicked($event, order)" class="btn btn-primary">Ver detalles</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer text-muted">
-                Entregado 14/02/24 11:21 AM
+                Creado el {{ dateService.get_longDate(order.createdAt) }}, {{ dateService.get_time(order.createdAt) }}
             </div>
         </div>
     </ng-container>
