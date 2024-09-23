@@ -11,6 +11,7 @@ import { LocalStorageService } from '../../services/common/local-storage.service
 import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/update-product-from-cart-request';
 import { Tuple2 } from '../../source/models/common/tuple';
 import { CartDetails } from '../../source/models/business/common/cart-details';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-cart',
@@ -31,7 +32,8 @@ export class CartComponent implements OnInit {
 
 	constructor(
 		private businessService: BusinessService,		
-		private sharedService: SharedService
+		private sharedService: SharedService,
+		private router: Router
 	) {		
 	}
 
@@ -63,15 +65,25 @@ export class CartComponent implements OnInit {
 		alertify.error(error, 3)
 	}
 
-	evtNextStep() {
+	async evtNextStep() {
 		this._tabCurrent++;
 		
 		if (this._tabCurrent == 3) {
-			// TODO: pantalla de pedido realizado
+			this.router.navigateByUrl('/orders');
+			await this.refreshCartAsync();
 		}
 	}
 
 	evtCartDetails(cartDetails: CartDetails|null) {
 		this._cartDetails = cartDetails;
+	}
+
+	async refreshCartAsync() {		
+		await this.businessService.cart_getNumberOfProductsInCartAsync()
+			.then(r => {
+				this.sharedService.refreshCart(r.total);             
+			}, e => {
+				this._error = Utils.getErrorsResponse(e);
+			});
 	}
 }

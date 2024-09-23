@@ -10,6 +10,7 @@ import { DateService } from '../../../services/common/date.service';
 import * as lodash from 'lodash';
 import { Grouping } from '../../../source/models/common/grouping';
 import { OrderElementResponse } from '../../../source/models/dtos/entities/order-element-response';
+import { SharedService } from '../../../services/common/shared.service';
 
 @Component({
   selector: 'app-orders-list',
@@ -20,7 +21,7 @@ export class OrdersListComponent extends PageBase<OrderResponse> implements OnIn
 
 	constructor(
 		private businessService: BusinessService,
-		private router: Router,
+		private router: Router,		
 		public dateService: DateService,
 		localStorageService: LocalStorageService
 	) {
