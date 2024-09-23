@@ -38,24 +38,27 @@
             <div class="card-header">
                 <div class="row">                    
                     <div class="col-6 text-start">
-                        Total<br>$158.00
+                        Total<br>{{ getTotal(item) | currency:'$' }}
                     </div>
                     <div class="col-6 text-end">
-                        Pedido<br>#000027
+                        Pedido<br>#{{ item.id.toString().padStart(5, '0') }}
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        Productos (7): $298.00<br>
-                        Costo de envío: $30.00<br>
-                        Propina: $22.00<br>
-                        Total: $350.00 
+                        Productos ({{ item.productCount }}): {{ item.productTotal | currency:'$' }}<br>
+                        Costo de envío: {{ item.shippingCost | currency:'$' }}<br>
+                        Propina: {{ getTip(item) | currency:'$' }}<br>
+                        Total: {{ getTotal(item) | currency:'$' }}
                         <hr>
-                        Pagando con: $400.00<br>
-                        Comentarios: bla bla<br>
-                        Entrega del producto: (enviar a direccion 'casa'/entregar en restaurante)          
+                        Pagando con: {{ item.payingWith | currency:'$' }}<br>
+                        Comentarios: {{ getComments(item) }}<br>
+                        Entrega del producto: {{ item.deliveryMethod | deliveryMethod }} {{ getDeliveryMethodInfo(item) }}
+                        <div class="ps-4">
+                            xxx
+                        </div>
                         <hr>
                         Estatus<br>
                         &nbsp;&nbsp;&nbsp;Entregado 14/02/24 11:21 AM<br>
@@ -80,7 +83,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="card-footer text-muted">
                 Entregado 14/02/24 11:21 AM

@@ -5,6 +5,7 @@ import { BusinessService } from '../../../services/business/business.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 import { Utils } from '../../../source/utils';
+import { general } from '../../../source/general';
 
 @Component({
   selector: 'app-orders-list',
@@ -42,5 +43,36 @@ export class OrdersListComponent extends PageBase<OrderResponse> implements OnIn
 
 	override onCreateClicked(event: Event): void {
 		throw new Error('Method not implemented.');
+	}
+
+	getTotal(order: OrderResponse) {
+		let total = order.productTotal + ((order.productTotal * (order.tipPercent ?? 0)) / 100) + order.shippingCost;
+		return total;
+	}
+
+	getTip(order: OrderResponse) {
+		if (order.tipPercent == 0) {
+			return 0;
+		}
+
+		let total = ((order.productTotal * (order.tipPercent ?? 0)) / 100);
+		return total;
+	}
+
+	getComments(order: OrderResponse) {
+		if (order.comments === '' || order.comments === null) {
+			return '...';
+		}
+
+		return order.comments;
+	}
+
+	getDeliveryMethodInfo(order: OrderResponse) {
+		if (order.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
+			return "'" + order.addressName + "'";
+		}
+		else {
+			return '';
+		}
 	}
 }

@@ -16,4 +16,6 @@ export class OrderResponse {
     address!: AddressResponse;
     orderStatuses!: OrderStatusResponse[];
     orderElements!: OrderElementResponse[];
+
+    _details_loaded!: boolean;
 }
