@@ -80,17 +80,20 @@ export class OrdersListComponent extends PageBase<OrderResponse> implements OnIn
 		this._isProcessing = true;		
 		this.businessService.order_getOrderAsync(order.id)
 			.then(p => {
-				order.orderElements = p.orderElements;
-				order.orderStatuses = p.orderStatuses;
 				order._detailsLoaded = true;	
 				
+				order.orderElements = p.orderElements;
 				order._orderElementsGrouped = lodash.map(lodash.groupBy(order.orderElements, p => p.personName), (data, key) => {
 					let info: Grouping<string, OrderElementResponse> = new Grouping<string, OrderElementResponse>();
 					info.key = key;
 					info.items = data
-
+					
 					return info;
 				});
+				
+				order.orderStatuses = p.orderStatuses;
+				order.orderStatuses = lodash.sortBy(order.orderStatuses, p => p.eventAt);
+				order.orderStatuses = lodash.reverse(order.orderStatuses);
 
 				order._cols = "col-md-6";
 			})
