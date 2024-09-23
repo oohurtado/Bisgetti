@@ -7,6 +7,7 @@ export class OrderResponse {
     id!: number;
     deliveryMethod!: string;
     createdAt!: Date;
+    updatedAt!: Date;
     comments!: string;
     tipPercent!: number;
     payingWith!: number;
@@ -15,9 +16,11 @@ export class OrderResponse {
     shippingCost!: number;
     addressName!: string;
     address!: AddressResponse;
+    status!: string;
     orderStatuses!: OrderStatusResponse[];
     orderElements!: OrderElementResponse[];
 
+    _cols: string = "col-md-12";
     _detailsLoaded!: boolean;
-    _orderElements: Grouping<string, OrderElementResponse>[] = [];
+    _orderElementsGrouped: Grouping<string, OrderElementResponse>[] = [];
 }

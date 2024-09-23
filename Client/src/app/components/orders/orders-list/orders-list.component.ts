@@ -7,6 +7,9 @@ import { LocalStorageService } from '../../../services/common/local-storage.serv
 import { Utils } from '../../../source/utils';
 import { general } from '../../../source/general';
 import { DateService } from '../../../services/common/date.service';
+import * as lodash from 'lodash';
+import { Grouping } from '../../../source/models/common/grouping';
+import { OrderElementResponse } from '../../../source/models/dtos/entities/order-element-response';
 
 @Component({
   selector: 'app-orders-list',
@@ -79,11 +82,27 @@ export class OrdersListComponent extends PageBase<OrderResponse> implements OnIn
 			.then(p => {
 				order.orderElements = p.orderElements;
 				order.orderStatuses = p.orderStatuses;
-				order._detailsLoaded = true;
+				order._detailsLoaded = true;	
+				
+				order._orderElementsGrouped = lodash.map(lodash.groupBy(order.orderElements, p => p.personName), (data, key) => {
+					let info: Grouping<string, OrderElementResponse> = new Grouping<string, OrderElementResponse>();
+					info.key = key;
+					info.items = data
+
+					return info;
+				});
+
+				order._cols = "col-md-6";
 			})
 			.catch(e => {
 				this._error = Utils.getErrorsResponse(e);				
 			});
 		this._isProcessing = false;
+	}
+
+	getTotalByPerson(products: OrderElementResponse[]) {
+		let sum = 0;
+		products.forEach(p => sum += p.productPrice * p.productQuantity);
+		return sum;
 	}
 }

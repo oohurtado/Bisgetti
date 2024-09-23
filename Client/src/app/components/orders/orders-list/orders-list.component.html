@@ -47,14 +47,14 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="{{ order._cols }}">
                         <div style="padding-left: 0px;">
                             <strong>General</strong><br>
                             <div style="padding-left: 20px;">
                                 Productos ({{ order.productCount }}): {{ order.productTotal | currency:'$' }}<br>
                                 Costo de envío: {{ order.shippingCost | currency:'$' }}<br>
                                 Propina: {{ getTip(order) | currency:'$' }}<br>
-                                Total: {{ getTotal(order) | currency:'$' }}                                
+                                Total: <strong class="text-danger">{{ getTotal(order) | currency:'$' }}</strong>
                             </div>
                         </div>
                         <hr>
@@ -69,6 +69,14 @@
                                 </div>                                
                             </div>
                         </div>
+                        <div style="padding-left: 0px;" *ngIf="order.orderStatuses === null || order.orderStatuses.length == 0">
+                            <hr>
+                            <strong>Estatus</strong><br>
+                            <div style="padding-left: 20px;">
+                                {{ order.status }}, {{ dateService.get_longDate(order.updatedAt) }}, {{ dateService.get_time(order.updatedAt) }}
+                            </div>  
+                            <hr>                 
+                        </div> 
                         <div style="padding-left: 0px;" *ngIf="order.orderStatuses !== null && order.orderStatuses.length > 0">
                             <hr>
                             <strong>Estatus</strong><br>
@@ -77,28 +85,23 @@
                                     {{ status.status }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
                                 </div>
                             </div>  
-                            <hr>                          
+                            <hr>                 
                         </div>       
                     </div>
-                    <div class="col-md-6" *ngIf="order.orderElements !== null && order.orderElements.length > 0">
+                    <div class="{{ order._cols }}" *ngIf="order.orderElements !== null && order.orderElements.length > 0">
                         <div style="padding-left: 0px;">
                             <strong>Productos</strong><br>
-                            <div style="padding-left: 20px;">
-                                <pre>{{ order.orderElements | json }}</pre>                                
+                            <div style="padding-left: 20px;" *ngFor="let person of order._orderElementsGrouped">
+                                <strong>{{ person.key }}</strong>                                
+                                <div style="padding-left: 20px;" *ngFor="let product of person.items">
+                                    {{ product.productName }} ({{ product.productQuantity }}) {{ product.productQuantity * product.productPrice | currency:'$' }}
+                                </div>
+                                <div style="padding-left: 20px;">
+                                    Total por persona: <strong class="text-danger">{{ getTotalByPerson(person.items) | currency:'$'  }}</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-md-6">                      
-                        Productos<br>
-                            &nbsp;&nbsp;&nbsp;Oscar<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coca Cola (1) $25.00<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total por persona: $25.00<br>
-                            &nbsp;&nbsp;&nbsp;Franco<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coca Cola (1) $25.00<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Torta de carne asada(1) $50.00<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total por persona: $75.00<br>
-                        <hr>
-                    </div> -->
                     <div class="col-12" *ngIf="!order._detailsLoaded">
                         <div class="text-end mt-2">
                             <a (click)="onLoadOrderDetailsClicked($event, order)" class="btn btn-primary">Ver detalles</a>
@@ -117,5 +120,3 @@
 		</div>
 	</div>    
 </ng-container>
-
-<pre>{{ _pageData | json }}</pre>
