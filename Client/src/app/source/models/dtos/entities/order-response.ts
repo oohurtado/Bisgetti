@@ -1,3 +1,4 @@
+import { Grouping } from "../../common/grouping";
 import { AddressResponse } from "./address-response";
 import { OrderElementResponse } from "./order-element-response";
 import { OrderStatusResponse } from "./order-status-response";
@@ -17,5 +18,6 @@ export class OrderResponse {
     orderStatuses!: OrderStatusResponse[];
     orderElements!: OrderElementResponse[];
 
-    _details_loaded!: boolean;
+    _detailsLoaded!: boolean;
+    _orderElements: Grouping<string, OrderElementResponse>[] = [];
 }

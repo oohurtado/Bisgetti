@@ -79,6 +79,7 @@ export class OrdersListComponent extends PageBase<OrderResponse> implements OnIn
 			.then(p => {
 				order.orderElements = p.orderElements;
 				order.orderStatuses = p.orderStatuses;
+				order._detailsLoaded = true;
 			})
 			.catch(e => {
 				this._error = Utils.getErrorsResponse(e);				
