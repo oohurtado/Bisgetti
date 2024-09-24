@@ -565,13 +565,13 @@ export class BusinessService {
 	// order //
 	///////////
 
-	order_getOrdersByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number) {	
-		return this.requestService.get<PageData<OrderResponse>>(`/business/orders/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}`);
+	order_getOrdersByPage(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, filter: string) {	
+		return this.requestService.get<PageData<OrderResponse>>(`/business/orders/${sortColumn}/${sortOrder}/${pageSize}/${pageNumber}/${filter}`);
 	}
 
-	order_getOrdersByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number) : Promise<PageData<OrderResponse>> {
+	order_getOrdersByPageAsync(sortColumn: string, sortOrder: string, pageSize: number, pageNumber: number, filter: string) : Promise<PageData<OrderResponse>> {
 		return new Promise((resolve, reject) => {
-			this.order_getOrdersByPage(sortColumn, sortOrder, pageSize, pageNumber)
+			this.order_getOrdersByPage(sortColumn, sortOrder, pageSize, pageNumber, filter)
 			.subscribe({
 				next: (value) => {
 					resolve(value);

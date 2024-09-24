@@ -31,9 +31,10 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        public async Task<PageResponse<OrderResponse>> GetOrdersByPageAsync(string userId, string userRole, string sortColumn, string sortOrder, int pageSize, int pageNumber)
+        public async Task<PageResponse<OrderResponse>> GetOrdersByPageAsync(string userId, string userRole, string sortColumn, string sortOrder, int pageSize, int pageNumber, string filter)
         {
-            var result = await _businessRepository.Order_GetOrdersByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal)
+            var filters = filter.Split(',').ToList();
+            var result = await _businessRepository.Order_GetOrdersByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal, filters)
                 .Select(p => new OrderResponse
                 {
                     Id = p.Id,

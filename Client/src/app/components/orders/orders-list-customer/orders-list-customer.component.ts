@@ -13,6 +13,7 @@ import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-
 import { general } from '../../../source/general';
 import { OrderStatusCustomerForDeliveryPipe } from '../../../pipes/order-status-customer-for-delivery.pipe';
 import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-customer-take-away.pipe';
+import { Tuple3 } from '../../../source/models/common/tuple';
 
 @Component({
     selector: 'app-orders-list-customer',
@@ -20,13 +21,23 @@ import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-cus
     styleUrl: './orders-list-customer.component.css'
 })
 export class OrdersListCustomerComponent extends PageBase<OrderResponse> implements OnInit {
-    constructor(
+    
+	_filter!: string;
+	_filterMenu: Tuple3<string, string, boolean>[] = []; // data, text, selected
+
+	constructor(
 		private businessService: BusinessService,
 		private router: Router,		
 		public dateService: DateService,
 		localStorageService: LocalStorageService
 	) {
 		super('orders', localStorageService);
+
+		this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true));
+		this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Cocinando,Listo,En Ruta','En Proceso', false));
+		this._filterMenu.push(new Tuple3<string, string, boolean>('Cancelado,Declinado','Otros', false));
+		this._filterMenu.push(new Tuple3<string, string, boolean>('Entregado','Entregados', false));
+		this._filter = this._filterMenu[0].param1;
 	}
 
     async ngOnInit() {
@@ -37,7 +48,7 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 		this._error = null;
 		this._isProcessing = true;	
 		await this.businessService
-			.order_getOrdersByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber)
+			.order_getOrdersByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, this._filter)
 			.then(p => {
 				this._pageData = p;
 				this.updatePage(p);
@@ -137,5 +148,18 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 		}
 		
 		return 'lol';
+	}
+
+	async onFilterClicked(filter: string) {
+		this._filterMenu.forEach(p => {
+			p.param3 = false;
+
+			if (p.param1 === filter) {
+				p.param3 = true;
+				this._filter = filter;
+			}
+		});
+
+		await this.getDataAsync();
 	}
 }

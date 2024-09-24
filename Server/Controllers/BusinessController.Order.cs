@@ -15,12 +15,12 @@ namespace Server.Controllers
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-customer,user-boss")]
-        [HttpGet(template: "orders/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}")]
-        public async Task<ActionResult> GetOrdersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber)
+        [HttpGet(template: "orders/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}/{filter}")]
+        public async Task<ActionResult> GetOrdersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string filter)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);
-            var result = await _businessLogicOrder.GetOrdersByPageAsync(userId, userRole!, sortColumn, sortOrder, pageSize, pageNumber);
+            var result = await _businessLogicOrder.GetOrdersByPageAsync(userId, userRole!, sortColumn, sortOrder, pageSize, pageNumber, filter);
             return Ok(result);
         }
 

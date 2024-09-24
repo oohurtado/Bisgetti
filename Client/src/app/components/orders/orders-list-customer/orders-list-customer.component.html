@@ -24,6 +24,12 @@
 <ng-container *ngIf="_error === null">
     <div class="row">
         <div class="col-md-6">
+            <ng-container *ngFor="let item of _filterMenu, let _i_ = index">
+                <a (click)="onFilterClicked(item.param1)" class="cursor-pointer" [ngClass]="{'link-secondary': !item.param3, 'link-dark': item.param3}">{{ item.param2 }}</a> 
+                <ng-container *ngIf="_i_ < _filterMenu.length - 1">
+                    &#x2022;
+                </ng-container>
+            </ng-container>
         </div>
         <div class="col-md-6 text-end">
             <app-page-order class="ms-1 me-1" [data]="_pageOrder" (evt)="onOrderClicked($event)"></app-page-order>
