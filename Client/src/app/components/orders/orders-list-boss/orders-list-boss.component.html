@@ -56,6 +56,22 @@
             <div class="card-body">
                 <div class="row">
                     <div class="{{ order._cols }}">
+                        <div style="padding-left: 0px;" *ngIf="order.orderStatuses === null || order.orderStatuses.length == 0">                            
+                            <strong>Estatus</strong><br>
+                            <div style="padding-left: 20px;">
+                                {{ getStatusFromOrder(order) }}, {{ dateService.get_longDate(order.updatedAt) }}, {{ dateService.get_time(order.updatedAt) }}
+                            </div>                              
+                            <hr>
+                        </div> 
+                        <div style="padding-left: 0px;" *ngIf="order.orderStatuses !== null && order.orderStatuses.length > 0">
+                            <strong>Estatus</strong><br>
+                            <div style="padding-left: 20px;">
+                                <div *ngFor="let status of order.orderStatuses">
+                                    {{ getStatusFromOrderStatus(order, status) }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
+                                </div>
+                            </div>  
+                            <hr>                 
+                        </div>                           
                         <div style="padding-left: 0px;">
                             <strong>General</strong><br>
                             <div style="padding-left: 20px;">
@@ -64,8 +80,8 @@
                                 Propina: {{ getTip(order) | currency:'$' }}<br>
                                 Total: <strong class="text-danger">{{ getTotal(order) | currency:'$' }}</strong>
                             </div>
-                        </div>
-                        <hr>
+                            <hr>
+                        </div>                        
                         <div style="padding-left: 0px;">
                             <strong>Detalles</strong><br>
                             <div style="padding-left: 20px;">
@@ -76,25 +92,8 @@
                                     {{ getAddress(order) }}
                                 </div>                                
                             </div>
-                        </div>
-                        <div style="padding-left: 0px;" *ngIf="order.orderStatuses === null || order.orderStatuses.length == 0">
                             <hr>
-                            <strong>Estatus</strong><br>
-                            <div style="padding-left: 20px;">
-                                {{ getStatusFromOrder(order) }}, {{ dateService.get_longDate(order.updatedAt) }}, {{ dateService.get_time(order.updatedAt) }}
-                            </div>  
-                            <hr>                 
-                        </div> 
-                        <div style="padding-left: 0px;" *ngIf="order.orderStatuses !== null && order.orderStatuses.length > 0">
-                            <hr>
-                            <strong>Estatus</strong><br>
-                            <div style="padding-left: 20px;">
-                                <div *ngFor="let status of order.orderStatuses">
-                                    {{ getStatusFromOrderStatus(order, status) }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
-                                </div>
-                            </div>  
-                            <hr>                 
-                        </div>       
+                        </div>    
                     </div>
                     <div class="{{ order._cols }}" *ngIf="order.orderElements !== null && order.orderElements.length > 0">
                         <div style="padding-left: 0px;">
