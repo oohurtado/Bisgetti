@@ -34,7 +34,7 @@ namespace Server.Source.Logic
         public async Task<PageResponse<OrderResponse>> GetOrdersByPageAsync(string userId, string userRole, string sortColumn, string sortOrder, int pageSize, int pageNumber, string filter)
         {
             var filters = filter.Split(',').ToList();
-            var result = await _businessRepository.Order_GetOrdersByPage(userId, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal, filters)
+            var result = await _businessRepository.Order_GetOrdersByPage(userId, userRole, sortColumn, sortOrder, pageSize, pageNumber, out int grandTotal, filters)
                 .Select(p => new OrderResponse
                 {
                     Id = p.Id,
@@ -72,7 +72,7 @@ namespace Server.Source.Logic
 
         public async Task<OrderResponse> GetOrderAsync(string userId, string userRole, int orderId)
         {    
-            var result = await _businessRepository.Order_GetOrder(userId, orderId)
+            var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
                 .Select(p => new OrderResponse
                 {
                     Id = p.Id,

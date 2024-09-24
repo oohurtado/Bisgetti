@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderStatusCustomerForDeliveryPipe } from '../../../pipes/order-status-customer-for-delivery.pipe';
+import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-customer-take-away.pipe';
 import { BusinessService } from '../../../services/business/business.service';
 import { DateService } from '../../../services/common/date.service';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
+import { general } from '../../../source/general';
 import { Grouping } from '../../../source/models/common/grouping';
+import { Tuple3 } from '../../../source/models/common/tuple';
 import { OrderElementResponse } from '../../../source/models/dtos/entities/order-element-response';
 import { OrderResponse } from '../../../source/models/dtos/entities/order-response';
+import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-status-response';
 import { PageBase } from '../../../source/page-base';
 import { Utils } from '../../../source/utils';
-import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-status-response';
-import { general } from '../../../source/general';
-import { OrderStatusCustomerForDeliveryPipe } from '../../../pipes/order-status-customer-for-delivery.pipe';
-import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-customer-take-away.pipe';
-import { Tuple3 } from '../../../source/models/common/tuple';
 import * as lodash from 'lodash';
 
 @Component({
-    selector: 'app-orders-list-customer',
-    templateUrl: './orders-list-customer.component.html',
-    styleUrl: './orders-list-customer.component.css'
+  selector: 'app-orders-list-boss',
+  templateUrl: './orders-list-boss.component.html',
+  styleUrl: './orders-list-boss.component.css'
 })
-export class OrdersListCustomerComponent extends PageBase<OrderResponse> implements OnInit {
-    
-	_filter!: string;
+export class OrdersListBossComponent extends PageBase<OrderResponse> implements OnInit {
+    _filter!: string;
 	_filterMenu: Tuple3<string, string, boolean>[] = []; // data, text, selected
 
 	constructor(
@@ -33,7 +32,18 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 	) {
 		super('orders', localStorageService);
 
-		this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true));
+		// this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado','Empezado', false));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('Aceptado', 'Aceptado', false));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('Cancelado','Cancelado', false));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('Declinado','Declinado', false));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('Cocinando','Cocinando', false));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('Listo','Listo', false));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('En Ruta','En Ruta', false));
+        // this._filterMenu.push(new Tuple3<string, string, boolean>('Entregado','Entregado', false));
+        // this._filter = this._filterMenu[0].param1;
+
+        this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true));
 		this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Cocinando,Listo,En Ruta','En Proceso', false));
 		this._filterMenu.push(new Tuple3<string, string, boolean>('Cancelado,Declinado','Otros', false));
 		this._filterMenu.push(new Tuple3<string, string, boolean>('Entregado','Entregados', false));

@@ -68,6 +68,7 @@ import { OrdersListComponent } from './components/orders/orders-list/orders-list
 import { OrdersListCustomerComponent } from './components/orders/orders-list-customer/orders-list-customer.component';
 import { OrderStatusCustomerForDeliveryPipe } from './pipes/order-status-customer-for-delivery.pipe';
 import { OrderStatusCustomerTakeAwayPipe } from './pipes/order-status-customer-take-away.pipe';
+import { OrdersListBossComponent } from './components/orders/orders-list-boss/orders-list-boss.component';
 
 @NgModule({
 	declarations: [
@@ -127,7 +128,7 @@ import { OrderStatusCustomerTakeAwayPipe } from './pipes/order-status-customer-t
 		OrdersListComponent, 
 		OrdersListCustomerComponent, 
 		OrderStatusCustomerForDeliveryPipe, 
-		OrderStatusCustomerTakeAwayPipe,
+		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Server.Source.Data.Interfaces;
 using Server.Source.Exceptions;
+using Server.Source.Extensions;
 using Server.Source.Models.Entities;
 using Server.Source.Models.Enums;
 using System.Linq.Expressions;
@@ -11,18 +12,23 @@ namespace Server.Source.Data
 {
     public partial class BusinessRepository
     {
-        public IQueryable<OrderEntity> Order_GetOrdersByPage(string userId, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal, List<string> filters)
+        public IQueryable<OrderEntity> Order_GetOrdersByPage(string userId, string userRole, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal, List<string> filters)
         {
             IQueryable<OrderEntity> iq;
             IOrderedQueryable<OrderEntity> ioq = null!;
            
-            iq = _context.Orders.Where(p => p.UserId == userId);
+            Expression<Func<OrderEntity, bool>> exp = p => true;
+            if (userRole == EnumRole.UserCustomer.GetDescription())
+            {
+                exp = p => p.UserId == userId;
+            }            
+            iq = _context.Orders.Where(exp);
 
             // conteo
             grandTotal = iq.Count();
 
             // filtro status
-            iq = iq.Where(p => filters.Contains(p.Status!));
+            iq = iq.Where(p => filters.Contains(p.Status!));            
 
             // ordenamiento
             if (sortColumn == "event")
@@ -49,9 +55,19 @@ namespace Server.Source.Data
             return iq.AsNoTracking();
         }
 
-        public IQueryable<OrderEntity> Order_GetOrder(string userId, int orderId)
+        public IQueryable<OrderEntity> Order_GetOrder(string userId, string userRole, int orderId)
         {
-            return _context.Orders.Where(p => p.UserId == userId && p.Id == orderId);
+            Expression<Func<OrderEntity, bool>> exp = p => true;
+            if (userRole == EnumRole.UserCustomer.GetDescription())
+            {
+                exp = p => p.UserId == userId && p.Id == orderId;
+            }
+            else
+            {
+                exp = p => p.Id == orderId;
+            }
+            
+            return _context.Orders.Where(exp);
         }
 
         public IQueryable<OrderElementEntity> Order_GetOrderElements(string userId, int orderId)
