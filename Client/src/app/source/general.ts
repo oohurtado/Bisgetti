@@ -1,4 +1,4 @@
-import { EnumRole } from "./models/enums/role.enum";
+import { EnumRole } from "./models/enums/role-enum";
 
 export const general = {
 	URL_API: 'https://localhost:7239/api',

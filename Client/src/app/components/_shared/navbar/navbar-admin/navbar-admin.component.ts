@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../../../services/common/shared.service';
-import { EnumRole } from '../../../../source/models/enums/role.enum';
+import { EnumRole } from '../../../../source/models/enums/role-enum';
 import { general } from '../../../../source/general';
 
 @Component({

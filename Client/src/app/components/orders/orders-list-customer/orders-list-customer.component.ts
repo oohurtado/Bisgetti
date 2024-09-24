@@ -9,6 +9,10 @@ import { OrderResponse } from '../../../source/models/dtos/entities/order-respon
 import { PageBase } from '../../../source/page-base';
 import { Utils } from '../../../source/utils';
 import * as lodash from 'lodash';
+import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-status-response';
+import { general } from '../../../source/general';
+import { OrderStatusCustomerForDeliveryPipe } from '../../../pipes/order-status-customer-for-delivery.pipe';
+import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-customer-take-away.pipe';
 
 @Component({
     selector: 'app-orders-list-customer',
@@ -105,5 +109,33 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 		let sum = 0;
 		products.forEach(p => sum += p.productPrice * p.productQuantity);
 		return sum;
+	}
+
+	getStatusFromOrder(order: OrderResponse) {
+		if (order.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
+			let pipe = new OrderStatusCustomerForDeliveryPipe();
+			let str = pipe.transform(order.status);
+			return str;
+		} else if (order.deliveryMethod === general.DELIVERY_METHOD_TAKE_AWAY) {
+			let pipe = new OrderStatusCustomerTakeAwayPipe();
+			let str = pipe.transform(order.status);
+			return str;
+		}
+
+		return 'lol';
+	}
+
+	getStatusFromOrderStatus(order: OrderResponse, status: OrderStatusResponse) {
+		if (order.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
+			let pipe = new OrderStatusCustomerForDeliveryPipe();
+			let str = pipe.transform(status.status);
+			return str;
+		} else if (order.deliveryMethod === general.DELIVERY_METHOD_TAKE_AWAY) {
+			let pipe = new OrderStatusCustomerTakeAwayPipe();
+			let str = pipe.transform(status.status);
+			return str;
+		}
+		
+		return 'lol';
 	}
 }

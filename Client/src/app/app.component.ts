@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedService } from './services/common/shared.service';
 import { Subject } from 'rxjs';
-import { EnumRole } from './source/models/enums/role.enum';
+import { EnumRole } from './source/models/enums/role-enum';
 import { SystemService } from './services/business/system.service';
 import { DateService } from './services/common/date.service';
 import { BusinessService } from './services/business/business.service';

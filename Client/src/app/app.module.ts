@@ -66,6 +66,8 @@ import { DeliveryMethodPipe } from './pipes/delivery-method.pipe';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrdersListComponent } from './components/orders/orders-list/orders-list.component';
 import { OrdersListCustomerComponent } from './components/orders/orders-list-customer/orders-list-customer.component';
+import { OrderStatusCustomerForDeliveryPipe } from './pipes/order-status-customer-for-delivery.pipe';
+import { OrderStatusCustomerTakeAwayPipe } from './pipes/order-status-customer-take-away.pipe';
 
 @NgModule({
 	declarations: [
@@ -117,7 +119,15 @@ import { OrdersListCustomerComponent } from './components/orders/orders-list-cus
   		MenusDesignComponent,  		
   		AddToCartComponent, 
 		CartComponent, 
-		CartTabProductsComponent, CartTabDetailsComponent, CartTabConfirmationDeliveryComponent, DeliveryMethodPipe, OrdersComponent, OrdersListComponent, OrdersListCustomerComponent,
+		CartTabProductsComponent, 
+		CartTabDetailsComponent, 
+		CartTabConfirmationDeliveryComponent, 
+		DeliveryMethodPipe, 
+		OrdersComponent, 
+		OrdersListComponent, 
+		OrdersListCustomerComponent, 
+		OrderStatusCustomerForDeliveryPipe, 
+		OrderStatusCustomerTakeAwayPipe,
 	],
 	imports: [
 		BrowserModule,

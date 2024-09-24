@@ -1,7 +1,7 @@
 import { RoleStrPipe } from "../../pipes/role-str.pipe";
 import { general } from "../general";
 import { Tuple2 } from "../models/common/tuple";
-import { EnumRole } from "../models/enums/role.enum";
+import { EnumRole } from "../models/enums/role-enum";
 
 export class ListFactory {
 

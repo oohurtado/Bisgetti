@@ -22,7 +22,7 @@ namespace Server.Source.Models.Enums
         [Description("Listo")]
         Ready,
 
-        [Description("En ruta")]
+        [Description("En Ruta")]
         OnTheRoad,
 
         [Description("Entregado")]

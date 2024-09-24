@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EnumRole } from '../source/models/enums/role.enum';
+import { EnumRole } from '../source/models/enums/role-enum';
 
 @Pipe({
     name: 'roleStr'

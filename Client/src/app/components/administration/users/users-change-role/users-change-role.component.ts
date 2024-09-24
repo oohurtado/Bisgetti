@@ -5,7 +5,7 @@ import { Tuple2 } from '../../../../source/models/common/tuple';
 import { PageFactory } from '../../../../source/factories/page-factory';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ChangeRoleRequest } from '../../../../source/models/dtos/users/role/change-role-request';
-import { EnumRole } from '../../../../source/models/enums/role.enum';
+import { EnumRole } from '../../../../source/models/enums/role-enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 import { ListFactory } from '../../../../source/factories/list-factory';
 import { Utils } from '../../../../source/utils';

@@ -73,7 +73,7 @@
                             <hr>
                             <strong>Estatus</strong><br>
                             <div style="padding-left: 20px;">
-                                {{ order.status }}, {{ dateService.get_longDate(order.updatedAt) }}, {{ dateService.get_time(order.updatedAt) }}
+                                {{ getStatusFromOrder(order) }}, {{ dateService.get_longDate(order.updatedAt) }}, {{ dateService.get_time(order.updatedAt) }}
                             </div>  
                             <hr>                 
                         </div> 
@@ -82,7 +82,7 @@
                             <strong>Estatus</strong><br>
                             <div style="padding-left: 20px;">
                                 <div *ngFor="let status of order.orderStatuses">
-                                    {{ status.status }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
+                                    {{ getStatusFromOrderStatus(order, status) }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
                                 </div>
                             </div>  
                             <hr>                 
