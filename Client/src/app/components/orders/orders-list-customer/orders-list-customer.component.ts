@@ -31,7 +31,7 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 
     override async getDataAsync() {
 		this._error = null;
-		this._isProcessing = true;		
+		this._isProcessing = true;	
 		await this.businessService
 			.order_getOrdersByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber)
 			.then(p => {
@@ -74,9 +74,9 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 		return `${order.address.name}, ${order.address.street}, #${order.address.exteriorNumber} ${order.address.interiorNumber}, ${order.address.postalCode}`
 	}
 
-	onLoadOrderDetailsClicked(event: Event, order: OrderResponse) {
+	async onLoadOrderDetailsClicked(event: Event, order: OrderResponse) {
 		this._isProcessing = true;		
-		this.businessService.order_getOrderAsync(order.id)
+		await this.businessService.order_getOrderAsync(order.id)
 			.then(p => {
 				order._detailsLoaded = true;	
 				
