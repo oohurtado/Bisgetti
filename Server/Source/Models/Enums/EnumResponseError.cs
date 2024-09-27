@@ -105,8 +105,23 @@ namespace Server.Source.Models.Enums
         /// <summary>
         /// Cart
         /// </summary>
-        /// 
+       
         [Description("Actualice su carrito de compras, algunos productos se han actualizado")]
-        CartUpdateIsRequired
+        CartUpdateIsRequired,
+
+        /// <summary>
+        /// Order
+        /// </summary>
+        /// 
+
+        [Description("Orden no encontrada")]
+        OrderNotFound,
+
+        [Description("La orden tiene un estatus diferente, actualice para continuar")]
+        OrderHasDifferentStatus,
+
+        [Description("La orden ya fue entregada")]
+        OrderWasDelivered,
+
     }
 }

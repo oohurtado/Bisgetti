@@ -14,6 +14,8 @@ using Server.Source.Models.DTOs.UseCases.Cart;
 using Server.Source.Extensions;
 using System.Text.Json;
 using AutoMapper.Execution;
+using Server.Source.Helpers;
+using Server.Source.Models.DTOs.UseCases.Order;
 
 namespace Server.Source.Logic
 {
@@ -118,6 +120,78 @@ namespace Server.Source.Logic
             }
 
             return result!;
+        }
+
+        public async Task<OrderNextStepResponse> OrderNextStepAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
+        {
+            var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
+                .FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderNotFound);
+            }
+
+            if (result.Status != request.CurrentStatus)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
+            }
+
+            result.Status = OrderUtility.NextStep(currentStatus: request.CurrentStatus!, deliveryMethod: result.DeliveryMethod!).GetDescription();
+            await _businessRepository.UpdateAsync();
+
+            return new OrderNextStepResponse()
+            {
+                NewStatus = result.Status,
+            };
+        }
+
+        public async Task<OrderCanceledResponse> OrderCanceledAsync(string userId, string userRole, int orderId, OrderCanceledRequest request)
+        {
+            var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
+                .FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderNotFound);
+            }
+
+            if (result.Status != request.CurrentStatus)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
+            }
+
+            result.Status = OrderUtility.Canceled(currentStatus: request.CurrentStatus!).GetDescription();
+            await _businessRepository.UpdateAsync();
+
+            return new OrderCanceledResponse()
+            {
+                NewStatus = result.Status,
+            };
+        }
+
+        internal async Task<OrderDeclinedResponse> OrderDeclinedAsync(string userId, string userRole, int orderId, OrderDeclinedRequest request)
+        {
+            var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
+                .FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderNotFound);
+            }
+
+            if (result.Status != request.CurrentStatus)
+            {
+                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
+            }
+
+            result.Status = OrderUtility.Declined(currentStatus: request.CurrentStatus!).GetDescription();
+            await _businessRepository.UpdateAsync();
+
+            return new OrderDeclinedResponse()
+            {
+                NewStatus = result.Status,
+            };
         }
     }
 }

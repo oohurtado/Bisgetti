@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Source.Logic;
 using Server.Source.Models.DTOs.UseCases.Cart;
+using Server.Source.Models.DTOs.UseCases.Order;
 using System.Security.Claims;
 
 namespace Server.Controllers
@@ -38,5 +39,47 @@ namespace Server.Controllers
             return Ok(result);
         }
 
+
+        /// <summary>
+        /// Cambiar a siguiente paso
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "orders/{orderId}/next-step")]
+        public async Task<ActionResult> OrderNextStep(int orderId, [FromBody] OrderNextStepRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var userRole = User.FindFirstValue(ClaimTypes.Role!);
+            var result = await _businessLogicOrder.OrderNextStepAsync(userId, userRole!, orderId, request);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Cambiar a cancelado
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "orders/{orderId}/canceled")]
+        public async Task<ActionResult> OrderCanceled(int orderId, [FromBody] OrderCanceledRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var userRole = User.FindFirstValue(ClaimTypes.Role!);
+            await _businessLogicOrder.OrderCanceledAsync(userId, userRole!, orderId, request);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Cambiar a declinado
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpPut(template: "orders/{orderId}/declined")]
+        public async Task<ActionResult> OrderDeclined(int orderId, [FromBody] OrderDeclinedRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
+            var userRole = User.FindFirstValue(ClaimTypes.Role!);
+            await _businessLogicOrder.OrderDeclinedAsync(userId, userRole!, orderId, request);
+            return Ok();
+        }
     }
 }
