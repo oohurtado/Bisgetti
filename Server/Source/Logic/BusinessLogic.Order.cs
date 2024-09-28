@@ -138,7 +138,13 @@ namespace Server.Source.Logic
             }
 
             result.Status = OrderUtility.NextStep(currentStatus: request.CurrentStatus!, deliveryMethod: result.DeliveryMethod!).GetDescription();
-            await _businessRepository.UpdateAsync();
+            result.UpdatedAt = DateTime.Now;
+            result.OrderStatuses.Add(new OrderStatusEntity()
+            {
+                EventAt = DateTime.Now,
+                Status = result.Status,
+            });
+            await _businessRepository.UpdateAsync();            
 
             return new OrderNextStepResponse()
             {
@@ -162,6 +168,12 @@ namespace Server.Source.Logic
             }
 
             result.Status = OrderUtility.Canceled(currentStatus: request.CurrentStatus!).GetDescription();
+            result.UpdatedAt = DateTime.Now;
+            result.OrderStatuses.Add(new OrderStatusEntity()
+            {
+                EventAt = DateTime.Now,
+                Status = result.Status,
+            });
             await _businessRepository.UpdateAsync();
 
             return new OrderCanceledResponse()
@@ -186,6 +198,12 @@ namespace Server.Source.Logic
             }
 
             result.Status = OrderUtility.Declined(currentStatus: request.CurrentStatus!).GetDescription();
+            result.UpdatedAt = DateTime.Now;
+            result.OrderStatuses.Add(new OrderStatusEntity()
+            {
+                EventAt = DateTime.Now,
+                Status = result.Status,
+            });
             await _businessRepository.UpdateAsync();
 
             return new OrderDeclinedResponse()

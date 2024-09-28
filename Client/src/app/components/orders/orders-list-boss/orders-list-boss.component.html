@@ -26,12 +26,16 @@
         <div class="col-md-6">
             <ng-container *ngFor="let item of _filterMenu, let _i_ = index">
                 <small>
-                    <a (click)="onFilterClicked(item.param1)" class="cursor-pointer" [ngClass]="{'link-secondary': !item.param3, 'link-dark': item.param3}">{{ item.param2 }}</a> 
-                </small>
+                    <a (click)="onFilterClicked(item.param1)" class="cursor-pointer" [ngClass]="{'link-secondary': !item.param3, 'link-dark': item.param3}">{{ item.param2 }}</a>                     
+                </small>                
                 <ng-container *ngIf="_i_ < _filterMenu.length - 1">
                     &#x2022;
                 </ng-container>
             </ng-container>
+            <br>
+            <small class="text-muted">
+                {{ getStatusDetail() }}
+            </small>
         </div>
         <div class="col-md-6 text-end">
             <app-page-order class="ms-1 me-1" [data]="_pageOrder" (evt)="onOrderClicked($event)"></app-page-order>
@@ -58,14 +62,14 @@
                     <div class="{{ order._cols }}">
                         <div style="padding-left: 0px;" *ngIf="order.orderStatuses === null || order.orderStatuses.length == 0">                            
                             <strong>Estatus</strong><br>
-                            <div style="padding-left: 20px;">
+                            <div style="padding-left: 20px;" class="text-danger">
                                 {{ getStatusFromOrder(order) }}, {{ dateService.get_longDate(order.updatedAt) }}, {{ dateService.get_time(order.updatedAt) }}
                             </div>                              
                             <hr>
                         </div> 
                         <div style="padding-left: 0px;" *ngIf="order.orderStatuses !== null && order.orderStatuses.length > 0">
                             <strong>Estatus</strong><br>
-                            <div style="padding-left: 20px;">
+                            <div style="padding-left: 20px;" class="text-danger">
                                 <div *ngFor="let status of order.orderStatuses">
                                     {{ getStatusFromOrderStatus(order, status) }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
                                 </div>
@@ -100,7 +104,7 @@
                             <strong>Productos</strong><br>
                             <div style="padding-left: 20px;" *ngFor="let person of order._orderElementsGrouped">
                                 <strong>{{ person.key }}</strong>                                
-                                <div style="padding-left: 20px;" *ngFor="let product of person.items">
+                                <div style="padding-left: 20px;" *ngFor="let product of person.items" class="text-primary">
                                     {{ product.productName }} ({{ product.productQuantity }}) {{ product.productQuantity * product.productPrice | currency:'$' }}
                                 </div>
                                 <div style="padding-left: 20px;">
