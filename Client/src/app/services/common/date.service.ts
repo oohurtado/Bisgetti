@@ -17,6 +17,11 @@ export class DateService {
 		return strDate;
 	}
 
+    get_shortDate(date: Date) {
+		let strDate = this.pipe.transform(date, 'short');
+		return strDate;
+	}
+
     get_time(date: Date) {
 		let strDate = this.pipe.transform(date, 'mediumTime');
 		return strDate;

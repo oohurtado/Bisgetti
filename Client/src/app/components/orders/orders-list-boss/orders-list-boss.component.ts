@@ -132,38 +132,6 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 		return sum;
 	}
 
-	getStatusFromOrder(order: OrderResponse) {
-		if (order.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
-			// let pipe = new OrderStatusCustomerForDeliveryPipe();
-			// let str = pipe.transform(order.status);
-			// return str;
-			return order.status
-		} else if (order.deliveryMethod === general.DELIVERY_METHOD_TAKE_AWAY) {
-			// let pipe = new OrderStatusCustomerTakeAwayPipe();
-			// let str = pipe.transform(order.status);
-			// return str;
-			return order.status
-		}
-
-		return 'lol';
-	}
-
-	getStatusFromOrderStatus(order: OrderResponse, status: OrderStatusResponse) {
-		if (order.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
-			// let pipe = new OrderStatusCustomerForDeliveryPipe();
-			// let str = pipe.transform(status.status);
-			// return str;
-			return status.status
-		} else if (order.deliveryMethod === general.DELIVERY_METHOD_TAKE_AWAY) {
-			// let pipe = new OrderStatusCustomerTakeAwayPipe();
-			// let str = pipe.transform(status.status);
-			// return str;
-			return status.status
-		}
-		
-		return 'lol';
-	}
-
 	async onFilterClicked(filter: string) {
 		this._filterMenu.forEach(p => {
 			p.param3 = false;
