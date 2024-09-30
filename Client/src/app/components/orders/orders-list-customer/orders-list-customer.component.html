@@ -96,9 +96,11 @@
                         <div style="padding-left: 0px;" *ngIf="order.orderStatuses !== null && order.orderStatuses.length > 0">
                             <strong>Estatus</strong><br>
                             <div style="padding-left: 20px;">
-                                <div *ngFor="let status of order.orderStatuses">
-                                    {{ status.status }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
-                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" *ngFor="let status of order.orderStatuses">
+                                        {{ status.status }}, {{ dateService.get_longDate(status.eventAt) }}, {{ dateService.get_time(status.eventAt) }}
+                                    </li>
+                                </ul>   
                             </div>                                           
                         </div>
                     </div>
