@@ -39,7 +39,6 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-
         /// <summary>
         /// Cambiar a siguiente paso
         /// </summary>
@@ -50,8 +49,8 @@ namespace Server.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);
-            var result = await _businessLogicOrder.OrderNextStepAsync(userId, userRole!, orderId, request);
-            return Ok(result);
+            await _businessLogicOrder.OrderNextStepAsync(userId, userRole!, orderId, request);
+            return Ok();
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
         [HttpPut(template: "orders/{orderId}/canceled")]
-        public async Task<ActionResult> OrderCanceled(int orderId, [FromBody] OrderCanceledRequest request)
+        public async Task<ActionResult> OrderCanceled(int orderId, [FromBody] OrderNextStepRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);
@@ -74,7 +73,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
         [HttpPut(template: "orders/{orderId}/declined")]
-        public async Task<ActionResult> OrderDeclined(int orderId, [FromBody] OrderDeclinedRequest request)
+        public async Task<ActionResult> OrderDeclined(int orderId, [FromBody] OrderNextStepRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);

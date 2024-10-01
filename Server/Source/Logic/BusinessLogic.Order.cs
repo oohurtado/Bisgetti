@@ -122,7 +122,7 @@ namespace Server.Source.Logic
             return result!;
         }
 
-        public async Task<OrderNextStepResponse> OrderNextStepAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
+        public async Task OrderNextStepAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
         {
             var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
                 .FirstOrDefaultAsync();
@@ -144,15 +144,10 @@ namespace Server.Source.Logic
                 EventAt = DateTime.Now,
                 Status = result.Status,
             });
-            await _businessRepository.UpdateAsync();            
-
-            return new OrderNextStepResponse()
-            {
-                NewStatus = result.Status,
-            };
+            await _businessRepository.UpdateAsync();                
         }
 
-        public async Task<OrderCanceledResponse> OrderCanceledAsync(string userId, string userRole, int orderId, OrderCanceledRequest request)
+        public async Task OrderCanceledAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
         {
             var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
                 .FirstOrDefaultAsync();
@@ -175,14 +170,9 @@ namespace Server.Source.Logic
                 Status = result.Status,
             });
             await _businessRepository.UpdateAsync();
-
-            return new OrderCanceledResponse()
-            {
-                NewStatus = result.Status,
-            };
         }
 
-        internal async Task<OrderDeclinedResponse> OrderDeclinedAsync(string userId, string userRole, int orderId, OrderDeclinedRequest request)
+        public async Task OrderDeclinedAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
         {
             var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
                 .FirstOrDefaultAsync();
@@ -205,11 +195,6 @@ namespace Server.Source.Logic
                 Status = result.Status,
             });
             await _businessRepository.UpdateAsync();
-
-            return new OrderDeclinedResponse()
-            {
-                NewStatus = result.Status,
-            };
         }
     }
 }

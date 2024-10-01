@@ -6,7 +6,7 @@ export class OrderHelper {
     static nextStep(currentStatus: string, deliveryMethod: string) : string {
 
         if (currentStatus === EnumOrderStatus.Delivered) {
-            throw new Error("Estatus no válido");
+            return currentStatus;
         }
         
         if (deliveryMethod == EnumDeliveryMethod.TakeAway) {

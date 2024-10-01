@@ -102,12 +102,12 @@
                             <a (click)="onLoadOrderDetailsClicked($event, order)" class="btn btn-primary">Ver detalles</a>
                         </div>
                     </div>
-                    <div class="col-12" *ngIf="order._detailsLoaded">
+                    <div class="col-12" *ngIf="order._detailsLoaded && isOrderActive(order)">
                         <div class="text-end mt-2">
                             <div class="btn-group">
                                 <a (click)="onCancelOrderClicked(order)" class="btn btn-light border">Cancelar</a>
                                 <a (click)="onDeclineOrderClicked(order)" class="btn btn-light border">Declinar</a>
-                                <a (click)="onNextStatusClicked(order)" class="btn btn-light border">{{ getNextStatus(order) }} <i class="fa-solid fa-star-of-life"></i></a>
+                                <a (click)="onNextStatusClicked(order)" class="btn btn-light border">{{ order.status }} <i class="fa-solid fa-arrow-right"></i> {{ getNextStatus(order) }}</a>
                             </div>
                         </div>                        
                     </div>

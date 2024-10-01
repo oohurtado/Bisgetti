@@ -15,6 +15,10 @@ import { PageBase } from '../../../source/common/page-base';
 import { Utils } from '../../../source/common/utils';
 import * as lodash from 'lodash';
 import { OrderHelper } from '../../../source/helpers/order-helper';
+import { OrderNextStepRequest } from '../../../source/models/dtos/business/order-next-step-request';
+import { OrderNextStepResponse } from '../../../source/models/dtos/business/order-next-step-response';
+import { EnumOrderStatus } from '../../../source/models/enums/order-status-enum';
+declare let alertify: any;
 
 @Component({
   selector: 'app-orders-list-boss',
@@ -34,7 +38,7 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 		super('orders', localStorageService);
 
         this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
-		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Cocinando,Listo,En Ruta','En Proceso', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cocinando,Listo,En Ruta','En Proceso', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cancelado,Declinado','Otros', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Entregado','Entregados', true, false));
 		this._filter = this._filterMenu[0].param1;
@@ -90,6 +94,10 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 	}
 
 	async onLoadOrderDetailsClicked(event: Event, order: OrderResponse) {
+		await this.getOrderAsync(order);
+	}
+
+	async getOrderAsync(order: OrderResponse) {
 		this._isProcessing = true;		
 		await this.businessService.order_getOrderAsync(order.id)
 			.then(p => {
@@ -140,14 +148,70 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 	}
 
 	async onCancelOrderClicked(order: OrderResponse) {
-
+		this._error = null;
+		this._isProcessing = true;
+		let model = new OrderNextStepRequest(order.status)
+		this.businessService.order_canceled(order.id, model)
+			.subscribe({
+				complete: () => {
+					this._isProcessing = false;
+				},
+				error: (e : string) => {
+					this._isProcessing = false;
+					this._error = Utils.getErrorsResponse(e);
+				},
+				next: async (val) => {	
+					await this.getOrderAsync(order);
+					alertify.message("Cambios guardados", 1)
+				}
+			});		
 	}
 
 	async onDeclineOrderClicked(order: OrderResponse) {
-
+		this._error = null;
+		this._isProcessing = true;
+		let model = new OrderNextStepRequest(order.status);
+		this.businessService.order_declined(order.id, model)
+			.subscribe({
+				complete: () => {
+					this._isProcessing = false;
+				},
+				error: (e : string) => {
+					this._isProcessing = false;
+					this._error = Utils.getErrorsResponse(e);
+				},
+				next: async (val) => {	
+					await this.getOrderAsync(order);
+					alertify.message("Cambios guardados", 1)
+				}
+			});		
 	}
 
 	async onNextStatusClicked(order: OrderResponse) {
+		this._error = null;
+		this._isProcessing = true;
+		let model = new OrderNextStepRequest(order.status);
+		this.businessService.order_nextStep(order.id, model)
+			.subscribe({
+				complete: () => {
+					this._isProcessing = false;
+				},
+				error: (e : string) => {
+					this._isProcessing = false;
+					this._error = Utils.getErrorsResponse(e);
+				},
+				next: async (val) => {	
+					await this.getOrderAsync(order);
+					alertify.message("Cambios guardados", 1)
+				}
+			});		
+	}
 
+	isOrderActive(order: OrderResponse) : boolean {
+		if (order.status == EnumOrderStatus.Canceled || order.status == EnumOrderStatus.Declined || order.status == EnumOrderStatus.Delivered) {
+			return false;
+		} else {
+			return true;
+		}		
 	}
 }
