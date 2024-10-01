@@ -1,7 +1,7 @@
 <div class="btn-group m-1" role="group" aria-label="Basic example">
     <ng-container *ngFor="let item of menu">
-        <button (click)="onOptionClicked($event, item)" type="button" class="btn btn-light border" style="white-space: nowrap">
-            <span [ngClass]="{'text-dark': item.param3, 'text-light': !item.param3}" class="text-dark">&#x2713;</span> 
+        <button (click)="onOptionClicked($event, item)" [disabled]="!item.param3" type="button" class="btn btn-light border" style="white-space: nowrap">
+            <span [ngClass]="{'text-dark': item.param4, 'text-light': !item.param4}" class="text-dark">&#x2713;</span> 
             {{ item.param2 }}
         </button>
     </ng-container>

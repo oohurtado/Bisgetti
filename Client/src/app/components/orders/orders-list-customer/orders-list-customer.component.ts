@@ -12,7 +12,7 @@ import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-
 import { general } from '../../../source/general';
 import { OrderStatusCustomerForDeliveryPipe } from '../../../pipes/order-status-customer-for-delivery.pipe';
 import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-customer-take-away.pipe';
-import { Tuple3 } from '../../../source/models/common/tuple';
+import { Tuple3, Tuple4 } from '../../../source/models/common/tuple';
 import * as lodash from 'lodash';
 
 @Component({
@@ -23,7 +23,7 @@ import * as lodash from 'lodash';
 export class OrdersListCustomerComponent extends PageBase<OrderResponse> implements OnInit {
     
 	_filter!: string;
-	_filterMenu: Tuple3<string, string, boolean>[] = []; // data, text, selected
+	_filterMenu: Tuple4<string, string, boolean, boolean>[] = []; // data, text, enabled, selected
 
 	constructor(
 		private businessService: BusinessService,
@@ -33,10 +33,10 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 	) {
 		super('orders', localStorageService);
 
-		this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true));
-		this._filterMenu.push(new Tuple3<string, string, boolean>('Empezado,Cocinando,Listo,En Ruta','En Proceso', false));
-		this._filterMenu.push(new Tuple3<string, string, boolean>('Cancelado,Declinado','Otros', false));
-		this._filterMenu.push(new Tuple3<string, string, boolean>('Entregado','Entregados', false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Cocinando,Listo,En Ruta','En Proceso', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cancelado,Declinado','Otros', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Entregado','Entregados', true, false));
 		this._filter = this._filterMenu[0].param1;
 	}
 
@@ -124,10 +124,10 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 
 	async onFilterClicked(filter: string) {
 		this._filterMenu.forEach(p => {
-			p.param3 = false;
+			p.param4 = false;
 
 			if (p.param1 === filter) {
-				p.param3 = true;
+				p.param4 = true;
 				this._filter = filter;
 			}
 		});
