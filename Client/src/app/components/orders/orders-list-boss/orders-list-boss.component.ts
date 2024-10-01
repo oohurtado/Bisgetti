@@ -144,11 +144,4 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 
 		await this.getDataAsync();
 	}
-
-	getStatusDetail() {
-		let element = this._filterMenu.filter(p => p.param3)[0];
-		let arrStatuses = element.param1.split(',');
-		let str = element.param2 + ": " + arrStatuses.join(', ');
-		return str;
-	}
 }

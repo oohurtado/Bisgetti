@@ -69,6 +69,8 @@ import { OrdersListCustomerComponent } from './components/orders/orders-list-cus
 import { OrderStatusCustomerForDeliveryPipe } from './pipes/order-status-customer-for-delivery.pipe';
 import { OrderStatusCustomerTakeAwayPipe } from './pipes/order-status-customer-take-away.pipe';
 import { OrdersListBossComponent } from './components/orders/orders-list-boss/orders-list-boss.component';
+import { MenuOneOptionComponent } from './components/_shared/menu-one-option/menu-one-option.component';
+import { MenuMultipleOptionComponent } from './components/_shared/menu-multiple-option/menu-multiple-option.component';
 
 @NgModule({
 	declarations: [
@@ -128,7 +130,7 @@ import { OrdersListBossComponent } from './components/orders/orders-list-boss/or
 		OrdersListComponent, 
 		OrdersListCustomerComponent, 
 		OrderStatusCustomerForDeliveryPipe, 
-		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent,
+		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent, MenuOneOptionComponent, MenuMultipleOptionComponent,
 	],
 	imports: [
 		BrowserModule,
