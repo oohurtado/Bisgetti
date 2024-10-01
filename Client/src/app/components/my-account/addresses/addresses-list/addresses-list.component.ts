@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PageBase } from '../../../../source/page-base';
+import { PageBase } from '../../../../source/common/page-base';
 import { AddressResponse } from '../../../../source/models/dtos/entities/address-response';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { UserMyAccountService } from '../../../../services/business/user-my-account.service';
-import { Utils } from '../../../../source/utils';
+import { Utils } from '../../../../source/common/utils';
 import { UpdateAddressDefaultRequest } from '../../../../source/models/dtos/users/address/update-address-default-request';
 declare let alertify: any;
 

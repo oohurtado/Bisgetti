@@ -6,10 +6,10 @@ import { LocalStorageService } from '../../../services/common/local-storage.serv
 import { Grouping } from '../../../source/models/common/grouping';
 import { OrderElementResponse } from '../../../source/models/dtos/entities/order-element-response';
 import { OrderResponse } from '../../../source/models/dtos/entities/order-response';
-import { PageBase } from '../../../source/page-base';
-import { Utils } from '../../../source/utils';
+import { PageBase } from '../../../source/common/page-base';
+import { Utils } from '../../../source/common/utils';
 import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-status-response';
-import { general } from '../../../source/general';
+import { general } from '../../../source/common/general';
 import { OrderStatusCustomerForDeliveryPipe } from '../../../pipes/order-status-customer-for-delivery.pipe';
 import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-customer-take-away.pipe';
 import { Tuple3, Tuple4 } from '../../../source/models/common/tuple';

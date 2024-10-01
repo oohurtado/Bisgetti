@@ -23,6 +23,9 @@ import { TotalOfProductsInCartResponse } from '../../source/models/dtos/business
 import { ShippingCostResponse } from '../../source/models/dtos/business/shipping-cost-response';
 import { CreateOrderForCustomerRequest } from '../../source/models/dtos/business/cart-order-for-customer-request';
 import { OrderResponse } from '../../source/models/dtos/entities/order-response';
+import { OrderNextStepRequest } from '../../source/models/dtos/business/order-next-step-request';
+import { OrderCanceledRequest } from '../../source/models/dtos/business/order-canceled-request';
+import { OrderDeclinedRequest } from '../../source/models/dtos/business/order-declined-request';
 
 @Injectable({
     providedIn: 'root'
@@ -601,4 +604,15 @@ export class BusinessService {
 		});
 	}
 
+	order_nextStep(orderId: number, model: OrderNextStepRequest) {
+		return this.requestService.put(`/business/orders/${orderId}/next-step`, model);
+	}
+
+	order_canceled(orderId: number, model: OrderCanceledRequest) {
+		return this.requestService.put(`/business/orders/${orderId}/canceled`, model);
+	}
+
+	order_declined(orderId: number, model: OrderDeclinedRequest) {
+		return this.requestService.put(`/business/orders/${orderId}/declined`, model);
+	}
 }

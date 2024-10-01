@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserResponse } from '../../../../source/models/dtos/entities/user-response';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
-import { PageBase } from '../../../../source/page-base';
+import { PageBase } from '../../../../source/common/page-base';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
-import { Utils } from '../../../../source/utils';
+import { Utils } from '../../../../source/common/utils';
 import { UserUsersService } from '../../../../services/business/user-users.service';
 
 @Component({

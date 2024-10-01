@@ -1,7 +1,7 @@
-import { LocalStorageService } from "../services/common/local-storage.service";
-import { PageFactory } from "./factories/page-factory";
-import { PageData } from "./models/common/page-data";
-import { INavigationOptionSelected, IOrder, IOrderSelected, IPageSelected } from "./models/interfaces/page.interface";
+import { LocalStorageService } from "../../services/common/local-storage.service";
+import { PageFactory } from "../factories/page-factory";
+import { PageData } from "../models/common/page-data";
+import { INavigationOptionSelected, IOrder, IOrderSelected, IPageSelected } from "../models/interfaces/page.interface";
 
 export abstract class PageBase<T> {
 

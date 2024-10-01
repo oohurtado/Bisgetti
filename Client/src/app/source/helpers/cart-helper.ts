@@ -1,6 +1,6 @@
-import { CartElementResponse } from "./models/dtos/entities/cart-element-response";
-import { Grouping } from "./models/common/grouping";
-import { Tuple2 } from "./models/common/tuple";
+import { CartElementResponse } from "../models/dtos/entities/cart-element-response";
+import { Grouping } from "../models/common/grouping";
+import { Tuple2 } from "../models/common/tuple";
 
 export class CartHelper {
       

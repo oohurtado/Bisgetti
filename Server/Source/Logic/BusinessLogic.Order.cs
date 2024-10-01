@@ -137,7 +137,7 @@ namespace Server.Source.Logic
                 throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
             }
 
-            result.Status = OrderUtility.NextStep(currentStatus: request.CurrentStatus!, deliveryMethod: result.DeliveryMethod!).GetDescription();
+            result.Status = OrderHelper.NextStep(currentStatus: request.CurrentStatus!, deliveryMethod: result.DeliveryMethod!).GetDescription();
             result.UpdatedAt = DateTime.Now;
             result.OrderStatuses.Add(new OrderStatusEntity()
             {
@@ -167,7 +167,7 @@ namespace Server.Source.Logic
                 throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
             }
 
-            result.Status = OrderUtility.Canceled(currentStatus: request.CurrentStatus!).GetDescription();
+            result.Status = OrderHelper.Canceled(currentStatus: request.CurrentStatus!).GetDescription();
             result.UpdatedAt = DateTime.Now;
             result.OrderStatuses.Add(new OrderStatusEntity()
             {
@@ -197,7 +197,7 @@ namespace Server.Source.Logic
                 throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
             }
 
-            result.Status = OrderUtility.Declined(currentStatus: request.CurrentStatus!).GetDescription();
+            result.Status = OrderHelper.Declined(currentStatus: request.CurrentStatus!).GetDescription();
             result.UpdatedAt = DateTime.Now;
             result.OrderStatuses.Add(new OrderStatusEntity()
             {

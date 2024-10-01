@@ -4,7 +4,7 @@ import { MenuElement } from '../../../../../../source/models/business/common/men
 import * as lodash from 'lodash';
 import { BusinessService } from '../../../../../../services/business/business.service';
 import { AddOrRemoveElementRequest } from '../../../../../../source/models/dtos/menus/add-or-remove-element-request';
-import { Utils } from '../../../../../../source/utils';
+import { Utils } from '../../../../../../source/common/utils';
 
 @Component({
     selector: 'app-add-element-to-element',

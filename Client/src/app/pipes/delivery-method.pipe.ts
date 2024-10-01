@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { general } from '../source/general';
+import { general } from '../source/common/general';
+import { EnumDeliveryMethod } from '../source/models/enums/delivery-method-enum';
 
 @Pipe({
 	name: 'deliveryMethod'
@@ -10,9 +11,9 @@ export class DeliveryMethodPipe implements PipeTransform {
 		switch (value) {
 			// case 'on-site':
 			// 	return 'Comer en el restaurante';
-			case general.DELIVERY_METHOD_TAKE_AWAY:
+			case EnumDeliveryMethod.TakeAway:
 				return 'Recoger en restaurante';
-			case general.DELIVERY_METHOD_FOR_DELIVER:
+			case EnumDeliveryMethod.ForDelivery:
 				return 'Enviar a dirección';
 		}
 

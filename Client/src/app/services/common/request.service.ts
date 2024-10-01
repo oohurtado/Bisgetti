@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { general } from '../../source/general';
+import { general } from '../../source/common/general';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({

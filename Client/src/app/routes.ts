@@ -16,7 +16,7 @@ import { AddressesCreateOrUpdateComponent } from "./components/my-account/addres
 import { PasswordRecoveryComponent } from "./components/access/password-recovery/password-recovery.component";
 import { PasswordSetComponent } from "./components/access/password-set/password-set.component";
 import { roleGuard } from "./guards/role.guard";
-import { general } from "./source/general";
+import { general } from "./source/common/general";
 import { MyAccountListComponent } from "./components/my-account/my-account-list/my-account-list.component";
 import { MyAccountComponent } from "./components/my-account/my-account.component";
 import { userBossGuard } from "./guards/user-boss.guard";

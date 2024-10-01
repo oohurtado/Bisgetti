@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { SharedService } from '../../../../services/common/shared.service';
 import { EnumRole } from '../../../../source/models/enums/role-enum';
-import { general } from '../../../../source/general';
+import { general } from '../../../../source/common/general';
 
 @Component({
     selector: 'app-navbar-boss',

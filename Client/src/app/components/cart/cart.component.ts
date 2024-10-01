@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessService } from '../../services/business/business.service';
 import { SharedService } from '../../services/common/shared.service';
-import { Utils } from '../../source/utils';
+import { Utils } from '../../source/common/utils';
 import { CartElementResponse } from '../../source/models/dtos/entities/cart-element-response';
 import { AddressResponse } from '../../source/models/dtos/entities/address-response';
 declare let alertify: any;

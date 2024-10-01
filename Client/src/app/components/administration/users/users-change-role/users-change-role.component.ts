@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBase } from '../../../../source/form-base';
+import { FormBase } from '../../../../source/common/form-base';
 import { Tuple2 } from '../../../../source/models/common/tuple';
 import { PageFactory } from '../../../../source/factories/page-factory';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { ChangeRoleRequest } from '../../../../source/models/dtos/users/role/cha
 import { EnumRole } from '../../../../source/models/enums/role-enum';
 import { RoleStrPipe } from '../../../../pipes/role-str.pipe';
 import { ListFactory } from '../../../../source/factories/list-factory';
-import { Utils } from '../../../../source/utils';
+import { Utils } from '../../../../source/common/utils';
 import { UserUsersService } from '../../../../services/business/user-users.service';
 declare let alertify: any;
 

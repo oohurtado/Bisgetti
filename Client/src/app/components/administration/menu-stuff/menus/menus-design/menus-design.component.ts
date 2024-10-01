@@ -8,8 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../../../services/business/business.service';
 import { Tuple2 } from '../../../../../source/models/common/tuple';
 import * as lodash from 'lodash';
-import { Utils } from '../../../../../source/utils';
-import { MenuHelper } from '../../../../../source/menu-helper';
+import { Utils } from '../../../../../source/common/utils';
+import { MenuHelper } from '../../../../../source/helpers/menu-helper';
 import { PositionElementRequest } from '../../../../../source/models/dtos/menus/position-element-request';
 declare let alertify: any;
 

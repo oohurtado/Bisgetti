@@ -5,15 +5,16 @@ import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-cus
 import { BusinessService } from '../../../services/business/business.service';
 import { DateService } from '../../../services/common/date.service';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
-import { general } from '../../../source/general';
+import { general } from '../../../source/common/general';
 import { Grouping } from '../../../source/models/common/grouping';
 import { Tuple3, Tuple4 } from '../../../source/models/common/tuple';
 import { OrderElementResponse } from '../../../source/models/dtos/entities/order-element-response';
 import { OrderResponse } from '../../../source/models/dtos/entities/order-response';
 import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-status-response';
-import { PageBase } from '../../../source/page-base';
-import { Utils } from '../../../source/utils';
+import { PageBase } from '../../../source/common/page-base';
+import { Utils } from '../../../source/common/utils';
 import * as lodash from 'lodash';
+import { OrderHelper } from '../../../source/helpers/order-helper';
 
 @Component({
   selector: 'app-orders-list-boss',
@@ -132,5 +133,21 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 		});
 
 		await this.getDataAsync();
+	}
+
+	getNextStatus(order: OrderResponse) : string {
+		return OrderHelper.nextStep(order.status, order.deliveryMethod);
+	}
+
+	async onCancelOrderClicked(order: OrderResponse) {
+
+	}
+
+	async onDeclineOrderClicked(order: OrderResponse) {
+
+	}
+
+	async onNextStatusClicked(order: OrderResponse) {
+
 	}
 }

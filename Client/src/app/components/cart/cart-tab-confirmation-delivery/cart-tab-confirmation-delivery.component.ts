@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Utils } from '../../../source/utils';
+import { Utils } from '../../../source/common/utils';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../services/business/business.service';
-import { FormBase } from '../../../source/form-base';
+import { FormBase } from '../../../source/common/form-base';
 import { CartDetails } from '../../../source/models/business/common/cart-details';
 import { AddressResponse } from '../../../source/models/dtos/entities/address-response';
 import { CartElementResponse } from '../../../source/models/dtos/entities/cart-element-response';
 import { Grouping } from '../../../source/models/common/grouping';
 import * as lodash from 'lodash';
 import { Tuple2 } from '../../../source/models/common/tuple';
-import { CartHelper } from '../../../source/cart-helper';
-import { general } from '../../../source/general';
+import { CartHelper } from '../../../source/helpers/cart-helper';
+import { general } from '../../../source/common/general';
 import { CreateOrderElementForCustomerRequest, CreateOrderForCustomerRequest } from '../../../source/models/dtos/business/cart-order-for-customer-request';
 import { SharedService } from '../../../services/common/shared.service';
+import { EnumDeliveryMethod } from '../../../source/models/enums/delivery-method-enum';
 
 @Component({
     selector: 'app-cart-tab-confirmation-delivery',
@@ -71,7 +72,7 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
 				this.evtError.emit(Utils.getErrorsResponse(e));
 			});		
 
-        if (this._cartDetails?.deliveryMethod === general.DELIVERY_METHOD_FOR_DELIVER) {
+        if (this._cartDetails?.deliveryMethod === EnumDeliveryMethod.ForDelivery) {
             await this.businessService.cart_getUserAddressAsync(this._cartDetails?.addressId)
                 .then(r => {
                     this._address = r;

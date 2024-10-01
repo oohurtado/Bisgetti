@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../../../services/business/business.service';
-import { FormBase } from '../../../../../source/form-base';
+import { FormBase } from '../../../../../source/common/form-base';
 import { ProductResponse } from '../../../../../source/models/dtos/entities/product-response';
-import { Utils } from '../../../../../source/utils';
+import { Utils } from '../../../../../source/common/utils';
 import { CreateOrUpdateProductRequest } from '../../../../../source/models/dtos/menus/create-or-update-product-request';
 declare let alertify: any;
 

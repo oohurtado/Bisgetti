@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MenuHelper } from '../../source/menu-helper';
+import { MenuHelper } from '../../source/helpers/menu-helper';
 import { MenuElement } from '../../source/models/business/common/menu-element';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../services/business/business.service';
@@ -7,7 +7,7 @@ import { MenuResponse } from '../../source/models/dtos/entities/menu-response';
 import { CategoryResponse } from '../../source/models/dtos/entities/category-response';
 import { MenuStuffResponse } from '../../source/models/dtos/entities/menu-stuff-response';
 import { ProductResponse } from '../../source/models/dtos/entities/product-response';
-import { Utils } from '../../source/utils';
+import { Utils } from '../../source/common/utils';
 import { PersonResponse } from '../../source/models/dtos/entities/person-response';
 import { LocalStorageService } from '../../services/common/local-storage.service';
 import { SharedService } from '../../services/common/shared.service';

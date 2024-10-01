@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { Router } from '@angular/router';
-import { general } from '../../../../source/general';
+import { general } from '../../../../source/common/general';
 
 @Component({
     selector: 'app-navbar-anon',

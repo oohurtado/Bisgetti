@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserMyAccountService } from '../../../services/business/user-my-account.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBase } from '../../../source/form-base';
+import { FormBase } from '../../../source/common/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserValidatorService } from '../../../services/validators/user-validator.service';
 import { ChangePasswordRequest } from '../../../source/models/dtos/users/password/change-password.request';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
-import { Utils } from '../../../source/utils';
+import { Utils } from '../../../source/common/utils';
 declare let alertify: any;
 
 @Component({

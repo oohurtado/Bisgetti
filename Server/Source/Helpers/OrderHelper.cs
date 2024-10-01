@@ -4,7 +4,7 @@ using Server.Source.Models.Enums;
 
 namespace Server.Source.Helpers
 {
-    public static class OrderUtility
+    public static class OrderHelper
     {
         public static EnumOrderStatus NextStep(string currentStatus, string deliveryMethod)
         {

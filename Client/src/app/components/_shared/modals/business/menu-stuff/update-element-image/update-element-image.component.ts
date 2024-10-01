@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { MenuElement } from '../../../../../../source/models/business/common/menu-element';
 import { BusinessService } from '../../../../../../services/business/business.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Utils } from '../../../../../../source/utils';
+import { Utils } from '../../../../../../source/common/utils';
 import { ImageElementResponse } from '../../../../../../source/models/dtos/menus/image-element-response';
 import { ImageElementRequest } from '../../../../../../source/models/dtos/menus/image-element-request';
 

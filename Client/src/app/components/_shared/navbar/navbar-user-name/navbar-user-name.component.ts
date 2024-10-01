@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../../../../services/common/local-storage.service';
 import { UserMyAccountService } from '../../../../services/business/user-my-account.service';
 import { UserResponse } from '../../../../source/models/dtos/entities/user-response';
-import { general } from '../../../../source/general';
+import { general } from '../../../../source/common/general';
 
 @Component({
     selector: 'app-navbar-user-name',

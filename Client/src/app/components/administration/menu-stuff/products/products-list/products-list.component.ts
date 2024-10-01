@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductResponse } from '../../../../../source/models/dtos/entities/product-response';
-import { PageBase } from '../../../../../source/page-base';
+import { PageBase } from '../../../../../source/common/page-base';
 import { Router } from '@angular/router';
 import { BusinessService } from '../../../../../services/business/business.service';
 import { LocalStorageService } from '../../../../../services/common/local-storage.service';
 import { MenuResponse } from '../../../../../source/models/dtos/entities/menu-response';
-import { Utils } from '../../../../../source/utils';
+import { Utils } from '../../../../../source/common/utils';
 declare let alertify: any;
 
 @Component({

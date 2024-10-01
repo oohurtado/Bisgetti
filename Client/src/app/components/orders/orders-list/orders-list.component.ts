@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderResponse } from '../../../source/models/dtos/entities/order-response';
-import { PageBase } from '../../../source/page-base';
+import { PageBase } from '../../../source/common/page-base';
 import { BusinessService } from '../../../services/business/business.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
-import { Utils } from '../../../source/utils';
-import { general } from '../../../source/general';
+import { Utils } from '../../../source/common/utils';
+import { general } from '../../../source/common/general';
 import { DateService } from '../../../services/common/date.service';
 import * as lodash from 'lodash';
 import { Grouping } from '../../../source/models/common/grouping';

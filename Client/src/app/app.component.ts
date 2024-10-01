@@ -6,7 +6,7 @@ import { SystemService } from './services/business/system.service';
 import { DateService } from './services/common/date.service';
 import { BusinessService } from './services/business/business.service';
 import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-remove-element-request';
-import { Utils } from './source/utils';
+import { Utils } from './source/common/utils';
 import { PositionElementRequest } from './source/models/dtos/menus/position-element-request';
 import { SettingsElementRequest } from './source/models/dtos/menus/settings-element-request';
 declare let alertify: any;

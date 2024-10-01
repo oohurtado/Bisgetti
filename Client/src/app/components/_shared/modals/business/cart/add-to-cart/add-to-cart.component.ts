@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonResponse } from '../../../../../../source/models/dtos/entities/person-response';
 import { AddProductToCartRequest } from '../../../../../../source/models/dtos/business/add-product-to-cart-request';
 import { BusinessService } from '../../../../../../services/business/business.service';
-import { Utils } from '../../../../../../source/utils';
+import { Utils } from '../../../../../../source/common/utils';
 
 @Component({
     selector: 'app-add-to-cart',

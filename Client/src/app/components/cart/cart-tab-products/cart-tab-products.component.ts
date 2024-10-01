@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartElementResponse } from '../../../source/models/dtos/entities/cart-element-response';
 import { Grouping } from '../../../source/models/common/grouping';
 import { UpdateProductFromCartRequest } from '../../../source/models/dtos/business/update-product-from-cart-request';
-import { Utils } from '../../../source/utils';
+import { Utils } from '../../../source/common/utils';
 import { BusinessService } from '../../../services/business/business.service';
 declare let alertify: any;
 import * as lodash from 'lodash';
 import { SharedService } from '../../../services/common/shared.service';
 import { Tuple2 } from '../../../source/models/common/tuple';
-import { CartHelper } from '../../../source/cart-helper';
+import { CartHelper } from '../../../source/helpers/cart-helper';
 
 @Component({
   selector: 'app-cart-tab-products',

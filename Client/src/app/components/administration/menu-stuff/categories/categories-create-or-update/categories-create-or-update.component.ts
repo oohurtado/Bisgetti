@@ -3,8 +3,8 @@ import { CategoryResponse } from '../../../../../source/models/dtos/entities/cat
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../../../services/business/business.service';
-import { FormBase } from '../../../../../source/form-base';
-import { Utils } from '../../../../../source/utils';
+import { FormBase } from '../../../../../source/common/form-base';
+import { Utils } from '../../../../../source/common/utils';
 import { CreateOrUpdateCategoryRequest } from '../../../../../source/models/dtos/menus/create-or-update-category-request';
 declare let alertify: any;
 

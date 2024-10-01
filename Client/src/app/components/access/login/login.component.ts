@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBase } from '../../../source/form-base';
+import { FormBase } from '../../../source/common/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 import { LoginRequest } from '../../../source/models/dtos/users/access/login-request';
 import { TokenResponse } from '../../../source/models/dtos/users/access/token-response';
-import { Utils } from '../../../source/utils';
+import { Utils } from '../../../source/common/utils';
 import { UserAccessService } from '../../../services/business/user-access.service';
 declare let alertify: any;
 

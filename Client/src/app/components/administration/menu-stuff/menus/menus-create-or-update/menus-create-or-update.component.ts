@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBase } from '../../../../../source/form-base';
+import { FormBase } from '../../../../../source/common/form-base';
 import { BusinessService } from '../../../../../services/business/business.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuResponse } from '../../../../../source/models/dtos/entities/menu-response';
-import { Utils } from '../../../../../source/utils';
+import { Utils } from '../../../../../source/common/utils';
 import { CreateOrUpdateMenuRequest } from '../../../../../source/models/dtos/menus/create-or-update-menu-request';
 declare let alertify: any;
 

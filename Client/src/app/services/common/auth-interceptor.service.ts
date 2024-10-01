@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-import { general } from '../../source/general';
+import { general } from '../../source/common/general';
 
 @Injectable({
     providedIn: 'root'

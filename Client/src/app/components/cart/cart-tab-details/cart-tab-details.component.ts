@@ -1,15 +1,16 @@
 import { AfterViewChecked, AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBase } from '../../../source/form-base';
+import { FormBase } from '../../../source/common/form-base';
 import { Tuple2 } from '../../../source/models/common/tuple';
 import { ListFactory } from '../../../source/factories/list-factory';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../../../services/business/business.service';
-import { Utils } from '../../../source/utils';
+import { Utils } from '../../../source/common/utils';
 import { AddressResponse } from '../../../source/models/dtos/entities/address-response';
 import { CartDetails } from '../../../source/models/business/common/cart-details';
-import { CartHelper } from '../../../source/cart-helper';
-import { general } from '../../../source/general';
+import { CartHelper } from '../../../source/helpers/cart-helper';
+import { general } from '../../../source/common/general';
+import { EnumDeliveryMethod } from '../../../source/models/enums/delivery-method-enum';
 
 @Component({
     selector: 'app-cart-tab-details',
@@ -101,7 +102,7 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
 
         this._cartDetail.deliveryMethod = this._myForm?.get('deliveryMethod')?.value;
         this._cartDetail.addressId = this._myForm?.get('address')?.value;
-        if (this._cartDetail.deliveryMethod !== general.DELIVERY_METHOD_FOR_DELIVER) {
+        if (this._cartDetail.deliveryMethod !== EnumDeliveryMethod.ForDelivery) {
             this._cartDetail.addressId = null;
         }
 
@@ -116,11 +117,11 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     async onDeliveryMethodClicked(event: Event, deliveryMethod: Tuple2<string,string>) {
         await Utils.delay(100);        
         
-        if (deliveryMethod.param1 === general.DELIVERY_METHOD_TAKE_AWAY) {
+        if (deliveryMethod.param1 === EnumDeliveryMethod.TakeAway) {
             this._myForm.get('address')?.removeValidators(Validators.required)
             this._myForm.get('address')?.updateValueAndValidity();
             this._cartDetail.shippingCost = 0;
-        } else if (deliveryMethod.param1 === general.DELIVERY_METHOD_FOR_DELIVER) {
+        } else if (deliveryMethod.param1 === EnumDeliveryMethod.ForDelivery) {
             this._myForm.get('address')?.addValidators(Validators.required);
             this._myForm.get('address')?.updateValueAndValidity();
             this._cartDetail.shippingCost = this._shippingCost;            
@@ -128,7 +129,7 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     }
 
     isDeliveryMethodForDeliverySelected(): boolean {
-        return this._myForm?.get('deliveryMethod')?.value === general.DELIVERY_METHOD_FOR_DELIVER;
+        return this._myForm?.get('deliveryMethod')?.value === EnumDeliveryMethod.ForDelivery;
     }
 
     onTipClicked(event: Event, tipPercent: number) {
