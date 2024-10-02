@@ -1,8 +1,8 @@
 <div class="btn-group m-1" role="group" aria-label="Basic example">
     <ng-container *ngFor="let item of menu">
-        <button (click)="onOptionClicked($event, item)" [disabled]="!item.param3" type="button" class="btn btn-light border" style="white-space: nowrap">
+        <button (click)="onOptionClicked($event, item)" [disabled]="!item.param3" type="button" class="btn btn-light btn-sm border" style="white-space: nowrap">
             <span [ngClass]="{'text-dark': item.param4, 'text-light': !item.param4}" class="text-dark">&#x2713;</span> 
-            {{ item.param2 }}
+            <small>&nbsp;{{ item.param2 }}</small>
         </button>
     </ng-container>
   </div>
