@@ -88,8 +88,8 @@ export class UpdatePersonalDataComponent extends FormBase implements OnInit {
 					this.router.navigateByUrl('/my-account');
 					alertify.message("Cambios guardados", 1);
 
-					this.localStorageService.setValue(general.LS_FIRST_NAME, model.firstName);
-					this.localStorageService.setValue(general.LS_LAST_NAME, model.lastName);
+					this.localStorageService.setValue(general.LS_USER_FIRST_NAME, model.firstName);
+					this.localStorageService.setValue(general.LS_USER_LAST_NAME, model.lastName);
 				}
 			});
 	}

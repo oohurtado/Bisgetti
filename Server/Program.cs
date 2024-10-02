@@ -24,6 +24,7 @@ using Server.Source.Models.DTOs.UseCases.Product;
 using Server.Source.Models.DTOs.UseCases.MyAccount;
 using Server.Source.Models.DTOs.UseCases.Menu;
 using Server.Source.Models.DTOs.UseCases.Category;
+using Server.Source.Hubs;
 
 namespace Server
 {
@@ -54,9 +55,11 @@ namespace Server
             builder.Services.AddCors(o => o.AddPolicy(name: "OriginAngular", policy =>
             {
                 policy
-                .WithOrigins("http://localhost:4200")
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials()
+                //.AllowAnyOrigin()
+                .WithOrigins("http://localhost:4200");
             }));
 
             builder.Services
@@ -192,6 +195,8 @@ namespace Server
                     }
                 });
             });
+
+            app.MapHub<NotifyToRestaurantHub>("hubs/notify-to-restaurant");
 
             app.Run();
         }

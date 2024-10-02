@@ -23,9 +23,9 @@ export class NavbarUserNameComponent implements OnInit {
             .getPersonalDataAsync()
             .then(p => {
                 this._user = p;
-                this.localStorageService.setValue(general.LS_FIRST_NAME, this._user.firstName);
-                this.localStorageService.setValue(general.LS_LAST_NAME, this._user.lastName);
-                this.localStorageService.setValue(general.LS_EMAIL_ADDRESS, this._user.email);
+                this.localStorageService.setValue(general.LS_USER_FIRST_NAME, this._user.firstName);
+                this.localStorageService.setValue(general.LS_USER_LAST_NAME, this._user.lastName);
+                this.localStorageService.setValue(general.LS_USER_EMAIL_ADDRESS, this._user.email);
             })
             .catch(e => {
             });

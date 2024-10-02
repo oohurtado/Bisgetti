@@ -12,6 +12,9 @@ import { UpdateProductFromCartRequest } from '../../source/models/dtos/business/
 import { Tuple2 } from '../../source/models/common/tuple';
 import { CartDetails } from '../../source/models/business/common/cart-details';
 import { Router } from '@angular/router';
+import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
+import { general } from '../../source/common/general';
+import { MessageHub } from '../../source/models/hub/message-hub';
 
 @Component({
 	selector: 'app-cart',
@@ -30,15 +33,27 @@ export class CartComponent implements OnInit {
 
 	_cartDetails!: CartDetails|null;
 
+	private _connection!: HubConnection;
+
 	constructor(
 		private businessService: BusinessService,		
 		private sharedService: SharedService,
+		private localStorageService: LocalStorageService,
 		private router: Router
 	) {		
+		this.initTabs();
+		this.initHub();
 	}
 
+
+
 	async ngOnInit() {
-		this.initTabs();
+		this._connection.start()
+		.then(_ => {
+			// console.log('connection Started');
+		}).catch(error => {			
+			// return console.error(error);
+		});
 	}
 
 	initTabs() {
@@ -49,6 +64,18 @@ export class CartComponent implements OnInit {
 		this._tabIcons.push("fa-cart-shopping");
 		this._tabIcons.push("fa-list-check");
 		this._tabIcons.push("fa-truck-fast");
+	}
+
+	initHub() {
+		const options: IHttpConnectionOptions = {
+			accessTokenFactory: () => {
+				return this.localStorageService.getValue(general.LS_TOKEN)!;
+			},
+		};
+
+		this._connection = new HubConnectionBuilder()
+			.withUrl(general.HUB_NOTIFY_TO_RESTAURANT, options)
+			.build();
 	}
 	
 	onTabClicked(event: Event, tabNew: number) {
@@ -68,7 +95,10 @@ export class CartComponent implements OnInit {
 	async evtNextStep() {
 		this._tabCurrent++;
 		
+		this.notifyToRestaurant();
+
 		if (this._tabCurrent == 3) {
+			this.notifyToRestaurant();
 			this.router.navigateByUrl('/orders');
 			await this.refreshCartAsync();
 		}
@@ -84,6 +114,16 @@ export class CartComponent implements OnInit {
 				this.sharedService.refreshCart(r.total);             
 			}, e => {
 				this._error = Utils.getErrorsResponse(e);
+			});
+	}
+
+	notifyToRestaurant() {
+		let userId = this.localStorageService.getUserId();
+		let message = new MessageHub(userId, "NEW-ORDER");
+		
+		this._connection.invoke('MessageReceived', message)
+			.then(_ => { 
+				console.log('message sent: ' + message); 
 			});
 	}
 }

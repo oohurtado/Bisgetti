@@ -87,35 +87,21 @@ export class LocalStorageService {
 
 		return inRole;
 	}
-
-	/*
+	
 	getUserId(): string {
-		return this.getDataFromToken(general.MS_ID);
+		return this.getDataFromToken(general.MS_ID);		
 	}
 
 	getUserEmail(): string {
-		return this.getDataFromToken(general.MS_EMAIL_ADDRESS);
+		return this.getValue(general.LS_USER_EMAIL_ADDRESS)!;
 	}
 
 	getUserFirstName(): string {
-		return this.getDataFromToken(general.MS_FIRST_NAME);
+		return this.getValue(general.LS_USER_FIRST_NAME)!;
 	}
 
 	getUserLastName(): string {
-		return this.getDataFromToken(general.MS_LAST_NAME);
-	}
-	*/
-
-	getUserEmail(): string {
-		return this.getValue(general.LS_EMAIL_ADDRESS)!;
-	}
-
-	getUserFirstName(): string {
-		return this.getValue(general.LS_FIRST_NAME)!;
-	}
-
-	getUserLastName(): string {
-		return this.getValue(general.LS_LAST_NAME)!;
+		return this.getValue(general.LS_USER_LAST_NAME)!;
 	}
 
 	getUserFullName(): string {

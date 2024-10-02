@@ -9,6 +9,8 @@ export const general = {
 	MS_LAST_NAME: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname",
 	MS_EMAIL_ADDRESS: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
 	
+	HUB_NOTIFY_TO_RESTAURANT: "https://localhost:7239/hubs/notify-to-restaurant",
+
     LS_TOKEN: 'token',
 
     LS_ROLE_USER_ADMIN: EnumRole.UserAdmin,
@@ -17,9 +19,10 @@ export const general = {
 
 	LS_PAGE_SIZE: 'page-size',
 
-	LS_FIRST_NAME: "user_first_name",
-	LS_LAST_NAME: "user_last_name",
-	LS_EMAIL_ADDRESS: "user_email",
+	LS_USER_ID: "user_id",
+	LS_USER_FIRST_NAME: "user_first_name",
+	LS_USER_LAST_NAME: "user_last_name",
+	LS_USER_EMAIL_ADDRESS: "user_email",
 
 	RESTAURANT_NAME: "Bisgetti"
 }
