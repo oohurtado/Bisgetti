@@ -76,6 +76,10 @@ export class CartComponent implements OnInit {
 		this._connection = new HubConnectionBuilder()
 			.withUrl(general.HUB_NOTIFY_TO_RESTAURANT, options)
 			.build();
+
+		this._connection.on("NewOrderReceived", (messageHub: MessageHub) => {
+			// console.log("message received: ", messageHub);
+		});			
 	}
 	
 	onTabClicked(event: Event, tabNew: number) {
@@ -121,9 +125,9 @@ export class CartComponent implements OnInit {
 		let userId = this.localStorageService.getUserId();
 		let message = new MessageHub(userId, "NEW-ORDER");
 		
-		this._connection.invoke('MessageReceived', message)
-			.then(_ => { 
-				console.log('message sent: ' + message); 
+		this._connection.invoke('NewOrderReceived', message)
+			.then(_ => { 				
+				// console.log('message sent: ' + message.message); 
 			});
 	}
 }

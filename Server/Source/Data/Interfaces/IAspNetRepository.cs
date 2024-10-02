@@ -79,5 +79,12 @@ namespace Server.Source.Data.Interfaces
         /// Resetea password
         /// </summary>
         Task<IdentityResult> ResetPasswordAsync(UserEntity user, string token, string newPassword);
+
+        /// <summary>
+        /// Obtiene tosos los usuarios de un role
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        Task<IList<UserEntity>> GetUsersInRoleAsync(string role);
     }
 }

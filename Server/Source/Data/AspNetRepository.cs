@@ -190,5 +190,10 @@ namespace Server.Source.Data
             var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
             return result;
         }
+
+        public async Task<IList<UserEntity>> GetUsersInRoleAsync(string role)
+        {
+            return await _userManager.GetUsersInRoleAsync(role);            
+        }
     }
 }

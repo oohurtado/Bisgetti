@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Server.Source.Data.Interfaces;
+using Server.Source.Extensions;
+using Server.Source.Models.Enums;
 using Server.Source.Models.Hubs;
 
 namespace Server.Source.Hubs
@@ -13,14 +15,14 @@ namespace Server.Source.Hubs
             _aspNetRepository = aspNetRepository;
         }
 
-        public async Task MessageReceived(MessageHub messageHub)
+        public async Task NewOrderReceived(MessageHub messageHub)
         {
             var val = Context.UserIdentifier;
 
-            // TODO: hub
-            // 1 - buscar en users a traves de userId el correo
-            // 2 - buscar todos los usuarios del restaurante
-            // 3 - notificar via hub al restarante
+            var roleBoss = EnumRole.UserBoss.GetDescription();
+            var users = await _aspNetRepository.GetUsersInRoleAsync(role: roleBoss);
+            var userIds = users.Select(p => p.Id).ToList();
+            await Clients.Users(userIds).SendAsync("NewOrderReceived", messageHub);
         }
     }
 }
