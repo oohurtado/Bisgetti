@@ -77,9 +77,9 @@ export class CartComponent implements OnInit {
 			.withUrl(general.HUB_NOTIFY_TO_RESTAURANT, options)
 			.build();
 
-		this._connection.on("NewOrderReceived", (messageHub: MessageHub) => {
-			// console.log("message received: ", messageHub);
-		});			
+		// this._connection.on("NewOrderReceived", (messageHub: MessageHub) => {
+		// 	console.log("message received: ", messageHub);
+		// });			
 	}
 	
 	onTabClicked(event: Event, tabNew: number) {
