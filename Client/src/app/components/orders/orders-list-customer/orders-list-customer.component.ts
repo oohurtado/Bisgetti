@@ -50,6 +50,7 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 		await this.businessService
 			.order_getOrdersByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, this._filter)
 			.then(p => {
+				p.data.forEach(q => this.fixOrder(q))
 				this._pageData = p;
 				this.updatePage(p);
 			})
@@ -89,31 +90,17 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 		return `${order.address.name}, ${order.address.street}, #${order.address.exteriorNumber} ${order.address.interiorNumber}, ${order.address.postalCode}`
 	}
 
-	async onLoadOrderDetailsClicked(event: Event, order: OrderResponse) {
-		this._isProcessing = true;		
-		await this.businessService.order_getOrderAsync(order.id)
-			.then(p => {
-				order._detailsLoaded = true;	
-				
-				order.orderElements = p.orderElements;
-				order._orderElementsGrouped = lodash.map(lodash.groupBy(order.orderElements, p => p.personName), (data, key) => {
-					let info: Grouping<string, OrderElementResponse> = new Grouping<string, OrderElementResponse>();
-					info.key = key;
-					info.items = data
-					
-					return info;
-				});
-				
-				order.orderStatuses = p.orderStatuses;
-				order.orderStatuses = lodash.sortBy(order.orderStatuses, p => p.eventAt);
-				order.orderStatuses = lodash.reverse(order.orderStatuses);
-
-				order._cols = "col-md-6";
-			})
-			.catch(e => {
-				this._error = Utils.getErrorsResponse(e);				
-			});
-		this._isProcessing = false;
+	fixOrder(order: OrderResponse) {
+		order._orderElementsGrouped = lodash.map(lodash.groupBy(order.orderElements, p => p.personName), (data, key) => {
+			let info: Grouping<string, OrderElementResponse> = new Grouping<string, OrderElementResponse>();
+			info.key = key;
+			info.items = data
+			
+			return info;
+		});
+		
+		order.orderStatuses = lodash.sortBy(order.orderStatuses, p => p.eventAt);
+		order.orderStatuses = lodash.reverse(order.orderStatuses);
 	}
 
 	getTotalByPerson(products: OrderElementResponse[]) {

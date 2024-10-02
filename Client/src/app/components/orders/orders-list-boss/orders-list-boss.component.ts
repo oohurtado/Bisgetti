@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderStatusCustomerForDeliveryPipe } from '../../../pipes/order-status-customer-for-delivery.pipe';
 import { OrderStatusCustomerTakeAwayPipe } from '../../../pipes/order-status-customer-take-away.pipe';
@@ -15,8 +15,7 @@ import { PageBase } from '../../../source/common/page-base';
 import { Utils } from '../../../source/common/utils';
 import * as lodash from 'lodash';
 import { OrderHelper } from '../../../source/helpers/order-helper';
-import { OrderNextStepRequest } from '../../../source/models/dtos/business/order-next-step-request';
-import { OrderNextStepResponse } from '../../../source/models/dtos/business/order-next-step-response';
+import { OrderChangeStatusRequest } from '../../../source/models/dtos/business/order-change-status-request';
 import { EnumOrderStatus } from '../../../source/models/enums/order-status-enum';
 declare let alertify: any;
 
@@ -26,7 +25,7 @@ declare let alertify: any;
   styleUrl: './orders-list-boss.component.css'
 })
 export class OrdersListBossComponent extends PageBase<OrderResponse> implements OnInit {
-    _filter!: string;
+    _filter: string;
 	_filterMenu: Tuple4<string, string, boolean, boolean>[] = []; // data, text, enabled, selected
 
 	constructor(
@@ -53,7 +52,8 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 		this._isProcessing = true;	
 		await this.businessService
 			.order_getOrdersByPageAsync(this._pageOrderSelected.data, this._pageOrderSelected.isAscending ? 'asc' : 'desc', this.pageSize, this.pageNumber, this._filter)
-			.then(p => {
+			.then(p => {	
+				p.data.forEach(q => this.fixOrder(q))
 				this._pageData = p;
 				this.updatePage(p);
 			})
@@ -93,35 +93,17 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 		return `${order.address.name}, ${order.address.street}, #${order.address.exteriorNumber} ${order.address.interiorNumber}, ${order.address.postalCode}`
 	}
 
-	async onLoadOrderDetailsClicked(event: Event, order: OrderResponse) {
-		await this.getOrderAsync(order);
-	}
-
-	async getOrderAsync(order: OrderResponse) {
-		this._isProcessing = true;		
-		await this.businessService.order_getOrderAsync(order.id)
-			.then(p => {
-				order._detailsLoaded = true;	
-				
-				order.orderElements = p.orderElements;
-				order._orderElementsGrouped = lodash.map(lodash.groupBy(order.orderElements, p => p.personName), (data, key) => {
-					let info: Grouping<string, OrderElementResponse> = new Grouping<string, OrderElementResponse>();
-					info.key = key;
-					info.items = data
-					
-					return info;
-				});
-				
-				order.orderStatuses = p.orderStatuses;
-				order.orderStatuses = lodash.sortBy(order.orderStatuses, p => p.eventAt);
-				order.orderStatuses = lodash.reverse(order.orderStatuses);
-
-				order._cols = "col-md-6";
-			})
-			.catch(e => {
-				this._error = Utils.getErrorsResponse(e);				
-			});
-		this._isProcessing = false;
+	fixOrder(order: OrderResponse) {
+		order._orderElementsGrouped = lodash.map(lodash.groupBy(order.orderElements, p => p.personName), (data, key) => {
+			let info: Grouping<string, OrderElementResponse> = new Grouping<string, OrderElementResponse>();
+			info.key = key;
+			info.items = data
+			
+			return info;
+		});
+		
+		order.orderStatuses = lodash.sortBy(order.orderStatuses, p => p.eventAt);
+		order.orderStatuses = lodash.reverse(order.orderStatuses);
 	}
 
 	getTotalByPerson(products: OrderElementResponse[]) {
@@ -150,61 +132,79 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 	async onCancelOrderClicked(order: OrderResponse) {
 		this._error = null;
 		this._isProcessing = true;
-		let model = new OrderNextStepRequest(order.status)
-		this.businessService.order_canceled(order.id, model)
-			.subscribe({
-				complete: () => {
-					this._isProcessing = false;
-				},
-				error: (e : string) => {
-					this._isProcessing = false;
-					this._error = Utils.getErrorsResponse(e);
-				},
-				next: async (val) => {	
-					await this.getOrderAsync(order);
-					alertify.message("Cambios guardados", 1)
-				}
-			});		
+		
+		let model = new OrderChangeStatusRequest(order.status)
+		await this.businessService.order_canceledAsync(order.id, model)
+			.then(p => {	
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		await this.businessService.order_getOrderAsync(order.id)
+			.then(p => {	
+				order = p;
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		this.updateElement(order);
+		this._isProcessing = false;
 	}
 
 	async onDeclineOrderClicked(order: OrderResponse) {
 		this._error = null;
 		this._isProcessing = true;
-		let model = new OrderNextStepRequest(order.status);
-		this.businessService.order_declined(order.id, model)
-			.subscribe({
-				complete: () => {
-					this._isProcessing = false;
-				},
-				error: (e : string) => {
-					this._isProcessing = false;
-					this._error = Utils.getErrorsResponse(e);
-				},
-				next: async (val) => {	
-					await this.getOrderAsync(order);
-					alertify.message("Cambios guardados", 1)
-				}
-			});		
+		
+		let model = new OrderChangeStatusRequest(order.status)
+		await this.businessService.order_declinedAsync(order.id, model)
+			.then(p => {	
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		await this.businessService.order_getOrderAsync(order.id)
+			.then(p => {	
+				order = p;
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		this.updateElement(order);
+		this._isProcessing = false;
 	}
 
 	async onNextStatusClicked(order: OrderResponse) {
 		this._error = null;
 		this._isProcessing = true;
-		let model = new OrderNextStepRequest(order.status);
-		this.businessService.order_nextStep(order.id, model)
-			.subscribe({
-				complete: () => {
-					this._isProcessing = false;
-				},
-				error: (e : string) => {
-					this._isProcessing = false;
-					this._error = Utils.getErrorsResponse(e);
-				},
-				next: async (val) => {	
-					await this.getOrderAsync(order);
-					alertify.message("Cambios guardados", 1)
-				}
-			});		
+		
+		let model = new OrderChangeStatusRequest(order.status)
+		await this.businessService.order_nextStepAsync(order.id, model)
+			.then(p => {	
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		await this.businessService.order_getOrderAsync(order.id)
+			.then(p => {	
+				order = p;				
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		this.updateElement(order);
+		this._isProcessing = false;
+	}
+
+	updateElement(order: OrderResponse) {
+		this.fixOrder(order);
+		let indexToUpdate = this._pageData.data.findIndex(p => p.id == order.id);
+		this._pageData.data[indexToUpdate] = order;
 	}
 
 	isOrderActive(order: OrderResponse) : boolean {

@@ -17,10 +17,8 @@ export class OrderResponse {
     addressName!: string;
     address!: AddressResponse;
     status!: string;
-    orderStatuses!: OrderStatusResponse[];
-    orderElements!: OrderElementResponse[];
-
-    _cols: string = "col-md-12";
-    _detailsLoaded!: boolean;
+    orderStatuses: OrderStatusResponse[] = [];
+    orderElements: OrderElementResponse[] = [];
+    
     _orderElementsGrouped: Grouping<string, OrderElementResponse>[] = [];
 }

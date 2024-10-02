@@ -22,7 +22,7 @@ namespace Server.Source.Data
             {
                 exp = p => p.UserId == userId;
             }            
-            iq = _context.Orders.Where(exp);
+            iq = _context.Orders.Include(p => p.OrderElements).Include(p => p.OrderStatuses).Where(exp);
 
             // conteo
             grandTotal = iq.Count();

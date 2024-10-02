@@ -52,7 +52,26 @@ namespace Server.Source.Logic
                     AddressName = p.AddressName,
                     AddressJson = p.AddressJson,
                     ProductCount = p.ProductCount,
-                    ProductTotal = p.ProductTotal,                    
+                    ProductTotal = p.ProductTotal,    
+                    OrderElements = p.OrderElements.Select(q => new OrderElementResponse()
+                    {
+                        Id = q.Id,
+                        OrderId = q.OrderId,
+                        PersonName = q.PersonName,
+                        ProductDescription = q.ProductDescription,
+                        ProductIngredients = q.ProductIngredients,
+                        ProductName = q.ProductName,
+                        ProductPrice = q.ProductPrice,
+                        ProductQuantity = q.ProductQuantity,                        
+                    })
+                    .ToList(),
+                    OrderStatuses = p.OrderStatuses.Select(q => new OrderStatusResponse()
+                    {
+                        Id = q.Id,
+                        OrderId = q.OrderId,
+                        EventAt = q.EventAt,
+                        Status = q.Status,                        
+                    }).ToList()
                 })
                 .ToListAsync();
 
@@ -122,7 +141,7 @@ namespace Server.Source.Logic
             return result!;
         }
 
-        public async Task OrderNextStepAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
+        public async Task OrderNextStepAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
         {
             var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
                 .FirstOrDefaultAsync();
@@ -147,7 +166,7 @@ namespace Server.Source.Logic
             await _businessRepository.UpdateAsync();                
         }
 
-        public async Task OrderCanceledAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
+        public async Task OrderCanceledAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
         {
             var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
                 .FirstOrDefaultAsync();
@@ -172,7 +191,7 @@ namespace Server.Source.Logic
             await _businessRepository.UpdateAsync();
         }
 
-        public async Task OrderDeclinedAsync(string userId, string userRole, int orderId, OrderNextStepRequest request)
+        public async Task OrderDeclinedAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
         {
             var result = await _businessRepository.Order_GetOrder(userId, userRole, orderId)
                 .FirstOrDefaultAsync();

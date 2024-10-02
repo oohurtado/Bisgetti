@@ -1,4 +1,4 @@
-export class OrderNextStepRequest {
+export class OrderChangeStatusRequest {
     constructor(public currentStatus: string) {
     }    
 }

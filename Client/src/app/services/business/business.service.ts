@@ -23,7 +23,7 @@ import { TotalOfProductsInCartResponse } from '../../source/models/dtos/business
 import { ShippingCostResponse } from '../../source/models/dtos/business/shipping-cost-response';
 import { CreateOrderForCustomerRequest } from '../../source/models/dtos/business/cart-order-for-customer-request';
 import { OrderResponse } from '../../source/models/dtos/entities/order-response';
-import { OrderNextStepRequest } from '../../source/models/dtos/business/order-next-step-request';
+import { OrderChangeStatusRequest } from '../../source/models/dtos/business/order-change-status-request';
 
 @Injectable({
     providedIn: 'root'
@@ -602,15 +602,57 @@ export class BusinessService {
 		});
 	}
 
-	order_nextStep(orderId: number, model: OrderNextStepRequest) {
+	order_nextStep(orderId: number, model: OrderChangeStatusRequest) {
 		return this.requestService.put(`/business/orders/${orderId}/next-step`, model);
 	}
 
-	order_canceled(orderId: number, model: OrderNextStepRequest) {
+	order_nextStepAsync(orderId: number, model: OrderChangeStatusRequest) {
+		return new Promise((resolve, reject) => {
+			this.order_nextStep(orderId, model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	order_canceled(orderId: number, model: OrderChangeStatusRequest) {
 		return this.requestService.put(`/business/orders/${orderId}/canceled`, model);
 	}
 
-	order_declined(orderId: number, model: OrderNextStepRequest) {
+	order_canceledAsync(orderId: number, model: OrderChangeStatusRequest) {
+		return new Promise((resolve, reject) => {
+			this.order_canceled(orderId, model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+	order_declined(orderId: number, model: OrderChangeStatusRequest) {
 		return this.requestService.put(`/business/orders/${orderId}/declined`, model);
+	}
+
+	order_declinedAsync(orderId: number, model: OrderChangeStatusRequest) {
+		return new Promise((resolve, reject) => {
+			this.order_declined(orderId, model)
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
 	}
 }

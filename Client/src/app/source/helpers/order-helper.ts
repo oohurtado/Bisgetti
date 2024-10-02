@@ -5,7 +5,7 @@ import { EnumDeliveryMethod } from "../models/enums/delivery-method-enum";
 export class OrderHelper {
     static nextStep(currentStatus: string, deliveryMethod: string) : string {
 
-        if (currentStatus === EnumOrderStatus.Delivered) {
+        if (currentStatus === EnumOrderStatus.Delivered || currentStatus === EnumOrderStatus.Canceled || currentStatus === EnumOrderStatus.Declined) {
             return currentStatus;
         }
         
