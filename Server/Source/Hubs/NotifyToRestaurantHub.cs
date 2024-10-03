@@ -17,13 +17,7 @@ namespace Server.Source.Hubs
 
         public async Task NewOrderReceived(MessageHub messageHub)
         {
-            var val = Context.UserIdentifier;
-
-            var roleBoss = EnumRole.UserBoss.GetDescription();
-            var users = await _aspNetRepository.GetUsersInRoleAsync(role: roleBoss);
-            var userIds = users.Select(p => p.Id).ToList();
-            await Clients.Users(userIds).SendAsync("NewOrderReceived", messageHub);
-            //await Clients.All.SendAsync("NewOrderReceived", messageHub);
+            await Clients.All.SendAsync("NewOrderReceived_Boss", messageHub);            
         }
     }
 }

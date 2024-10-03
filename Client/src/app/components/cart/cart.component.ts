@@ -45,8 +45,6 @@ export class CartComponent implements OnInit {
 		this.initHub();
 	}
 
-
-
 	async ngOnInit() {
 		this._connection.start()
 		.then(_ => {
@@ -99,8 +97,6 @@ export class CartComponent implements OnInit {
 	async evtNextStep() {
 		this._tabCurrent++;
 		
-		this.notifyToRestaurant();
-
 		if (this._tabCurrent == 3) {
 			this.notifyToRestaurant();
 			this.router.navigateByUrl('/orders');

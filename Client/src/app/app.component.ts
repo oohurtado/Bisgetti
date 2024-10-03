@@ -9,6 +9,7 @@ import { AddOrRemoveElementRequest } from './source/models/dtos/menus/add-or-rem
 import { Utils } from './source/common/utils';
 import { PositionElementRequest } from './source/models/dtos/menus/position-element-request';
 import { SettingsElementRequest } from './source/models/dtos/menus/settings-element-request';
+import { LocalStorageService } from './services/common/local-storage.service';
 declare let alertify: any;
 
 @Component({
@@ -23,8 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(
         private sharedService: SharedService,
         private systemService: SystemService,
-        private dateService: DateService,
-        private businessService: BusinessService
+        private dateService: DateService
     ) {
     }
 
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
                     this._serverTime = Object.assign(new Date, value);
                 },
             });
-	}
+	}    
 
 	ngOnDestroy(): void {
 		this.sharedService.logout.unsubscribe();
