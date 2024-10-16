@@ -15,6 +15,8 @@ export class RoleStrPipe implements PipeTransform {
                 return 'Jefe';
             case EnumRole.UserCustomer:
                 return 'Consumidor';
+            case EnumRole.UserChef:
+                return 'Chef';
         }
 
 		return `No se pudo resolver el valor '${value}' para el pipe 'RoleStr' no encontrado`

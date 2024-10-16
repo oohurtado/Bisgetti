@@ -60,6 +60,10 @@ export class LocalStorageService {
 		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_CUSTOMER);
 	}
 
+	isUserChef() {
+		return this.isUserAuthenticated() && this.isUserInRole(general.LS_ROLE_USER_CHEF);
+	}
+
 	isUserInRole(role: string): boolean {
 		let token = this.getValue(general.LS_TOKEN);
 		let decodedToken = this.jwtHelper.decodeToken(token!);

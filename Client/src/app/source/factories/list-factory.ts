@@ -10,7 +10,6 @@ export class ListFactory {
         switch (section) {
             case 'cart-delivery-methods':
                 return  [
-                    // new Tuple2("on-site", "Comer en el restaurante"),
                     new Tuple2(EnumDeliveryMethod.TakeAway, "Recoger en restaurante"),
                     new Tuple2(EnumDeliveryMethod.ForDelivery, "Enviar a dirección"),
                 ];
@@ -19,7 +18,8 @@ export class ListFactory {
                 return  [
                     new Tuple2(EnumRole.UserAdmin, pipe.transform(EnumRole.UserAdmin)),
                     new Tuple2(EnumRole.UserBoss, pipe.transform(EnumRole.UserBoss)),
-                    new Tuple2(EnumRole.UserCustomer, pipe.transform(EnumRole.UserCustomer))
+                    new Tuple2(EnumRole.UserCustomer, pipe.transform(EnumRole.UserCustomer)),
+                    new Tuple2(EnumRole.UserChef, pipe.transform(EnumRole.UserChef))
                 ];
             case 'my-account-address-countries':
                 return  [

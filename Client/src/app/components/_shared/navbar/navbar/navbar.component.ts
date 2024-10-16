@@ -11,22 +11,6 @@ import { UserMyAccountService } from '../../../../services/business/user-my-acco
 export class NavbarComponent {
 
     constructor(
-        private localStorageService: LocalStorageService
+        public localStorageService: LocalStorageService
     ) { }
-
-    isUserAdmin() {
-        return this.localStorageService.isUserAdmin()
-    }
-
-    isUserBoss() {
-        return this.localStorageService.isUserBoss()
-    }
-
-    isUserCustomer() {
-        return this.localStorageService.isUserCustomer()
-    }
-
-    isUserAnon() {
-        return this.localStorageService.isUserAnon();
-    }
 }

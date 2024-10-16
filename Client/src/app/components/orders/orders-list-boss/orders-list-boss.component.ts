@@ -13,10 +13,10 @@ import { OrderResponse } from '../../../source/models/dtos/entities/order-respon
 import { OrderStatusResponse } from '../../../source/models/dtos/entities/order-status-response';
 import { PageBase } from '../../../source/common/page-base';
 import { Utils } from '../../../source/common/utils';
-import * as lodash from 'lodash';
 import { OrderHelper } from '../../../source/helpers/order-helper';
 import { OrderChangeStatusRequest } from '../../../source/models/dtos/business/order-change-status-request';
 import { EnumOrderStatus } from '../../../source/models/enums/order-status-enum';
+import * as lodash from 'lodash';
 declare let alertify: any;
 
 @Component({
@@ -25,6 +25,7 @@ declare let alertify: any;
   styleUrl: './orders-list-boss.component.css'
 })
 export class OrdersListBossComponent extends PageBase<OrderResponse> implements OnInit {
+
     _filter: string;
 	_filterMenu: Tuple4<string, string, boolean, boolean>[] = []; // data, text, enabled, selected
 

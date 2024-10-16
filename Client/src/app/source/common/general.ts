@@ -16,6 +16,7 @@ export const general = {
     LS_ROLE_USER_ADMIN: EnumRole.UserAdmin,
     LS_ROLE_USER_CUSTOMER: EnumRole.UserCustomer,
     LS_ROLE_USER_BOSS: EnumRole.UserBoss,
+	LS_ROLE_USER_CHEF: EnumRole.UserChef,
 
 	LS_PAGE_SIZE: 'page-size',
 

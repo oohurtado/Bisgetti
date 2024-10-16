@@ -8,19 +8,6 @@ import { LocalStorageService } from '../../../services/common/local-storage.serv
 })
 export class MyAccountListComponent {
 
-    constructor(private localStorageService: LocalStorageService) {
+    constructor(public localStorageService: LocalStorageService) {
     }
-
-    isUserAdmin() {
-        return this.localStorageService.isUserAdmin();
-    }
-
-    isUserBoss() {
-        return this.localStorageService.isUserBoss();
-    }
-
-    isUserCustomer() {
-        return this.localStorageService.isUserCustomer();
-    }
-
 }

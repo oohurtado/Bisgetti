@@ -1,15 +1,19 @@
-<ng-container *ngIf="isUserAdmin()">
+<ng-container *ngIf="localStorageService.isUserAdmin()">
     <app-navbar-admin></app-navbar-admin>
 </ng-container>
 
-<ng-container *ngIf="isUserBoss()">
+<ng-container *ngIf="localStorageService.isUserBoss()">
     <app-navbar-boss></app-navbar-boss>
 </ng-container>
 
-<ng-container *ngIf="isUserCustomer()">
+<ng-container *ngIf="localStorageService.isUserCustomer()">
     <app-navbar-customer></app-navbar-customer>
 </ng-container>
 
-<ng-container *ngIf="isUserAnon()">
+<ng-container *ngIf="localStorageService.isUserChef()">
+    <app-navbar-chef></app-navbar-chef>
+</ng-container>
+
+<ng-container *ngIf="localStorageService.isUserAnon()">
     <app-navbar-anon></app-navbar-anon>
 </ng-container> 

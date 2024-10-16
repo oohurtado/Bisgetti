@@ -15,7 +15,7 @@ namespace Server.Controllers
         /// Obtiene listado de pedidos - por página
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-customer,user-boss")]
+        [Authorize(Roles = "user-customer,user-boss,user-chef")]
         [HttpGet(template: "orders/{sortColumn}/{sortOrder}/{pageSize}/{pageNumber}/{filter}")]
         public async Task<ActionResult> GetOrdersByPage(string sortColumn, string sortOrder, int pageSize, int pageNumber, string filter)
         {
@@ -29,7 +29,7 @@ namespace Server.Controllers
         /// Obtiene orden y sus detalles
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-customer,user-boss")]
+        [Authorize(Roles = "user-customer,user-boss,user-chef")]
         [HttpGet(template: "orders/{orderId}")]
         public async Task<ActionResult> GetOrder(int orderId)
         {
@@ -43,7 +43,7 @@ namespace Server.Controllers
         /// Cambiar a siguiente paso
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [Authorize(Roles = "user-boss,user-chef")]
         [HttpPut(template: "orders/{orderId}/next-step")]
         public async Task<ActionResult> OrderNextStep(int orderId, [FromBody] OrderChangeStatusRequest request)
         {
@@ -57,7 +57,7 @@ namespace Server.Controllers
         /// Cambiar a cancelado
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [Authorize(Roles = "user-boss,user-chef")]
         [HttpPut(template: "orders/{orderId}/canceled")]
         public async Task<ActionResult> OrderCanceled(int orderId, [FromBody] OrderChangeStatusRequest request)
         {
@@ -71,7 +71,7 @@ namespace Server.Controllers
         /// Cambiar a declinado
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [Authorize(Roles = "user-boss,user-chef")]
         [HttpPut(template: "orders/{orderId}/declined")]
         public async Task<ActionResult> OrderDeclined(int orderId, [FromBody] OrderChangeStatusRequest request)
         {

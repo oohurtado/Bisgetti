@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-6">
+        <h3>Mis pedidos</h3>
+    </div>
+    <div class="col-md-6 text-end">
+        <app-processing [text]="'Procesando...'" *ngIf="_isProcessing"></app-processing>
+    </div>
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mis pedidos</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<ng-container *ngIf="_error !== null">
+    <div class="alert alert-danger mt-4 ml-4 mr-4" role="alert">
+        {{ _error }}
+    </div>
+</ng-container>
+
+<ng-container *ngIf="_error === null">
+    <div class="row">
+        <div class="col-md-12">
+            <app-menu-one-option [menu]="_filterMenu" (evtOptionClicked)="onFilterClicked($event)"></app-menu-one-option>
+        </div>
+        <div class="col-md-12 text-end">
+            <app-page-order class="ms-1 me-1" [data]="_pageOrder" (evt)="onOrderClicked($event)"></app-page-order>
+            <app-page-sync class="ms-1" (evt)="onSyncClicked()"></app-page-sync>
+        </div>
+    </div>
+    <div *ngIf="_pageData?.data?.length == 0" class="text-center mt-2">
+        No hay datos para mostrar
+    </div>
+    <ng-container *ngFor="let order of _pageData?.data">
+
+    </ng-container>
+    <div class="row mt-2">
+		<div class="col-md-12 text-end">				
+			<app-page-pagination [pageSelected]="pageSelected" [pageSize]="pageSize" (evt_pageOption)="onPageOptionClicked($event)" (evt_pageSize)="onPageSizeClicked($event)"></app-page-pagination>
+		</div>
+	</div>    
+</ng-container>

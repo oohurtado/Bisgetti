@@ -104,11 +104,11 @@ const ROUTES: Routes = [
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },
-    { path: 'cart', component: CartComponent, canActivate: [authGuard] },
+    { path: 'cart', component: CartComponent, canActivate: [userCustomerGuard] },
     {
-        path: 'orders', component:  OrdersComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS] },
+        path: 'orders', component:  OrdersComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS, general.LS_ROLE_USER_CHEF] },
         children:[
-            { path: 'list', component: OrdersListComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS] } },
+            { path: 'list', component: OrdersListComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_CUSTOMER, general.LS_ROLE_USER_BOSS, , general.LS_ROLE_USER_CHEF] } },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },    

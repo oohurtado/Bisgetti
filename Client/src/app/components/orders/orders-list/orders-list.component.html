@@ -4,3 +4,6 @@
 <ng-container *ngIf="localStorageService.isUserBoss()">
     <app-orders-list-boss></app-orders-list-boss>
 </ng-container>
+<ng-container *ngIf="localStorageService.isUserChef()">
+    <app-orders-list-chef></app-orders-list-chef>
+</ng-container>

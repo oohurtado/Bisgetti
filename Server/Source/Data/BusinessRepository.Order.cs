@@ -24,11 +24,11 @@ namespace Server.Source.Data
             }            
             iq = _context.Orders.Include(p => p.OrderElements).Include(p => p.OrderStatuses).Where(exp);
 
+            // filtro status
+            iq = iq.Where(p => filters.Contains(p.Status!));     
+            
             // conteo
             grandTotal = iq.Count();
-
-            // filtro status
-            iq = iq.Where(p => filters.Contains(p.Status!));            
 
             // ordenamiento
             if (sortColumn == "event")

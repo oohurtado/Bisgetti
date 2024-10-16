@@ -72,6 +72,8 @@ import { OrdersListBossComponent } from './components/orders/orders-list-boss/or
 import { MenuOneOptionComponent } from './components/_shared/menu-one-option/menu-one-option.component';
 import { MenuMultipleOptionComponent } from './components/_shared/menu-multiple-option/menu-multiple-option.component';
 import { NewOrdersComponent } from './components/_shared/new-orders/new-orders.component';
+import { NavbarChefComponent } from './components/_shared/navbar/navbar-chef/navbar-chef.component';
+import { OrdersListChefComponent } from './components/orders/orders-list-chef/orders-list-chef.component';
 
 @NgModule({
 	declarations: [
@@ -131,7 +133,7 @@ import { NewOrdersComponent } from './components/_shared/new-orders/new-orders.c
 		OrdersListComponent, 
 		OrdersListCustomerComponent, 
 		OrderStatusCustomerForDeliveryPipe, 
-		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent, MenuOneOptionComponent, MenuMultipleOptionComponent, NewOrdersComponent,
+		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent, MenuOneOptionComponent, MenuMultipleOptionComponent, NewOrdersComponent, NavbarChefComponent, OrdersListChefComponent,
 	],
 	imports: [
 		BrowserModule,
