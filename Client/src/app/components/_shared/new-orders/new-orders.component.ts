@@ -44,10 +44,10 @@ export class NewOrdersComponent implements OnInit {
 			.build();
 
 		if (this.localStorageService.isUserBoss()) {
-			this._connection.on("NewOrderReceived_Boss", (messageHub: MessageHub) => {
+			this._connection.on("NotifyToBossCustomerCreatedOrder", (messageHub: MessageHub) => {
 				//console.log("message received: ", messageHub);
-				alertify.alert('Nueva orden', 'Hemos recibido una nueva order!', function(){ }).set('closable', false);;
-
+				//alertify.alert('Nueva orden', 'Hemos recibido una nueva order!', function(){ }).set('closable', false);;
+				alertify.message('Nueva orden');
 			});			
 		}
 	}

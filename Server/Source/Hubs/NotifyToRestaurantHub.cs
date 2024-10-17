@@ -15,9 +15,9 @@ namespace Server.Source.Hubs
             _aspNetRepository = aspNetRepository;
         }
 
-        public async Task NewOrderReceived(MessageHub messageHub)
-        {
-            await Clients.All.SendAsync("NewOrderReceived_Boss", messageHub);            
+        public async Task CustomerCreatedOrder(MessageHub messageHub)
+        {            
+            await Clients.All.SendAsync("NotifyToBossCustomerCreatedOrder", messageHub);            
         }
     }
 }
