@@ -33,10 +33,11 @@ export class OrdersListChefComponent extends PageBase<OrderResponse> implements 
 	) {
 		super('orders', localStorageService);
 
-        this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Aceptado,Cocinando,Listo,Entregado','Todos', true, true));
-		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cocinando,Listo','En Proceso', true, false));
-		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cancelado,Declinado','Otros', true, false));
-		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Entregado','Entregados', true, false));
+		//this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
+        this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Aceptado,Cocinando,Listo','Todos', true, true));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Aceptado','Aceptado', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cocinando','Cocinando', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Listo','Listo', true, false));	
 		this._filter = this._filterMenu[0].param1;
 	}
 
