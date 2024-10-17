@@ -22,11 +22,11 @@
 </ul>
 
 <ng-container *ngIf="_tabCurrent == 0">
-    <app-cart-tab-products (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep()"></app-cart-tab-products>
+    <app-cart-tab-products (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep($event)"></app-cart-tab-products>
 </ng-container>
 <ng-container *ngIf="_tabCurrent == 1">
-    <app-cart-tab-details (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep()" (evtCartDetails)="evtCartDetails($event)"></app-cart-tab-details>
+    <app-cart-tab-details (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep($event)" (evtCartDetails)="evtCartDetails($event)"></app-cart-tab-details>
 </ng-container>
 <ng-container *ngIf="_tabCurrent == 2">
-    <app-cart-tab-confirmation-delivery (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep()" [_cartDetails]="_cartDetails"></app-cart-tab-confirmation-delivery>
+    <app-cart-tab-confirmation-delivery (evtProcessing)="evtProcessing($event)" (evtError)="evtError($event)" (evtNextStep)="evtNextStep($event)" [_cartDetails]="_cartDetails"></app-cart-tab-confirmation-delivery>
 </ng-container>

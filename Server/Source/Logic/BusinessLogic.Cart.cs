@@ -181,7 +181,7 @@ namespace Server.Source.Logic
             };
         }
 
-        public async Task CreateOrderForCustomerAsync(string userId, CreateOrderForCustomerRequest request)
+        public async Task<int?> CreateOrderForCustomerAsync(string userId, CreateOrderForCustomerRequest request)
         {                        
             List<OrderStatusEntity> GetFirstStatus()
             {
@@ -274,7 +274,8 @@ namespace Server.Source.Logic
             };
 
             var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();
-            await _businessRepository.Cart_CreateOrderAsync(userId, order_toCreate, cartElementIds);
+            var id = await _businessRepository.Cart_CreateOrderAsync(userId, order_toCreate, cartElementIds);
+            return id;
 
             // TODO: enviar correo a cliente y restaurante
         }

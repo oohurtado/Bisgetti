@@ -142,7 +142,7 @@ namespace Server.Source.Data.Interfaces
         Task<int> Cart_GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
         Task<decimal> Cart_GetTotalOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
         Task Cart_DeleteProductFromCartAsync(CartElementEntity cartElement);
-        Task Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds);
+        Task<int?> Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds);
 
         /* ***************************** pedidos ***************************** */
         IQueryable<OrderEntity> Order_GetOrdersByPage(string userId, string userRole, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal, List<string> filters);

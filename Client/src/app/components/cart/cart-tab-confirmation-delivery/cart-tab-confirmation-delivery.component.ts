@@ -26,8 +26,8 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
     @Input() _cartDetails!: CartDetails|null;
     
     @Output() evtProcessing!: EventEmitter<boolean>;
-    @Output() evtError!: EventEmitter<string | null>;
-    @Output() evtNextStep!: EventEmitter<void>;
+    @Output() evtError!: EventEmitter<string|null>;
+    @Output() evtNextStep!: EventEmitter<number|null>;    
 
     _cartGrouped: Grouping<string, CartElementResponse>[] = [];
     _address: AddressResponse|null = null;
@@ -43,7 +43,7 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
         super();
         this.evtProcessing = new EventEmitter<boolean>();
         this.evtError = new EventEmitter<string|null>();
-        this.evtNextStep = new EventEmitter<void>();
+        this.evtNextStep = new EventEmitter<number|null>();        
     }   
 
     async ngOnInit() {
@@ -126,8 +126,9 @@ export class CartTabConfirmationDeliveryComponent extends FormBase implements On
                     this._isProcessing = false;                    
                     this.evtError.emit(Utils.getErrorsResponse(e));
                 },
-                next: (val) => {                    
-                    this.evtNextStep.emit();	
+                next: (val) => {                                                          
+                    let id = val.valueOf() as number|null;                                          
+                    this.evtNextStep.emit(id);
                 }
             });           
 

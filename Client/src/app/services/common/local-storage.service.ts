@@ -96,6 +96,10 @@ export class LocalStorageService {
 		return this.getDataFromToken(general.MS_ID);		
 	}
 
+	getUserRole(): string {
+		return this.getDataFromToken(general.MS_ROLE);		
+	}
+
 	getUserEmail(): string {
 		return this.getValue(general.LS_USER_EMAIL_ADDRESS)!;
 	}

@@ -20,7 +20,7 @@ export class CartTabProductsComponent implements OnInit {
 
     @Output() evtProcessing!: EventEmitter<boolean>;
     @Output() evtError!: EventEmitter<string|null>;
-    @Output() evtNextStep!: EventEmitter<void>;
+    @Output() evtNextStep!: EventEmitter<number|null>;
 
 	_cartHelper = new CartHelper();
 
@@ -30,7 +30,7 @@ export class CartTabProductsComponent implements OnInit {
     ) {
         this.evtProcessing = new EventEmitter<boolean>();
         this.evtError = new EventEmitter<string|null>();
-        this.evtNextStep = new EventEmitter<void>();
+        this.evtNextStep = new EventEmitter<number|null>();
     }
 
     async ngOnInit() {	
@@ -140,6 +140,6 @@ export class CartTabProductsComponent implements OnInit {
 	}
 
     onNextStepClicked(event: Event) {
-        this.evtNextStep.emit();		
+        this.evtNextStep.emit(null);		
 	}
 }

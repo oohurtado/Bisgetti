@@ -2,9 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Server.Source.Extensions;
+using Server.Source.Hubs;
 using Server.Source.Logic;
 using Server.Source.Models.DTOs.UseCases.Cart;
 using Server.Source.Models.DTOs.UseCases.Order;
+using Server.Source.Models.Enums;
+using Server.Source.Models.Hubs;
 using System.Security.Claims;
 
 namespace Server.Controllers
@@ -45,11 +50,22 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss,user-chef")]
         [HttpPut(template: "orders/{orderId}/next-step")]
-        public async Task<ActionResult> OrderNextStep(int orderId, [FromBody] OrderChangeStatusRequest request)
+        public async Task<ActionResult> OrderNextStep(int orderId, [FromBody] OrderChangeStatusRequest request, [FromServices] IHubContext<NotifyToRestaurantHub> hub)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);
             await _businessLogicOrder.OrderNextStepAsync(userId, userRole!, orderId, request);
+
+            await hub.Clients.All.SendAsync("NotifyToEmployeesInformationAboutAnOrder", 
+                new MessageOrderHub() 
+                { 
+                    Message = "ORDER-UPDATED",
+                    ExtraData = orderId.ToString(),
+                    RoleFrom = userRole,
+                    RoleTo = $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}",
+                    UserId = userId,
+                });                       
+
             return Ok();
         }
 
@@ -59,11 +75,22 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss,user-chef")]
         [HttpPut(template: "orders/{orderId}/canceled")]
-        public async Task<ActionResult> OrderCanceled(int orderId, [FromBody] OrderChangeStatusRequest request)
+        public async Task<ActionResult> OrderCanceled(int orderId, [FromBody] OrderChangeStatusRequest request, [FromServices] IHubContext<NotifyToRestaurantHub> hub)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);
             await _businessLogicOrder.OrderCanceledAsync(userId, userRole!, orderId, request);
+
+            await hub.Clients.All.SendAsync("NotifyToEmployeesInformationAboutAnOrder",
+                new MessageOrderHub()
+                {
+                    Message = "ORDER-CANCELED",
+                    ExtraData = orderId.ToString(),
+                    RoleFrom = userRole,
+                    RoleTo = $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}",
+                    UserId = userId,
+                });
+
             return Ok();
         }
 
@@ -73,11 +100,22 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss,user-chef")]
         [HttpPut(template: "orders/{orderId}/declined")]
-        public async Task<ActionResult> OrderDeclined(int orderId, [FromBody] OrderChangeStatusRequest request)
+        public async Task<ActionResult> OrderDeclined(int orderId, [FromBody] OrderChangeStatusRequest request, [FromServices] IHubContext<NotifyToRestaurantHub> hub)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!);
             await _businessLogicOrder.OrderDeclinedAsync(userId, userRole!, orderId, request);
+
+            await hub.Clients.All.SendAsync("NotifyToEmployeesInformationAboutAnOrder",
+                new MessageOrderHub()
+                {
+                    Message = "ORDER-DECLINED",
+                    ExtraData = orderId.ToString(),
+                    RoleFrom = userRole,
+                    RoleTo = $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}",
+                    UserId = userId,
+                });
+
             return Ok();
         }
     }

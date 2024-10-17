@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
 import { general } from '../../source/common/general';
 import { MessageHub } from '../../source/models/hub/message-hub';
+import { EnumRole } from '../../source/models/enums/role-enum';
 
 @Component({
 	selector: 'app-cart',
@@ -32,6 +33,7 @@ export class CartComponent implements OnInit {
 	_tabIcons: string[] = [];
 
 	_cartDetails!: CartDetails|null;
+	_orderId!: number|null;
 
 	private _connection!: HubConnection;
 
@@ -88,15 +90,15 @@ export class CartComponent implements OnInit {
 
 	evtError(error: string|null) {
 		alertify.error(error, 3)
-	}
+	}	
 
-	async evtNextStep() {
+	async evtNextStep(orderId: number|null) {
 		this._tabCurrent++;
 		
 		if (this._tabCurrent == 3) {
-			this.notifyToRestaurant();
 			this.router.navigateByUrl('/orders');
 			await this.refreshCartAsync();
+			//this.notifyToRestaurant_NewOrder(orderId);
 		}
 	}
 
@@ -113,13 +115,16 @@ export class CartComponent implements OnInit {
 			});
 	}
 
-	notifyToRestaurant() {
-		let userId = this.localStorageService.getUserId();
-		let message = new MessageHub(userId, "NEW-ORDER");
+	// notifyToRestaurant_NewOrder(id: number|null) {
+	// 	let userId = this.localStorageService.getUserId();
+	// 	let fromRole = this.localStorageService.getUserRole();
+	// 	let toRoles = `${EnumRole.UserBoss}`;
+	// 	let orderId = id?.toString() ?? '';
+	// 	let message = new MessageHub(userId, "ORDER-NEW", fromRole, toRoles, orderId);
 		
-		this._connection.invoke('CustomerCreatedOrder', message)
-			.then(_ => { 				
-				// console.log('message sent: ' + message.message); 
-			});
-	}
+	// 	this._connection.invoke('CustomerCreatedOrder', message)
+	// 		.then(_ => { 				
+	// 			// console.log('message sent: ' + message.message); 
+	// 		});
+	// }
 }

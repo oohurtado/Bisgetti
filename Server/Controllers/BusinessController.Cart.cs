@@ -2,8 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Server.Source.Extensions;
+using Server.Source.Hubs;
 using Server.Source.Logic;
 using Server.Source.Models.DTOs.UseCases.Cart;
+using Server.Source.Models.Enums;
+using Server.Source.Models.Hubs;
 using System.Security.Claims;
 
 namespace Server.Controllers
@@ -160,11 +165,23 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
         [HttpPost(template: "cart/customer/order")]
-        public async Task<ActionResult> CreateOrderForCustomer([FromBody] CreateOrderForCustomerRequest request)
+        public async Task<ActionResult> CreateOrderForCustomer([FromBody] CreateOrderForCustomerRequest request, [FromServices] IHubContext<NotifyToRestaurantHub> hub)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
-            await _businessLogicCart.CreateOrderForCustomerAsync(userId, request);
-            return Ok();
+            var userRole = User.FindFirstValue(ClaimTypes.Role!);
+            var orderId = await _businessLogicCart.CreateOrderForCustomerAsync(userId, request);
+
+            await hub.Clients.All.SendAsync("NotifyToEmployeesInformationAboutAnOrder",
+                new MessageOrderHub()
+                {
+                    Message = "ORDER-CREATED",
+                    ExtraData = orderId.ToString(),
+                    RoleFrom = userRole,
+                    RoleTo = $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}",
+                    UserId = userId,
+                });
+
+            return Ok(orderId);
         }
     }
 }

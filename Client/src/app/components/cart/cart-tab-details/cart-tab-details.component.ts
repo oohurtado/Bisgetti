@@ -21,7 +21,7 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
     
     @Output() evtProcessing!: EventEmitter<boolean>;
     @Output() evtError!: EventEmitter<string|null>;
-    @Output() evtNextStep!: EventEmitter<void>;
+    @Output() evtNextStep!: EventEmitter<number|null>;
     @Output() evtCartDetails!: EventEmitter<CartDetails|null>;
     
     _deliveryMethods: Tuple2<string,string>[] = [];
@@ -44,7 +44,7 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
         super();
         this.evtProcessing = new EventEmitter<boolean>();
         this.evtError = new EventEmitter<string|null>();
-        this.evtNextStep = new EventEmitter<void>();
+        this.evtNextStep = new EventEmitter<number|null>();
         this.evtCartDetails = new EventEmitter<CartDetails|null>();
         this._cartDetail = new CartDetails();
     }    
@@ -108,7 +108,7 @@ export class CartTabDetailsComponent extends FormBase implements OnInit {
 
 
         this.evtCartDetails.emit(this._cartDetail);
-        this.evtNextStep.emit();	        	
+        this.evtNextStep.emit(null);	        	
 	}
 
     onDoneClicked() {

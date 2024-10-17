@@ -71,7 +71,7 @@ import { OrderStatusCustomerTakeAwayPipe } from './pipes/order-status-customer-t
 import { OrdersListBossComponent } from './components/orders/orders-list-boss/orders-list-boss.component';
 import { MenuOneOptionComponent } from './components/_shared/menu-one-option/menu-one-option.component';
 import { MenuMultipleOptionComponent } from './components/_shared/menu-multiple-option/menu-multiple-option.component';
-import { NewOrdersComponent } from './components/_shared/new-orders/new-orders.component';
+import { LiveNotificationsComponent } from './components/_shared/live-notifications/live-notifications.component';
 import { NavbarChefComponent } from './components/_shared/navbar/navbar-chef/navbar-chef.component';
 import { OrdersListChefComponent } from './components/orders/orders-list-chef/orders-list-chef.component';
 
@@ -133,7 +133,7 @@ import { OrdersListChefComponent } from './components/orders/orders-list-chef/or
 		OrdersListComponent, 
 		OrdersListCustomerComponent, 
 		OrderStatusCustomerForDeliveryPipe, 
-		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent, MenuOneOptionComponent, MenuMultipleOptionComponent, NewOrdersComponent, NavbarChefComponent, OrdersListChefComponent,
+		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent, MenuOneOptionComponent, MenuMultipleOptionComponent, LiveNotificationsComponent, NavbarChefComponent, OrdersListChefComponent,
 	],
 	imports: [
 		BrowserModule,

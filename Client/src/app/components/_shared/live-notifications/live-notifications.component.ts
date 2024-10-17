@@ -7,11 +7,11 @@ import { MessageHub } from '../../../source/models/hub/message-hub';
 declare let alertify: any;
 
 @Component({
-    selector: 'app-new-orders',
-    templateUrl: './new-orders.component.html',
-    styleUrl: './new-orders.component.css'
+    selector: 'app-live-notifications',
+    templateUrl: './live-notifications.component.html',
+    styleUrl: './live-notifications.component.css'
 })
-export class NewOrdersComponent implements OnInit {
+export class LiveNotificationsComponent implements OnInit {
     private _connection!: HubConnection;
 
     constructor(
@@ -43,11 +43,17 @@ export class NewOrdersComponent implements OnInit {
 			.withUrl(general.HUB_NOTIFY_TO_RESTAURANT, options)
 			.build();
 
-		if (this.localStorageService.isUserBoss()) {
-			this._connection.on("NotifyToBossCustomerCreatedOrder", (messageHub: MessageHub) => {
-				//console.log("message received: ", messageHub);
-				//alertify.alert('Nueva orden', 'Hemos recibido una nueva order!', function(){ }).set('closable', false);;
-				alertify.message('Nueva orden');
+		if (this.localStorageService.isUserBoss() || this.localStorageService.isUserChef()) {
+			this._connection.on("NotifyToEmployeesInformationAboutAnOrder", (message: MessageHub) => {
+				if (message.message === 'ORDER-CREATED') {
+					alertify.success(`Orden nueva: #${message.extraData.toString().padStart(6, '0')}`);
+				} else if (message.message === 'ORDER-UPDATED') {
+					alertify.message(`Orden actualizada: #${message.extraData.toString().padStart(6, '0')}`);				
+				} else if (message.message === 'ORDER-CANCELED') {
+					alertify.error(`Orden cancelada: #${message.extraData.toString().padStart(6, '0')}`);
+				} else if (message.message === 'ORDER-DECLINED') {
+					alertify.error(`Orden declinada: #${message.extraData.toString().padStart(6, '0')}`);
+				}
 			});			
 		}
 	}
