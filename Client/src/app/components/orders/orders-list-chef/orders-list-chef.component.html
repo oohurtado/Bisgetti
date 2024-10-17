@@ -34,9 +34,59 @@
     <div *ngIf="_pageData?.data?.length == 0" class="text-center mt-2">
         No hay datos para mostrar
     </div>
-    <ng-container *ngFor="let order of _pageData?.data">
-
-    </ng-container>
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4 mt-1">
+        <ng-container *ngFor="let order of _pageData?.data">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <!-- <div class="col-4 text-start">
+                            Total<br>{{ getTotal(order) | currency:'$' }}
+                        </div> -->
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                Estatus<br>{{ order.status }}<br>{{ dateService.get_shortDate(order.updatedAt) }}                         
+                            </div>
+                            <div class="col-6 text-end">
+                                Pedido<br>#{{ order.id.toString().padStart(6, '0') }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="padding-left: 0px;">
+                                    <strong>Detalles</strong><br>
+                                    <div style="padding-left: 20px;">
+                                        Comentarios: {{ getComments(order) }}<br>
+                                        Entrega del producto: {{ order.deliveryMethod | deliveryMethod }}                                                        
+                                    </div>                            
+                                </div>    
+                                <div style="padding-left: 0px;">
+                                    <strong>Productos</strong><br>
+                                    <div style="padding-left: 20px;" *ngFor="let person of order._orderElementsGrouped">
+                                        <strong>{{ person.key }}</strong>                                
+                                        <div style="padding-left: 20px;" *ngFor="let product of person.items">
+                                            {{ product.productName }} ({{ product.productQuantity }})
+                                        </div>               
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="col-12" *ngIf="isOrderActive(order)">
+                                <div class="text-end mt-2">
+                                    <div class="btn-group">
+                                        <a (click)="onNextStatusClicked(order)" class="btn btn-light border" [ngClass]="{'disabled': !canUserChangeStatus(order)}">{{ order.status }} <i class="fa-solid fa-arrow-right"></i> {{ getNextStatus(order) }}</a>
+                                    </div>
+                                </div>                        
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="card-footer text-muted">
+                        Creado el {{ dateService.get_longDate(order.createdAt) }}, {{ dateService.get_time(order.createdAt) }}
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
     <div class="row mt-2">
 		<div class="col-md-12 text-end">				
 			<app-page-pagination [pageSelected]="pageSelected" [pageSize]="pageSize" (evt_pageOption)="onPageOptionClicked($event)" (evt_pageSize)="onPageSizeClicked($event)"></app-page-pagination>

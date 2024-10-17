@@ -37,10 +37,20 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 	) {
 		super('orders', localStorageService);
 
+		/*
         this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cocinando,Listo,En Ruta','En Proceso', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cancelado,Declinado','Otros', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Entregado','Entregados', true, false));
+		*/
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado','Empezado', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cancelado,Declinado','Cancelado / Declinado', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Aceptado','Aceptado', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cocinando','Cocinando', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Listo','Listo', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('En Ruta','En Ruta', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Entregado','Entregado', true, false));		
 		this._filter = this._filterMenu[0].param1;
 	}
 
@@ -214,5 +224,9 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 		} else {
 			return true;
 		}		
+	}
+
+	canUserChangeStatus(order: OrderResponse) {
+		return OrderHelper.canUserChangeStatus(order, this.localStorageService);
 	}
 }

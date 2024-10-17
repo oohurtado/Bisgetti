@@ -37,7 +37,7 @@
     <ng-container *ngFor="let order of _pageData?.data">
         <div class="card text-start mt-2">
             <div class="card-header">
-                <div class="row">                    
+                <div class="row">
                     <div class="col-4 text-start">
                         Total<br>{{ getTotal(order) | currency:'$' }}
                     </div>
@@ -102,7 +102,7 @@
                             <div class="btn-group">
                                 <a (click)="onCancelOrderClicked(order)" class="btn btn-light border">Cancelar</a>
                                 <a (click)="onDeclineOrderClicked(order)" class="btn btn-light border">Declinar</a>
-                                <a (click)="onNextStatusClicked(order)" class="btn btn-light border">{{ order.status }} <i class="fa-solid fa-arrow-right"></i> {{ getNextStatus(order) }}</a>
+                                <a (click)="onNextStatusClicked(order)" class="btn btn-light border" [ngClass]="{'disabled': !canUserChangeStatus(order)}">{{ order.status }} <i class="fa-solid fa-arrow-right"></i> {{ getNextStatus(order) }}</a>
                             </div>
                         </div>                        
                     </div>

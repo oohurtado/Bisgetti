@@ -10,6 +10,9 @@ import { Utils } from '../../../source/common/utils';
 import * as lodash from 'lodash';
 import { Grouping } from '../../../source/models/common/grouping';
 import { OrderElementResponse } from '../../../source/models/dtos/entities/order-element-response';
+import { EnumOrderStatus } from '../../../source/models/enums/order-status-enum';
+import { OrderChangeStatusRequest } from '../../../source/models/dtos/business/order-change-status-request';
+import { OrderHelper } from '../../../source/helpers/order-helper';
 declare let alertify: any;
 
 @Component({
@@ -85,5 +88,59 @@ export class OrdersListChefComponent extends PageBase<OrderResponse> implements 
 		
 		order.orderStatuses = lodash.sortBy(order.orderStatuses, p => p.eventAt);
 		order.orderStatuses = lodash.reverse(order.orderStatuses);
+	}
+
+    getComments(order: OrderResponse) {
+		if (order.comments === '' || order.comments === null) {
+			return '...';
+		}
+
+		return order.comments;
+	}
+
+    isOrderActive(order: OrderResponse) : boolean {
+		if (order.status == EnumOrderStatus.Canceled || order.status == EnumOrderStatus.Declined || order.status == EnumOrderStatus.Delivered) {
+			return false;
+		} else {
+			return true;
+		}		
+	}
+
+    async onNextStatusClicked(order: OrderResponse) {
+		this._error = null;
+		this._isProcessing = true;
+		
+		let model = new OrderChangeStatusRequest(order.status)
+		await this.businessService.order_nextStepAsync(order.id, model)
+			.then(p => {	
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		await this.businessService.order_getOrderAsync(order.id)
+			.then(p => {	
+				order = p;				
+			})
+			.catch(e => {
+				this._error = Utils.getErrorsResponse(e);				
+			});
+
+		this.updateElement(order);
+		this._isProcessing = false;
+	}
+
+    updateElement(order: OrderResponse) {
+		this.fixOrder(order);
+		let indexToUpdate = this._pageData.data.findIndex(p => p.id == order.id);
+		this._pageData.data[indexToUpdate] = order;
+	}
+
+    getNextStatus(order: OrderResponse) : string {
+		return OrderHelper.nextStep(order.status, order.deliveryMethod);
+	}
+
+	canUserChangeStatus(order: OrderResponse) {
+		return OrderHelper.canUserChangeStatus(order, this.localStorageService);
 	}
 }

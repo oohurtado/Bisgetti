@@ -1,6 +1,8 @@
 import { Expect } from "jest-editor-support";
 import { EnumOrderStatus } from "../models/enums/order-status-enum";
 import { EnumDeliveryMethod } from "../models/enums/delivery-method-enum";
+import { OrderResponse } from "../models/dtos/entities/order-response";
+import { LocalStorageService } from "../../services/common/local-storage.service";
 
 export class OrderHelper {
     static nextStep(currentStatus: string, deliveryMethod: string) : string {
@@ -43,5 +45,9 @@ export class OrderHelper {
         }
 
         throw new Error("Método de entrega/Estatus no válido");        
+    }
+
+    static canUserChangeStatus(order: OrderResponse, localStorageService: LocalStorageService) {
+        return true;
     }
 }
