@@ -169,7 +169,15 @@ namespace Server.Source.Logic
                 Status = result.Status,
             });
             await _businessRepository.UpdateAsync();
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder("ORDER-UPDATED", orderId.ToString(), userRole, $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}", userId, statusFrom: null!, statusTo: null!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(
+                message: "ORDER-UPDATED",
+                extraData: orderId.ToString()!,
+                userIdFrom: userId,
+                userIdTo: null!, // TODO: agregar userId del dueño de la orden
+                roleFrom: userRole,
+                roleTo: $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}",
+                statusFrom: request.CurrentStatus!, 
+                statusTo: result.Status!);
         }
 
         public async Task OrderCanceledAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
@@ -195,7 +203,15 @@ namespace Server.Source.Logic
                 Status = result.Status,
             });
             await _businessRepository.UpdateAsync();
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder("ORDER-CANCELED", orderId.ToString(), userRole, $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}", userId, statusFrom: null!, statusTo: null!);            
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(
+                message: "ORDER-CANCELED",
+                extraData: orderId.ToString()!,
+                userIdFrom: userId,
+                userIdTo: null!, // TODO: agregar userId del dueño de la orden
+                roleFrom: userRole,
+                roleTo: $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}",
+                statusFrom: null!,
+                statusTo: null!);            
         }
 
         public async Task OrderDeclinedAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
@@ -221,7 +237,15 @@ namespace Server.Source.Logic
                 Status = result.Status,
             });
             await _businessRepository.UpdateAsync();
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder("ORDER-DECLINED", orderId.ToString(), userRole, $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}", userId, statusFrom: null!, statusTo: null!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(
+                message: "ORDER-DECLINED",
+                extraData: orderId.ToString()!,
+                userIdFrom: userId,
+                userIdTo: null!, // TODO: agregar userId del dueño de la orden
+                roleFrom: userRole,
+                roleTo: $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}",
+                statusFrom: null!,
+                statusTo: null!);            
         }
     }
 }
