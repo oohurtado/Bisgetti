@@ -6,18 +6,18 @@ using Server.Source.Models.Hubs;
 
 namespace Server.Source.Hubs
 {
-    public class NotifyToRestaurantHub : Hub
+    public class LiveNotificationHub : Hub
     {
         private readonly IAspNetRepository _aspNetRepository;
 
-        public NotifyToRestaurantHub(IAspNetRepository aspNetRepository)
+        public LiveNotificationHub(IAspNetRepository aspNetRepository)
         {
             _aspNetRepository = aspNetRepository;
         }
 
-        //public async Task CustomerCreatedOrder(MessageHub messageHub)
+        //public async Task CustomerCreatedOrder(MessageOrderHub MessageOrderHub)
         //{            
-        //    await Clients.All.SendAsync("NotifyToEmployeesThatOrderWasCreated", messageHub);            
+        //    await Clients.All.SendAsync("NotifyToEmployeesThatOrderWasCreated", MessageOrderHub);            
         //}
     }
 }

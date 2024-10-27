@@ -16,20 +16,25 @@ using System.Text.Json;
 using AutoMapper.Execution;
 using Server.Source.Helpers;
 using Server.Source.Models.DTOs.UseCases.Order;
+using Microsoft.AspNetCore.SignalR;
+using Server.Source.Models.Hubs;
 
 namespace Server.Source.Logic
 {
     public class BusinessLogicOrder
     {
         private readonly IBusinessRepository _businessRepository;
+        private readonly ILiveNotificationService _liveNotificationService;
         private readonly IMapper _mapper;
 
         public BusinessLogicOrder(
             IBusinessRepository businessRepository,
+            ILiveNotificationService liveNotificationService,
             IMapper mapper
             )
         {
             _businessRepository = businessRepository;
+            _liveNotificationService = liveNotificationService;
             _mapper = mapper;
         }
 
@@ -163,7 +168,8 @@ namespace Server.Source.Logic
                 EventAt = DateTime.Now,
                 Status = result.Status,
             });
-            await _businessRepository.UpdateAsync();                
+            await _businessRepository.UpdateAsync();
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder("ORDER-UPDATED", orderId.ToString(), userRole, $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}", userId, statusFrom: null!, statusTo: null!);
         }
 
         public async Task OrderCanceledAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
@@ -189,6 +195,7 @@ namespace Server.Source.Logic
                 Status = result.Status,
             });
             await _businessRepository.UpdateAsync();
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder("ORDER-CANCELED", orderId.ToString(), userRole, $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}", userId, statusFrom: null!, statusTo: null!);            
         }
 
         public async Task OrderDeclinedAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
@@ -214,6 +221,7 @@ namespace Server.Source.Logic
                 Status = result.Status,
             });
             await _businessRepository.UpdateAsync();
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder("ORDER-DECLINED", orderId.ToString(), userRole, $"{EnumRole.UserBoss.GetDescription()},{EnumRole.UserChef.GetDescription()}", userId, statusFrom: null!, statusTo: null!);
         }
     }
 }

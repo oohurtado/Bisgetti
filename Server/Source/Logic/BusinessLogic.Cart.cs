@@ -14,12 +14,14 @@ using Server.Source.Models.DTOs.UseCases.Cart;
 using Server.Source.Extensions;
 using System.Text.Json;
 using AutoMapper.Execution;
+using Server.Source.Models.Hubs;
 
 namespace Server.Source.Logic
 {
     public class BusinessLogicCart
     {
         private readonly IBusinessRepository _businessRepository;
+        private readonly ILiveNotificationService _liveNotificationService;
         private readonly IMapper _mapper;
         private readonly IStorageFile _storageFile;
 
@@ -27,11 +29,13 @@ namespace Server.Source.Logic
 
         public BusinessLogicCart(
             IBusinessRepository businessRepository,
+            ILiveNotificationService liveNotificationService,
             IMapper mapper,
             IStorageFile storageFile
             )
         {
             _businessRepository = businessRepository;
+            _liveNotificationService = liveNotificationService;
             _mapper = mapper;
             _storageFile = storageFile;
         }
@@ -181,7 +185,7 @@ namespace Server.Source.Logic
             };
         }
 
-        public async Task<int?> CreateOrderForCustomerAsync(string userId, CreateOrderForCustomerRequest request)
+        public async Task<int?> CreateOrderForCustomerAsync(string userId, string userRole, CreateOrderForCustomerRequest request)
         {                        
             List<OrderStatusEntity> GetFirstStatus()
             {
@@ -275,6 +279,8 @@ namespace Server.Source.Logic
 
             var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();
             var id = await _businessRepository.Cart_CreateOrderAsync(userId, order_toCreate, cartElementIds);
+
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder("ORDER-CREATED", id.ToString()!, userRole, $"{EnumRole.UserBoss.GetDescription()}", userId, statusFrom: null!, statusTo: null! );            
             return id;
 
             // TODO: enviar correo a cliente y restaurante

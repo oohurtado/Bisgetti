@@ -14,7 +14,7 @@ import { CartDetails } from '../../source/models/business/common/cart-details';
 import { Router } from '@angular/router';
 import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
 import { general } from '../../source/common/general';
-import { MessageHub } from '../../source/models/hub/message-hub';
+import { MessageOrderHub } from '../../source/models/hub/message-order-hub';
 import { EnumRole } from '../../source/models/enums/role-enum';
 
 @Component({
@@ -120,7 +120,7 @@ export class CartComponent implements OnInit {
 	// 	let fromRole = this.localStorageService.getUserRole();
 	// 	let toRoles = `${EnumRole.UserBoss}`;
 	// 	let orderId = id?.toString() ?? '';
-	// 	let message = new MessageHub(userId, "ORDER-NEW", fromRole, toRoles, orderId);
+	// 	let message = new MessageOrderHub(userId, "ORDER-NEW", fromRole, toRoles, orderId);
 		
 	// 	this._connection.invoke('CustomerCreatedOrder', message)
 	// 		.then(_ => { 				

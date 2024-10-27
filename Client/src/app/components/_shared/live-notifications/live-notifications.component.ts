@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
 import { LocalStorageService } from '../../../services/common/local-storage.service';
 import { general } from '../../../source/common/general';
-import { MessageHub } from '../../../source/models/hub/message-hub';
+import { MessageOrderHub } from '../../../source/models/hub/message-order-hub';
 declare let alertify: any;
 
 @Component({
@@ -42,9 +42,10 @@ export class LiveNotificationsComponent implements OnInit {
 		this._connection = new HubConnectionBuilder()
 			.withUrl(general.HUB_NOTIFY_TO_RESTAURANT, options)
 			.build();
-
+			
 		if (this.localStorageService.isUserBoss() || this.localStorageService.isUserChef()) {
-			this._connection.on("NotifyToEmployeesInformationAboutAnOrder", (message: MessageHub) => {
+			this._connection.on("NotifyToEmployeesInformationAboutAnOrder", (message: MessageOrderHub) => {
+				console.log(message)
 				if (message.message === 'ORDER-CREATED') {
 					alertify.success(`Orden nueva: #${message.extraData.toString().padStart(6, '0')}`);
 				} else if (message.message === 'ORDER-UPDATED') {

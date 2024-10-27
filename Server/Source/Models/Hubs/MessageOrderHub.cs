@@ -7,7 +7,10 @@
 
         public string? RoleFrom { get; set; }
         public string? RoleTo { get; set; }
-        
+
+        public string? StatusFrom { get; set; }
+        public string? StatusTo { get; set; }
+
         public string? ExtraData { get; set; }
 
     }

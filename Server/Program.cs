@@ -127,6 +127,7 @@ namespace Server
 
             // services
             builder.Services.AddScoped<INotificationService, EmailNotificationService>();
+            builder.Services.AddScoped<ILiveNotificationService, LiveNotificationService>();
             builder.Services.AddTransient<IStorageFile, StorageFileLocal>();
 
             builder.Services.AddAutoMapper(p =>
@@ -196,7 +197,7 @@ namespace Server
                 });
             });
 
-            app.MapHub<NotifyToRestaurantHub>("hubs/notify-to-restaurant");
+            app.MapHub<LiveNotificationHub>("hubs/notify-to-restaurant");
 
             app.Run();
         }
