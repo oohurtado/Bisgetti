@@ -32,9 +32,8 @@ export class OrdersListChefComponent extends PageBase<OrderResponse> implements 
 		localStorageService: LocalStorageService
 	) {
 		super('orders', localStorageService);
-
-		//this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
-        this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Aceptado,Cocinando,Listo','Todos', true, true));
+		
+    this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Aceptado,Cocinando,Listo','Todos', true, true));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Aceptado','Aceptado', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cocinando','Cocinando', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Listo','Listo', true, false));	

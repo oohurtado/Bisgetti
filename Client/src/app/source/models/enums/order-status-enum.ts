@@ -1,5 +1,5 @@
 export enum EnumOrderStatus {
-    Started = "Empezado",
+    Received = "Recibido",
     Accepted = "Aceptado",
     Canceled = "Cancelado",
     Declined = "Declinado",

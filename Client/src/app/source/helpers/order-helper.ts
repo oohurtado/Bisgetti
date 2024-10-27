@@ -13,7 +13,7 @@ export class OrderHelper {
         
         if (deliveryMethod == EnumDeliveryMethod.TakeAway) {
             switch(currentStatus) {
-                case EnumOrderStatus.Started:
+                case EnumOrderStatus.Received:
                     return EnumOrderStatus.Accepted;
                 case EnumOrderStatus.Accepted:
                     return EnumOrderStatus.Cooking;
@@ -29,7 +29,7 @@ export class OrderHelper {
         if (deliveryMethod == EnumDeliveryMethod.ForDelivery) {
             switch(currentStatus)
             {
-                case EnumOrderStatus.Started:
+                case EnumOrderStatus.Received:
                     return EnumOrderStatus.Accepted;
                 case EnumOrderStatus.Accepted:
                     return EnumOrderStatus.Cooking;

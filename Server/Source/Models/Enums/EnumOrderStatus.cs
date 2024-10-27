@@ -4,8 +4,8 @@ namespace Server.Source.Models.Enums
 {
     public enum EnumOrderStatus
     {
-        [Description("Empezado")]
-        Started,
+        [Description("Recibido")]
+        Received,
 
         [Description("Aceptado")]
         Accepted,

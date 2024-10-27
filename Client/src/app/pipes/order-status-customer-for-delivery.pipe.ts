@@ -8,8 +8,8 @@ export class OrderStatusCustomerForDeliveryPipe implements PipeTransform {
 
     transform(value: string): string {
         switch (value) {
-            case EnumOrderStatus.Started:
-                return 'Empezado';
+          case EnumOrderStatus.Received:
+                return 'Recibido';
             case EnumOrderStatus.Accepted:
                 return 'En Proceso';
             case EnumOrderStatus.Canceled:

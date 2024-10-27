@@ -29,7 +29,7 @@ namespace Server.Source.Helpers
             {
                 switch (enumStatus)
                 {
-                    case EnumOrderStatus.Started:
+                    case EnumOrderStatus.Received:
                         return EnumOrderStatus.Accepted;
                     case EnumOrderStatus.Accepted:
                         return EnumOrderStatus.Cooking;
@@ -46,7 +46,7 @@ namespace Server.Source.Helpers
             {
                 switch(enumStatus)
                 {
-                    case EnumOrderStatus.Started:
+                    case EnumOrderStatus.Received:
                         return EnumOrderStatus.Accepted;
                     case EnumOrderStatus.Accepted:
                         return EnumOrderStatus.Cooking;

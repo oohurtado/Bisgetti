@@ -192,7 +192,7 @@ namespace Server.Source.Logic
                         new()
                         {
                             EventAt = DateTime.Now,
-                            Status = EnumOrderStatus.Started.GetDescription(),
+                            Status = EnumOrderStatus.Received.GetDescription(),
                         }
                     ];
                 }
@@ -203,7 +203,7 @@ namespace Server.Source.Logic
                         new OrderStatusEntity()
                         {
                             EventAt = DateTime.Now,
-                            Status = EnumOrderStatus.Started.GetDescription(),
+                            Status = EnumOrderStatus.Received.GetDescription(),
                         }
                     ];
                 }

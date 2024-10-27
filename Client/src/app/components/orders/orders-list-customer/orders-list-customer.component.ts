@@ -33,8 +33,8 @@ export class OrdersListCustomerComponent extends PageBase<OrderResponse> impleme
 	) {
 		super('orders', localStorageService);
 
-		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
-		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Empezado,Aceptado,Cocinando,Listo,En Ruta','En Proceso', true, false));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Recibido,Aceptado,Cancelado,Declinado,Cocinando,Listo,En Ruta,Entregado','Todos', true, true));
+		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Recibido,Aceptado,Cocinando,Listo,En Ruta','En Proceso', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Cancelado,Declinado','Otros', true, false));
 		this._filterMenu.push(new Tuple4<string, string, boolean, boolean>('Entregado','Entregados', true, false));
 		this._filter = this._filterMenu[0].param1;
