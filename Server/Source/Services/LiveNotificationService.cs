@@ -26,12 +26,12 @@ namespace Server.Source.Services
             {
                 Message = message,
                 ExtraData = extraData,
-                RoleFrom = roleFrom,
-                RoleTo = roleTo,
+                //RoleFrom = roleFrom,
+                //RoleTo = roleTo,
                 StatusFrom = statusFrom,
                 StatusTo = statusTo,
-                UserIdFrom = userIdFrom,
-                UserIdTo = userIdTo,
+                //UserIdFrom = userIdFrom,
+                //UserIdTo = userIdTo,
             });            
         }
     }
