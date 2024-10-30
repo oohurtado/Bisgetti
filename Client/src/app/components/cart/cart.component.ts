@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
 	_cartDetails!: CartDetails|null;
 	_orderId!: number|null;
 
-	private _connection!: HubConnection;
+	// private _connection!: HubConnection;
 
 	constructor(
 		private businessService: BusinessService,		
@@ -48,12 +48,12 @@ export class CartComponent implements OnInit {
 	}
 
 	async ngOnInit() {
-		this._connection.start()
-		.then(_ => {
-			// console.log('connection Started');
-		}).catch(error => {			
-			// return console.error(error);
-		});
+		// this._connection.start()
+		// .then(_ => {
+		// 	// console.log('connection Started');
+		// }).catch(error => {			
+		// 	// return console.error(error);
+		// });
 	}
 
 	initTabs() {
@@ -73,9 +73,9 @@ export class CartComponent implements OnInit {
 			},
 		};
 
-		this._connection = new HubConnectionBuilder()
-			.withUrl(general.HUB_NOTIFY_TO_RESTAURANT, options)
-			.build();
+		// this._connection = new HubConnectionBuilder()
+		// 	.withUrl(general.MASSIVE_LIVE_NOTIFICATION, options)
+		// 	.build();
 	}
 	
 	onTabClicked(event: Event, tabNew: number) {

@@ -197,7 +197,8 @@ namespace Server
                 });
             });
 
-            app.MapHub<LiveNotificationHub>("hubs/live-notification");
+            app.MapHub<LiveNotificationHub>("hubs/massive-live-notification");
+            app.MapHub<GroupLiveNotificationHub>("hubs/group-live-notification");
 
 
             app.Run();

@@ -9,7 +9,8 @@ export const general = {
 	MS_LAST_NAME: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname",
 	MS_EMAIL_ADDRESS: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
 	
-	HUB_NOTIFY_TO_RESTAURANT: "https://localhost:7239/hubs/live-notification",
+	MASSIVE_LIVE_NOTIFICATION: "https://localhost:7239/hubs/massive-live-notification",
+	GROUP_LIVE_NOTIFICATION: "https://localhost:7239/hubs/group-live-notification",
 
     LS_TOKEN: 'token',
 

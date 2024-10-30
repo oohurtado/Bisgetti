@@ -40,7 +40,7 @@ export class LiveNotificationsComponent implements OnInit {
 		};
 
 		this._connection = new HubConnectionBuilder()
-			.withUrl(general.HUB_NOTIFY_TO_RESTAURANT, options)
+			.withUrl(general.MASSIVE_LIVE_NOTIFICATION, options)
 			.build();
 			
 		if (this.localStorageService.isUserBoss() || this.localStorageService.isUserChef()) {
