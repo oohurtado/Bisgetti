@@ -27,13 +27,7 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 
 		await Utils.delay(1000);
 
-		this._connection.start()
-		.then(_ => {
-			this.joinGroup();
-			// console.log('connection Started');
-		}).catch(error => {			
-			alertify.error(`Error al intenar conectarse`);
-		});		
+		this.startHub();
 	}
 
 	ngOnDestroy(): void {
@@ -41,7 +35,7 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 	}
 
 	initGroupHub() {
-		if (!this.localStorageService.isUserAuthenticated()) {
+		if (!(this.localStorageService.isUserBoss() || this.localStorageService.isUserChef() || this.localStorageService.isUserCustomer())) {
 			return;
 		}
 
@@ -56,15 +50,14 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 			.build();
 
 		this._connection.on("NotifyToEmployeesInformationAboutAnOrder", (message: MessageOrderHub) => {
-			// console.log(message)
 			if (message.message === 'ORDER-CREATED') {
-				alertify.success(`Orden nueva: #${message.extraData.toString().padStart(6, '0')}`);
+				alertify.success(`#${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);
 			} else if (message.message === 'ORDER-UPDATED') {
-				alertify.message(`Orden actualizada: #${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);				
+				alertify.message(`#${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);				
 			} else if (message.message === 'ORDER-CANCELED') {
-				alertify.error(`Orden cancelada: #${message.extraData.toString().padStart(6, '0')}`);
+				alertify.error(`Orden cancelada: #${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);
 			} else if (message.message === 'ORDER-DECLINED') {
-				alertify.error(`Orden declinada: #${message.extraData.toString().padStart(6, '0')}`);
+				alertify.error(`Orden declinada: #${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);
 			}
 		});			
 
@@ -73,12 +66,33 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	startHub() {
+		if (!(this.localStorageService.isUserBoss() || this.localStorageService.isUserChef() || this.localStorageService.isUserCustomer())) {
+			return;
+		}
+
+		this._connection.start()
+			.then(_ => {
+				this.joinGroup();
+				// console.log('connection Started');
+			}).catch(error => {			
+				alertify.error(`Error al intenar conectarse`);
+			});		
+	}
+
 	joinGroup() {
 		if (!this.localStorageService.isUserAuthenticated()) {
 			return;
 		}
 
-		this._connection.invoke('JoinGroup', this.localStorageService.getUserRole(), this.localStorageService.getUserFullName())
+		let group = '';
+		if (this.localStorageService.isUserBoss() || this.localStorageService.isUserChef()) {
+			group = this.localStorageService.getUserRole();
+		} else {
+			group = `user-${this.localStorageService.getUserId()}`;
+		}
+
+		this._connection.invoke('JoinGroup', group, this.localStorageService.getUserFullName())
 			.then(_ => {		
 				alertify.success(`Conectado a grupo!`);		
 			})
@@ -92,7 +106,14 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		this._connection.invoke('LeaveGroup', this.localStorageService.getUserRole(), this.localStorageService.getUserFullName())
+		let group = '';
+		if (this.localStorageService.isUserBoss() || this.localStorageService.isUserChef()) {
+			group = this.localStorageService.getUserRole();
+		} else {
+			group = `user-${this.localStorageService.getUserId()}`;
+		}
+
+		this._connection.invoke('LeaveGroup', group, this.localStorageService.getUserFullName())
 			.then(_ => {
 				alertify.success(`Desconectado de grupo`);	
 			});
