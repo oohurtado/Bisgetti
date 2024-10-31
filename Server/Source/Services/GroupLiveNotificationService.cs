@@ -20,19 +20,16 @@ namespace Server.Source.Services
             await _hub.Clients.All.SendAsync("NotifyToEmployeesInformationAboutAnOrder", messageOrderHub);
         }
 
-        public async Task NotifyToEmployeesInformationAboutAnOrder(string message, string extraData, string userIdFrom, string userIdTo, string roleFrom, string roleTo, string statusFrom, string statusTo)
+        public async Task NotifyToEmployeesInformationAboutAnOrder(string groupName, string message, string extraData, string statusFrom, string statusTo)
         {
-            await _hub.Clients.All.SendAsync("NotifyToEmployeesInformationAboutAnOrder", new MessageOrderHub()
+            await _hub.Clients.Group(groupName).SendAsync("NotifyToEmployeesInformationAboutAnOrder", new MessageOrderHub()
             {
+                GroupName = groupName,
                 Message = message,
                 ExtraData = extraData,
-                //RoleFrom = roleFrom,
-                //RoleTo = roleTo,
                 StatusFrom = statusFrom,
                 StatusTo = statusTo,
-                //UserIdFrom = userIdFrom,
-                //UserIdTo = userIdTo,
-            });            
+            });
         }
     }
 }

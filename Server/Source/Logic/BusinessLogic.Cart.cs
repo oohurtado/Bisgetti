@@ -279,16 +279,9 @@ namespace Server.Source.Logic
 
             var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();
             var id = await _businessRepository.Cart_CreateOrderAsync(userId, order_toCreate, cartElementIds);
+            
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-CREATED", id.ToString()!, null!, null!);
 
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(
-                message: "ORDER-CREATED",
-                extraData: id.ToString()!,
-                userIdFrom: userId,
-                userIdTo: null!,
-                roleFrom: $"{EnumRole.UserCustomer.GetDescription()}",
-                roleTo: $"{EnumRole.UserBoss.GetDescription()}",
-                statusFrom: null!,
-                statusTo: null!);
             return id;
 
             // TODO: enviar correo a cliente y restaurante
