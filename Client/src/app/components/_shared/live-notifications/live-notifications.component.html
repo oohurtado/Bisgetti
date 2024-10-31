@@ -1,0 +1,10 @@
+<div class="container-fluid container-lg">
+    <div class="text-end">
+        <span class="m-1" [ngClass]="{'text-primary': _connectedToHub, 'text-muted': !_connectedToHub}" title="hub">
+            <i class="fa-solid fa-circle fa-xs"></i>
+        </span>
+        <span class="m-1" [ngClass]="{'text-primary': _connectedToGroup, 'text-muted': !_connectedToGroup}" title="group">
+            <i class="fa-solid fa-circle fa-xs" ></i>
+        </span>
+    </div>
+</div>

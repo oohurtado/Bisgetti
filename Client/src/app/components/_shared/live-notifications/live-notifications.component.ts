@@ -15,6 +15,9 @@ declare let alertify: any;
 export class LiveNotificationsComponent implements OnInit, OnDestroy {
     private _connection!: HubConnection;
 
+	_connectedToHub: boolean = false;
+	_connectedToGroup: boolean = false;
+
     constructor(
         public localStorageService: LocalStorageService,
 		private router: Router
@@ -62,8 +65,9 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 		});			
 
 		this._connection.onclose(() => {
-			alertify.error(`Desconectado del hub =(`);
-		});
+			this._connectedToHub = false;
+			this._connectedToGroup = false;
+		});				
 	}
 
 	startHub() {
@@ -73,10 +77,11 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 
 		this._connection.start()
 			.then(_ => {
-				this.joinGroup();
-				// console.log('connection Started');
+				this._connectedToHub = true;				
+				this.joinGroup();				
 			}).catch(error => {			
-				alertify.error(`Error al intenar conectarse`);
+				this._connectedToHub = false;
+				this._connectedToGroup = false;
 			});		
 	}
 
@@ -94,10 +99,10 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 
 		this._connection.invoke('JoinGroup', group, this.localStorageService.getUserFullName())
 			.then(_ => {		
-				alertify.success(`Conectado a grupo!`);		
+				this._connectedToGroup = true;	
 			})
 			.catch(error => {			
-				alertify.error(`Error al intenar conectarse al grupo`);
+				this._connectedToGroup = false;				
 			});
 	}
 
@@ -115,7 +120,7 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 
 		this._connection.invoke('LeaveGroup', group, this.localStorageService.getUserFullName())
 			.then(_ => {
-				alertify.success(`Desconectado de grupo`);	
+				this._connectedToGroup = false;
 			});
 	}
 
