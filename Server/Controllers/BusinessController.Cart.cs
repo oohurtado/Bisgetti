@@ -165,7 +165,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
         [HttpPost(template: "cart/customer/order")]
-        public async Task<ActionResult> CreateOrderForCustomer([FromBody] CreateOrderForCustomerRequest request, [FromServices] IHubContext<LiveNotificationHub> hub)
+        public async Task<ActionResult> CreateOrderForCustomer([FromBody] CreateOrderForCustomerRequest request, [FromServices] IHubContext<MassiveLiveNotificationHub> hub)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier!)!;
             var userRole = User.FindFirstValue(ClaimTypes.Role!)!;

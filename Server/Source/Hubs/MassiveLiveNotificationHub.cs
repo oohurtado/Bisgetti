@@ -6,11 +6,11 @@ using Server.Source.Models.Hubs;
 
 namespace Server.Source.Hubs
 {
-    public class LiveNotificationHub : Hub
+    public class MassiveLiveNotificationHub : Hub
     {
         private readonly IAspNetRepository _aspNetRepository;
 
-        public LiveNotificationHub(IAspNetRepository aspNetRepository)
+        public MassiveLiveNotificationHub(IAspNetRepository aspNetRepository)
         {
             _aspNetRepository = aspNetRepository;
         }

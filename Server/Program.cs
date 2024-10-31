@@ -126,8 +126,8 @@ namespace Server
             builder.Services.AddScoped<ConfigurationUtility>();
 
             // services
+            builder.Services.AddScoped<ILiveNotificationService, GroupLiveNotificationService>(); // GroupLiveNotificationService, MassiveLiveNotificationService
             builder.Services.AddScoped<INotificationService, EmailNotificationService>();
-            builder.Services.AddScoped<ILiveNotificationService, LiveNotificationService>();
             builder.Services.AddTransient<IStorageFile, StorageFileLocal>();
 
             builder.Services.AddAutoMapper(p =>
@@ -197,7 +197,7 @@ namespace Server
                 });
             });
 
-            app.MapHub<LiveNotificationHub>("hubs/massive-live-notification");
+            app.MapHub<MassiveLiveNotificationHub>("hubs/massive-live-notification");
             app.MapHub<GroupLiveNotificationHub>("hubs/group-live-notification");
 
 

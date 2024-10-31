@@ -8,16 +8,19 @@ namespace Server.Source.Hubs
 {
     public class GroupLiveNotificationHub : Hub
     {
-        private readonly IAspNetRepository _aspNetRepository;
-
-        public GroupLiveNotificationHub(IAspNetRepository aspNetRepository)
+        public async Task JoinGroup(string groupName, string fullname)
         {
-            _aspNetRepository = aspNetRepository;
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         }
 
-        //public async Task CustomerCreatedOrder(MessageOrderHub MessageOrderHub)
-        //{            
-        //    await Clients.All.SendAsync("NotifyToEmployeesThatOrderWasCreated", MessageOrderHub);            
+        public async Task LeaveGroup(string groupName, string fullname)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
+        }
+
+        //public async Task SendMessage(MessageOrderHub message)
+        //{
+        //    await Clients.Group(message.GroupName!).SendAsync("NewMessage", message);
         //}
     }
 }

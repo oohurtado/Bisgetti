@@ -2,6 +2,7 @@
 {
     public class MessageOrderHub
     {
+        public string? GroupName { get; set; }
         public string? Message { get; set; }
 
         //public string? UserIdFrom { get; set; }
@@ -14,6 +15,7 @@
         public string? StatusTo { get; set; }
 
         public string? ExtraData { get; set; }
+
 
     }
 }

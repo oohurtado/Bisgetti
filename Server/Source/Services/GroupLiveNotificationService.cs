@@ -6,11 +6,11 @@ using Server.Source.Services.Interfaces;
 
 namespace Server.Source.Services
 {
-    public class LiveNotificationService : ILiveNotificationService
+    public class GroupLiveNotificationService : ILiveNotificationService
     {
-        private readonly IHubContext<LiveNotificationHub> _hub;
+        private readonly IHubContext<GroupLiveNotificationHub> _hub;
 
-        public LiveNotificationService(IHubContext<LiveNotificationHub> hub)
+        public GroupLiveNotificationService(IHubContext<GroupLiveNotificationHub> hub)
         {
             _hub = hub;
         }
