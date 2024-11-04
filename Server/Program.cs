@@ -106,6 +106,7 @@ namespace Server
 
             // repositories
             builder.Services.AddScoped<IAspNetRepository, AspNetRepository>();
+            builder.Services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             builder.Services.AddScoped<IAddressRepository, AddressRepository>();
             builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
 

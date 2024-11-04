@@ -8,7 +8,9 @@ namespace Server.Source.Logic
     {
         private readonly IAspNetRepository _aspNetRepository;
 
-        public SeedLogic(IAspNetRepository aspNetRepository)
+        public SeedLogic(
+            IAspNetRepository aspNetRepository
+            )
         {
             _aspNetRepository = aspNetRepository;
         }

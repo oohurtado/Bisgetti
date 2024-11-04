@@ -18,6 +18,7 @@ namespace Server.Source.Data
         public virtual DbSet<OrderEntity> Orders { get; set; }
         public virtual DbSet<OrderElementEntity> OrderElements { get; set; }
         public virtual DbSet<OrderStatusEntity> OrderStatuses { get; set; }
+        public virtual DbSet<ConfigurationEntity> Configurations { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
@@ -38,6 +39,7 @@ namespace Server.Source.Data
             builder.Entity<OrderEntity>().ToTable("Orders");
             builder.Entity<OrderElementEntity>().ToTable("OrderElements");
             builder.Entity<OrderStatusEntity>().ToTable("OrderStatuses");
+            builder.Entity<ConfigurationEntity>().ToTable("Configurations");
 
             builder.Entity<UserEntity>(e =>
             {
@@ -189,6 +191,8 @@ namespace Server.Source.Data
 
                 e.HasOne(p => p.Order).WithMany(p => p.OrderStatuses).HasForeignKey(p => p.OrderId);
             });
+
+            builder.Entity<ConfigurationEntity>().HasIndex(t => new { t.Section, t.Key }).IsUnique();
         }
     }
 }
