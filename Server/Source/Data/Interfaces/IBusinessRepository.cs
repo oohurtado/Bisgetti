@@ -149,5 +149,9 @@ namespace Server.Source.Data.Interfaces
         IQueryable<OrderEntity> Order_GetOrder(string userId, string userRole, int orderId);
         IQueryable<OrderElementEntity> Order_GetOrderElements(string userId, int orderId);
         IQueryable<OrderStatusEntity> Order_GetOrderStatuses(string userId, int orderId);
+
+        /* ***************************** configuraciones ***************************** */
+        IQueryable<ConfigurationEntity> Configuration_GetForInformation();
+        IQueryable<ConfigurationEntity> Configuration_GetForOrders();
     }
 }

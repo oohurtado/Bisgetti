@@ -14,6 +14,7 @@ namespace Server.Controllers
         private readonly BusinessLogicMenuStuff _businessLogicMenuStuff;
         private readonly BusinessLogicCart _businessLogicCart;
         private readonly BusinessLogicOrder _businessLogicOrder;
+        private readonly BusinessLogicConfiguration _businessLogicConfiguration;
 
         public BusinessController(
             BusinessLogicMenu businessLogicMenu,
@@ -21,7 +22,8 @@ namespace Server.Controllers
             BusinessLogicProduct businessLogicProduct,
             BusinessLogicMenuStuff businessLogicMenuStuff,
             BusinessLogicCart businessLogicCart,
-            BusinessLogicOrder businessLogicOrder
+            BusinessLogicOrder businessLogicOrder,
+            BusinessLogicConfiguration businessLogicConfiguration
             )
         {
             _businessLogicMenu = businessLogicMenu;
@@ -30,6 +32,7 @@ namespace Server.Controllers
             _businessLogicMenuStuff = businessLogicMenuStuff;
             _businessLogicCart = businessLogicCart;
             _businessLogicOrder = businessLogicOrder;
+            _businessLogicConfiguration = businessLogicConfiguration;
         }
     }
 }

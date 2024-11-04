@@ -25,6 +25,7 @@ using Server.Source.Models.DTOs.UseCases.MyAccount;
 using Server.Source.Models.DTOs.UseCases.Menu;
 using Server.Source.Models.DTOs.UseCases.Category;
 using Server.Source.Hubs;
+using Server.Source.Models.DTOs.UseCases.Configuration;
 
 namespace Server
 {
@@ -106,7 +107,6 @@ namespace Server
 
             // repositories
             builder.Services.AddScoped<IAspNetRepository, AspNetRepository>();
-            builder.Services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             builder.Services.AddScoped<IAddressRepository, AddressRepository>();
             builder.Services.AddScoped<IBusinessRepository, BusinessRepository>();
 
@@ -122,6 +122,7 @@ namespace Server
             builder.Services.AddScoped<BusinessLogicMenuStuff>();
             builder.Services.AddScoped<BusinessLogicCart>();
             builder.Services.AddScoped<BusinessLogicOrder>();
+            builder.Services.AddScoped<BusinessLogicConfiguration>();
 
             // utilities
             builder.Services.AddScoped<ConfigurationUtility>();
@@ -145,7 +146,7 @@ namespace Server
                 p.CreateMap<ProductEntity, ProductResponse>();
                 p.CreateMap<CreateOrUpdateProductRequest, ProductEntity>();
 
-                p.CreateMap<MenuStuffEntity, MenuStuffResponse>();                
+                p.CreateMap<MenuStuffEntity, MenuStuffResponse>();
             }, typeof(Program));
         }
 
