@@ -32,10 +32,10 @@ namespace Server.Source.Logic
             _mapper = mapper;
         }
 
-        public async Task<InformationConfigurationResponse> GetConfigurationsForInformationAsync()
+        public async Task<UpdateInformationConfigurationResponse> GetConfigurationsForInformationAsync()
         {
             var data = await _businessRepository.Configuration_GetForInformation().ToListAsync();
-            return new InformationConfigurationResponse()
+            return new UpdateInformationConfigurationResponse()
             {
                 Name = data.Where(p => p.Key == "nombre").Select(p => p.Value).FirstOrDefault(),
                 Address = data.Where(p => p.Key == "dirección").Select(p => p.Value).FirstOrDefault(),
@@ -44,10 +44,10 @@ namespace Server.Source.Logic
             };
         }
 
-        public async Task<OrderConfigurationResponse> GetConfigurationsForOrdersAsync()
+        public async Task<UpdateOrderConfigurationResponse> GetConfigurationsForOrdersAsync()
         {
             var data = await _businessRepository.Configuration_GetForOrders().ToListAsync();
-            return new OrderConfigurationResponse()
+            return new UpdateOrderConfigurationResponse()
             {
                 Tip = data.Where(p => p.Key == "propinas-en-porcentaje").Select(p => p.Value).FirstOrDefault(),
                 Shipping = data.Where(p => p.Key == "costo-de-envío").Select(p => p.Value).FirstOrDefault(),
@@ -55,6 +55,48 @@ namespace Server.Source.Logic
             };
         }
 
+        public async Task UpdateConfigurationsForInformationAsync(UpdateInformationConfigurationRequest request)
+        {
+            var data = await _businessRepository.Configuration_GetForInformation().ToListAsync();
 
+            {
+                var record = data.Where(p => p.Key == "nombre").FirstOrDefault();
+                record!.Value = request.Name;
+            }
+            {
+                var record = data.Where(p => p.Key == "dirección").FirstOrDefault();
+                record!.Value = request.Address;
+            }
+            {
+                var record = data.Where(p => p.Key == "teléfono").FirstOrDefault();
+                record!.Value = request.Phone;
+            }
+            {
+                var record = data.Where(p => p.Key == "horario").FirstOrDefault();
+                record!.Value = request.OpeningDaysHours;
+            }
+
+            await _businessRepository.UpdateAsync();
+        }
+
+        public async Task UpdateConfigurationsForOrderAsync(UpdateOrderConfigurationRequest request)
+        {
+            var data = await _businessRepository.Configuration_GetForOrders().ToListAsync();
+
+            {
+                var record = data.Where(p => p.Key == "propinas").FirstOrDefault();
+                record!.Value = request.Tip;
+            }
+            {
+                var record = data.Where(p => p.Key == "envío").FirstOrDefault();
+                record!.Value = request.Shipping;
+            }
+            {
+                var record = data.Where(p => p.Key == "abierto").FirstOrDefault();
+                record!.Value = request.Active;
+            }
+
+            await _businessRepository.UpdateAsync();
+        }
     }
 }

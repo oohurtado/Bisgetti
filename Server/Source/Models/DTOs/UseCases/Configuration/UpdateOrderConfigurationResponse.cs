@@ -1,6 +1,6 @@
 ﻿namespace Server.Source.Models.DTOs.UseCases.Configuration
 {
-    public class OrderConfigurationRequest
+    public class UpdateOrderConfigurationResponse
     {
         public string? Tip { get; set; }
         public string? Shipping { get; set; }

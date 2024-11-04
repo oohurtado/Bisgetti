@@ -192,6 +192,16 @@ namespace Server.Source.Data
                 e.HasOne(p => p.Order).WithMany(p => p.OrderStatuses).HasForeignKey(p => p.OrderId);
             });
 
+            builder.Entity<ConfigurationEntity>(e =>
+            {
+                e.Property(p => p.Id).HasColumnName("ConfigurationId");
+
+                e.Property(p => p.Section).IsRequired(required: true).HasMaxLength(50);
+                e.Property(p => p.Key).IsRequired(required: true).HasMaxLength(50);
+                e.Property(p => p.Value).IsRequired(required: true).HasMaxLength(500);
+                e.Property(p => p.ExtraValue).IsRequired(required: false).HasMaxLength(500);
+            });
+
             builder.Entity<ConfigurationEntity>().HasIndex(t => new { t.Section, t.Key }).IsUnique();
         }
     }
