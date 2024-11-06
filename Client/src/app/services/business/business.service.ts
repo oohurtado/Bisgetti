@@ -25,6 +25,11 @@ import { CreateOrderForCustomerRequest } from '../../source/models/dtos/business
 import { OrderResponse } from '../../source/models/dtos/entities/order-response';
 import { OrderChangeStatusRequest } from '../../source/models/dtos/business/order-change-status-request';
 import { Observable } from 'rxjs';
+import { ConfigurationsInformationComponent } from '../../components/configurations/configurations-information/configurations-information.component';
+import { UpdateInformationConfigurationResponse } from '../../source/models/dtos/configurations/update-information-configuration-response';
+import { UpdateInformationConfigurationRequest } from '../../source/models/dtos/configurations/update-information-configuration-request';
+import { UpdateOrderConfigurationResponse } from '../../source/models/dtos/configurations/update-order-configuration-response';
+import { UpdateOrderConfigurationRequest } from '../../source/models/dtos/configurations/update-order-configuration-request';
 
 @Injectable({
     providedIn: 'root'
@@ -656,4 +661,52 @@ export class BusinessService {
 			});
 		});
 	}
+
+	///////////////////
+	// configuration //
+	///////////////////
+
+	configuration_getInformation() {
+		return this.requestService.get<UpdateInformationConfigurationResponse>(`/configurations/information`);
+    }
+
+    configuration_getInformationAsync() : Promise<UpdateInformationConfigurationResponse> {
+		return new Promise((resolve, reject) => {
+			this.configuration_getInformation()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+    configuration_updateInformation(model: UpdateInformationConfigurationRequest) {
+		return this.requestService.put(`/configurations/information`, model);
+	}
+
+	configuration_getOrders() {
+		return this.requestService.get<UpdateOrderConfigurationResponse>(`/configurations/order`);
+    }
+
+    configuration_getOrdersAsync() : Promise<UpdateOrderConfigurationResponse> {
+		return new Promise((resolve, reject) => {
+			this.configuration_getOrders()
+			.subscribe({
+				next: (value) => {
+					resolve(value);
+				},
+				error: (response) => {
+					reject(response);
+				}
+			});
+		});
+	}
+
+    configuration_updateOrders(model: UpdateOrderConfigurationRequest) {
+		return this.requestService.put(`/configurations/order`, model);
+	}	
 }

@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-md-12">
+		<h3>Configuraciones</h3>
+	</div>
+    <div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Configuraciones</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="list-group">
+    <ng-container>
+        <a [routerLink]="['/configurations/information']" class="list-group-item list-group-item-action" aria-current="true">
+            Actualizar <strong>información</strong> del restaurante
+            <br>
+            <em>Nombre, dirección, teléfono y horarios</em>
+        </a>
+    </ng-container>
+    <ng-container>
+        <a [routerLink]="['/configurations/orders']" class="list-group-item list-group-item-action" aria-current="true">
+            Cambiar opciones relacionadas a las <strong>ordenes</strong>
+            <br>
+            <em>Propinas sugeridas (%), costo de envío y activar las compras en línea</em>
+        </a>
+    </ng-container>
+</div>

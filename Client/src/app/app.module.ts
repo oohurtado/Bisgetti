@@ -74,6 +74,10 @@ import { MenuMultipleOptionComponent } from './components/_shared/menu-multiple-
 import { LiveNotificationsComponent } from './components/_shared/live-notifications/live-notifications.component';
 import { NavbarChefComponent } from './components/_shared/navbar/navbar-chef/navbar-chef.component';
 import { OrdersListChefComponent } from './components/orders/orders-list-chef/orders-list-chef.component';
+import { ConfigurationsComponent } from './components/configurations/configurations.component';
+import { ConfigurationsListComponent } from './components/configurations/configurations-list/configurations-list.component';
+import { ConfigurationsOrdersComponent } from './components/configurations/configurations-orders/configurations-orders.component';
+import { ConfigurationsInformationComponent } from './components/configurations/configurations-information/configurations-information.component';
 
 @NgModule({
 	declarations: [
@@ -133,7 +137,7 @@ import { OrdersListChefComponent } from './components/orders/orders-list-chef/or
 		OrdersListComponent, 
 		OrdersListCustomerComponent, 
 		OrderStatusCustomerForDeliveryPipe, 
-		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent, MenuOneOptionComponent, MenuMultipleOptionComponent, LiveNotificationsComponent, NavbarChefComponent, OrdersListChefComponent,
+		OrderStatusCustomerTakeAwayPipe, OrdersListBossComponent, MenuOneOptionComponent, MenuMultipleOptionComponent, LiveNotificationsComponent, NavbarChefComponent, OrdersListChefComponent, ConfigurationsComponent, ConfigurationsListComponent, ConfigurationsOrdersComponent, ConfigurationsInformationComponent,
 	],
 	imports: [
 		BrowserModule,

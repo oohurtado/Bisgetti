@@ -36,6 +36,10 @@ import { MenusDesignComponent } from "./components/administration/menu-stuff/men
 import { CartComponent } from "./components/cart/cart.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { OrdersListComponent } from "./components/orders/orders-list/orders-list.component";
+import { ConfigurationsComponent } from "./components/configurations/configurations.component";
+import { ConfigurationsListComponent } from "./components/configurations/configurations-list/configurations-list.component";
+import { ConfigurationsInformationComponent } from "./components/configurations/configurations-information/configurations-information.component";
+import { ConfigurationsOrdersComponent } from "./components/configurations/configurations-orders/configurations-orders.component";
 
 const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
@@ -69,6 +73,15 @@ const ROUTES: Routes = [
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },
+    {
+        path: 'configurations', component:  ConfigurationsComponent,
+        children:[
+            { path: 'list', component: ConfigurationsListComponent, canActivate: [userBossGuard] },
+            { path: 'information', component: ConfigurationsInformationComponent, canActivate: [userBossGuard] },
+            { path: 'orders', component: ConfigurationsOrdersComponent, canActivate: [userBossGuard] },           
+            { path: '**', pathMatch: 'full', redirectTo: 'list' }
+        ]
+    },    
     {
         path: 'menu-stuff', component:  MenuStuffComponent,
         children:[
