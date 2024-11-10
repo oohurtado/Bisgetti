@@ -40,7 +40,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
         [HttpPut(template: "configurations/information")]
-        public async Task<ActionResult> UpdateConfigurationsForInformation([FromBody] UpdateInformationConfigurationRequest request, int id)
+        public async Task<ActionResult> UpdateConfigurationsForInformation([FromBody] UpdateInformationConfigurationRequest request)
         {
             await _businessLogicConfiguration.UpdateConfigurationsForInformationAsync(request);
             return Ok();
@@ -52,7 +52,7 @@ namespace Server.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "user-boss")]
         [HttpPut(template: "configurations/orders")]
-        public async Task<ActionResult> UpdateConfigurationsForOrders([FromBody] UpdateOrderConfigurationRequest request, int id)
+        public async Task<ActionResult> UpdateConfigurationsForOrders([FromBody] UpdateOrderConfigurationRequest request)
         {
             await _businessLogicConfiguration.UpdateConfigurationsForOrderAsync(request);
             return Ok();
