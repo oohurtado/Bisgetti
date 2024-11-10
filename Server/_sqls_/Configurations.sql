@@ -1,7 +1,7 @@
 SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO Configurations(Section,`Key`,Value,ExtraValue) VALUES 
-('ordenes', 'propinas', '0,10,15,20,25,30,50', null),
+('ordenes', 'propinas', '0,10,20,30', null),
 ('ordenes', 'envío', '30', null),
 ('ordenes', 'abierto', 'True', null);
 

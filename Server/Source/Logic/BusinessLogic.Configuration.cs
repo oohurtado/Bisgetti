@@ -49,9 +49,9 @@ namespace Server.Source.Logic
             var data = await _businessRepository.Configuration_GetForOrders().ToListAsync();
             return new UpdateOrderConfigurationResponse()
             {
-                Tip = data.Where(p => p.Key == "propinas-en-porcentaje").Select(p => p.Value).FirstOrDefault(),
-                Shipping = data.Where(p => p.Key == "costo-de-envío").Select(p => p.Value).FirstOrDefault(),
-                Active = data.Where(p => p.Key == "tienda-en-linea").Select(p => p.Value).FirstOrDefault(),
+                Tip = data.Where(p => p.Key == "propinas").Select(p => p.Value).FirstOrDefault(),
+                Shipping = data.Where(p => p.Key == "envío").Select(p => p.Value).FirstOrDefault(),
+                Active = data.Where(p => p.Key == "abierto").Select(p => p.Value).FirstOrDefault(),
             };
         }
 

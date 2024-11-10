@@ -22,17 +22,7 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// Configuraciones para orenes
-        /// </summary>
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
-        [HttpGet(template: "configurations/orders")]
-        public async Task<ActionResult> GetConfigurationsForOrders()
-        {
-            var result = await _businessLogicConfiguration.GetConfigurationsForOrdersAsync();
-            return Ok(result);
-        }
+        
 
         /// <summary>
         /// Actualizar informacion
@@ -44,6 +34,18 @@ namespace Server.Controllers
         {
             await _businessLogicConfiguration.UpdateConfigurationsForInformationAsync(request);
             return Ok();
+        }
+
+        /// <summary>
+        /// Configuraciones para ordenes
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "user-boss")]
+        [HttpGet(template: "configurations/orders")]
+        public async Task<ActionResult> GetConfigurationsForOrders()
+        {
+            var result = await _businessLogicConfiguration.GetConfigurationsForOrdersAsync();
+            return Ok(result);
         }
 
         /// <summary>

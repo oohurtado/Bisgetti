@@ -667,7 +667,7 @@ export class BusinessService {
 	///////////////////
 
 	configuration_getInformation() {
-		return this.requestService.get<UpdateInformationConfigurationResponse>(`/configurations/information`);
+		return this.requestService.get<UpdateInformationConfigurationResponse>(`/business/configurations/information`);
     }
 
     configuration_getInformationAsync() : Promise<UpdateInformationConfigurationResponse> {
@@ -685,11 +685,11 @@ export class BusinessService {
 	}
 
     configuration_updateInformation(model: UpdateInformationConfigurationRequest) {
-		return this.requestService.put(`/configurations/information`, model);
+		return this.requestService.put(`/business/configurations/information`, model);
 	}
 
 	configuration_getOrders() {
-		return this.requestService.get<UpdateOrderConfigurationResponse>(`/configurations/order`);
+		return this.requestService.get<UpdateOrderConfigurationResponse>(`/business/configurations/orders`);
     }
 
     configuration_getOrdersAsync() : Promise<UpdateOrderConfigurationResponse> {
@@ -707,6 +707,6 @@ export class BusinessService {
 	}
 
     configuration_updateOrders(model: UpdateOrderConfigurationRequest) {
-		return this.requestService.put(`/configurations/order`, model);
+		return this.requestService.put(`/business/configurations/orders`, model);
 	}	
 }
