@@ -40,7 +40,7 @@
                             </div>                            
                             <div class="col-md-12 mt-3">
                                 <div class="form-floating">
-                                    <input formControlName="shipping" type="text" class="form-control" id="shipping" placeholder="Coto de envío">
+                                    <input formControlName="shipping" type="number" class="form-control" id="shipping" placeholder="Coto de envío">
                                     <label for="shipping">Coto de envío</label>
                                 </div>
                                 <span *ngIf="hasError('shipping', 'required')" class="text-danger">Este campo es requerido</span>

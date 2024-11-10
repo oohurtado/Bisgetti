@@ -1,1 +1,85 @@
-<p>configurations-information works!</p>
+<div class="row">
+    <div class="col-md-12">
+		<h3>Mis datos personales</h3>
+	</div>
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a [routerLink]="['/home']">Inicio</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/configurations']">Configuraciones</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Ordenes</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="mt-2 mb-2 mx-auto">
+    <div class="row">
+        <div class="offset-md-3 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Configuraciones relacionadas al restaurante
+                </div>
+                <div class="card-body">            
+                    <app-processing [text]="'Cargando...'" *ngIf="_isLoading"></app-processing>
+                    <form *ngIf="_myForm" [formGroup]="_myForm" (ngSubmit)="onDoneClicked()" autocomplete="off">
+                        <div class="row">                                                 
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre del restaurante">
+                                    <label for="name">Nombre del restaurante</label>
+                                </div>
+                                <span *ngIf="hasError('name', 'required')" class="text-danger d-block">Este campo es requerido</span>
+                                <span *ngIf="hasError('name', 'minlength') || hasError('name', 'maxlength')" class="text-danger d-block">Este campo debe contener entre 1 y 100 caracteres</span>
+                            </div>                            
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="phone" type="text" class="form-control" id="phone" placeholder="Télefono(s)">
+                                    <label for="name">Télefono(s)</label>
+                                </div>
+                                <span *ngIf="hasError('phone', 'required')" class="text-danger d-block">Este campo es requerido</span>
+                                <span *ngIf="hasError('phone', 'minlength') || hasError('phone', 'maxlength')" class="text-danger d-block">Este campo debe contener entre 1 y 100 caracteres</span>
+                            </div>     
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="address" type="text" class="form-control" id="address" placeholder="Dirección">
+                                    <label for="name">Dirección</label>
+                                </div>
+                                <span *ngIf="hasError('address', 'required')" class="text-danger d-block">Este campo es requerido</span>
+                                <span *ngIf="hasError('address', 'minlength') || hasError('address', 'maxlength')" class="text-danger d-block">Este campo debe contener entre 1 y 250 caracteres</span>
+                            </div>                                                                  
+                            <div class="col-md-12 mt-3">
+                                <div class="form-floating">
+                                    <input formControlName="openingDaysHours" type="text" class="form-control" id="openingDaysHours" placeholder="Horarios de apretura">
+                                    <label for="name">Horarios de apretura</label>
+                                </div>
+                                <span *ngIf="hasError('openingDaysHours', 'required')" class="text-danger d-block">Este campo es requerido</span>
+                                <span *ngIf="hasError('openingDaysHours', 'minlength') || hasError('openingDaysHours', 'maxlength')" class="text-danger d-block">Este campo debe contener entre 1 y 100 caracteres</span>
+                            </div>                              
+                            <div class="col-12 mt-3 mb-3">
+                                <button type="submit" class="btn btn-primary" [disabled]="_isProcessing">
+                                    <span *ngIf="_isProcessing"><i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Procesando</span>
+                                    <span *ngIf="!_isProcessing"><i class="fa-solid fa-cloud"></i>&nbsp;&nbsp;Guardar</span>
+                                </button>
+                            </div>
+                        </div>                              
+                    </form>
+                    <ng-container *ngIf="_error !== null">
+                        <div class="col-12">
+                            <div  class="alert alert-danger ml-4 mr-4" role="alert">
+                                {{ _error }}
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="_error !== null">
+                        <div class="col-12">
+                            <div  class="alert alert-danger ml-4 mr-4" role="alert">
+                                {{ _error }}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
