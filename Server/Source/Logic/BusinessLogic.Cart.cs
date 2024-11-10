@@ -28,7 +28,7 @@ namespace Server.Source.Logic
         private const string CONTAINER_FILE = "menu-images";
 
         public BusinessLogicCart(
-            IBusinessRepository businessRepository,
+            IBusinessRepository businessRepository,            
             ILiveNotificationService liveNotificationService,
             IMapper mapper,
             IStorageFile storageFile
@@ -296,6 +296,31 @@ namespace Server.Source.Logic
 
             var url = FileUtility.GetUrlFile(_storageFile, image, CONTAINER_FILE);
             return url;
-        } 
+        }
+
+        public async Task<List<int>> GetTipsAsync()
+        {
+            var values = await _businessRepository
+                .Configuration_GetForOrders()
+                .Where(p => p.Section == "ordenes" && p.Key == "propinas")
+                .Select(p => p.Value)
+                .FirstOrDefaultAsync();
+
+            return values!.Split(",").Select(int.Parse).ToList();            
+        }
+
+        public async Task<ShippingCostResponse> GetShippingCostAsync()
+        {
+            var value = await _businessRepository
+                .Configuration_GetForOrders()
+                .Where(p => p.Section == "ordenes" && p.Key == "envío")
+                .Select(p => p.Value)
+                .FirstOrDefaultAsync();
+
+            return new ShippingCostResponse()
+            {
+                Total = int.Parse(value!)
+            };
+        }
     }
 }

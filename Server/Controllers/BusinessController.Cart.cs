@@ -54,7 +54,6 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        // TODO: datos en duro
         /// <summary>
         /// Listado de propinas
         /// </summary>
@@ -63,12 +62,12 @@ namespace Server.Controllers
         [HttpGet(template: "cart/tips")]
         public async Task<ActionResult> GetTips()
         {
-            var tips = new List<int>() { 0, 10, 15, 20 };
-            var result = await Task.FromResult(tips);
+            //var tips = new List<int>() { 0, 10, 15, 20 };
+            //var result = await Task.FromResult(tips);
+            var result = await _businessLogicCart.GetTipsAsync();
             return Ok(result);
         }
 
-        // TODO: datos en duro
         /// <summary>
         /// Costo de envio
         /// </summary>
@@ -77,7 +76,7 @@ namespace Server.Controllers
         [HttpGet(template: "cart/shipping-cost")]
         public async Task<ActionResult> GetShippingCost()
         {            
-            var result = await Task.FromResult(new ShippingCostResponse() { Total = 30 });
+            var result = await _businessLogicCart.GetShippingCostAsync();
             return Ok(result);
         }
 
