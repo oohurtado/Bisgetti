@@ -52,7 +52,7 @@ export class ConfigurationsOrdersComponent extends FormBase implements OnInit {
     override setupFormAsync(): void {
         let tip = this._config?.tip;
         let shipping = parseInt(this._config?.shipping ?? '0');
-        this._active = this._config?.active?.toLowerCase() == "true";
+        this._active = this._config?.active ?? false;
 
 		this._myForm = this.formBuilder.group({
             tip: [tip, [Validators.required, Validators.minLength(1), Validators.maxLength(100), Validators.pattern('^[0-9]{1,2}(?:,[0-9]{1,2})*$')]],
@@ -79,10 +79,10 @@ export class ConfigurationsOrdersComponent extends FormBase implements OnInit {
 		this._isProcessing = true;
 
         let model = new UpdateOrderConfigurationRequest(
-			this._myForm?.controls['tip'].value, 
-			this._myForm?.controls['shipping'].value, 
-			this._active ? 'true' : 'false',
-        );
+			String(this._myForm?.controls['tip'].value), 
+			String(this._myForm?.controls['shipping'].value), 
+			this._active,
+        );        
 
         this.businessService.configuration_updateOrders(model)
 			.subscribe({
@@ -91,7 +91,7 @@ export class ConfigurationsOrdersComponent extends FormBase implements OnInit {
 				},
 				error: (e : string) => {
 					this._isProcessing = false;
-					this._error = Utils.getErrorsResponse(e);;
+					this._error = Utils.getErrorsResponse(e);
 				},
 				next: (val) => {
 					this.router.navigateByUrl('/configurations');

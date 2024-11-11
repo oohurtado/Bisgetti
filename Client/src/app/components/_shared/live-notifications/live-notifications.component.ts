@@ -122,32 +122,5 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 			.then(_ => {
 				this._connectedToGroup = false;
 			});
-	}
-
-	// initMassiveHub() {
-	// 	const options: IHttpConnectionOptions = {
-	// 		accessTokenFactory: () => {
-	// 			return this.localStorageService.getValue(general.LS_TOKEN)!;
-	// 		},
-	// 	};
-
-	// 	this._connection = new HubConnectionBuilder()
-	// 		.withUrl(general.MASSIVE_LIVE_NOTIFICATION, options)
-	// 		.build();
-			
-	// 	if (this.localStorageService.isUserBoss() || this.localStorageService.isUserChef()) {
-	// 		this._connection.on("NotifyToEmployeesInformationAboutAnOrder", (message: MessageOrderHub) => {
-	// 			console.log(message)
-	// 			if (message.message === 'ORDER-CREATED') {
-	// 				alertify.success(`Orden nueva: #${message.extraData.toString().padStart(6, '0')}`);
-	// 			} else if (message.message === 'ORDER-UPDATED') {
-	// 				alertify.message(`Orden actualizada: #${message.extraData.toString().padStart(6, '0')}`);				
-	// 			} else if (message.message === 'ORDER-CANCELED') {
-	// 				alertify.error(`Orden cancelada: #${message.extraData.toString().padStart(6, '0')}`);
-	// 			} else if (message.message === 'ORDER-DECLINED') {
-	// 				alertify.error(`Orden declinada: #${message.extraData.toString().padStart(6, '0')}`);
-	// 			}
-	// 		});			
-	// 	}
-	// }
+	}	
 }

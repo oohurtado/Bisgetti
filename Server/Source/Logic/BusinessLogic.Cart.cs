@@ -186,7 +186,18 @@ namespace Server.Source.Logic
         }
 
         public async Task<int?> CreateOrderForCustomerAsync(string userId, string userRole, CreateOrderForCustomerRequest request)
-        {                        
+        {
+            var value = await _businessRepository
+                .Configuration_GetForOrders()
+                .Where(p => p.Section == "ordenes" && p.Key == "tienda-en-línea-abierta")
+                .Select(p => p.Value)
+                .FirstOrDefaultAsync();
+
+            if (value == "False")
+            {
+                throw new EatSomeInternalErrorException(EnumResponseError.CartOnlineStoreClosed);
+            }
+
             List<OrderStatusEntity> GetFirstStatus()
             {
                 if (EnumDeliveryMethod.ForDelivery.GetDescription() == request.DeliveryMethod)
@@ -302,7 +313,7 @@ namespace Server.Source.Logic
         {
             var values = await _businessRepository
                 .Configuration_GetForOrders()
-                .Where(p => p.Section == "ordenes" && p.Key == "propinas")
+                .Where(p => p.Section == "ordenes" && p.Key == "listado-de-propinas-en-porcentaje")
                 .Select(p => p.Value)
                 .FirstOrDefaultAsync();
 
@@ -313,7 +324,7 @@ namespace Server.Source.Logic
         {
             var value = await _businessRepository
                 .Configuration_GetForOrders()
-                .Where(p => p.Section == "ordenes" && p.Key == "envío")
+                .Where(p => p.Section == "ordenes" && p.Key == "costo-de-envío")
                 .Select(p => p.Value)
                 .FirstOrDefaultAsync();
 

@@ -22,8 +22,6 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        
-
         /// <summary>
         /// Actualizar informacion
         /// </summary>

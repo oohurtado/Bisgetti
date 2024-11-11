@@ -109,6 +109,9 @@ namespace Server.Source.Models.Enums
         [Description("Actualice su carrito de compras, algunos productos se han actualizado")]
         CartUpdateIsRequired,
 
+        [Description("La tienda en línea aún no está disponible")]
+        CartOnlineStoreClosed,
+
         /// <summary>
         /// Order
         /// </summary>

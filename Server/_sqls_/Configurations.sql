@@ -1,9 +1,9 @@
 SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO Configurations(Section,`Key`,Value,ExtraValue) VALUES 
-('ordenes', 'propinas', '0,10,20,30', null),
-('ordenes', 'envío', '30', null),
-('ordenes', 'abierto', 'True', null);
+('ordenes', 'listado-de-propinas-en-porcentaje', '0,10,20,30', null),
+('ordenes', 'costo-de-envío', '30', null),
+('ordenes', 'tienda-abierta', 'False', null);
 
 INSERT INTO Configurations(Section,`Key`,Value,ExtraValue) VALUES 
 ('información', 'nombre', 'Bisgetti', null),

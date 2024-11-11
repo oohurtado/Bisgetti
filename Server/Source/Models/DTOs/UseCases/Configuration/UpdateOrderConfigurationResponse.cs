@@ -4,6 +4,6 @@
     {
         public string? Tip { get; set; }
         public string? Shipping { get; set; }
-        public string? Active { get; set; }
+        public bool Active { get; set; }
     }
 }
