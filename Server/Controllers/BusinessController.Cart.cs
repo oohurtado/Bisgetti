@@ -61,9 +61,7 @@ namespace Server.Controllers
         [Authorize]
         [HttpGet(template: "cart/tips")]
         public async Task<ActionResult> GetTips()
-        {
-            //var tips = new List<int>() { 0, 10, 15, 20 };
-            //var result = await Task.FromResult(tips);
+        {        
             var result = await _businessLogicCart.GetTipsAsync();
             return Ok(result);
         }

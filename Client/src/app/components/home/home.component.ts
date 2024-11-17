@@ -11,6 +11,8 @@ import { Utils } from '../../source/common/utils';
 import { PersonResponse } from '../../source/models/dtos/entities/person-response';
 import { LocalStorageService } from '../../services/common/local-storage.service';
 import { SharedService } from '../../services/common/shared.service';
+import { UpdateInformationConfigurationRequest } from '../../source/models/dtos/configurations/update-information-configuration-request';
+import { UpdateInformationConfigurationResponse } from '../../source/models/dtos/configurations/update-information-configuration-response';
 declare let alertify: any;
 
 @Component({
@@ -33,6 +35,9 @@ export class HomeComponent implements OnInit {
     _productElement!: MenuElement;
     _lastPersonSelected: string = '';
 
+
+    _configInformation : UpdateInformationConfigurationResponse|null = null;
+
     constructor(
         private businessService: BusinessService,
         private activatedRoute: ActivatedRoute,
@@ -54,6 +59,13 @@ export class HomeComponent implements OnInit {
         await this.businessService.menuStuff_getVisibleMenuAsync()
             .then(r => {
                 menuId = r;
+            }, e => {
+                this._error = Utils.getErrorsResponse(e);
+            });
+
+        await this.businessService.configuration_getInformationAsync()
+            .then(r => {
+                this._configInformation = r;
             }, e => {
                 this._error = Utils.getErrorsResponse(e);
             });

@@ -14,7 +14,7 @@ namespace Server.Controllers
         /// Configuraciones para informacion
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-boss")]
+        [Authorize]
         [HttpGet(template: "configurations/information")]
         public async Task<ActionResult> GetConfigurationsForInformation()
         {
