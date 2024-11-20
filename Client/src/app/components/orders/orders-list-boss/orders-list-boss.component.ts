@@ -206,10 +206,16 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 		this._isProcessing = false;
 	}
 
-	updateElement(order: OrderResponse) {
+	updateElement(order: OrderResponse) {		
+		/*		
 		this.fixOrder(order);
 		let indexToUpdate = this._pageData.data.findIndex(p => p.id == order.id);
 		this._pageData.data[indexToUpdate] = order;
+		*/
+		
+		// borra elemento
+		let indexToDelete = this._pageData.data.findIndex(p => p.id == order.id);
+		this._pageData.data.splice(indexToDelete, 1);		
 	}
 
 	isOrderActive(order: OrderResponse) : boolean {
