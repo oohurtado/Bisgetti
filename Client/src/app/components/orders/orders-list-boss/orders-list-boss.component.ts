@@ -207,15 +207,20 @@ export class OrdersListBossComponent extends PageBase<OrderResponse> implements 
 	}
 
 	updateElement(order: OrderResponse) {		
-		/*		
+		// actualiza orden
+		/*				
 		this.fixOrder(order);
 		let indexToUpdate = this._pageData.data.findIndex(p => p.id == order.id);
 		this._pageData.data[indexToUpdate] = order;
 		*/
 		
 		// borra elemento
+		/*
 		let indexToDelete = this._pageData.data.findIndex(p => p.id == order.id);
 		this._pageData.data.splice(indexToDelete, 1);		
+		*/
+
+		this.onSyncClicked();
 	}
 
 	isOrderActive(order: OrderResponse) : boolean {

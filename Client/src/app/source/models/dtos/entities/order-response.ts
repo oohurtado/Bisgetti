@@ -20,5 +20,5 @@ export class OrderResponse {
     orderStatuses: OrderStatusResponse[] = [];
     orderElements: OrderElementResponse[] = [];
     
-    _orderElementsGrouped: Grouping<string, OrderElementResponse>[] = [];
+    _orderElementsGrouped: Grouping<string, OrderElementResponse>[] = [];    
 }
