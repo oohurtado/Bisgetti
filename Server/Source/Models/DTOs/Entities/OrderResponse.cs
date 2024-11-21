@@ -17,6 +17,7 @@ namespace Server.Source.Models.DTOs.Entities
         public string? AddressName { get; set; }
         public string? AddressJson { get; set; }
         public string? Status { get; set; }
+        public int DailyIndex { get; set; }
 
         public List<OrderStatusResponse>? OrderStatuses { get; set; }
         public List<OrderElementResponse>? OrderElements { get; set; }

@@ -77,7 +77,7 @@ namespace Server.Source.Data
             return total;
         }
 
-        public async Task<int?> Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds)
+        public async Task Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds)
         {            
             using var transaction = _context.Database.BeginTransaction();
 
@@ -87,8 +87,6 @@ namespace Server.Source.Data
                 await _context.CartElements.Where(p => p.UserId == userId && cartElementIds.Contains(p.Id)).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
                 transaction.Commit();
-
-                return order_toCreate.Id;
             }
             catch (Exception)
             {                

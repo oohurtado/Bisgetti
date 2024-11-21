@@ -58,9 +58,9 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 			} else if (message.message === 'ORDER-UPDATED') {
 				alertify.message(`#${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);				
 			} else if (message.message === 'ORDER-CANCELED') {
-				alertify.error(`Orden cancelada: #${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);
+				alertify.error(`#${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);
 			} else if (message.message === 'ORDER-DECLINED') {
-				alertify.error(`Orden declinada: #${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);
+				alertify.error(`#${message.extraData.toString().padStart(6, '0')} - ${message.statusTo}`);
 			}
 		});			
 

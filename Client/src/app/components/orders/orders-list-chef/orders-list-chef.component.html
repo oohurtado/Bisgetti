@@ -47,7 +47,7 @@
                                 Estatus<br>{{ order.status }}<br>{{ dateService.get_shortDate(order.updatedAt) }}                         
                             </div>
                             <div class="col-6 text-end">
-                                Pedido<br>#{{ order.id.toString().padStart(6, '0') }}
+                                Pedido<br>#{{ order.dailyIndex.toString().padStart(6, '0') }}
                             </div>
                         </div>
                     </div>

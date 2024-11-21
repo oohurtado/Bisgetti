@@ -26,6 +26,7 @@ using Server.Source.Models.DTOs.UseCases.Menu;
 using Server.Source.Models.DTOs.UseCases.Category;
 using Server.Source.Hubs;
 using Server.Source.Models.DTOs.UseCases.Configuration;
+using Server.Source.Semaphores;
 
 namespace Server
 {
@@ -131,6 +132,9 @@ namespace Server
             builder.Services.AddScoped<ILiveNotificationService, GroupLiveNotificationService>(); // GroupLiveNotificationService, MassiveLiveNotificationService
             builder.Services.AddScoped<INotificationService, EmailNotificationService>();
             builder.Services.AddTransient<IStorageFile, StorageFileLocal>();
+
+            // semaphore
+            builder.Services.AddSingleton<MySemaphore>();
 
             builder.Services.AddAutoMapper(p =>
             {                

@@ -25,6 +25,8 @@
         public string? Status { get; set; }
         public DateTime UpdatedAt { get; set; }
 
+        public int DailyIndex { get; set; }
+
         /// <summary>
         /// Relationships
         /// </summary>

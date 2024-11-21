@@ -77,11 +77,23 @@ namespace Server.Source.Data
                 .Where(p => p.Order.UserId == userId && p.OrderId == orderId);
         }
 
-        public IQueryable<OrderStatusEntity> Order_GetOrderStatuses(string userId, int orderId)
+        public IQueryable<OrderStatusEntity> Order_GetOrderStatus(string userId, int orderId)
         {
             return _context.OrderStatuses
                 .Include(p => p.Order)
                 .Where(p => p.Order.UserId == userId && p.OrderId == orderId);
+        }
+
+        public async Task<int> Order_GetNextOrderIndex()
+        {
+            var today = DateTime.Today;
+            var index = await _context.Orders
+                .Where(p => p.CreatedAt.Date == today)                
+                .OrderByDescending(p => p.DailyIndex)
+                .Select(p => p.DailyIndex)
+                .FirstOrDefaultAsync();
+
+            return index == 0 ? 1 : index + 1;
         }
     }
 }

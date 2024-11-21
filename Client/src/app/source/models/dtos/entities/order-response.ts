@@ -19,6 +19,7 @@ export class OrderResponse {
     status!: string;
     orderStatuses: OrderStatusResponse[] = [];
     orderElements: OrderElementResponse[] = [];
+    dailyIndex!: number;
     
     _orderElementsGrouped: Grouping<string, OrderElementResponse>[] = [];    
 }

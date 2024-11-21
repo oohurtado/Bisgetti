@@ -46,6 +46,7 @@ namespace Server.Source.Logic
                 {
                     Id = p.Id,
 
+                    DailyIndex = p.DailyIndex,
                     Status = p.Status,
                     CreatedAt = p.CreatedAt,
                     UpdatedAt = p.UpdatedAt,
@@ -103,6 +104,7 @@ namespace Server.Source.Logic
                 {
                     Id = p.Id,
 
+                    DailyIndex = p.DailyIndex,
                     Status = p.Status,
                     CreatedAt = p.CreatedAt,
                     UpdatedAt = p.UpdatedAt,
@@ -172,15 +174,15 @@ namespace Server.Source.Logic
 
             // notificacion live
             {
-                await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-UPDATED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
+                await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-UPDATED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
 
                 var tmp = new List<string>() { EnumOrderStatus.Accepted.GetDescription(), EnumOrderStatus.Cooking.GetDescription(), EnumOrderStatus.Ready.GetDescription() };
                 if (tmp.Contains(result.Status))
                 {
-                    await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserChef.GetDescription(), "ORDER-UPDATED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
+                    await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserChef.GetDescription(), "ORDER-UPDATED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
                 }
 
-                await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder($"user-{result.UserId}", "ORDER-UPDATED", orderId.ToString()!, request.CurrentStatus!, result.Status!); 
+                await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder($"user-{result.UserId}", "ORDER-UPDATED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!); 
             }
         }
 
@@ -208,9 +210,9 @@ namespace Server.Source.Logic
             });
             await _businessRepository.UpdateAsync();
 
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-CANCELED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserChef.GetDescription(), "ORDER-CANCELED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder($"user-{result.UserId}", "ORDER-CANCELED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-CANCELED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserChef.GetDescription(), "ORDER-CANCELED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder($"user-{result.UserId}", "ORDER-CANCELED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
         }
 
         public async Task OrderDeclinedAsync(string userId, string userRole, int orderId, OrderChangeStatusRequest request)
@@ -237,9 +239,9 @@ namespace Server.Source.Logic
             });
             await _businessRepository.UpdateAsync();
 
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-DECLINED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserChef.GetDescription(), "ORDER-DECLINED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder($"user-{result.UserId}", "ORDER-DECLINED", orderId.ToString()!, request.CurrentStatus!, result.Status!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-DECLINED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserChef.GetDescription(), "ORDER-DECLINED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
+            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder($"user-{result.UserId}", "ORDER-DECLINED", result.DailyIndex.ToString()!, request.CurrentStatus!, result.Status!);
         }
     }
 }

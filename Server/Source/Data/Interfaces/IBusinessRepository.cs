@@ -142,16 +142,17 @@ namespace Server.Source.Data.Interfaces
         Task<int> Cart_GetNumberOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
         Task<decimal> Cart_GetTotalOfProductsInCartAsync(string userId, Expression<Func<CartElementEntity, bool>> exp);
         Task Cart_DeleteProductFromCartAsync(CartElementEntity cartElement);
-        Task<int?> Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds);
+        Task Cart_CreateOrderAsync(string userId, OrderEntity order_toCreate, List<int> cartElementIds);
 
         /* ***************************** pedidos ***************************** */
         IQueryable<OrderEntity> Order_GetOrdersByPage(string userId, string userRole, string sortColumn, string sortOrder, int pageSize, int pageNumber, out int grandTotal, List<string> filters);
         IQueryable<OrderEntity> Order_GetOrder(string userId, string userRole, int orderId);
         IQueryable<OrderElementEntity> Order_GetOrderElements(string userId, int orderId);
-        IQueryable<OrderStatusEntity> Order_GetOrderStatuses(string userId, int orderId);
+        IQueryable<OrderStatusEntity> Order_GetOrderStatus(string userId, int orderId);
+        Task<int> Order_GetNextOrderIndex();
 
         /* ***************************** configuraciones ***************************** */
         IQueryable<ConfigurationEntity> Configuration_GetForInformation();
-        IQueryable<ConfigurationEntity> Configuration_GetForOrders();
+        IQueryable<ConfigurationEntity> Configuration_GetForOrders();        
     }
 }

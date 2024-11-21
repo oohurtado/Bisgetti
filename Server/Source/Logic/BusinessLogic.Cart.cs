@@ -15,6 +15,7 @@ using Server.Source.Extensions;
 using System.Text.Json;
 using AutoMapper.Execution;
 using Server.Source.Models.Hubs;
+using Server.Source.Semaphores;
 
 namespace Server.Source.Logic
 {
@@ -24,20 +25,22 @@ namespace Server.Source.Logic
         private readonly ILiveNotificationService _liveNotificationService;
         private readonly IMapper _mapper;
         private readonly IStorageFile _storageFile;
-
+        private readonly MySemaphore _mySemaphore;
         private const string CONTAINER_FILE = "menu-images";
 
         public BusinessLogicCart(
             IBusinessRepository businessRepository,            
             ILiveNotificationService liveNotificationService,
             IMapper mapper,
-            IStorageFile storageFile
+            IStorageFile storageFile,
+            MySemaphore mySemaphore
             )
         {
             _businessRepository = businessRepository;
             _liveNotificationService = liveNotificationService;
             _mapper = mapper;
             _storageFile = storageFile;
+            _mySemaphore = mySemaphore;
         }
 
         public async Task<List<PersonResponse>> GetPeopleAsync(string userId)
@@ -187,115 +190,131 @@ namespace Server.Source.Logic
 
         public async Task<int?> CreateOrderForCustomerAsync(string userId, string userRole, CreateOrderForCustomerRequest request)
         {
-            var value = await _businessRepository
-                .Configuration_GetForOrders()
-                .Where(p => p.Section == "ordenes" && p.Key == "tienda-en-línea-abierta")
-                .Select(p => p.Value)
-                .FirstOrDefaultAsync();
-
-            if (value == "False")
+            try
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.CartOnlineStoreClosed);
-            }
+                await _mySemaphore.OrderSemaphore.WaitAsync();
 
-            List<OrderStatusEntity> GetFirstStatus()
-            {
-                if (EnumDeliveryMethod.ForDelivery.GetDescription() == request.DeliveryMethod)
+                var value = await _businessRepository
+                        .Configuration_GetForOrders()
+                        .Where(p => p.Section == "ordenes" && p.Key == "tienda-en-línea-abierta")
+                        .Select(p => p.Value)
+                        .FirstOrDefaultAsync();
+
+                if (value == "False")
                 {
-                    return
-                    [
-                        new()
+                    throw new EatSomeInternalErrorException(EnumResponseError.CartOnlineStoreClosed);
+                }
+
+                List<OrderStatusEntity> GetFirstStatus()
+                {
+                    if (EnumDeliveryMethod.ForDelivery.GetDescription() == request.DeliveryMethod)
+                    {
+                        return
+                        [
+                            new()
                         {
                             EventAt = DateTime.Now,
                             Status = EnumOrderStatus.Received.GetDescription(),
                         }
-                    ];
-                }
-                else if (EnumDeliveryMethod.TakeAway.GetDescription() == request.DeliveryMethod)
-                {
-                    return
-                    [
-                        new OrderStatusEntity()
+                        ];
+                    }
+                    else if (EnumDeliveryMethod.TakeAway.GetDescription() == request.DeliveryMethod)
+                    {
+                        return
+                        [
+                            new OrderStatusEntity()
                         {
                             EventAt = DateTime.Now,
                             Status = EnumOrderStatus.Received.GetDescription(),
                         }
-                    ];
+                        ];
+                    }
+                    throw new NotImplementedException();
                 }
-                throw new NotImplementedException();
-            }
-            
-            var cartElements_db = await _businessRepository.Cart_GetProductsFromCart(userId).ToListAsync();
-            var orderElements_toCreate = new List<OrderElementEntity>();
-            
-            if (cartElements_db.Count != request.CartElements!.Count)
-            {
-                throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
-            }
 
-            // creamos OrderElements
-            foreach (var cartElement_db in cartElements_db)
-            {
-                var cartElement_request = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
-                if (cartElement_request == null)
+                var cartElements_db = await _businessRepository.Cart_GetProductsFromCart(userId).ToListAsync();
+                var orderElements_toCreate = new List<OrderElementEntity>();
+
+                if (cartElements_db.Count != request.CartElements!.Count)
                 {
                     throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
                 }
 
-                if (cartElement_request.ProductQuantity != cartElement_db.ProductQuantity)
+                // creamos OrderElements
+                foreach (var cartElement_db in cartElements_db)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                    var cartElement_request = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
+                    if (cartElement_request == null)
+                    {
+                        throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                    }
+
+                    if (cartElement_request.ProductQuantity != cartElement_db.ProductQuantity)
+                    {
+                        throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                    }
+
+                    if (cartElement_request.ProductPrice != cartElement_db.Product.Price)
+                    {
+                        throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                    }
+
+                    orderElements_toCreate.Add(new OrderElementEntity()
+                    {
+                        PersonName = cartElement_db.PersonName,
+                        ProductName = cartElement_db.Product.Name,
+                        ProductDescription = cartElement_db.Product.Description,
+                        ProductIngredients = cartElement_db.Product.Ingredients,
+                        ProductPrice = cartElement_db.Product.Price,
+
+                        ProductQuantity = cartElement_request.ProductQuantity,
+                    });
                 }
 
-                if (cartElement_request.ProductPrice != cartElement_db.Product.Price)
-                {
-                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
-                }
+                var address = await _businessRepository.Cart_GetAddresses(userId).Where(p => p.Id == request.AddressId).FirstOrDefaultAsync();
+                var addressJson = address == null ? null : JsonSerializer.Serialize(address);
+                var addressName = address == null ? null : address.Name;
 
-                orderElements_toCreate.Add(new OrderElementEntity()
-                {
-                    PersonName = cartElement_db.PersonName,
-                    ProductName = cartElement_db.Product.Name,
-                    ProductDescription = cartElement_db.Product.Description,
-                    ProductIngredients = cartElement_db.Product.Ingredients,
-                    ProductPrice = cartElement_db.Product.Price,
+                var status = GetFirstStatus();                
+                var dailyIndex = await _businessRepository.Order_GetNextOrderIndex();
 
-                    ProductQuantity = cartElement_request.ProductQuantity,
-                });
+                var order_toCreate = new OrderEntity()
+                {
+                    DailyIndex = dailyIndex,
+                    UserId = userId,
+                    PayingWith = request.PayingWith,
+                    Comments = request.Comments,
+                    DeliveryMethod = request.DeliveryMethod,
+                    ShippingCost = request.ShippingCost,
+                    TipPercent = request.TipPercent,
+                    OrderElements = orderElements_toCreate,
+                    OrderStatuses = status,
+                    AddressJson = addressJson,
+                    AddressName = addressName,
+                    CreatedAt = status.FirstOrDefault()!.EventAt!.Value,
+                    UpdatedAt = status.FirstOrDefault()!.EventAt!.Value,
+                    Status = status.FirstOrDefault()!.Status,
+                    ProductCount = orderElements_toCreate.Sum(p => p.ProductQuantity),
+                    ProductTotal = orderElements_toCreate.Sum(p => p.ProductQuantity * p.ProductPrice),
+                };
+
+                var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();
+                await _businessRepository.Cart_CreateOrderAsync(userId, order_toCreate, cartElementIds);
+
+                await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-CREATED", dailyIndex.ToString()!, null!, EnumOrderStatus.Received.GetDescription());
+
+                _mySemaphore.OrderSemaphore.Release();
+                
+                // TODO: enviar correo a cliente y restaurante, despues de liberar
+
+                return dailyIndex;
+            }
+            catch (Exception)
+            {
+                _mySemaphore.OrderSemaphore.Release();
+                throw;
             }
 
-            var address = await _businessRepository.Cart_GetAddresses(userId).Where(p => p.Id == request.AddressId).FirstOrDefaultAsync();
-            var addressJson = address == null ? null : JsonSerializer.Serialize(address);
-            var addressName = address == null ? null : address.Name;
-
-            var status = GetFirstStatus();
-            var order_toCreate = new OrderEntity()
-            {
-                UserId = userId,
-                PayingWith = request.PayingWith,
-                Comments = request.Comments,
-                DeliveryMethod = request.DeliveryMethod,
-                ShippingCost = request.ShippingCost,
-                TipPercent = request.TipPercent,
-                OrderElements = orderElements_toCreate,
-                OrderStatuses = status,
-                AddressJson = addressJson,
-                AddressName = addressName,
-                CreatedAt = status.FirstOrDefault()!.EventAt!.Value,
-                UpdatedAt = status.FirstOrDefault()!.EventAt!.Value,
-                Status = status.FirstOrDefault()!.Status,
-                ProductCount = orderElements_toCreate.Sum(p => p.ProductQuantity),
-                ProductTotal = orderElements_toCreate.Sum(p => p.ProductQuantity * p.ProductPrice),                
-            };
-
-            var cartElementIds = request.CartElements.Select(p => p.CartElementId).ToList();
-            var id = await _businessRepository.Cart_CreateOrderAsync(userId, order_toCreate, cartElementIds);
-            
-            await _liveNotificationService.NotifyToEmployeesInformationAboutAnOrder(EnumRole.UserBoss.GetDescription(), "ORDER-CREATED", id.ToString()!, null!, EnumOrderStatus.Received.GetDescription());
-
-            return id;
-
-            // TODO: enviar correo a cliente y restaurante
         }
 
         private string GetUrl(string image)
