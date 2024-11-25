@@ -55,40 +55,7 @@ namespace Server.Source.Logic
                 GrandTotal = grandTotal,
                 Data = result,
             };
-        }
-
-        public async Task ChangeRoleAsyncV1(string executingUserRole, ChangeRoleRequest request)
-        {
-            //// buscar user del correo a cambiar su rol
-            //var user = await _aspNetRepository.FindByEmailAsync(request.Email);
-            //if (user == null)
-            //{
-            //    throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
-            //}
-            //if (user.Id != request.Id)
-            //{
-            //    throw new EatSomeInternalErrorException(EnumResponseError.InternalServerError);
-            //}
-
-            //// obtenemos rol del usuario al que le cambiaremos el role
-            //var roleToRemove = await _aspNetRepository.GetUserRoleAsync(user);
-
-            //if (string.IsNullOrEmpty(roleToRemove))
-            //{
-            //    throw new EatSomeInternalErrorException(EnumResponseError.UserWithoutUserRole);
-            //}
-
-            //if (roleToRemove == request.Role)
-            //{
-            //    throw new EatSomeInternalErrorException(EnumResponseError.UserOldRoleAndNewRoleAreTheSame);
-            //}
-
-            //// quitamos rol actual y asignamos nuevo rol
-            //await _aspNetRepository.SetUserRoleAsync(user, roleToRemove: roleToRemove, roleToAdd: request.Role);
-
-            //// enviamos correo indicando cambio de role
-            //await SendChangeRoleEmailAsync(user, request);
-        }
+        }        
 
         public async Task ChangeRoleAsync(string userId, string executingUserRole, ChangeRoleRequest request)
         {           
