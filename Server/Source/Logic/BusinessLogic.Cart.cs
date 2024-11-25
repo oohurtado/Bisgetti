@@ -119,7 +119,7 @@ namespace Server.Source.Logic
 
             if (cartElement == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Product_ProductNotFound);
             }
 
             cartElement.ProductQuantity = request.ProductQuantity;
@@ -202,7 +202,7 @@ namespace Server.Source.Logic
 
                 if (value == "False")
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.CartOnlineStoreClosed);
+                    throw new EatSomeInternalErrorException(EnumResponseError.Cart_OnlineStoreClosed);
                 }
 
                 List<OrderStatusEntity> GetFirstStatus()
@@ -237,7 +237,7 @@ namespace Server.Source.Logic
 
                 if (cartElements_db.Count != request.CartElements!.Count)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                    throw new EatSomeInternalErrorException(EnumResponseError.Cart_UpdateIsRequired);
                 }
 
                 // creamos OrderElements
@@ -246,17 +246,17 @@ namespace Server.Source.Logic
                     var cartElement_request = request.CartElements.Where(p => p.CartElementId == cartElement_db.Id).FirstOrDefault();
                     if (cartElement_request == null)
                     {
-                        throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                        throw new EatSomeInternalErrorException(EnumResponseError.Cart_UpdateIsRequired);
                     }
 
                     if (cartElement_request.ProductQuantity != cartElement_db.ProductQuantity)
                     {
-                        throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                        throw new EatSomeInternalErrorException(EnumResponseError.Cart_UpdateIsRequired);
                     }
 
                     if (cartElement_request.ProductPrice != cartElement_db.Product.Price)
                     {
-                        throw new EatSomeInternalErrorException(EnumResponseError.CartUpdateIsRequired);
+                        throw new EatSomeInternalErrorException(EnumResponseError.Cart_UpdateIsRequired);
                     }
 
                     orderElements_toCreate.Add(new OrderElementEntity()

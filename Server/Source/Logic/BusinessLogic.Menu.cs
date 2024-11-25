@@ -63,7 +63,7 @@ namespace Server.Source.Logic
 
             if (data == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Menu_MenuNotFound);
             }
 
             var result = _mapper.Map<MenuResponse>(data);
@@ -75,7 +75,7 @@ namespace Server.Source.Logic
             var exists = await _businessRepository.Menu_ExistsMenuAsync(id: null, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Menu_MenuAlreadyExists);
             }
      
             var menu = _mapper.Map<MenuEntity>(request);
@@ -87,13 +87,13 @@ namespace Server.Source.Logic
             var exists = await _businessRepository.Menu_ExistsMenuAsync(id: id, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Menu_MenuAlreadyExists);
             }
 
             var menu = await _businessRepository.Menu_GetMenu(id).FirstOrDefaultAsync();
             if (menu == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Menu_MenuNotFound);
             }
             _mapper.Map(request, menu);
             await _businessRepository.UpdateAsync();
@@ -105,7 +105,7 @@ namespace Server.Source.Logic
 
             if (menu == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.MenuNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Menu_MenuNotFound);
             }
 
             Expression<Func<MenuStuffEntity, bool>> exp = p => p.MenuId == id;

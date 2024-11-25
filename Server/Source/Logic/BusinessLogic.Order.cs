@@ -155,12 +155,12 @@ namespace Server.Source.Logic
 
             if (result == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Order_OrderNotFound);
             }
 
             if (result.Status != request.CurrentStatus)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Order_OrderHasDifferentStatus);
             }
 
             result.Status = OrderHelper.NextStep(currentStatus: request.CurrentStatus!, deliveryMethod: result.DeliveryMethod!).GetDescription();
@@ -193,12 +193,12 @@ namespace Server.Source.Logic
 
             if (result == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Order_OrderNotFound);
             }
 
             if (result.Status != request.CurrentStatus)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Order_OrderHasDifferentStatus);
             }
 
             result.Status = OrderHelper.Canceled(currentStatus: request.CurrentStatus!).GetDescription();
@@ -222,12 +222,12 @@ namespace Server.Source.Logic
 
             if (result == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Order_OrderNotFound);
             }
 
             if (result.Status != request.CurrentStatus)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.OrderHasDifferentStatus);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Order_OrderHasDifferentStatus);
             }
 
             result.Status = OrderHelper.Declined(currentStatus: request.CurrentStatus!).GetDescription();

@@ -51,7 +51,7 @@ namespace Server.Source.Logic
 
             if (data == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Category_CategoryNotFound);
             }
 
             var result = _mapper.Map<CategoryResponse>(data);
@@ -63,7 +63,7 @@ namespace Server.Source.Logic
             var exists = await _businessRepository.Category_ExistsCategoryAsync(id: null, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Category_CategoryAlreadyExists);
             }
 
             var category = _mapper.Map<CategoryEntity>(request);
@@ -75,13 +75,13 @@ namespace Server.Source.Logic
             var exists = await _businessRepository.Category_ExistsCategoryAsync(id: id, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Category_CategoryAlreadyExists);
             }
 
             var category = await _businessRepository.Category_GetCategory(id).FirstOrDefaultAsync();
             if (category == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Category_CategoryNotFound);
             }
 
             _mapper.Map(request, category);
@@ -94,7 +94,7 @@ namespace Server.Source.Logic
 
             if (category == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.CategoryNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Category_CategoryNotFound);
             }
 
             await _businessRepository.Category_DeleteCategoryAsync(category!);

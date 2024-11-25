@@ -51,7 +51,7 @@ const ROUTES: Routes = [
         path: 'users', component:  UsersComponent,
         children:[
             { path: 'list', component: UsersListComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_ADMIN, general.LS_ROLE_USER_BOSS] } },
-            { path: 'change-role/:userId/:userEmail/:userRole', component: UsersChangeRoleComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_ADMIN] } },
+            { path: 'change-role/:userId/:userEmail/:userRole', component: UsersChangeRoleComponent, canActivate: [roleGuard], data: { roles: [general.LS_ROLE_USER_ADMIN, general.LS_ROLE_USER_BOSS] } },
             { path: '**', pathMatch: 'full', redirectTo: 'list' }
         ]
     },

@@ -6,6 +6,7 @@ import { PageBase } from '../../../../source/common/page-base';
 import { INavigationOptionSelected } from '../../../../source/models/interfaces/page.interface';
 import { Utils } from '../../../../source/common/utils';
 import { UserUsersService } from '../../../../services/business/user-users.service';
+import { general } from '../../../../source/common/general';
 
 @Component({
     selector: 'app-users-list',
@@ -49,6 +50,10 @@ export class UsersListComponent extends PageBase<UserResponse> implements OnInit
 		this.router.navigateByUrl(`user/personal-data/${user.id}`);
 	}
 	
+	isUserAllowedToChangeRoles() : boolean {
+		return this.isUserInAnyRole([general.LS_ROLE_USER_ADMIN, general.LS_ROLE_USER_BOSS])
+	}
+
 	isUserInAnyRole(roles: string[]) {
 		return this.localStorageService.isUserInAnyRole(roles);
 	}

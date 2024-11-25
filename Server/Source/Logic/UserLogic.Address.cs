@@ -47,7 +47,7 @@ namespace Server.Source.Logic
 
             if (data == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Address_AddressNotFound);
             }
 
             var result = _mapper.Map<AddressResponse>(data);
@@ -59,13 +59,13 @@ namespace Server.Source.Logic
             var count = await _addressRepository.CountAsync(userId);
             if (count == 10)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.AddressCreateLimit);
+                throw new EatSomeInternalErrorException(EnumResponseError.Address_AddressCreateLimit);
             }
 
             var exists = await _addressRepository.ExistsAsync(userId, id: null, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Address_AddressAlreadyExists);
             }
 
             var address = new AddressEntity()
@@ -81,13 +81,13 @@ namespace Server.Source.Logic
             var exists = await _addressRepository.ExistsAsync(userId, id: id, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Address_AddressAlreadyExists);
             }
 
             var address = await _addressRepository.GetAddress(userId, id).FirstOrDefaultAsync();
             if (address == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Address_AddressNotFound);
             }
             _mapper.Map(request, address);
             await _addressRepository.UpdateAsync();
@@ -111,7 +111,7 @@ namespace Server.Source.Logic
 
             if (address == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.AddressNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Address_AddressNotFound);
             }
 
             await _addressRepository.DeleteAddressAsync(address!);

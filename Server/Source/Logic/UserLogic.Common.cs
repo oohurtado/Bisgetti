@@ -23,7 +23,7 @@ namespace Server.Source.Logic
             var user = await _aspNetRepository.FindByIdAsync(userId!);
             if (user == null)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserNotFound);
             }
 
             return new UserResponse()
@@ -40,7 +40,7 @@ namespace Server.Source.Logic
             var user = await _aspNetRepository.FindByIdAsync(userId!);
             if (user == null)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserNotFound);
             }
 
             user.FirstName = request.FirstName;
@@ -54,13 +54,13 @@ namespace Server.Source.Logic
             var user = await _aspNetRepository.FindByEmailAsync(email!);
             if (user == null)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserNotFound);
             }
 
             var result = await _aspNetRepository.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
             if (!result.Succeeded)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorChangingPassword);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserErrorChangingPassword);
             }
         }
     }

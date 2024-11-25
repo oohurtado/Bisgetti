@@ -40,7 +40,7 @@ namespace Server.Source.Logic
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
             if (user != null)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserEmailAlreadyExists);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserEmailAlreadyExists);
             }
 
             // construimos usuario con parametros de entrada y registramos usuario en base de datos         
@@ -80,7 +80,7 @@ namespace Server.Source.Logic
             var result = await _aspNetRepository.LoginAsync(request.Email, request.Password);
             if (!result.Succeeded)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserWrongCredentials);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserWrongCredentials);
             }
 
             // obtenemos roles del usuario
@@ -105,7 +105,7 @@ namespace Server.Source.Logic
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserNotFound);
             }
 
             var token = await _aspNetRepository.GeneratePasswordResetTokenAsync(user);
@@ -118,13 +118,13 @@ namespace Server.Source.Logic
             var user = await _aspNetRepository.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserNotFound);
             }
 
             var result = await _aspNetRepository.ResetPasswordAsync(user, request.Token, request.NewPassword);
             if (!result.Succeeded)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorChangingPassword);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserErrorChangingPassword);
             }
         }
 

@@ -95,7 +95,7 @@ namespace Server.Source.Logic
                 var any = await _businessRepository.MenuStuff_ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == null);
                 if (any)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementAlreadyExists);
+                    throw new EatSomeInternalErrorException(EnumResponseError.Business_ElementAlreadyExists);
                 }
 
                 await _businessRepository.MenuStuff_AddElementAsync(element);
@@ -120,14 +120,14 @@ namespace Server.Source.Logic
                 var any = await _businessRepository.MenuStuff_ElementExistsAsync(p => p.MenuId == element.MenuId && p.CategoryId == element.CategoryId && p.ProductId == element.ProductId);
                 if (any)
                 {
-                    throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementAlreadyExists);
+                    throw new EatSomeInternalErrorException(EnumResponseError.Business_ElementAlreadyExists);
                 }
 
                 await _businessRepository.MenuStuff_AddElementAsync(element);
                 return;
             }
 
-            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+            throw new EatSomeInternalErrorException(EnumResponseError.Business_UnknownActionForElement);
         }
 
         private async Task RemoveElementAsync(AddOrRemoveElementRequest request)
@@ -155,7 +155,7 @@ namespace Server.Source.Logic
 
             if (elementsToDelete.Count == 0)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementDoesNotExists);
+                throw new EatSomeInternalErrorException(EnumResponseError.Business_ElementDoesNotExists);
             }
 
             // borramos imagenes
@@ -188,7 +188,7 @@ namespace Server.Source.Logic
             }
             else
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+                throw new EatSomeInternalErrorException(EnumResponseError.Business_UnknownActionForElement);
             }
             
             // obtenemos o todas las categorias del menú o tod*s los productos de la categoria del menú, EN ORDEN
@@ -206,7 +206,7 @@ namespace Server.Source.Logic
                     {
                         if (i == 0)
                         {
-                            throw new EatSomeInternalErrorException(EnumResponseError.BusinessForbiddenActionForElement);
+                            throw new EatSomeInternalErrorException(EnumResponseError.Business_ForbiddenActionForElement);
                         }
 
                         var tmp = elements[i].Position;
@@ -220,7 +220,7 @@ namespace Server.Source.Logic
                     {
                         if (i == elements.Count - 1)
                         {
-                            throw new EatSomeInternalErrorException(EnumResponseError.BusinessForbiddenActionForElement);
+                            throw new EatSomeInternalErrorException(EnumResponseError.Business_ForbiddenActionForElement);
                         }
 
                         var tmp = elements[i].Position;
@@ -232,7 +232,7 @@ namespace Server.Source.Logic
                     }
                     else
                     {
-                        throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+                        throw new EatSomeInternalErrorException(EnumResponseError.Business_UnknownActionForElement);
                     }
                 }
             }            
@@ -247,7 +247,7 @@ namespace Server.Source.Logic
 
             if (element == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.BusinessElementDoesNotExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Business_ElementDoesNotExists);
             }
 
             // menu
@@ -287,7 +287,7 @@ namespace Server.Source.Logic
                 return;
             }
 
-            throw new EatSomeInternalErrorException(EnumResponseError.BusinessUnknownActionForElement);
+            throw new EatSomeInternalErrorException(EnumResponseError.Business_UnknownActionForElement);
         }
 
         public async Task<ImageElementResponse> GetElementImageAsync(int? menuId, int? categoryId, int? productId)
@@ -311,7 +311,7 @@ namespace Server.Source.Logic
 
             if (element == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.BusinessElementDoesNotExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Business_ElementDoesNotExists);
             }
 
             if (!string.IsNullOrEmpty(element.Image))
@@ -340,7 +340,7 @@ namespace Server.Source.Logic
 
             if (request.File == null)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.BusinessElementImageMissing);
+                throw new EatSomeInternalErrorException(EnumResponseError.Business_ElementImageMissing);
             }
 
             var element = await _businessRepository

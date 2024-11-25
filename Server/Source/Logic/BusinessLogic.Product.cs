@@ -50,7 +50,7 @@ namespace Server.Source.Logic
 
             if (data == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Product_ProductNotFound);
             }
 
             var result = _mapper.Map<ProductResponse>(data);
@@ -62,7 +62,7 @@ namespace Server.Source.Logic
             var exists = await _businessRepository.Product_ExistsProductAsync(id: null, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.ProductAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Product_ProductAlreadyExists);
             }
 
             var product = _mapper.Map<ProductEntity>(request);            
@@ -74,13 +74,13 @@ namespace Server.Source.Logic
             var exists = await _businessRepository.Product_ExistsProductAsync(id: id, request.Name!);
             if (exists)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.ProductAlreadyExists);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Product_ProductAlreadyExists);
             }
 
             var product = await _businessRepository.Product_GetProduct(id).FirstOrDefaultAsync();
             if (product == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Product_ProductNotFound);
             }
             _mapper.Map(request, product);
             await _businessRepository.UpdateAsync();
@@ -92,7 +92,7 @@ namespace Server.Source.Logic
 
             if (product == null)
             {
-                throw new EatSomeNotFoundErrorException(EnumResponseError.ProductNotFound);
+                throw new EatSomeNotFoundErrorException(EnumResponseError.Product_ProductNotFound);
             }
 
             await _businessRepository.Product_DeleteProductAsync(product!);

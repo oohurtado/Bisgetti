@@ -22,7 +22,7 @@ namespace Server.Source.Helpers
 
             if (enumStatus == EnumOrderStatus.Delivered)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.OrderWasDelivered);
+                throw new EatSomeInternalErrorException(EnumResponseError.Order_OrderWasDelivered);
             }
 
             if (deliveryMethod == EnumDeliveryMethod.TakeAway.GetDescription())

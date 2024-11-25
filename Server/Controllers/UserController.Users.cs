@@ -28,12 +28,13 @@ namespace Server.Controllers
         /// Cambio de rol (admin,boss,customer)
         /// </summary>
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize(Roles = "user-admin")]
+        [Authorize(Roles = "user-admin,user-boss")]
         [HttpPut(template: "users/role")]
         public async Task<ActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
         {            
             var executingUserRole = User.FindFirstValue(ClaimTypes.Role!);
-            await _userLogicUser.ChangeRoleAsync(executingUserRole!, request);
+            var executingUserId = User.FindFirstValue(ClaimTypes.NameIdentifier!);
+            await _userLogicUser.ChangeRoleAsync(executingUserId!, executingUserRole!, request);
             return Ok();
         }
     }

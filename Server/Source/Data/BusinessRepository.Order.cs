@@ -44,7 +44,7 @@ namespace Server.Source.Data
             }
             else
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.SortColumnKeyNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.Pagination_SortColumnKeyNotFound);
             }                        
 
             // paginacion

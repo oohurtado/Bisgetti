@@ -141,7 +141,7 @@ namespace Server.Source.Data
             }
             else
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.SortColumnKeyNotFound);
+                throw new EatSomeInternalErrorException(EnumResponseError.Pagination_SortColumnKeyNotFound);
             }
 
             // paginacion
@@ -175,7 +175,7 @@ namespace Server.Source.Data
 
             if (!result.Succeeded)
             {
-                throw new EatSomeInternalErrorException(EnumResponseError.UserErrorUpdaingPersonalData);
+                throw new EatSomeInternalErrorException(EnumResponseError.User_UserErrorUpdaingPersonalData);
             }
         }
 

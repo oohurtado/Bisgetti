@@ -13,104 +13,126 @@ namespace Server.Source.Models.Enums
         /// </summary>
 
         [Description("El correo electrónico del usuario ya existe")]
-        UserEmailAlreadyExists,
+        User_UserEmailAlreadyExists,
 
         [Description("Credenciales incorrectas, verifique su correo electrónico o contraseña")]
-        UserWrongCredentials,
+        User_UserWrongCredentials,
 
         [Description("Usuario no encontrado")]
-        UserNotFound,
+        User_UserNotFound,
 
         [Description("Ha sucedido un error al intentar cambiar la contraseña")]
-        UserErrorChangingPassword,
-
-        [Description("El usuario no tiene un rol de tipo 'Usuario' asignado")]
-        UserWithoutUserRole,
+        User_UserErrorChangingPassword,
 
         [Description("Error al actualizar los datos personales")]
-        UserErrorUpdaingPersonalData,
+        User_UserErrorUpdaingPersonalData,
 
-        [Description("No se puede realizar el cambo de rol, ya que el actual y el nuevo son en mismo rol")]
-        UserOldRoleAndNewRoleAreTheSame,
+        /// <summary>
+        /// usuarios - roles
+        /// </summary>
+
+        [Description("Acción no permitida, no se le puede quitar el rol Administrador a un Administrador")]
+        UserRole_RemoveAdminRoleToAdminUser,
+
+        [Description("Acción no permitida, no se puede cambiar el rol a un mismo usuario")]
+        UserRole_ChangeRoleToItself,
+
+        [Description("Acción no permitida, no se puede realizar el cambio de rol ya que el rol actual y el nuevo rol son el mismo")]
+        UserRole_UserOldRoleAndNewRoleAreTheSame,
+
+        [Description("Acción no permitida, no se puede asignar el rol Administrador desde la web")]
+        UserRole_AdminRoleNotPossibleToAssign,
+
+        [Description("Acción no permitida, un rol Jefe no puede asignar rol Jefe a otro usuario, solo un administrador puede realizar esta accion")]
+        UserRole_BossRoleCantAssignBossRole,
+
+        //[Description("El usuario no tiene un rol de tipo 'Usuario' asignado")]
+        //UserWithoutUserRole,
+
+        //[Description("No se puede asignar el rol Administrador")]
+        //UserNewRoleAdminNotPossible,
+
+        //[Description("No se puede asignar el rol Administrador")]
+        //UserNewRoleBossNotPossible,
 
         /// <summary>
         /// paginacion
         /// </summary>
 
         [Description("No se encontó la columna de ordenamiento")]
-        SortColumnKeyNotFound,
+        Pagination_SortColumnKeyNotFound,
 
         /// <summary>
         /// direcciones
         /// </summary>
 
         [Description("Dirección no encontrada")]
-        AddressNotFound,
+        Address_AddressNotFound,
 
         [Description("La dirección ya existe")]
-        AddressAlreadyExists,
+        Address_AddressAlreadyExists,
 
         [Description("Has llegado al límite de direcciones que se pueden crear")]
-        AddressCreateLimit,
+        Address_AddressCreateLimit,
 
         /// <summary>
         /// menus
         /// </summary>
         
         [Description("Menú no encontrado")]
-        MenuNotFound,
+        Menu_MenuNotFound,
 
         [Description("El menú ya existe")]
-        MenuAlreadyExists,
+        Menu_MenuAlreadyExists,
 
         /// <summary>
         /// categorias
         /// </summary>
 
         [Description("Categoría no encontrada")]
-        CategoryNotFound,
+        Category_CategoryNotFound,
 
         [Description("La categoría ya existe")]
-        CategoryAlreadyExists,
+        Category_CategoryAlreadyExists,
 
         /// <summary>
         /// productos
         /// </summary>
 
         [Description("Producto no encontrado")]
-        ProductNotFound,
+        Product_ProductNotFound,
 
         [Description("El producto ya existe")]
-        ProductAlreadyExists,
+        Product_ProductAlreadyExists,
 
         /// <summary>
         /// Business
         /// </summary>
 
         [Description("Acción desconocida para el elemento")]
-        BusinessUnknownActionForElement,
+        Business_UnknownActionForElement,
 
         [Description("Acción prohibida para el elemento")]
-        BusinessForbiddenActionForElement,
+        Business_ForbiddenActionForElement,
 
         [Description("Elemento ya existe")]
-        BusinessElementAlreadyExists,
+        Business_ElementAlreadyExists,
 
         [Description("Elemento no existe")]
-        BusinessElementDoesNotExists,
+        Business_ElementDoesNotExists,
 
         [Description("Proporcione una imagen")]
-        BusinessElementImageMissing,
+        Business_ElementImageMissing,
 
         /// <summary>
         /// Cart
         /// </summary>
        
         [Description("Actualice su carrito de compras, algunos productos se han actualizado")]
-        CartUpdateIsRequired,
+        Cart_UpdateIsRequired,
 
         [Description("El restaurante está fuera de línea")]
-        CartOnlineStoreClosed,
+        Cart_OnlineStoreClosed,
 
         /// <summary>
         /// Order
@@ -118,13 +140,13 @@ namespace Server.Source.Models.Enums
         /// 
 
         [Description("Orden no encontrada")]
-        OrderNotFound,
+        Order_OrderNotFound,
 
         [Description("La orden tiene un estatus diferente, actualice para continuar")]
-        OrderHasDifferentStatus,
+        Order_OrderHasDifferentStatus,
 
         [Description("La orden ya fue entregada")]
-        OrderWasDelivered,
+        Order_OrderWasDelivered,
 
     }
 }
