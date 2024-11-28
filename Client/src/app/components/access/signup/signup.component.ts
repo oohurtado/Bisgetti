@@ -76,7 +76,8 @@ export class SignupComponent extends FormBase implements OnInit {
 					let model = Object.assign(new TokenResponse(), val);
 					this.localStorageService.setValue('token', model.token);
 					this.router.navigateByUrl('/home');
-					alertify.message("Bienvenido a " + general.RESTAURANT_NAME, 1)
+					alertify.message("Bienvenido a " + general.RESTAURANT_NAME, 1);
+					window.location.reload();
 				}
 			});
 	}

@@ -15,7 +15,8 @@ export class SharedService {
     public logout: Subject<EnumRole> = new Subject<EnumRole>();
 
     public onLogout(role: EnumRole) {
-		this.logout.next(role);		
+		this.logout.next(role);
+        window.location.reload();
 	}
 
     // agregar productos al carrito

@@ -63,7 +63,8 @@ export class LoginComponent extends FormBase implements OnInit {
 				next: (val) => {
 					let model = Object.assign(new TokenResponse(), val);
 					this.localStorageService.setValue('token', model.token);
-					this.router.navigateByUrl('/home');					
+					this.router.navigateByUrl('/home');	
+					window.location.reload();				
 				}
 			});
 	}
