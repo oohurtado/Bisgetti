@@ -81,8 +81,8 @@ namespace Server
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<DatabaseContext>(p =>
             {
-                //p.UseSqlServer(connectionString);
-                p.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));                
+                p.UseSqlServer(connectionString);
+                //p.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));                
             });
 
             _ = builder.Services
