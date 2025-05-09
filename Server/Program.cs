@@ -57,11 +57,12 @@ namespace Server
             builder.Services.AddCors(o => o.AddPolicy(name: "OriginAngular", policy =>
             {
                 policy
+                .WithOrigins("https://bisgettidemo-d2c8dkakc5dqf7gs.mexicocentral-01.azurewebsites.net")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials()
+                .AllowCredentials();
                 //.AllowAnyOrigin()
-                .WithOrigins("http://localhost:4200");
+                //.WithOrigins("http://localhost:4200");
             }));
 
             builder.Services
@@ -212,9 +213,9 @@ namespace Server
 
         private static void InitSeed(IServiceProvider services)
         {
-            using var scope = services.CreateScope();
-            var init = scope.ServiceProvider.GetService<SeedLogic>();
-            init?.InitAsync().Wait();
+            //using var scope = services.CreateScope();
+            //var init = scope.ServiceProvider.GetService<SeedLogic>();
+            //init?.InitAsync().Wait();
         }
     }
 }

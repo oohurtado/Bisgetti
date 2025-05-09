@@ -1,7 +1,8 @@
 import { EnumRole } from "../models/enums/role-enum";
 
 export const general = {
-	URL_API: 'https://localhost:7239/api',
+	URL_API: 'https://bisgettiserver-d4c3gnhkgnfjcgcj.canadacentral-01.azurewebsites.net/api',
+	//URL_API: 'https://localhost:7239/api',
 
 	MS_ROLE: "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
 	MS_ID: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
@@ -9,8 +10,10 @@ export const general = {
 	MS_LAST_NAME: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname",
 	MS_EMAIL_ADDRESS: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
 	
-	MASSIVE_LIVE_NOTIFICATION: "https://localhost:7239/hubs/massive-live-notification",
-	GROUP_LIVE_NOTIFICATION: "https://localhost:7239/hubs/group-live-notification",
+	MASSIVE_LIVE_NOTIFICATION: "https://bisgettiserver-d4c3gnhkgnfjcgcj.canadacentral-01.azurewebsites.net/hubs/massive-live-notification",
+	GROUP_LIVE_NOTIFICATION: "https://bisgettiserver-d4c3gnhkgnfjcgcj.canadacentral-01.azurewebsites.net/hubs/group-live-notification",
+	//MASSIVE_LIVE_NOTIFICATION: "https://localhost:7239/hubs/massive-live-notification",
+	//GROUP_LIVE_NOTIFICATION: "https://localhost:7239/hubs/group-live-notification",
 
     LS_TOKEN: 'token',
 

@@ -46,6 +46,7 @@ export class LiveNotificationsComponent implements OnInit, OnDestroy {
 			accessTokenFactory: () => {
 				return this.localStorageService.getValue(general.LS_TOKEN)!;
 			},
+			withCredentials: true
 		};
 
 		this._connection = new HubConnectionBuilder()
